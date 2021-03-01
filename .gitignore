@@ -1,0 +1,5 @@
+build
+.idea
+.gradle
+testing/XCodeProject/Pods
+testing/XCodeProject/Podfile.lock
