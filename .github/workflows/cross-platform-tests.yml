@@ -1,0 +1,46 @@
+name: Cross Platform Tests
+on:
+  push:
+jobs:
+  Android-Tests:
+    timeout-minutes: 15
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v1
+        with:
+          submodules: true
+          token: ${{ secrets.SSH_KEY }}
+      - name: Install Cocoapods
+        run: sudo gem install cocoapods; sudo gem install cocoapods-generate
+      - name: Run Instrumented Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew runAndroid
+      - name: Archive Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-test-results
+          path: com.mparticle.mockserver/build/reports/androidTests/connected/**
+  iOS-Tests:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          submodules: true
+          token: ${{ secrets.SSH_KEY }}
+      - name: Install Cocoapods
+        run: sudo gem install cocoapods; sudo gem install cocoapods-generate
+      - name: Import Project
+        run: ./gradlew :testing:podImport
+      - name: Run iOS cross platform tests
+        run: ./gradlew runIos
+      - name: Archive Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: ios-test-results
+          path: Users/runner/Library/Developer/Xcode/DerivedData
