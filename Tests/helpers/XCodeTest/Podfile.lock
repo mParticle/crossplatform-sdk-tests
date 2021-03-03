@@ -1,0 +1,25 @@
+PODS:
+  - mParticle-Apple-SDK (8.1.4):
+    - mParticle-Apple-SDK/mParticle (= 8.1.4)
+  - mParticle-Apple-SDK/mParticle (8.1.4)
+  - Tests (1.0):
+    - mParticle-Apple-SDK
+
+DEPENDENCIES:
+  - Tests (from `../../../Tests`)
+
+SPEC REPOS:
+  trunk:
+    - mParticle-Apple-SDK
+
+EXTERNAL SOURCES:
+  Tests:
+    :path: "../../../Tests"
+
+SPEC CHECKSUMS:
+  mParticle-Apple-SDK: 3b1bda288a50158b6f3e8434672e18205ba249dc
+  Tests: 2bd4b821cf2ba4c0aeca24c4fa589f4937db0e6d
+
+PODFILE CHECKSUM: dc790ef0f03638e03753f5a6d7d023b93841f05c
+
+COCOAPODS: 1.10.1

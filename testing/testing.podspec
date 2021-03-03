@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'Cross Platform Testing'
 
     spec.static_framework         = true
-    spec.vendored_frameworks      = "build/cocoapods/framework/multiplatform_testing.framework"
+    spec.vendored_frameworks      = "build/cocoapods/framework/mParticle_testing.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
