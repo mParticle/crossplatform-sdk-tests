@@ -1,7 +1,14 @@
-import XCTest
-import multiplatform_testing
+//
+//  XCodeTestUITests.swift
+//  XCodeTestUITests
+//
+//  Created by William Passidomo on 3/2/21.
+//
 
-class XCodeProjectUITests: XCTestCase {
+import XCTest;
+import mParticle_Multiplatform_Tests
+
+class XCodeTestUITests: XCTestCase {
     var sampleTests = SampleTests()
 
     override func setUpWithError() throws {

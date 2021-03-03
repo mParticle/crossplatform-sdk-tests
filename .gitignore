@@ -5,7 +5,6 @@ build
 # iOS test helper project
 **/Pods
 **/Podfile.lock
-**/*.xcworkspace
 *.xcuserstate
 *.plist
 **/xcuserdata

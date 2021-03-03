@@ -1,0 +1,10 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'XCodeTest' do
+  use_frameworks!
+  target 'XCodeTestUITests' do
+  	pod 'Tests', :path => '../../../Tests'
+  end
+
+end
