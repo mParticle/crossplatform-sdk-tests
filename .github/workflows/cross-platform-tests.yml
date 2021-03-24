@@ -7,10 +7,16 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
-          submodules: true
           token: ${{ secrets.SSH_KEY }}
+      - name: Checkout submodules
+        run: |
+          git config --file .gitmodules --get-regexp url | while read url; do
+            git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.SSH_KEY }}:${{ secrets.SSK_KEY }}@github.com\//")
+          done
+          git submodule sync
+          git submodule update --init
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Run Instrumented Tests
@@ -28,10 +34,16 @@ jobs:
     runs-on: macOS-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
-          submodules: true
           token: ${{ secrets.SSH_KEY }}
+      - name: Checkout submodules
+        run: |
+          git config --file .gitmodules --get-regexp url | while read url; do
+            git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.SSH_KEY }}:${{ secrets.SSH_KEY }}@github.com\//")
+          done
+          git submodule sync
+          git submodule update --init
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Import Project
