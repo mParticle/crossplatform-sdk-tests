@@ -34,6 +34,7 @@ kotlin {
         ios.deploymentTarget = "14.3"
 
         pod("mParticle-Apple-SDK", path = project.file("../.sdks/apple"))
+        pod("mParticle-Apple-Media-SDK", path = project.file("../.sdks/apple-media"))
 
         podfile = project.file("helpers/XCodeTest/Podfile")
 
@@ -48,8 +49,10 @@ kotlin {
             }
         }
         commonTest.kotlin.srcDirs("CommonTests")
+
         val commonMain by getting {
             dependencies {
+                kotlin("")
                 implementation(project(":testing"))
             }
         }
@@ -57,6 +60,7 @@ kotlin {
             dependencies {
                 implementation(project(":testing"))
                 implementation("group:android-core")
+                implementation("group:media")
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13")
                 implementation("androidx.test:runner:1.1.0")
@@ -77,13 +81,14 @@ android {
     sourceSets["androidTest"].java.srcDirs("CommonTests")
 
     defaultConfig {
-        minSdkVersion(14)
+        minSdkVersion(16)
         targetSdkVersion(29)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 
 val runIos by tasks.creating(Exec::class.java) {
+
     dependsOn("linkDebugFrameworkIos")
     description = "Builds the iOS application bundle using Xcode."
     var testDir = File(".")

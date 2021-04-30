@@ -17,6 +17,9 @@
     "ios": "14.3"
   },
   "dependencies": {
+    "mParticle-Apple-Media-SDK": [
+
+    ],
     "mParticle-Apple-SDK": [
 
     ]

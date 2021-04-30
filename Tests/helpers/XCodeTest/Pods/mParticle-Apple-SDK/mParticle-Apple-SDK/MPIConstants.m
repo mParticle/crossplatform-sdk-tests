@@ -1,7 +1,7 @@
 #import "MPIConstants.h"
 
 // mParticle SDK Version
-NSString *const kMParticleSDKVersion = @"8.1.4";
+NSString *const kMParticleSDKVersion = @"8.2.0";
 
 // Message Type (dt)
 NSString *const kMPMessageTypeKey = @"dt";
@@ -122,7 +122,8 @@ NSString *const kMPPushNotificationCategoryIdentifierKey = @"acid";
 NSString *const kMPSessionLengthKey = @"sl";
 NSString *const kMPSessionTotalLengthKey = @"slx";
 NSString *const kMPOptOutStatus = @"s";
-NSString *const kMPAlwaysTryToCollectIDFA = @"alwaysTryToCollectIDFA";
+NSString *const kMPATT = @"atts";
+NSString *const kMPATTTimestamp = @"attt";
 NSString *const kMPCrashingSeverity = @"s";
 NSString *const kMPCrashingClass = @"c";
 NSString *const kMPCrashWasHandled = @"eh";

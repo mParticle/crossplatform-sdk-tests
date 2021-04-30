@@ -30,11 +30,8 @@ actual class FailureLatch : CountDownLatch(1) {
         await()
     }
 
-    actual override fun await() {
-        await(MockServer2.defaultTimeout)
-    }
-
-    actual fun await(timeout: Long) {
+    actual fun await(timeout: Long, after: (() -> Unit)?) {
+        after?.invoke()
         if (finished) {
             return
         }

@@ -1,25 +1,31 @@
 PODS:
-  - mParticle-Apple-SDK (8.1.4):
-    - mParticle-Apple-SDK/mParticle (= 8.1.4)
-  - mParticle-Apple-SDK/mParticle (8.1.4)
+  - mParticle-Apple-Media-SDK (1.3.5):
+    - mParticle-Apple-SDK (~> 8.0)
+  - mParticle-Apple-SDK (8.1.1):
+    - mParticle-Apple-SDK/mParticle (= 8.1.1)
+  - mParticle-Apple-SDK/mParticle (8.1.1)
   - Tests (1.0):
+    - mParticle-Apple-Media-SDK
     - mParticle-Apple-SDK
 
 DEPENDENCIES:
+  - mParticle-Apple-Media-SDK (from `../../../.sdks/apple-media`)
+  - mParticle-Apple-SDK (from `../../../.sdks/apple`)
   - Tests (from `../../../Tests`)
 
-SPEC REPOS:
-  trunk:
-    - mParticle-Apple-SDK
-
 EXTERNAL SOURCES:
+  mParticle-Apple-Media-SDK:
+    :path: "../../../.sdks/apple-media"
+  mParticle-Apple-SDK:
+    :path: "../../../.sdks/apple"
   Tests:
     :path: "../../../Tests"
 
 SPEC CHECKSUMS:
-  mParticle-Apple-SDK: 3b1bda288a50158b6f3e8434672e18205ba249dc
-  Tests: 2bd4b821cf2ba4c0aeca24c4fa589f4937db0e6d
+  mParticle-Apple-Media-SDK: 16152eddd902fe9da78a369046f38b3413f3d3be
+  mParticle-Apple-SDK: 346553db57b19c51c03440b5025746f143c1494b
+  Tests: dc207158da7ff4c9453eeccb0df95de693b53695
 
-PODFILE CHECKSUM: dc790ef0f03638e03753f5a6d7d023b93841f05c
+PODFILE CHECKSUM: 5333db9fe50d6350f54e883d474c3b3a4eff16de
 
 COCOAPODS: 1.10.1

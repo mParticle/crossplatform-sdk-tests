@@ -22,7 +22,7 @@ object TestingUtils {
                 event.category = RandomUtils.getAlphaNumericString(RandomUtils.randomInt(5, 55))
             }
             if (RandomUtils.nextBoolean()) {
-                event.length = RandomUtils.randomLong(1000L, 1000L * 100).toDouble()
+                event.duration = RandomUtils.randomLong(1000L, 1000L * 100).toDouble()
             }
             if (RandomUtils.nextBoolean()) {
                 var infoMap: HashMap<String, String?> = HashMap()
@@ -34,14 +34,16 @@ object TestingUtils {
                 }
                 event.customAttributes = infoMap
             }
-            if (RandomUtils.nextBoolean()) {
-                for (i in 0 until RandomUtils.randomInt(0, 10)) {
-                    val key: String = RandomUtils.getAlphaNumericString(RandomUtils.randomInt(0, 55))
-                    (0..RandomUtils.randomInt(0, 5))
-                        .map {  RandomUtils.getAlphaNumericString(RandomUtils.randomInt(0, 55))}
-                        .let { event.customFlags.put(key, it)}
-                }
-            }
+
+            //TODO
+//            if (RandomUtils.nextBoolean()) {
+//                for (i in 0 until RandomUtils.randomInt(0, 10)) {
+//                    val key: String = RandomUtils.getAlphaNumericString(RandomUtils.randomInt(0, 55))
+//                    event.customFlags = (0..RandomUtils.randomInt(0, 5))
+//                        .map {  RandomUtils.getAlphaNumericString(RandomUtils.randomInt(0, 55))}
+//                        .associate { key to it }
+//                }
+//            }
             return event
         }
 

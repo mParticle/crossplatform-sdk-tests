@@ -7,6 +7,6 @@ import com.mparticle.mockserver.MockServer2
  */
 expect class FailureLatch() {
     fun countDown()
-    fun await()
-    fun await(timeout: Long = MockServer2.defaultTimeout)
+    fun await(timeout: Long = MockServer2.defaultTimeout, after: (() -> Unit)? = null)
+
 }

@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-XCodeTest-XCodeTestUITests/Pods-XCodeTest-XCodeTestUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/mParticle-Apple-Media-SDK/mParticle_Apple_Media_SDK.framework
 ${BUILT_PRODUCTS_DIR}/mParticle-Apple-SDK/mParticle_Apple_SDK.framework

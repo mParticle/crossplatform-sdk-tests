@@ -1,5 +1,7 @@
 package com.mparticle.api.events
 
+import android.util.EventLog
+import com.mparticle.MParticle
 import com.mparticle.api.events.*
 import com.mparticle.BaseEvent as BaseEventAndroid
 import com.mparticle.MPEvent as MPEventAndroid
@@ -10,26 +12,79 @@ import com.mparticle.commerce.Promotion as PromotionAndroid
 import com.mparticle.commerce.Impression as ImpressionAndroid
 import com.mparticle.commerce.TransactionAttributes as TransactionAttributesAndroid
 
+//constructor is a hack..I realized marrying MediaEvent: BaseEvent with MPEvent.Builder is complicated..would use MPEvent instead, but it's immutable for the children in `api`
+actual abstract class BaseEvent(private val mpEventAndroid: com.mparticle.MPEvent.Builder? = null, private val mediaEvent: BaseEventAndroid? = null) {
+
+    val baseEventAndroid: BaseEventAndroid
+        get() = mpEventAndroid?.build() ?: mediaEvent!!
+
+    actual val type: MessageType = MessageType.forMessageType(baseEventAndroid.type as com.mparticle.BaseEvent.Type)
+    actual var customFlags: Map<String, List<String>>?
+        get() = baseEventAndroid?.customFlags ?: mediaEvent?.customFlags
+        set(value) {
+            baseEventAndroid.customFlags?.clear()
+            value?.let { baseEventAndroid.customFlags?.putAll(it) }
+        }
+    actual var customAttributes: Map<String, String?>?
+        get() = baseEventAndroid.customAttributes
+        set(value) {
+            baseEventAndroid.customAttributes?.clear()
+            value?.let { baseEventAndroid.customAttributes?.putAll(it) }
+        }
+
+    override fun toString(): String {
+        return baseEventAndroid.toString()
+    }
+}
+
+actual abstract class CustomEvent(val mpEventAndroid: MPEventAndroid.Builder): BaseEvent(mpEventAndroid) {
+
+    actual abstract val isScreenEvent: Boolean
+    actual val eventName: String = mpEventAndroid.build().eventName
+    actual val eventType: EventType = EventType.forEventType(mpEventAndroid.build().eventType)
+    actual val length: Double? = mpEventAndroid.build().length
+
+    actual var category: String?
+        get() = mpEventAndroid.build().category
+        set(value) {
+            mpEventAndroid.category(value)
+        }
+    actual var duration: Double?
+        get() = mpEventAndroid.build().length
+        set(value) {
+            mpEventAndroid.duration(value!!)
+        }
+
+    override fun toString(): String {
+        return mpEventAndroid.toString()
+    }
+
+}
+
+actual class MPEvent (mpEventAndroid: MPEventAndroid.Builder): CustomEvent(mpEventAndroid) {
+    actual constructor(eventName: String, eventType: EventType): this(
+        MPEventAndroid.Builder(eventName, eventType.eventTypeAndroid)
+    )
+    constructor(mpEventAndroid: MPEventAndroid): this(MPEventAndroid.Builder(mpEventAndroid))
+    actual override val isScreenEvent: Boolean = mpEventAndroid.build().isScreenEvent
+}
+
+actual class ScreenEvent (mpEventAndroid: MPEventAndroid.Builder): CustomEvent(mpEventAndroid) {
+    actual constructor(screenName: String): this(
+        MPEventAndroid.Builder(screenName, MParticle.EventType.Other)
+    )
+    actual override val isScreenEvent: Boolean = mpEventAndroid.build().isScreenEvent
+}
+
+
 
 fun getEvent(baseEvent: BaseEvent): BaseEventAndroid {
     return when (baseEvent) {
-        is MPEvent -> getMPEvent(baseEvent)
-        is CommerceEvent -> getCommerceEvent(baseEvent)
+        is MPEvent -> baseEvent.baseEventAndroid
         else -> {
             BaseEventImpl(baseEvent)
         }
     }
-}
-
-fun getMPEvent(event: MPEvent): MPEventAndroid {
-    val builder = MPEventAndroid.Builder(event.eventName, event.eventType.toEventType())
-    event.apply {
-        category?.let { builder.category(it) }
-        customAttributes?.let { builder.customAttributes(it) }
-        customFlags.forEach { builder.addCustomFlag(it.key, it.value.joinToString(",")) }
-        length?.let { builder.duration(it) }
-    }
-    return builder.build()
 }
 
 fun getCommerceEvent(event: CommerceEvent): CommerceEventAndroid {
@@ -49,8 +104,9 @@ fun getCommerceEvent(event: CommerceEvent): CommerceEventAndroid {
         CommerceEventAndroid.Builder(event.impressions!!.get(0).toImpression())
             .products(event.products?.toProducts() ?: listOf())
             .impressions(event.impressions?.subList(1, event.impressions!!.size)?.toImpressions() ?: listOf())
-    event.customFlags?.let { it.forEach { flag -> builder.addCustomFlag(flag.key, flag.value.joinToString(",")) } }
-    event.customAttributes?.let { builder.customAttributes(it) }
+    //TODO
+//    event.customFlags?.let { it.forEach { flag -> builder.addCustomFlag(flag.key, flag.value.joinToString(",")) } }
+//    event.customAttributes?.let { builder.customAttributes(it) }
     event.checkoutOptions?.let { builder.checkoutOptions(it) }
     event.currency?.let { builder.currency(it) }
     event.nonInteraction?.let { builder.nonInteraction(it) }
@@ -116,7 +172,7 @@ fun TransactionAttributes.toTransactionAttributes(): TransactionAttributesAndroi
     return transactionAttributes;
 }
 
-class BaseEventImpl(baseEvent: BaseEvent): BaseEventAndroid(Type.values().first { it.messageType == baseEvent.type.messageType }) {
+class BaseEventImpl(baseEvent: BaseEvent): BaseEventAndroid(baseEvent.type.androidMessageType) {
     init {
         customAttributes = baseEvent.customAttributes
         customFlags = baseEvent.customFlags

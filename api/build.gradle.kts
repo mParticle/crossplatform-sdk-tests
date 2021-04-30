@@ -3,11 +3,11 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 import java.lang.System.getProperty
 
 plugins {
-    id("com.android.library") version("4.0.1")
-    id("kotlin-android-extensions") version ("1.4.21")
-    kotlin("multiplatform") version ("1.4.21")
-    kotlin("plugin.serialization") version ("1.4.0")
-    kotlin("native.cocoapods") version ("1.4.21")
+    id("com.android.library")
+    id("kotlin-android-extensions")
+    kotlin("multiplatform")
+    kotlin("plugin.serialization")
+    kotlin("native.cocoapods")
 }
 
 repositories {

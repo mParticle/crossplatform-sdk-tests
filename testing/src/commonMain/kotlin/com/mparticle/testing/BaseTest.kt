@@ -14,17 +14,24 @@ import kotlin.test.*
 import kotlin.test.BeforeTest
 
 
-open class BaseTest() {
+expect open class BasePlatformTest() {
+    val strict: Boolean
+    fun beforeTestPlatform()
+    open fun beforeTest()
+    protected fun clientPlatform(): ClientPlatform
+}
+
+open class BaseTest(): BasePlatformTest() {
     var mStartingMpid = Random.nextLong()
     lateinit var mServer: MockServer2
     internal lateinit var platforms: Platforms
-    lateinit var clientPlatform: ClientPlatform
+    var clientPlatform: ClientPlatform = clientPlatform()
 
     @BeforeTest
     fun beforeAll() {
-        clientPlatform = getClientPlatform()
+        clientPlatform = clientPlatform()
         MParticle.reset(clientPlatform)
-        beforeTest()
+        beforeTestPlatform()
         platforms = Platforms()
         mStartingMpid = Random.nextLong()
         mServer = MockServer2(platforms)
@@ -32,6 +39,7 @@ open class BaseTest() {
         mServer.getEndpoint(EndpointType.Identity_Identify).addRequestResponseLogic(null) {
             MockServer2.SuccessResponse(IdentityResponseMessage(mStartingMpid))
         }
+        beforeTest()
     }
 
     fun startMParticle(options: MParticleOptions = MParticleOptions("apiKey", "apiSecret", clientPlatform)
@@ -64,7 +72,3 @@ open class BaseTest() {
 
     }
 }
-
-expect val strict: Boolean
-expect fun beforeTest()
-expect fun getClientPlatform(): ClientPlatform

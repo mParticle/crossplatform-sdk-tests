@@ -4,6 +4,7 @@ import com.mparticle.api.MParticle
 import kotlin.test.BeforeTest
 
 abstract class BaseStartedTest: BaseTest() {
+
     @BeforeTest
     fun beforeStarted() {
         MParticle.clearInstance()
