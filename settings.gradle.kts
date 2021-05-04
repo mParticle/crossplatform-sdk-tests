@@ -1,8 +1,13 @@
 rootProject.name = "sdk-multiplatform-test"
-include("models", "api", "testing", "Tests")
+include("models", "api", "api-media", "testing", "Tests")
 includeBuild(".sdks/android") {
     dependencySubstitution {
         substitute(module("group:android-core")).with(project(":android-core"))
+    }
+}
+includeBuild(".sdks/android-media") {
+    dependencySubstitution {
+        substitute(module("group:media")).with(project(":media"))
     }
 }
 pluginManagement {

@@ -1,9 +1,14 @@
 package com.mparticle
 
 import com.mparticle.api.Environment
+import com.mparticle.api.Logger
 import com.mparticle.api.MParticle
 import com.mparticle.api.MParticleOptions
+import com.mparticle.api.media.MediaSession
+import com.mparticle.api.media.events.ContentType
+import com.mparticle.api.media.events.StreamType
 import com.mparticle.testing.BaseTest
+import com.mparticle.testing.FailureLatch
 import kotlin.test.*
 
 class SampleTests: BaseTest() {
@@ -24,7 +29,6 @@ class SampleTests: BaseTest() {
     }
 
     @Test
-
     @Throws(Throwable::class)
     fun testSetEnvironment() {
         startMParticle(MParticleOptions("apiKey", "apiSecret", clientPlatform, {}).apply {

@@ -33,11 +33,13 @@ kotlin {
         ios.deploymentTarget= "14.3"
 
         pod("mParticle-Apple-SDK", path = project.file("../.sdks/apple"))
+        pod("mParticle-Apple-Media-SDK", path = project.file("../.sdks/apple-media"))
     }
     sourceSets {
         val commonMain by getting {
             dependencies {
                 api(project(":api"))
+                api(project(":api-media"))
                 api(project(":models"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -48,7 +50,9 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 api(project(":api"))
+                api(project(":api-media"))
                 compileOnly("group:android-core")
+                compileOnly("group:media")
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
 
@@ -63,9 +67,9 @@ kotlin {
         val iosMain by getting {
             dependencies {
                 api(project(":api"))
+                api(project(":api-media"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
-
             }
         }
         val iosTest by getting

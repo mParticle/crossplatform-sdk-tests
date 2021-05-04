@@ -29,7 +29,7 @@ class MParticleImpl(val mparticle: MParticleAndroid): MParticle {
     override fun getOptOut(): Boolean = mparticle.optOut
 
     override fun logEvent(event: BaseEvent) {
-        mparticle.logEvent(BaseEventImpl(event))
+        mparticle.logEvent(event.baseEventAndroid)
     }
 
     override fun logLtvIncrease(valueIncreased: Double, eventName: String, contextInfo: Map<String, String?>?) {
@@ -41,7 +41,7 @@ class MParticleImpl(val mparticle: MParticleAndroid): MParticle {
     }
 
     override fun logScreen(screen: MPEvent) {
-        mparticle.logScreen(getMPEvent(screen))
+        mparticle.logScreen(screen.mpEventAndroid.build())
     }
 
     override fun leaveBreadcrumb(breadcrumb: String) {

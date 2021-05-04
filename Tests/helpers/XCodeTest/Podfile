@@ -5,6 +5,8 @@ target 'XCodeTest' do
   use_frameworks!
   target 'XCodeTestUITests' do
   	pod 'Tests', :path => '../../../Tests'
+  	pod 'mParticle-Apple-Media-SDK', :path => '../../../.sdks/apple-media'
+  	pod 'mParticle-Apple-SDK', :path => '../../../.sdks/apple'
   end
 
 end

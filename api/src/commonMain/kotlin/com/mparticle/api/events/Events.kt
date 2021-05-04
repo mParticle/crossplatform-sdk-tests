@@ -1,27 +1,34 @@
 package com.mparticle.api.events
 
-open class BaseEvent(var type: MessageType) {
-    var customFlags = HashMap<String, List<String>>()
-    var customAttributes = HashMap<String, String?>()
+expect abstract class BaseEvent {
+    val type: MessageType
+    //both of these have to be immutable because we are using MPEvent.Builder as the underlying (can't use MPEvent bc the other fields are immutable as well, want the `api` objects to remain mutable for better constructor patterns)
+    var customFlags: Map<String, List<String>>?
+    var customAttributes: Map<String, String?>?
 }
 
-open class CustomEvent protected constructor(var eventName: String, var eventType: EventType, type: MessageType): BaseEvent(type) {
-    open val isScreenEvent: Boolean = false
-    var category: String? = null
-    var length: Double? = null
+expect abstract class CustomEvent: BaseEvent {
+    abstract val isScreenEvent: Boolean
+
+    val eventName: String
+    val eventType: EventType
+    val length: Double?
+
+    var category: String?
+    var duration: Double?
+
 }
 
-class MPEvent(eventName: String, eventType: EventType): CustomEvent(eventName, eventType, Type.Event) {
-    override val isScreenEvent: Boolean = false
+expect class MPEvent(eventName: String, eventType: EventType): CustomEvent {
+    override val isScreenEvent: Boolean
 }
 
-class ScreenEvent(screenName: String): CustomEvent(screenName, EventType.Other, Type.ScreenView) {
-    override val isScreenEvent: Boolean = true
+expect class ScreenEvent(screenName: String): CustomEvent {
+    override val isScreenEvent: Boolean
 }
 
 
-enum class EventType {
-    Unknown,
+expect enum class EventType {
     Navigation,
     Location,
     Search,
@@ -33,35 +40,9 @@ enum class EventType {
     Media
 }
 
-interface MessageType {
-    val messageType: String?
-}
-
-enum class Type(override val messageType: String) : MessageType {
-    SessionStart("ss"),
-    SessionEnd("se"),
-    Event("e"),
-    ScreenView("v"),
-    CommerceEvent("cm"),
-    OptOut("o"),
-    Error("x"),
-    PushRegistration("pr"),
-    RequestHeader("h"),
-    FirstRun("fr"),
-    AppStateTransition("ast"),
-    PushReceived("pm"),
-    BreadCrumb("bc"),
-    NetworkPerformance("npe"),
-    Profile("pro"),
-    UserAttributeChange("uac"),
-    UserIdentityChange("uic"),
-    //place holder, should NOT be sent to server
-    Media("media_event")
-}
-
 
 //TODO make an enum for ProductAction, PromotionAction
-class CommerceEvent: BaseEvent(Type.CommerceEvent) {
+class CommerceEvent {
     var screen: String? = null
 
     var nonInteraction: Boolean? = null

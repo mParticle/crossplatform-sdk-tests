@@ -4,3 +4,9 @@
 [submodule "apple"]
 	path = .sdks/apple
    	url = git@github.com:mParticle/mparticle-apple-sdk-internal.git
+[submodule "android-media"]
+	path = .sdks/android-media
+	url = git@github.com:mParticle/mparticle-android-media-sdk.git
+[submodule "apple-media"]
+	path = .sdks/apple-media
+	url = git@github.com:mParticle/mparticle-apple-media-sdk-internal.git
