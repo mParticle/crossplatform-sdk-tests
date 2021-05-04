@@ -11,10 +11,17 @@ import kotlin.test.*
 import kotlin.test.BeforeTest
 
 
-open class BaseTest() {
+expect open class BasePlatformTest() {
+    val strict: Boolean
+    fun beforeTestPlatform()
+    open fun beforeTest()
+    protected fun clientPlatform(): ClientPlatform
+}
+
+open class BaseTest(): BasePlatformTest() {
     var mStartingMpid = Random.nextLong()
     internal lateinit var platforms: Platforms
-    lateinit var clientPlatform: ClientPlatform
+    var clientPlatform: ClientPlatform = clientPlatform()
 
     fun beforeAll(awaiter: Awaiter) {
         setAwaiter(awaiter)

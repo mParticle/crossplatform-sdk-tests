@@ -31,7 +31,6 @@ class SampleTests: BaseTest() {
     }
 
     @Test
-
     @Throws(Throwable::class)
     fun testSetEnvironment() {
         startMParticle()

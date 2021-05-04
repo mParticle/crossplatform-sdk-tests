@@ -16,6 +16,9 @@
 		B221111E270D9F8A00DB3135 /* ModifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B221111D270D9F8A00DB3135 /* ModifyTests.swift */; };
 		B2445B4F26D01F0B00A5F7F1 /* CommerceIosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */; };
 		B24F51D7271DDB9C0039E6D2 /* MParticleOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */; };
+		B2085C4825EEC1D1009D03F7 /* SampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2085C4725EEC1D1009D03F7 /* SampleTests.swift */; };
+		B2571ED22625F0A20030A313 /* SimpleMediaTestsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2571ED12625F0A20030A313 /* SimpleMediaTestsWrapper.swift */; };
+		B274B7FF2652EE250009209E /* StatefulMediaTestsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B274B7FE2652EE250009209E /* StatefulMediaTestsWrapper.swift */; };
 		FEE048D69E5587E96A9CB50A /* Pods_XCodeTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE27824D2D7AA018C69F4CB1 /* Pods_XCodeTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +41,10 @@
 		B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommerceIosTests.swift; sourceTree = "<group>"; };
 		B2445BC826D41BDE00A5F7F1 /* XCodeTestUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = XCodeTestUITests.xctestplan; sourceTree = "<group>"; };
 		B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MParticleOptions.swift; sourceTree = "<group>"; };
+		B2085C4725EEC1D1009D03F7 /* SampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTests.swift; sourceTree = "<group>"; };
+		B2085C4925EEC1D1009D03F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2571ED12625F0A20030A313 /* SimpleMediaTestsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleMediaTestsWrapper.swift; sourceTree = "<group>"; };
+		B274B7FE2652EE250009209E /* StatefulMediaTestsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulMediaTestsWrapper.swift; sourceTree = "<group>"; };
 		FE27824D2D7AA018C69F4CB1 /* Pods_XCodeTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCodeTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -95,6 +102,8 @@
 			children = (
 				B2085C4725EEC1D1009D03F7 /* SimpleTests.swift */,
 				B2445BC826D41BDE00A5F7F1 /* XCodeTestUITests.xctestplan */,
+				B274B8022652EE2C0009209E /* Media */,
+				B2085C4725EEC1D1009D03F7 /* SampleTests.swift */,
 				B2085C4925EEC1D1009D03F7 /* Info.plist */,
 				B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */,
 				B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */,
@@ -104,6 +113,15 @@
 				B221111D270D9F8A00DB3135 /* ModifyTests.swift */,
 			);
 			path = XCodeTestUITests;
+			sourceTree = "<group>";
+		};
+		B274B8022652EE2C0009209E /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				B2571ED12625F0A20030A313 /* SimpleMediaTestsWrapper.swift */,
+				B274B7FE2652EE250009209E /* StatefulMediaTestsWrapper.swift */,
+			);
+			path = Media;
 			sourceTree = "<group>";
 		};
 		E9F6F1AFC47DCE015304AD4F /* Pods */ = {
@@ -314,6 +332,9 @@
 				B2085C4825EEC1D1009D03F7 /* SimpleTests.swift in Sources */,
 				B24F51D7271DDB9C0039E6D2 /* MParticleOptions.swift in Sources */,
 				B2211116270D9EFE00DB3135 /* LoginTests.swift in Sources */,
+				B274B7FF2652EE250009209E /* StatefulMediaTestsWrapper.swift in Sources */,
+				B2085C4825EEC1D1009D03F7 /* SampleTests.swift in Sources */,
+				B2571ED22625F0A20030A313 /* SimpleMediaTestsWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

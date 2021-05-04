@@ -14,4 +14,3 @@ actual fun setAwaiter(awaiter: Awaiter) {
 actual fun getClientPlatform(): ClientPlatform {
     return ClientPlatformImpl()
 }
-

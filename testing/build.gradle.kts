@@ -33,11 +33,13 @@ kotlin {
             ios.deploymentTarget = "14.3"
         }
         pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))
+        pod("mParticle-Apple-Media-SDK", path = project.file("../.sdks/apple-media"))
     }
     sourceSets {
         val commonMain by getting {
             dependencies {
                 api(project(":api"))
+                api(project(":api-media"))
                 api(project(":models"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -57,7 +59,9 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 api(project(":api"))
+                api(project(":api-media"))
                 compileOnly("group:android-core")
+                compileOnly("group:media")
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
 

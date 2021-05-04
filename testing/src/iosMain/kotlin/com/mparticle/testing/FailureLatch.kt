@@ -12,11 +12,6 @@ import platform.Foundation.NSThread
 import platform.Foundation.addTimeInterval
 import kotlin.random.Random
 
-/**
- * important to run fail() calls on the testing thread. JUnit doesn't always pick up on test failures
- * from background threads, which request might be coming in on, so you could end up with false positives
- */
-
 var awaiterInstance: Awaiter? = null
     get() = field.freeze()
 

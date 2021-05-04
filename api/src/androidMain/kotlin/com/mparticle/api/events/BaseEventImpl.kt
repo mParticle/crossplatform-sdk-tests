@@ -1,6 +1,5 @@
 package com.mparticle.api.events
 
-import com.mparticle.api.commerce.CommerceEvent
 import com.mparticle.api.events.*
 import com.mparticle.BaseEvent as BaseEventAndroid
 import com.mparticle.MPEvent as MPEventAndroid
@@ -10,9 +9,7 @@ import com.mparticle.MParticle.EventType as EventTypeAndroid
 fun getEvent(baseEvent: BaseEvent): BaseEventAndroid {
     return when (baseEvent) {
         is MPEvent -> getMPEvent(baseEvent)
-        is CommerceEvent -> baseEvent.event()
-        else -> { throw RuntimeException("wtf mate")
-        }
+        else -> baseEvent.event()
     }
 }
 

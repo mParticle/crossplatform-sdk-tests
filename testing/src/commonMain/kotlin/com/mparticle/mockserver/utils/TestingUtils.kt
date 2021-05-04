@@ -22,7 +22,7 @@ object TestingUtils {
                 event.category = RandomUtils.getAlphaNumericString(RandomUtils.randomInt(5, 55))
             }
             if (RandomUtils.nextBoolean()) {
-                event.length = RandomUtils.randomLong(1000L, 1000L * 100).toDouble()
+                event.duration = RandomUtils.randomLong(1000L, 1000L * 100).toDouble()
             }
             if (RandomUtils.nextBoolean()) {
                 var infoMap: HashMap<String, String?> = HashMap()
