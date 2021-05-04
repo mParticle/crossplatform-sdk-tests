@@ -17,8 +17,7 @@ class XCodeTestUITests: XCTestCase {
     }
 
     override func setUp() {
-//         sampleTests.beforeAll()
-        mediaTests.beforeAll()
+
     }
 
 //     override func runTests() {
@@ -30,6 +29,15 @@ class XCodeTestUITests: XCTestCase {
 //         addTestsToInvocationsWithParameters((input: (12, 5), output: 7), toTestSuite: testSuite)
 //         return testSuite
 //     }
+
+//     private class func addTestsToInvocationsWithParameters(_ parameter: ParametrizedTestExampleParameter, toTestSuite testSuite: XCTestSuite) {
+//         testInvocations.forEach { invocation in
+//           let testCase = ParametrizedTestExample(invocation: invocation)
+//           testCase.parameter = parameter
+//           testSuite.addTest(testCase)
+//         }
+//       }
+
 
     override func tearDownWithError() throws {}
 

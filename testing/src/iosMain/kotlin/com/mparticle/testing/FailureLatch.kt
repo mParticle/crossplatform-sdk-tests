@@ -10,6 +10,8 @@ import platform.darwin.dispatch_async
 import kotlin.test.fail
 import kotlin.native.concurrent.AtomicInt
 import com.mparticle.api.Logger
+import kotlin.reflect.findAssociatedObject
+import kotlin.test.Test
 
 /**
  * important to run fail() calls on the testing thread. JUnit doesn't always pick up on test failures

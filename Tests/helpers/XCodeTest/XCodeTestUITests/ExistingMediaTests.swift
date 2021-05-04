@@ -17,8 +17,17 @@ class ExistingMediaTests: XCTestCase {
     
     override func setUp() {
         existingMediaTests.beforeAll()
+        let mirror = Mirror(reflecting: AppleMediaExisting.self)
+        NSLog("Properties")
+        for child in mirror.children {
+            NSLog("Property name:")
+            NSLog(child.label ?? "no label")
+            NSLog("Property value:")
+             NSLog((child.value as? String) ?? "no value")
+        }
+        existingMediaTests.beforeAll()
     }
-
+jn
 
 
     override func tearDownWithError() throws {

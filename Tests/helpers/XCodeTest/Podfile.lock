@@ -1,5 +1,5 @@
 PODS:
-  - mParticle-Apple-Media-SDK (1.3.5):
+  - mParticle-Apple-Media-SDK (1.3.7):
     - mParticle-Apple-SDK (~> 8.0)
   - mParticle-Apple-SDK (8.1.1):
     - mParticle-Apple-SDK/mParticle (= 8.1.1)
@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
     :path: "../../../Tests"
 
 SPEC CHECKSUMS:
-  mParticle-Apple-Media-SDK: 16152eddd902fe9da78a369046f38b3413f3d3be
+  mParticle-Apple-Media-SDK: e8ad2dbb16c51dbce7767fe0ebbeb6482cbc0020
   mParticle-Apple-SDK: 346553db57b19c51c03440b5025746f143c1494b
   Tests: dc207158da7ff4c9453eeccb0df95de693b53695
 
