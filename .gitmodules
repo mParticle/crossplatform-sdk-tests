@@ -1,0 +1,10 @@
+[submodule "android"]
+	path = .sdks/android
+ 	# Github Actions requires HTTPS submodule urls with out current authentication schema. Use the SSH urls for local development if you like, but make sure the HTTPS urls are uncommented when checking code in
+    #url = git@github.com:mParticle/mparticle-android-sdk-internal.git
+    url = https://github.com/mParticle/mparticle-android-sdk-internal.git
+[submodule "apple"]
+	path = .sdks/apple
+    # Github Actions requires HTTPS submodule urls with out current authentication schema. Use the SSH urls for local development if you like, but make sure the HTTPS urls are uncommented when checking code in
+   	#url = git@github.com:mParticle/mparticle-apple-sdk-internal.git
+    url = https://github.com/mParticle/mparticle-apple-sdk-internal.git
