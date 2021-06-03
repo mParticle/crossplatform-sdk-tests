@@ -39,7 +39,7 @@ class EndpointType<T, R> private constructor(val name: String,
         @JvmField
         val Config = EndpointType("Config", Empty.serializer(), ConfigResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("config") } }
         @JvmField
-        val Events = EndpointType("Events", MessageBatchMessage.serializer(), Empty.serializer()) { it.split("/").let { it[it.size - 1].startsWith("events") }}
+        val Events = EndpointType("Events", BatchMessage.serializer(), Empty.serializer()) { it.split("/").let { it[it.size - 1].startsWith("events") }}
         @JvmField
         val Alias = EndpointType("Alias", AliasRequestMessage.serializer(), Empty.serializer()) { it.split("/").let { it[it.size - 1].startsWith("alias") }}
         @JvmField

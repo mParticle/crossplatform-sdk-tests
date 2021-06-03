@@ -1,11 +1,12 @@
 package com.mparticle.api.media
 
 import cocoapods.mParticle_Apple_Media_SDK.MPMediaEvent
+import cocoapods.mParticle_Apple_SDK.MPBaseEvent
 import com.mparticle.api.events.BaseEvent
 import com.mparticle.api.events.MPEvent
 import com.mparticle.api.media.events.*
 
-actual class MediaEvent(val mediaEventApple: MPMediaEvent): BaseEvent(mediaEventApple) {
+actual class MediaEvent(val mediaEventApple: MPMediaEvent): BaseEvent(mediaEventApple as MPBaseEvent) {
 
     actual constructor(
         session: MediaSession,

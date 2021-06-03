@@ -1,11 +1,15 @@
 package com.mparticle.messages
 
+import com.mparticle.messages.events.*
+import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
 
 @Serializable
-class MessageBatchMessage(
+class BatchMessage(
     @SerialName("echo") val echo: Boolean? = null,
     @SerialName("dt") val type: String? = null,
     @SerialName("id") val id:String? = null,
@@ -24,13 +28,32 @@ class MessageBatchMessage(
     @SerialName("con") val consentState: ConsentStateMessage? = null,
     @SerialName("ctx")val dataplanContext: DataplanContextMessage? = null,
     @SerialName("sh")val sessionHistory: JsonObject? = null,
-    @SerialName("msgs")val messages: List<EventMessage>? = null,
+    @SerialName("msgs")val messages: List<@Polymorphic BaseEvent>? = null,
     @SerialName("fsr")val reportingMessages: List<ReportingMessageMessage>? = null,
     @SerialName("ai")val appInfo: AppInfoMessage? = null,
     @SerialName("di")val deviceInfo: DeviceInfoMessage? = null,
     @SerialName("ui")val identities: List<IdentityType>? = null,
     @SerialName("ua")val attributes: JsonObject? = null
-): ServerMessageObject()
+): ServerMessageObject() {
+
+    object parser {
+        fun fromString(batch: String): BatchMessage {
+            return Json {
+                serializersModule = SerializersModule {
+                    polymorphic(BaseEvent::class, AppStateTransitionEvent::class, AppStateTransitionEvent.serializer())
+                    polymorphic(BaseEvent::class, MPEvent::class, MPEvent.serializer())
+                    polymorphic(BaseEvent::class, CommerceEvent::class, CommerceEvent.serializer())
+                    polymorphic(BaseEvent::class, SessionEnd::class, SessionEnd.serializer())
+                    polymorphic(BaseEvent::class, SessionStart::class, SessionStart.serializer())
+                    polymorphic(BaseEvent::class, FirstRun::class, FirstRun.serializer())
+                }
+                ignoreUnknownKeys = true
+                classDiscriminator = "dt"
+                isLenient = true
+            }.decodeFromString(BatchMessage.serializer(), batch)
+        }
+    }
+}
 
 
 @Serializable
@@ -40,138 +63,29 @@ class LocationMessage(
     @SerialName("acc")val accuracy: Float? = null
 ): ServerMessageObject()
 
+
+
 @Serializable
 class EventMessage: ServerMessageObject() {
-    @SerialName("ct")
-    var timeStamp: Long? = null
-
-    @SerialName("id")
-    var id: String? = null
-
-    @SerialName("sid")
-    var sessionId: String? = null
-
-    @SerialName("sct")
-    var sessionStartTimestamp: Long? = null
-
-    @SerialName("lc")
-    var location: LocationMessage? = null
-
-    @SerialName("attrs")
-    var attributes: JsonObject? = null
-
-    @SerialName("dt")
-    var messageType: String? = null
-
-    @SerialName("n")
-    var name: String? = null
-
-    @SerialName("dct")
-    var dataConnection: String? = null
-
-    @SerialName("cs")
-    var stateInfo: StateInfoMessage? = null
-
-    @SerialName("el")
-    var eventDuration: Double? = null
-
-    @SerialName("flags")
-    var eventFlats: JsonObject? = null
-
-    @SerialName("t")
-    var stateTransitionType: String? = null
-
-    @SerialName("pd")
-    var commerceProductActionObject: ProductActionObject? = null
-
-    @SerialName("sn")
-    var commerceScreenName: String? = null
-
-    @SerialName("ni")
-    var commerceNonInteraction: Boolean? = null
-
-    @SerialName("cu")
-    var commerceCurrency: String? = null
-
-    @SerialName("ti")
-    var transactionId: String? = null
-
-    @SerialName("ta")
-    var transactionAffiliation: String? = null
-
-    @SerialName("tt")
-    var transactionTax: Double? = null
-
-    @SerialName("ts")
-    var transactionShipping: Double? = null
-
-    @SerialName("tcc")
-    var transactionCouponCode: String? = null
 
 
-    @SerialName("pm")
-    var promotionActionObject: PromotionActionObject? = null
 
-
-    @SerialName("pi")
-    var impressionObject: List<ImpressionMessage>? = null
 
     @SerialName("nsi")
     var interruptions: Int? = null
 
-    @SerialName("ifr")
-    var isFirstRun: Boolean? = null
 
-    @SerialName("iu")
-    var isAppUpgrade: Boolean? = null
 }
 
 @Serializable
-class ProductActionObject(
-    @SerialName("an")val action: String,
-    @SerialName("pl")val productList: List<ProductMessage>,
-    @SerialName("tr")var transactionRevenue: Double? = null): ServerMessageObject()
-
-@Serializable
-class PromotionActionObject(
-    @SerialName("an")val action: String,
-    @SerialName("pl")val promotions: List<PromotionMessage>? = null): ServerMessageObject()
-
-@Serializable
-class PromotionMessage(
-    @SerialName("id")val id: String,
-    @SerialName("nm")val name: String? = null,
-    @SerialName("cr")val creative: String? = null,
-    @SerialName("ps")val position: String? = null
-): ServerMessageObject()
-
-
-@Serializable
-class ProductMessage(
-    @SerialName("nm") val name: String,
-    @SerialName("ca") val category: String? = null,
-    @SerialName("cc") val couponCode: String? = null,
-    @SerialName("id") val sku: String? = null,
-    @SerialName("ps") val position: Int? = null,
-    @SerialName("pr") val price: Double? = null,
-    @SerialName("qt")val quantity: Double? = null,
-    @SerialName("act") val timeAdded: Long? = null,
-    @SerialName("tpa") val totalAmount: Double? = null,
-    @SerialName("br") val brand: String? = null,
-    @SerialName("va")val variant: String? = null,
-    @SerialName("attrs") val customAtributes: JsonObject? = null
-): ServerMessageObject()
-
-@Serializable
-class ImpressionMessage(
-    @SerialName("pil")val location: String,
-    @SerialName("pl")val productList: List<ProductMessage>
-): ServerMessageObject()
-
-@Serializable
 class DataplanContextMessage(
+    @SerialName("dpln") val dataplan: Dataplan
+): ServerMessageObject()
+
+@Serializable
+class Dataplan (
     @SerialName("id") val dataplanId: String,
-    @SerialName("v")val dataplanVersion: String?
+    @SerialName("v")val dataplanVersion: Int? = null
 ): ServerMessageObject()
 
 @Serializable
@@ -274,46 +188,3 @@ class ConsentStateInstanceMessage(
     @SerialName("h")val hardwareId: String?
 ): ServerMessageObject()
 
-@Serializable
-class StateInfoMessage {
-    @SerialName("fds")
-    var availableDisk: Long? = null
-
-    @SerialName("efds")
-    var externalDisk: Long? = null
-
-    @SerialName("amt")
-    var appMemoryUsage: Long? = null
-    @SerialName("ama")
-    var freeMemory: Long? = null
-    @SerialName("amm")
-    var maxMemory: Long? = null
-
-    @SerialName("sma")
-    var avaialableMemery: Long? = null
-    @SerialName("tsm")
-    var totalMemory: Long? = null
-
-    @SerialName("bl")
-    var batteryLevel: Double? = null
-    @SerialName("tss")
-    var timeSinceStart: Long? = null
-
-    @SerialName("gps")
-    var hasGps: Boolean? = null
-
-    @SerialName("dct")
-    var activeNetworkName: String? = null
-
-    @SerialName("so")
-    var orientation: Int? = null
-    @SerialName("sbo")
-    var barOrientation: Int? = null
-    @SerialName("sml")
-    var isMemoryLow: Boolean? = null
-    @SerialName("smt")
-    var systemMemoryThreshold: Long? = null
-
-    @SerialName("ant")
-    var networkType: String? = null
-}
