@@ -6,5 +6,4 @@ build
 **/Pods
 **/Podfile.lock
 *.xcuserstate
-*.plist
 **/xcuserdata
