@@ -4,7 +4,6 @@ import java.lang.System.getProperty
 
 plugins {
     id("com.android.library")
-    id("kotlin-android-extensions")
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     kotlin("native.cocoapods")
@@ -31,8 +30,8 @@ kotlin {
         val androidMain by getting
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
             }
         }
         val iosMain by getting

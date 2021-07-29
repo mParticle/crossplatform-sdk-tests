@@ -15,10 +15,10 @@ pluginManagement {
     }
     plugins {
         id("com.android.library") version("4.0.1")
-        id("kotlin-android-extensions") version ("1.4.21")
-        kotlin("multiplatform") version ("1.4.21")
-        kotlin("plugin.serialization") version ("1.4.0")
-        kotlin("native.cocoapods") version ("1.4.21")
+        id("kotlin-android-extensions") version ("1.5.20")
+        kotlin("multiplatform") version ("1.5.20")
+        kotlin("plugin.serialization") version ("1.5.20")
+        kotlin("native.cocoapods") version ("1.5.20")
     }
     resolutionStrategy {
         eachPlugin {

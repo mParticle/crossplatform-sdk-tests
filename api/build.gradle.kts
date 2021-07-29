@@ -3,11 +3,10 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 import java.lang.System.getProperty
 
 plugins {
-    id("com.android.library") version("4.0.1")
-    id("kotlin-android-extensions") version ("1.4.21")
-    kotlin("multiplatform") version ("1.4.21")
-    kotlin("plugin.serialization") version ("1.4.0")
-    kotlin("native.cocoapods") version ("1.4.21")
+    id("com.android.library")
+    kotlin("multiplatform")
+    kotlin("plugin.serialization")
+    kotlin("native.cocoapods")
 }
 
 repositories {
@@ -42,8 +41,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
             }
         }

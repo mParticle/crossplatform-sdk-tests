@@ -41,8 +41,8 @@ kotlin {
                 api(project(":models"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
             }
         }
         val androidMain by getting {
@@ -50,21 +50,21 @@ kotlin {
                 api(project(":api"))
                 compileOnly("group:android-core")
                 implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13")
+                implementation("junit:junit:4.13.2")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.0.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.0.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.2.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.2.2")
 
-                api("androidx.test:runner:1.3.0")
-                api("androidx.test.ext:junit:1.1.2")
-                api("androidx.test:rules:1.3.0")
+                api("androidx.test:runner:1.4.0")
+                api("androidx.test.ext:junit:1.1.3")
+                api("androidx.test:rules:1.4.0")
             }
         }
         val iosMain by getting {
             dependencies {
                 api(project(":api"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
             }
         }
@@ -84,10 +84,4 @@ android {
 }
 dependencies {
     implementation("androidx.lifecycle:lifecycle-common:2.2.0")
-}
-buildscript {
-    val kotlin_version by extra("1.4.10")
-    dependencies {
-        "classpath"("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-    }
 }
