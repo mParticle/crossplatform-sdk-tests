@@ -1,7 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
-import java.lang.System.getProperty
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
