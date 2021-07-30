@@ -46,8 +46,6 @@ jobs:
           git submodule update --init
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
-      - name: Import Project
-        run: ./gradlew :testing:podImport
       - name: Run iOS cross platform tests
         run: ./gradlew runIos
       - name: Archive Test Results

@@ -8,8 +8,6 @@ plugins {
     kotlin("native.cocoapods")
 }
 
-lateinit var commonTestSourceSet: KotlinSourceSet
-
 kotlin {
     val iOSTarget = if (System.getenv("SDK_NAME")
             ?.startsWith("iphoneos") == true
@@ -95,11 +93,11 @@ val installTestPods by tasks.creating(Exec::class.java) {
 
 
 val runIos by tasks.creating(Exec::class.java) {
-    dependsOn(":testing:podImport")
-    dependsOn("installTestPods")
+    val linkDebugFrameworkIos = tasks.findByName("linkDebugFrameworkIos")
     dependsOn("linkDebugFrameworkIos")
+    linkDebugFrameworkIos?.dependsOn(installTestPods)
+    installTestPods.dependsOn("podImport")
     description = "Builds the iOS application bundle using Xcode."
-    var testDir = File(".")
     workingDir = project.file("helpers/XCodeTest")
     setCommandLine("xcrun")
     args("xcodebuild",
