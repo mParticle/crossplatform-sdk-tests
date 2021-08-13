@@ -11,7 +11,7 @@ interface IdentityApi {
     fun modify(request: IdentityApiRequest)
 }
 
-interface MParticleUser {
+expect class MParticleUser {
     fun getId(): Long
     fun getUserAttributes(): Map<String, Any?>
     fun getUserAttributes(listener: UserAttributeListener?): Map<String, Any?>?
@@ -107,6 +107,16 @@ class IdentityHttpResponse {
     var context: String? = null
     var httpCode = 0
     var loggedIn = false
+
+    override fun toString(): String {
+        return """
+            errors: ${errors.joinToString("\n"){ "code: ${it.code}, message: ${it.message}" }}
+            mpid: $mpId
+            context: $context
+            httpsCode: $httpCode
+            loggedId: $loggedIn
+        """.trimIndent()
+    }
 }
 
 class Error(

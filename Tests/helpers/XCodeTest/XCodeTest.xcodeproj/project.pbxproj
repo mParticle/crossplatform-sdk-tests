@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -94,7 +94,6 @@
 				6AF364041F8833283196F09A /* Pods-XCodeTest-XCodeTestUITests.debug.xcconfig */,
 				B0D0FA1981F84CEA605D61C6 /* Pods-XCodeTest-XCodeTestUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -470,6 +469,7 @@
 			baseConfigurationReference = 6AF364041F8833283196F09A /* Pods-XCodeTest-XCodeTestUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7Q9XVXTYUY;
 				INFOPLIST_FILE = XCodeTestUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -488,6 +488,7 @@
 			baseConfigurationReference = B0D0FA1981F84CEA605D61C6 /* Pods-XCodeTest-XCodeTestUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7Q9XVXTYUY;
 				INFOPLIST_FILE = XCodeTestUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -31,7 +31,7 @@ kotlin {
         setVersion(1.0)
         ios.deploymentTarget = "14.3"
 
-        pod("mParticle-Apple-SDK", path = project.file("../.sdks/apple"))
+        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple"))
 
         podfile = project.file("helpers/XCodeTest/Podfile")
 
@@ -106,6 +106,16 @@ val runIos by tasks.creating(Exec::class.java) {
         "-configuration", "Debug",
         "-destination", "platform=iOS Simulator,name=iPhone 12,OS=latest",
         "test")
+//    dependsOn("linkDebugFrameworkIos")
+//    description = "Builds the iOS application bundle using Xcode."
+//    workingDir = project.file("helpers/XCodeTest")
+//    setCommandLine("xcrun")
+//    args("xcodebuild",
+//        "-scheme", "XCodeTestUITests",
+//        "-workspace", "XCodeTest.xcworkspace",
+//        "-configuration", "Debug",
+//        "-destination", "platform=iOS Simulator,name=iPhone 12,OS=latest",
+//        "test")
 }
 
 val runAndroid by tasks.creating() {

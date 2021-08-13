@@ -12,7 +12,7 @@ actual internal class Platforms {
     }
 
     actual fun getInstance(): MParticle? {
-        return com.mparticle.MParticle.getInstance()?.let { MParticleImpl(it) }
+        return com.mparticle.MParticle.getInstance()?.let { MParticle(it) }
     }
 
     actual fun clearInstance() {

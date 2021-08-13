@@ -1,11 +1,11 @@
 package com.mparticle.mockserver.utils
 
-import com.mparticle.mockserver.MockServer2
-import com.mparticle.mockserver.MockServer2.IRequestFilter
 import com.mparticle.messages.IdentityRequestMessage
+import com.mparticle.mockserver.IRequestFilter
+import com.mparticle.mockserver.Request
 
 class IdentityRequestFilter(val mpid: Long): IRequestFilter<IdentityRequestMessage> {
-    override fun isMatch(request: MockServer2.Request<IdentityRequestMessage>): Boolean {
+    override fun isMatch(request: Request<IdentityRequestMessage>): Boolean {
         return request.body.previousMpid == mpid
     }
 }

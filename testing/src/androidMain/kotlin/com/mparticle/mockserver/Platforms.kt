@@ -3,25 +3,25 @@ package com.mparticle.mockserver
 import com.mparticle.networking.MPUrl
 import com.mparticle.networking.MPUrlTestImpl
 import com.mparticle.networking.setMPUrlFactory
-import com.mparticle.internal.ConfigManager
 import com.mparticle.internal.database.services.MParticleDBManager
-import com.mparticle.internal.database.MPDatabase
 import com.mparticle.messages.ConfigResponseMessage
 import com.mparticle.testing.TestLifecycleContext
 import android.os.Handler
 import android.os.Looper
 import androidx.test.platform.app.InstrumentationRegistry
-import com.mparticle.api.MParticle
-import com.mparticle.internal.Logger
 
 
 actual open class Platforms {
+    init {
+        prepareThread()
+    }
     var mContext = TestLifecycleContext(InstrumentationRegistry.getInstrumentation().context.applicationContext);
-    actual var mainThreadRunner: ThreadRunner = ThreadRunner()
 
-    actual fun injectMockServer(mockserver: MockServer2) {
+    actual var mainThreadRunner: MainThreadRunner = MainThreadRunner()
+
+    actual fun injectMockServer() {
         setMPUrlFactory {
-            MPUrlTestImpl(it, mockserver) as MPUrl
+            MPUrlTestImpl(it) as MPUrl
         }
     }
 
@@ -54,9 +54,17 @@ actual open class Platforms {
     fun getDatabaseSchema(database: com.mparticle.internal.database.MPDatabase) = mapOf<String, Any>()
     actual fun getDatabaseSchema() = getDatabaseSchema(null)
     actual fun getDatabaseSchema(tables: List<String>?): Map<String, Any> = getDatabaseSchema(MParticleDBManager(mContext).getDatabase())
+
+    actual fun currentThread(): String? = Thread.currentThread().name
+    actual fun isServerThread(): Boolean = Looper.getMainLooper() == Looper.myLooper()
+    actual fun prepareThread() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare()
+        }
+    }
 }
 
-actual class ThreadRunner {
+actual class MainThreadRunner {
     actual fun run(runnable: () -> Unit) {
         Handler(Looper.getMainLooper()).post(runnable)
     }

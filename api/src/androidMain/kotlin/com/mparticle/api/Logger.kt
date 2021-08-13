@@ -1,17 +1,21 @@
 package com.mparticle.api
 
+import android.util.Log
 import com.mparticle.internal.Logger as LoggerAndroid
 
 actual class Logger {
     actual fun info(message: String) {
-        LoggerAndroid.info(message)
+//        LoggerAndroid.info(message)
+        Log.i("MParticleTest", message)
     }
 
     actual fun warning(message: String) {
-        LoggerAndroid.warning(message)
+//        LoggerAndroid.warning(message)
+        Log.w("MParticleTest", message)
     }
 
     actual fun error(message: String) {
-        LoggerAndroid.error()
+//        LoggerAndroid.error(message)
+        Log.e("MParticleTest", message)
     }
 }

@@ -1,54 +1,61 @@
 package com.mparticle.api
 
-import cocoapods.mParticle_Apple_SDK.MPEnvironment
-import cocoapods.mParticle_Apple_SDK.MPILogLevel
-import cocoapods.mParticle_Apple_SDK.MPIdentityApiResult
-import cocoapods.mParticle_Apple_SDK.MPInstallationType
+import cocoapods.mParticle_Apple_SDK.*
+import com.mparticle.Platforms
 import com.mparticle.api.events.BaseEvent
 import com.mparticle.api.events.MPEvent
 import com.mparticle.api.events.toBaseEvent
 import com.mparticle.api.identity.*
-import platform.Foundation.NSError
-import platform.Foundation.NSNumber
+import com.mparticle.api.identity.MParticleUser
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import platform.Foundation.*
+import kotlin.reflect.KMutableProperty0
+import kotlin.reflect.KProperty
+import kotlin.reflect.KProperty0
 
-class MParticleImpl(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle): MParticle {
-    override fun upload() {
+fun <T> KMutableProperty0<T>.fieldd(): KMutableProperty0<T> = this
+
+
+actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
+    actual fun upload() {
         mparticle.upload()
     }
 
-    override fun setOptOut(optOutStatus: Boolean) {
+    actual fun setOptOut(optOutStatus: Boolean) {
         mparticle.setOptOut(optOutStatus)
     }
 
-    override fun getOptOut(): Boolean {
+    actual fun getOptOut(): Boolean {
         return mparticle.optOut
     }
 
-    override fun logEvent(event: BaseEvent) {
+    actual fun logEvent(event: BaseEvent) {
         mparticle.logEvent(event.toBaseEvent())
     }
 
-    override fun logLtvIncrease(valueIncreased: Double, eventName: String, contextInfo: Map<String, String?>?) {
+    actual fun logLtvIncrease(valueIncreased: Double, eventName: String, contextInfo: Map<String, String?>?) {
         mparticle.logLTVIncrease(valueIncreased, eventName, contextInfo as Map<Any?, *>)
     }
 
-    override fun logScreen(screenName: String, eventData: Map<String, String?>?) {
+    actual fun logScreen(screenName: String, eventData: Map<String, String?>?) {
         mparticle.logScreen(screenName, eventData as Map<Any?, *>)
     }
 
-    override fun logScreen(screen: MPEvent) {
+    actual fun logScreen(screen: MPEvent) {
         mparticle.logEvent(screen.toBaseEvent())
     }
 
-    override fun leaveBreadcrumb(breadcrumb: String) {
+    actual fun leaveBreadcrumb(breadcrumb: String) {
         mparticle.leaveBreadcrumb(breadcrumb)
     }
 
-    override fun logError(message: String, errorAttributes: Map<String, String?>?) {
+    actual fun logError(message: String, errorAttributes: Map<String, String?>?) {
         TODO("Not yet implemented")
     }
 
-    override fun logNetworkPerformance(
+    actual fun logNetworkPerformance(
         url: String,
         startTime: Long,
         method: String,
@@ -61,219 +68,262 @@ class MParticleImpl(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle): MPa
         TODO("Not yet implemented")
     }
 
-    override fun logException(exception: Exception?, eventData: Map<String?, String?>?, message: String?) {
+    actual fun logException(exception: Exception?, eventData: Map<String?, String?>?, message: String?) {
         TODO("Not yet implemented")
     }
 
-    override fun logPushRegistration(instanceId: String?, senderId: String?) {
+    actual fun logPushRegistration(instanceId: String?, senderId: String?) {
         TODO("Not yet implemented")
     }
 
-    override fun Identity(): IdentityApi? {
+    actual fun Identity(): IdentityApi? = IdentityApiImpl(mparticle.identity)
+
+    actual fun getKitInstance(kitId: Int): Any? {
         TODO("Not yet implemented")
     }
 
-    override fun getKitInstance(kitId: Int): Any? {
+    actual fun isKitActive(serviceProviderId: Int): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun isKitActive(serviceProviderId: Int): Boolean {
+    actual fun setLocation(provider: String, latitude: Double?, longitude: Double?, accuracy: Float?) {
         TODO("Not yet implemented")
     }
 
-    override fun setLocation(provider: String, latitude: Double?, longitude: Double?, accuracy: Float?) {
+    actual fun setSessionAttribute(key: String, value: Any?) {
         TODO("Not yet implemented")
     }
 
-    override fun setSessionAttribute(key: String, value: Any?) {
+    actual fun incrementSessionAttribute(key: String, value: Int) {
         TODO("Not yet implemented")
     }
 
-    override fun incrementSessionAttribute(key: String, value: Int) {
+    actual fun setIntegrationAttributes(integrationId: Int, attributes: Map<String, String?>?) {
         TODO("Not yet implemented")
     }
 
-    override fun setIntegrationAttributes(integrationId: Int, attributes: Map<String, String?>?) {
+    actual fun getIntegrationAttributes(integrationId: Int): MutableMap<String?, String?>? {
         TODO("Not yet implemented")
     }
 
-    override fun getIntegrationAttributes(integrationId: Int): MutableMap<String?, String?>? {
+    actual fun enableLocationTracking(provider: String, minTime: Long, minDistance: Long) {
         TODO("Not yet implemented")
     }
 
-    override fun enableLocationTracking(provider: String, minTime: Long, minDistance: Long) {
+    actual fun disableLocationTracking() {
         TODO("Not yet implemented")
     }
 
-    override fun disableLocationTracking() {
+    actual fun isLocationTrackingEnabled(): Boolean {
         TODO("Not yet implemented")
     }
 
-    override fun isLocationTrackingEnabled(): Boolean {
+    actual fun enableUncaughtExceptionLogging() {
         TODO("Not yet implemented")
     }
 
-    override fun enableUncaughtExceptionLogging() {
+    actual fun disableUncaughtExceptionLogging() {
         TODO("Not yet implemented")
     }
 
-    override fun disableUncaughtExceptionLogging() {
+    actual fun setInstallReferrer(referrer: String?) {
         TODO("Not yet implemented")
     }
 
-    override fun setInstallReferrer(referrer: String?) {
+    actual fun getInstallReferrer(): String? {
         TODO("Not yet implemented")
     }
 
-    override fun getInstallReferrer(): String? {
+    actual fun getEnvironment(): Environment? {
+        return environmentTransformer.to(mparticle.environment)
+    }
+
+    actual fun getCurrentSession(): Session? {
         TODO("Not yet implemented")
     }
 
-    override fun getEnvironment(): Environment? {
-        return mparticle.environment.toEnvironment()
-    }
-
-    override fun getCurrentSession(): Session? {
-        TODO("Not yet implemented")
-    }
-
-    override fun isAutoTrackingEnabled(): Boolean? {
+    actual fun isAutoTrackingEnabled(): Boolean? {
         return mparticle.trackNotifications
     }
 
-    override fun isDevicePerformanceMetricsDisabled(): Boolean {
+    actual fun isDevicePerformanceMetricsDisabled(): Boolean {
         //TODO
         throw RuntimeException("Not Implemented")
     }
 
-    override fun getSessionTimeout(): Int {
+    actual fun getSessionTimeout(): Int {
         return mparticle.sessionTimeout.toInt()
     }
 
-    override fun isProviderActive(serviceProviderId: Int): Boolean {
+    actual fun isProviderActive(serviceProviderId: Int): Boolean {
         TODO("Not yet implemented")
+    }
+
+    actual companion object {
+        actual fun start(options: MParticleOptions) {
+            Platforms().start(options)
+        }
+
+        actual fun getInstance(): MParticle? {
+            return Platforms().getInstance()
+        }
+
+        actual fun clearInstance() {
+            Platforms().clearInstance()
+        }
+
+        actual fun reset(clientPlatform: ClientPlatform) {
+            Platforms().reset(clientPlatform)
+        }
     }
 }
 
-actual class MParticleOptions actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform, initializer: (MParticleOptions.() -> Unit)?) {
+actual class MParticleOptions actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform) {
+
+    val options: cocoapods.mParticle_Apple_SDK.MParticleOptions = MParticleOptions()
 
     init {
-        initializer?.invoke(this)
-    }
-    val options = cocoapods.mParticle_Apple_SDK.MParticleOptions()
-
-    init {
-        options.setApiKey(apiKey)
-        options.setApiSecret(apiSecret)
+        options.apiKey = apiKey
+        options.apiSecret = apiSecret
     }
 
     actual var clientPlatform = clientPlatform
 
-     actual var apiKey: String
-         get() = options.apiKey()
-        set(value) { options.apiKey = value }
-     actual var apiSecret: String
-         get() = options.apiSecret()
-        set(value) { options.apiSecret = value }
-     actual var installType: InstallType?
-         get() = options.installType().toInstallType()
-         set(value) { options.setInstallType(value!!.toInstallType())}
-     actual var pushRegistrationInstanceId: String?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var pushRegistrationSenderId: String?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var dataplanId: String?
-         get() = options.dataPlanId()
-         set(value) { options.setDataPlanId(value)}
-     actual var dataplanVersion: Int?
-         get() = options.dataPlanVersion()?.intValue
-         set(value) { options.setDataPlanVersion(value?.let { NSNumber(it) })}
-     actual var identifyRequest: IdentityApiRequest?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var identifyTask: BaseIdentityTask? = null
-         get() = field
-         set(value) {
-             field = value
-             when (value) {
-                 null -> options.onIdentifyComplete = { _, _  -> }
-                 else ->
-                     options.onIdentifyComplete = { result: MPIdentityApiResult?, error: NSError? ->
-                         when {
-                             error != null -> {
-                                 val errorResponse =
-                                     IdentityHttpResponse()?.apply { errors = listOf(Error(error.toString(), "-1")) }
-                                 value?.failureListeners?.forEach { it.invoke(errorResponse) }
-                             }
-                             result != null -> {
-                                 value?.successListeners?.forEach {
-                                     it.invoke(
-                                         MParticleUserImpl(result.user),
-                                         result.previousUser?.let { MParticleUserImpl(it) }
-                                     )
-                                 }
-                             }
-                         }
-                     }
-             }
-         }
-     actual var enableUncaughtExceptionLogging: Boolean?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var androidIdDisabled: Boolean?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var devicePerformanceMetricsDisabled: Boolean?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var locationTracking: LocationTracking?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var sessionTimeout: Int?
-         get() = options.sessionTimeout().toInt()
-         set(value) { options.setSessionTimeout(value!!.toDouble())}
-     actual var uploadInterval: Int?
-         get() = options.uploadInterval().toInt()
-         set(value) { options.setUploadInterval(value!!.toDouble())}
-     actual var identityConnectionTimeout: Int?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var networkOptions: NetworkOptions?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var dataplanOptions: DataplanOptions?
-         get() = TODO("Not yet implemented")
-         set(value) {}
-     actual var environment: Environment?
-         get() = options.environment().toEnvironment()
-         set(value) { options.setEnvironment(value!!.toEnvironment())}
-     actual var logLevel: LogLevel?
-         get() = options.logLevel().toLogLevel()
-         set(value) { options.setLogLevel(value!!.toLogLevel())}
- }
+    actual var apiKey: String by property(options::apiKey)
+    actual var apiSecret: String by property(options::apiSecret)
+    actual var installType: InstallType? by TransformDelegate(options::installType, installTypeTransformer)
+    actual var sessionTimeout: Int? by TransformDelegate(options::sessionTimeout, intDoubleTransformer)
+    actual var uploadInterval: Int? by TransformDelegate(options::uploadInterval, intDoubleTransformer)
+    actual var environment: Environment? by TransformDelegate(options::environment, environmentTransformer)
+    actual var logLevel: LogLevel? by TransformDelegate(options::logLevel, logLevelTransformer)
+    actual var dataplanId: String? by property(options::dataPlanId)
+    actual var dataplanVersion: Int? by TransformDelegate(options::dataPlanVersion, intNSNumberTransformer)
 
-fun MPEnvironment.toEnvironment(): Environment {
-    return Environment.values().first { it.ordinal == this.toInt() }
+    actual var identifyTask: BaseIdentityTask? = null
+        get() = field
+        set(value) {
+            field = value
+            when (value) {
+                null -> options.onIdentifyComplete = { _, _ -> }
+                else ->
+                    options.onIdentifyComplete = { result: MPIdentityApiResult?, error: NSError? ->
+                        when {
+                            error != null -> {
+                                val errorResponse =
+                                    IdentityHttpResponse().apply { errors = listOf(Error(error.toString(), "-1")) }
+                                value.failureListeners.forEach { it.invoke(errorResponse) }
+                            }
+                            result != null -> {
+                                value.successListeners.forEach {
+                                    it.invoke(
+                                        MParticleUser(result.user),
+                                        result.previousUser?.let { MParticleUser(it) }
+                                    )
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+
+    //TODO
+    actual var identifyRequest: IdentityApiRequest? by TransformDelegate(options::identifyRequest, identityRequestTransformer)
+    actual var networkOptions: NetworkOptions? by TransformDelegate(options::networkOptions, networkOptionsTransformer)
+    actual var dataplanOptions: DataplanOptions? by TransformDelegate(options::dataPlanOptions, dataplanOptionsTransformer)
+
+    //NOT IMPLEMENTED ON IOS
+    actual var identityConnectionTimeout: Int?
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    actual var enableUncaughtExceptionLogging: Boolean?
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    actual var androidIdDisabled: Boolean?
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    actual var devicePerformanceMetricsDisabled: Boolean?
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    actual var locationTracking: LocationTracking?
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    actual var pushRegistrationInstanceId: String?
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    actual var pushRegistrationSenderId: String?
+        get() = TODO("Not yet implemented")
+        set(value) {}
 }
 
-fun MPInstallationType.toInstallType(): InstallType {
-    return InstallType.values().first { it.ordinal == this.toInt() }
+val dataplanOptionsTransformer = TransformBuilder
+    .from<DataplanOptions?, MPDataPlanOptions?> { this!!.dataplanOptions}
+    .to { this?.let { DataplanOptions(it) } }
+
+val networkOptionsTransformer = TransformBuilder
+    .from<NetworkOptions?, MPNetworkOptions> { this!!.networkOptions }
+    .to { NetworkOptions(this) as NetworkOptions? }
+
+val identityRequestTransformer = TransformBuilder
+    .from <IdentityApiRequest?, MPIdentityApiRequest> { this!!.identityRequest}
+    .to {
+        IdentityApiRequest(null).also { request ->
+            identities?.forEach { (key, value) ->
+                if (key != null) request.addIdentity(
+                    key.toIdentityType(),
+                    value.toString()
+                )
+            }
+        } as IdentityApiRequest?
+    }
+
+val intNSNumberTransformer = TransformBuilder
+    .from<Int?, NSNumber?> { this?.let { NSNumber(it) } }
+    .to { this?.intValue }
+
+val intDoubleTransformer = TransformBuilder
+    .from<Int?, Double>{ this!!.toDouble() }
+    .to { toInt() as Int? }
+
+val installTypeTransformer = TransformBuilder
+    .from<InstallType?, MPInstallationType> { this!!.ordinal.toLong() }
+    .to { InstallType.values().firstOrNull { it.ordinal == this.toInt() } }
+
+val logLevelTransformer = TransformBuilder
+    .from<LogLevel?, MPILogLevel> { this!!.level.toULong() }
+    .to { LogLevel.values().firstOrNull { it.level == this.toInt() } }
+
+val environmentTransformer = TransformBuilder
+    .from<Environment?, MPEnvironment> { this!!.ordinal.toULong() }
+    .to { Environment.values().firstOrNull { it.ordinal == this.toInt() } }
+
+val jsonStringMapTransformer = TransformBuilder
+    .from<String?, Map<Any?, *>?> {
+        (this as NSString?)
+            ?.dataUsingEncoding(NSUTF8StringEncoding)
+            ?.let {
+                NSJSONSerialization.JSONObjectWithData(it, 0, null) as Map<Any?, *>
+            }
+    }
+    .to {
+        this?.let { NSJSONSerialization.dataWithJSONObject(it, 0, null) as NSData }
+            ?.let { it.toByteArray().contentToString() }
+    }
+
+actual class NetworkOptions (val networkOptions: MPNetworkOptions) {
+    actual constructor(): this(MPNetworkOptions())
 }
 
-fun InstallType.toInstallType(): MPInstallationType {
-    return ordinal.toLong()
+actual class Session(session: MParticleSession) {
+    actual val uusd: String = session.UUID
+    actual val id: Long = session.sessionID.longValue
+    actual val startTime: Long = throw NotImplementedError()
 }
 
-fun MPILogLevel.toLogLevel(): LogLevel {
-    return LogLevel.values().first { it.level == this.toInt() }
-}
+actual class DataplanOptions(val dataplanOptions: MPDataPlanOptions) {
 
-fun LogLevel.toLogLevel(): MPILogLevel {
-    return this.level.toULong()
-}
-
-fun Environment.toEnvironment(): MPEnvironment {
-    return ordinal.toULong()
+    actual var dataplan: String? by TransformDelegate(dataplanOptions::dataPlan, jsonStringMapTransformer)
+    actual var blockUserAttributes: Boolean by property(dataplanOptions::blockUserAttributes)
+    actual var blockUserIdentities: Boolean by property(dataplanOptions::blockUserIdentities)
+    actual var blockEventAttributes: Boolean by property(dataplanOptions::blockEventAttributes)
+    actual var blockEvents: Boolean by property(dataplanOptions::blockEvents)
 }

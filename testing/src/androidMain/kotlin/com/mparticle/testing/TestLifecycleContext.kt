@@ -40,8 +40,8 @@ actual class TestLifecycleContext(val context: Context): Application() {
             activity.setContext(context)
         }
 
-        val latch = FailureLatch()
-        val pauseLatch = FailureLatch()
+        val latch = FailureLatch("ActivityLifecycle Event")
+        val pauseLatch = FailureLatch("Pause")
 
         // invoke Activity callbacks on the Main Thread, like it would in a real application.
         //

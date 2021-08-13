@@ -9,10 +9,13 @@ import com.mparticle.api.ClientPlatform
 import com.mparticle.api.ClientPlatformImpl
 import com.mparticle.internal.AppStateManager
 import com.mparticle.internal.Logger
-import com.mparticle.mockserver.MockServer2
+import com.mparticle.mockserver.MockServerAccessor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 actual val strict: Boolean = true
 
+//awaiter only used for iOS
 actual fun beforeTest() {
     if (Looper.myLooper() == null) {
         Looper.prepare()
@@ -22,11 +25,15 @@ actual fun beforeTest() {
     //as many annoying failures while trying to figure out whats happening in a breakpoint
     if (Debug.isDebuggerConnected() || Debug.waitingForDebugger()) {
         Log.e("MockServer2", "debug mode")
-        MockServer2.defaultTimeout = 60 * 1000
+        MockServerAccessor.defaultTimeout = 60 * 1000
     }
     Logger.setLogHandler(null)
 }
 
 actual fun getClientPlatform(): ClientPlatform {
     return ClientPlatformImpl(InstrumentationRegistry.getInstrumentation().context)
+}
+
+actual fun setAwaiter(awaiter: Awaiter) {
+
 }

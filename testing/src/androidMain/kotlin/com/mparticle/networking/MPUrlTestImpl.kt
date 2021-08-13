@@ -1,13 +1,12 @@
 package com.mparticle.networking
 
-import com.mparticle.mockserver.MockServer2
 import java.net.MalformedURLException
 import java.net.URL
 
 
-class MPUrlTestImpl(var url: String, var mockServer: MockServer2) : com.mparticle.networking.MPUrl() {
+class MPUrlTestImpl(var url: String) : com.mparticle.networking.MPUrl() {
     override fun openConnection(): MPConnection {
-        return MPConnectionTestImpl(this, mockServer)
+        return MPConnectionTestImpl(this)
     }
 
     override fun getFile(): String {

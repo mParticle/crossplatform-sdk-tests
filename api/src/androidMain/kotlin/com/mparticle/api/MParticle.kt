@@ -1,6 +1,7 @@
 package com.mparticle.api
 
 import android.content.Context
+import com.mparticle.Platforms
 import com.mparticle.internal.PushRegistrationHelper
 import java.lang.RuntimeException
 import java.math.BigDecimal
@@ -10,49 +11,50 @@ import com.mparticle.api.identity.IdentityApiImpl
 import com.mparticle.api.identity.BaseIdentityTask
 import com.mparticle.api.identity.toBaseIdentityTask
 import com.mparticle.api.events.*
+import com.mparticle.internal.Logger.AbstractLogHandler
 import com.mparticle.MParticle as MParticleAndroid
 import com.mparticle.MParticleOptions as MParticleOptionsAndroid
 import com.mparticle.MParticle.InstallType as InstallTypeAndroid
 import com.mparticle.MParticle.LogLevel as LogLevelAndroid
 
 
-class MParticleImpl(val mparticle: MParticleAndroid): MParticle {
+actual class MParticle(val mparticle: MParticleAndroid) {
 
-    override fun upload() {
+    actual fun upload() {
         mparticle.upload()
     }
 
-    override fun setOptOut(optOutStatus: Boolean) {
+    actual fun setOptOut(optOutStatus: Boolean) {
         mparticle.optOut = optOutStatus
     }
 
-    override fun getOptOut(): Boolean = mparticle.optOut
+    actual fun getOptOut(): Boolean = mparticle.optOut
 
-    override fun logEvent(event: BaseEvent) {
-        mparticle.logEvent(BaseEventImpl(event))
+    actual fun logEvent(event: BaseEvent) {
+        mparticle.logEvent(getEvent(event))
     }
 
-    override fun logLtvIncrease(valueIncreased: Double, eventName: String, contextInfo: Map<String, String?>?) {
+    actual fun logLtvIncrease(valueIncreased: Double, eventName: String, contextInfo: Map<String, String?>?) {
         mparticle.logLtvIncrease(BigDecimal.valueOf(valueIncreased), eventName, contextInfo)
     }
 
-    override fun logScreen(screenName: String, eventData: Map<String, String?>?) {
+    actual fun logScreen(screenName: String, eventData: Map<String, String?>?) {
         mparticle.logScreen(screenName, eventData)
     }
 
-    override fun logScreen(screen: MPEvent) {
+    actual fun logScreen(screen: MPEvent) {
         mparticle.logScreen(getMPEvent(screen))
     }
 
-    override fun leaveBreadcrumb(breadcrumb: String) {
+    actual fun leaveBreadcrumb(breadcrumb: String) {
         mparticle.leaveBreadcrumb(breadcrumb)
     }
 
-    override fun logError(message: String, errorAttributes: Map<String, String?>?) {
+    actual fun logError(message: String, errorAttributes: Map<String, String?>?) {
         mparticle.logError(message, errorAttributes)
     }
 
-    override fun logNetworkPerformance(
+    actual fun logNetworkPerformance(
         url: String,
         startTime: Long,
         method: String,
@@ -65,23 +67,23 @@ class MParticleImpl(val mparticle: MParticleAndroid): MParticle {
         mparticle.logNetworkPerformance(url, startTime, method, length, bytesSent, bytesReceived, requestString, responseCode)
     }
 
-    override fun logPushRegistration(instanceId: String?, senderId: String?) {
+    actual fun logPushRegistration(instanceId: String?, senderId: String?) {
         mparticle.logPushRegistration(instanceId, senderId)
     }
 
-    override fun Identity(): IdentityApi? {
+    actual fun Identity(): IdentityApi? {
         return IdentityApiImpl(mparticle.Identity())
     }
 
-    override fun getKitInstance(kitId: Int): Any? {
+    actual fun getKitInstance(kitId: Int): Any? {
         return mparticle.getKitInstance(kitId)
     }
 
-    override fun isKitActive(serviceProviderId: Int): Boolean {
+    actual fun isKitActive(serviceProviderId: Int): Boolean {
         return mparticle.isKitActive(serviceProviderId)
     }
 
-    override fun setLocation(provider: String, latitude: Double?, longitude: Double?, accuracy: Float?) {
+    actual fun setLocation(provider: String, latitude: Double?, longitude: Double?, accuracy: Float?) {
         android.location.Location(provider).apply {
             latitude?.let { setLatitude(latitude) }
             longitude?.let { setLongitude(longitude) }
@@ -91,91 +93,97 @@ class MParticleImpl(val mparticle: MParticleAndroid): MParticle {
         }
     }
 
-    override fun setSessionAttribute(key: String, value: Any?) {
+    actual fun setSessionAttribute(key: String, value: Any?) {
         mparticle.setSessionAttribute(key, value)
     }
 
-    override fun incrementSessionAttribute(key: String, value: Int) {
+    actual fun incrementSessionAttribute(key: String, value: Int) {
         mparticle.incrementSessionAttribute(key, value)
     }
 
-    override fun setIntegrationAttributes(integrationId: Int, attributes: Map<String, String?>?) {
+    actual fun setIntegrationAttributes(integrationId: Int, attributes: Map<String, String?>?) {
         mparticle.setIntegrationAttributes(integrationId, attributes)
     }
 
-    override fun getIntegrationAttributes(integrationId: Int): MutableMap<String?, String?>? {
+    actual fun getIntegrationAttributes(integrationId: Int): MutableMap<String?, String?>? {
         return mparticle.getIntegrationAttributes(integrationId)
     }
 
-    override fun enableLocationTracking(provider: String, minTime: Long, minDistance: Long) {
+    actual fun enableLocationTracking(provider: String, minTime: Long, minDistance: Long) {
         mparticle.enableLocationTracking(provider, minTime, minDistance)
     }
 
-    override fun disableLocationTracking() {
+    actual fun disableLocationTracking() {
         mparticle.disableLocationTracking()
     }
 
-    override fun isLocationTrackingEnabled(): Boolean {
+    actual fun isLocationTrackingEnabled(): Boolean {
         return mparticle.isLocationTrackingEnabled
     }
 
-    override fun enableUncaughtExceptionLogging() {
+    actual fun enableUncaughtExceptionLogging() {
         mparticle.enableUncaughtExceptionLogging()
     }
 
-    override fun disableUncaughtExceptionLogging() {
+    actual fun disableUncaughtExceptionLogging() {
         mparticle.disableLocationTracking()
     }
 
-    override fun setInstallReferrer(referrer: String?) {
+    actual fun setInstallReferrer(referrer: String?) {
         mparticle.installReferrer = referrer
     }
 
-    override fun getInstallReferrer(): String? {
+    actual fun getInstallReferrer(): String? {
         return mparticle.installReferrer
     }
 
-    override fun getEnvironment(): Environment? {
+    actual fun getEnvironment(): Environment? {
         return Environment.values().first { it.name.equals(mparticle.environment.name, ignoreCase = true) }
     }
 
-    override fun getCurrentSession(): Session? {
-        val session = mparticle.currentSession
-        if (session == null) {
-            return null
-        } else {
-            return object : Session {
-                override fun getSessionUUID() = session.sessionUUID!!
+    actual fun getCurrentSession(): Session? =
+        mparticle.currentSession?.let { Session(it) }
 
-                override fun getSessionID() = session.sessionID
-
-                override fun getSessionStartTime() = throw RuntimeException("Not implemented")
-            }
-        }
-    }
-
-    override fun isAutoTrackingEnabled(): Boolean? {
+    actual fun isAutoTrackingEnabled(): Boolean? {
         return mparticle.isAutoTrackingEnabled
     }
 
-    override fun isDevicePerformanceMetricsDisabled(): Boolean {
+    actual fun isDevicePerformanceMetricsDisabled(): Boolean {
         return mparticle.isDevicePerformanceMetricsDisabled
     }
 
-    override fun getSessionTimeout(): Int {
+    actual fun getSessionTimeout(): Int {
         return mparticle.sessionTimeout
     }
 
-    override fun isProviderActive(serviceProviderId: Int): Boolean {
+    actual fun isProviderActive(serviceProviderId: Int): Boolean {
         return mparticle.isProviderActive(serviceProviderId)
     }
 
-    override fun logException(exception: Exception?, eventData: Map<String?, String?>?, message: String?) {
+    actual fun logException(exception: Exception?, eventData: Map<String?, String?>?, message: String?) {
         mparticle.logException(Exception(exception), eventData, message)
+    }
+
+    actual companion object {
+        actual fun start(options: MParticleOptions) {
+            Platforms().start(options)
+        }
+
+        actual fun getInstance(): MParticle? {
+            return Platforms().getInstance()
+        }
+
+        actual fun clearInstance() {
+            Platforms().clearInstance()
+        }
+
+        actual fun reset(clientPlatform: ClientPlatform) {
+            Platforms().reset(clientPlatform)
+        }
     }
 }
 
-actual class MParticleOptions actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform, initializer: (MParticleOptions.() -> Unit)?) {
+actual class MParticleOptions actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform) {
 
     class Dataplan(var dataplanId: String? = null, var dataplanVersion: Int? = null)
 
@@ -214,53 +222,46 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
     actual var logLevel: LogLevel? = null
 }
 
-fun MParticleOptions.toMParticleOptions(): MParticleOptionsAndroid {
-    val builder = MParticleOptionsAndroid.builder(clientPlatform.context)
-        .credentials(apiKey, apiSecret)
-        .dataplan(dataplanId, dataplanVersion)
+actual class NetworkOptions actual constructor() {
 
-    this.androidIdDisabled?.let { builder.androidIdDisabled(it) }
-    this.dataplanOptions?.let {
-        builder.dataplanOptions(
-            com.mparticle.MParticleOptions.DataplanOptions.builder()
-                .dataplanVersion(it.dataplan)
-                .blockEventAttributes(it.blockEventAttributes)
-                .blockEvents(it.blockEvents)
-                .blockUserAttributes(it.blockUserAttributes)
-                .blockUserIdentities(it.blockUserIdentities)
-                .build()
-        )
-    }
-    this.devicePerformanceMetricsDisabled?.let { builder.devicePerformanceMetricsDisabled(it) }
-    this.enableUncaughtExceptionLogging?.let { builder.enableUncaughtExceptionLogging(it)}
-    this.environment?.let { environment -> builder.environment(com.mparticle.MParticle.Environment.values().first {
-        it.name.equals(environment.name, ignoreCase = true)
-    }) }
-    this.identifyRequest?.let {
-        builder.identify(it.build())
-    }
-    this.identifyTask?.let { builder.identifyTask(it.toBaseIdentityTask()) }
-    this.identityConnectionTimeout?.let { builder.identityConnectionTimeout(it) }
-    this.sessionTimeout?.let { builder.sessionTimeout(it) }
-    this.uploadInterval?.let { builder.uploadInterval(it) }
-    this.logLevel?.let { logLevel -> builder.logLevel(logLevel.toLogLevel())}
-
-    if (pushRegistrationInstanceId != null && pushRegistrationSenderId != null) {
-        builder.pushRegistration(pushRegistrationInstanceId!!, pushRegistrationSenderId!!)
-    }
-
-    return builder.build()
 }
 
-fun InstallType.toInstallType(): InstallTypeAndroid {
-    return InstallTypeAndroid.values().first {
-        it.name == name
-    }
+actual class Session(val session: com.mparticle.Session) {
+    actual val uusd: String = session.sessionUUID!!
+    actual val id: Long = session.sessionID
+    actual val startTime: Long = session.sessionStartTime!!
+
 }
 
-
-fun LogLevel.toLogLevel(): LogLevelAndroid {
-    return LogLevelAndroid.values().first {
-        it.logLevel == level
-    }
+actual class DataplanOptions(val dataplanOptions: com.mparticle.MParticleOptions.DataplanOptions.Builder) {
+    actual var dataplan: String? = null
+        get() = field
+        set(value) {
+            dataplanOptions.dataplanVersion(value)
+            field = value
+        }
+    actual var blockUserAttributes: Boolean = false
+        get() = field
+        set(value) {
+            dataplanOptions.blockUserAttributes(value)
+            field = value
+        }
+    actual var blockUserIdentities: Boolean = false
+        get() = field
+        set(value) {
+            dataplanOptions.blockUserIdentities(value)
+            field = value
+        }
+    actual var blockEventAttributes: Boolean = false
+        get() = field
+        set(value) {
+            dataplanOptions.blockEventAttributes(value)
+            field = value
+        }
+    actual var blockEvents: Boolean = false
+        get() = field
+        set(value) {
+            dataplanOptions.blockEvents(value)
+            field = value
+        }
 }

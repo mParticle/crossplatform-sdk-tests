@@ -9,23 +9,30 @@ import cocoapods.mParticle_Apple_SDK.MPBaseEvent as BaseEventIOS
 import cocoapods.mParticle_Apple_SDK.MPCommerceEvent as CommerceEventIOS
 import cocoapods.mParticle_Apple_SDK.MPEvent as MPEventIOS
 import cocoapods.mParticle_Apple_SDK.MPProduct as ProductIOS
-
-class BaseEventImpl {
-}
+import cocoapods.mParticle_Apple_SDK.MPEventType as MPEventTypeIOS
 
 fun BaseEvent.toBaseEvent(): BaseEventIOS {
     val event = when (this) {
         is CommerceEvent -> {
             this.getEvent()
         }
-        is MPEventIOS -> {
-
+        is MPEvent -> {
+            this.getEvent()
         }
         else -> {
 
         }
     }
     return event as BaseEventIOS
+}
+
+fun MPEvent.getEvent(): MPEventIOS {
+    return MPEventIOS().also {
+        it.category = category
+        it.customAttributes = customAttributes.entries.associate { it.key to it.value }
+        it.name = eventName
+        it.type = eventType.ordinal.toULong()
+    }
 }
 
 fun CommerceEvent.getEvent(): CommerceEventIOS {

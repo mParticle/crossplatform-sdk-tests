@@ -7,7 +7,25 @@ import com.mparticle.api.identity.BaseIdentityTask
 import com.mparticle.api.identity.IdentityApi
 import com.mparticle.api.identity.IdentityApiRequest
 
-interface MParticle {
+expect class MParticle {
+
+    /**
+     * TODO// Change a bunch of these to properties:
+     *
+     * //Actions
+     * val optOut: Boolean
+        //Configurations
+        var locationTracking: LocationTracking?
+        var uncaughtExceptionLogging: Boolean
+
+        val installReferrer: String?
+        val environment: Environment?
+        val currentSession: Session?
+
+        val autoTrackingEnabled: Boolean?
+        val devicePerformanceMetricsDisabled: Boolean
+        val sessionTimeout: Int
+     */
     //Actions
     fun upload()
     fun setOptOut(optOutStatus: Boolean)
@@ -55,26 +73,14 @@ interface MParticle {
     fun isProviderActive(serviceProviderId: Int): Boolean
 
     companion object {
-        fun start(options: MParticleOptions) {
-            Platforms().start(options)
-        }
-
-        fun getInstance(): MParticle? {
-            return Platforms().getInstance()
-        }
-
-        fun clearInstance() {
-            Platforms().clearInstance()
-        }
-
-        fun reset(clientPlatform: ClientPlatform) {
-            Platforms().reset(clientPlatform)
-        }
+        fun start(options: MParticleOptions)
+        fun getInstance(): MParticle?
+        fun clearInstance()
+        fun reset(clientPlatform: ClientPlatform)
     }
 }
 
-
-expect class MParticleOptions(apiKey: String = "api key", apiSecret: String = "api secret", clientPlatform: ClientPlatform, initializer: (MParticleOptions.() -> Unit)? = null) {
+expect class MParticleOptions private constructor(apiKey: String = "api key", apiSecret: String = "api secret", clientPlatform: ClientPlatform) {
 
     var clientPlatform: ClientPlatform
 
@@ -115,9 +121,10 @@ expect class MParticleOptions(apiKey: String = "api key", apiSecret: String = "a
 
     //developer tool
     var logLevel: LogLevel?
+}
 
-
-
+fun MParticleOptions(apiKey: String = "api key", apiSecret: String = "api secret", clientPlatform: ClientPlatform, initializer: (MParticleOptions.() -> Unit) = {}): MParticleOptions {
+    return MParticleOptions(apiKey, apiSecret, clientPlatform).apply(initializer)
 }
 
 class LocationTracking(
@@ -141,10 +148,10 @@ enum class Environment() {
     AutoDetect
 }
 
-interface Session {
-    fun getSessionUUID(): String
-    fun getSessionID(): Long
-    fun getSessionStartTime(): Long
+expect class Session {
+    val uusd: String
+    val id: Long
+    val startTime: Long
 }
 
 class Location {
@@ -160,14 +167,14 @@ enum class InstallType {
     KnownUpgrde
 }
 
-class NetworkOptions {
+expect class NetworkOptions() {
 
 }
 
-class DataplanOptions {
-    var dataplan: String? = null
-    var blockUserAttributes = false
-    var blockUserIdentities = false
-    var blockEventAttributes = false
-    var blockEvents = false
+expect class DataplanOptions {
+    var dataplan: String?
+    var blockUserAttributes: Boolean
+    var blockUserIdentities: Boolean
+    var blockEventAttributes: Boolean
+    var blockEvents: Boolean
 }

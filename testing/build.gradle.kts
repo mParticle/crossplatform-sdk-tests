@@ -8,6 +8,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     kotlin("native.cocoapods")
+
 }
 
 
@@ -18,10 +19,12 @@ kotlin {
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
         iosArm64("ios") {
+            println("ON PHONE")
             binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
         }
     } else {
         iosX64("ios") {
+            println("NOTTTT on phone")
             binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
         }
     }
@@ -32,7 +35,7 @@ kotlin {
         setVersion(1.0)
         ios.deploymentTarget= "14.3"
 
-        pod("mParticle-Apple-SDK", path = project.file("../.sdks/apple"))
+        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple"))
     }
     sourceSets {
         val commonMain by getting {
@@ -41,8 +44,17 @@ kotlin {
                 api(project(":models"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1-native-mt") {
+                    version {
+                        strictly("1.5.1-native-mt")
+                    }
+                }
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+
+                implementation("co.touchlab:stately-isolate:1.1.4-a1")
+                implementation("co.touchlab:stately-common:1.1.4")
+                implementation("co.touchlab:stately-concurrency:1.1.4")
             }
         }
         val androidMain by getting {
@@ -52,24 +64,13 @@ kotlin {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13.2")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.2.2")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.2.2")
-
                 api("androidx.test:runner:1.4.0")
                 api("androidx.test.ext:junit:1.1.3")
                 api("androidx.test:rules:1.4.0")
             }
         }
-        val iosMain by getting {
-            dependencies {
-                api(project(":api"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
-            }
-        }
-        val iosTest by getting
-
+        val iosMain by getting
     }
 }
 
@@ -80,6 +81,10 @@ android {
         minSdkVersion(14)
         targetSdkVersion(29)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 dependencies {

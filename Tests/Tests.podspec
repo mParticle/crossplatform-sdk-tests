@@ -14,7 +14,7 @@ Pod::Spec.new do |spec|
 
     spec.ios.deployment_target = '14.3'
 
-    spec.dependency 'mParticle-Apple-SDK'
+    spec.dependency 'mParticle-Apple-SDK/mParticle'
 
     spec.pod_target_xcconfig = {
         'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64',

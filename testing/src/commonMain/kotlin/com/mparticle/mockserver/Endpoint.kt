@@ -1,20 +1,26 @@
 package com.mparticle.mockserver
 
 import com.mparticle.*
+import com.mparticle.api.Logger
 import com.mparticle.mockserver.model.RawConnection
 import com.mparticle.testing.FailureLatch
+import com.mparticle.mockserver.model.SimpleRawConnection
+import com.mparticle.mockserver.*
 import kotlinx.serialization.json.Json
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmSynthetic
+import kotlin.native.concurrent.ThreadLocal
+
 
 class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointType: EndpointType<T, R>) {
-    private val testingHandler = mockServer.testingHandler
-    private val requestFinishedFilters: MutableList<(T, MockServer2.Response<R>, RawConnection) -> Boolean> = mutableListOf()
+
+
+    private val requestFinishedFilters: MutableList<(T, Response<R>, RawConnection) -> Boolean> = mutableListOf()
     internal val responseLogic: MutableMap<RequestFilter<T>, ResponseLogic<T, R>> = mutableMapOf()
-    private var _receivedRequests = mutableListOf<MockServer2.ReceivedRequests<T, R>>()
+    private var _receivedRequests = mutableListOf<ReceivedRequests<T, R>>()
 
 
-    val receivedRequests: List<MockServer2.ReceivedRequests<T, R>>
+    val receivedRequests: List<ReceivedRequests<T, R>>
         get() {
             return ArrayList(_receivedRequests)
         }
@@ -22,11 +28,10 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
     /**
      * internal method for processing a request to this endpoing
      */
-    internal fun onReceive(request: T, connection: RawConnection) {
+    internal fun onReceive(request: T, connection: RawConnection): RawConnection {
         //reverse so the most recently registered logic gets precidence
-
         val responseLogic = responseLogic.entries.reversed().firstOrNull { it.key(
-            MockServer2.Request(
+            Request(
                 request,
                 connection
             )
@@ -36,48 +41,64 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
                 """
                     Request does not have corresponding response logic
                         url: ${connection.getUrl()}
-                        request: ${Json.encodeToString(endpointType.requestSerializer, request)}
                         """
             )
-            return
+            return connection
         }
 
         val response = try {
-            responseLogic(MockServer2.Request(request, connection))
+            responseLogic(Request(request, connection))
         } catch (e: Exception) {
             mockServer.failHard(e)
             throw e
         }
+        Logger().error("Response: $response")
         //add request/response to the receivedRequests list
         try {
             _receivedRequests.add(
-                MockServer2.ReceivedRequests<T, R>(
+                ReceivedRequests<T, R>(
                     endpointType,
-                    MockServer2.Request(request, connection),
+                    Request(request, connection),
                     response
                 )
             )
         } catch (e: Exception) {
+            Logger().error("Could not modify receivedRequests: ${e.message}")
         }
 
+        Logger().error("Copying over to new response object")
+        val returnConnection =
+            SimpleRawConnection(
+                connection.getUrl(),
+                { connection.getRequestBody() },
+                response.httpCode,
+                response.errorMessage,
+                responseBody = if (response.responseObject != null) {
+                    Json.encodeToString(endpointType.responseSerializer, response.responseObject)
+                } else {
+                    null
+                },
+                responseHeaders = response.headers
+            )
+        Logger().error("Removing request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         //loop through all the registered callbacks, remove any matches after they have been invoked
-        requestFinishedFilters.removeAll { it(request, response, connection) }
-
-        connection.setResponseCode(response.httpCode)
-        if (response.isError) {
-            connection.setResponseError(response.errorMessage ?: "generic-error")
-        } else {
-            val responseString = if (response.responseObject != null) {
-                Json.encodeToString(endpointType.responseSerializer, response.responseObject)
-            } else {
-                null
+        try {
+            requestFinishedFilters.removeAll {
+                Logger().error("testing requestFinisheddFilter..")
+                val result = it(request, response, returnConnection)
+                Logger().error("result, isMatch = $result")
+                result
             }
-            connection.setResponseBody(responseString)
         }
+        catch (ex: Exception) {
+            Logger().error(ex.message ?: ex.toString())
+        }
+        Logger().error("Returning connection: $returnConnection")
+        return returnConnection
     }
 
     @JvmOverloads
-    fun onRequestFinishedBlocking(requestFilter: MockServer2.IRequestFilter<T>? = null, onRequestCallback: MockServer2.IOnRequestCallback<T, R>? = null): Endpoint<T, R> {
+    fun onRequestFinishedBlocking(requestFilter: IRequestFilter<T>? = null, onRequestCallback: IOnRequestCallback<T, R>? = null): Endpoint<T, R> {
         onRequestFinishedBlocking({ requestFilter?.isMatch(it) ?: true}) { req, resp -> onRequestCallback?.onRequest(req, resp)}
         return this
     }
@@ -94,25 +115,28 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
     }
 
     @JvmOverloads
-    fun onRequestFinished(requestFilter: MockServer2.IRequestFilter<T>? = null, onRequestCallback: MockServer2.IOnRequestCallback<T, R>? = null): Endpoint<T, R> {
+    fun onRequestFinished(requestFilter: IRequestFilter<T>? = null, onRequestCallback: IOnRequestCallback<T, R>? = null): Endpoint<T, R> {
         onRequestFinished({ requestFilter?.isMatch(it) ?: true}) { req, resp -> onRequestCallback?.onRequest(req, resp)}
         return this
     }
 
     @JvmSynthetic
     fun onRequestFinished(requestFilter: RequestFilter<T>?, onRequestCallback: OnRequestCallback<T, R>?): Endpoint<T, R> {
+        Logger().error("log")
+        Logger().error("Adding request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         requestFinishedFilters.add ({ request, response, connection ->
-            var isMatch = requestFilter?.invoke(MockServer2.Request(request, connection)) ?: true
+            Logger().error("Request filter is null = ${requestFilter == null}")
+            var isMatch = requestFilter?.invoke(Request(request, connection)) ?: true
             if (isMatch) {
                 try {
-                    onRequestCallback?.invoke(MockServer2.Request(request, connection), response)
+                    onRequestCallback?.invoke(Request(request, connection), response)
                 } catch (e: Throwable) {
                     mockServer.failHard(exception = e);
                 }
-            } else {
             }
             isMatch
         })
+        Logger().error("ADDED request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         return this
     }
 
@@ -130,7 +154,7 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
      * @param logic a callback to generate a Response object for a given Request
      */
     @JvmOverloads
-    fun addRequestResponseLogic(filter: MockServer2.IRequestFilter<T>?, logic: MockServer2.IResponseLogic<T, R>): Endpoint<T, R> {
+    fun addRequestResponseLogic(filter: IRequestFilter<T>?, logic: IResponseLogic<T, R>): Endpoint<T, R> {
         addRequestResponseLogic({ filter?.isMatch(it) ?: true}) { req -> logic.generateResponse(req)}
         return this
     }

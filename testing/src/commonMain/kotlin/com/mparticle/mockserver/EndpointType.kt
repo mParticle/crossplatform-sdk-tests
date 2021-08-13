@@ -1,6 +1,8 @@
 package com.mparticle.mockserver
 
+import com.mparticle.api.Logger
 import com.mparticle.messages.*
+import com.mparticle.messages.events.BatchMessage
 import com.mparticle.mockserver.model.RawConnection
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
@@ -8,25 +10,32 @@ import kotlin.jvm.JvmField
 
 
 class EndpointType<T, R> private constructor(val name: String,
-                                                           internal val requestSerializer: KSerializer<T>,
+                                                           internal val requestDeserializer: (String) -> T,
                                                            internal val responseSerializer: KSerializer<R>,
                                                            internal val urlMatch: (String) -> Boolean) {
     init {
         values.add(this)
     }
 
-    internal fun onReceive(mockServer: MockServer2, connection: RawConnection): Boolean {
+    internal fun onReceive(mockServer: MockServer2, connection: RawConnection): RawConnection? {
         val request = parse(mockServer, connection)
-        if (request != null) {
+        return if (request != null) {
             mockServer.getEndpoint(this).onReceive(request, connection)
+        } else {
+            null
         }
-        return request != null
     }
 
     internal fun parse(mockServer: MockServer2, connection: RawConnection): T? {
         try {
-            val json = connection.getBody()
-            return Json.decodeFromString(requestSerializer, json)
+            Logger().error("Handling Request in $name Endpoint")
+
+            val json = connection.getRequestBody()
+            if (json == null || json.isEmpty() || json == "null") {
+                return Empty() as T
+            }
+            Logger().error("Decoding request: $json")
+            return requestDeserializer(json)
         } catch (e: Exception) {
             mockServer.failHard(e)
             return null
@@ -37,19 +46,19 @@ class EndpointType<T, R> private constructor(val name: String,
         internal val values = mutableSetOf<EndpointType<*, *>>()
 
         @JvmField
-        val Config = EndpointType("Config", Empty.serializer(), ConfigResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("config") } }
+        val Config = EndpointType("Config", { Empty() }, ConfigResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("config") } }
         @JvmField
-        val Events = EndpointType("Events", MessageBatchMessage.serializer(), Empty.serializer()) { it.split("/").let { it[it.size - 1].startsWith("events") }}
+        val Events = EndpointType("Events", BatchMessage.parser, Empty.serializer()) { it.split("/").let { it[it.size - 1].startsWith("events") }}
         @JvmField
-        val Alias = EndpointType("Alias", AliasRequestMessage.serializer(), Empty.serializer()) { it.split("/").let { it[it.size - 1].startsWith("alias") }}
+        val Alias = EndpointType("Alias", AliasRequestMessage.parser, Empty.serializer()) { it.split("/").let { it[it.size - 1].startsWith("alias") }}
         @JvmField
-        val Identity_Identify = EndpointType("Identity_Identify", IdentityRequestMessage.serializer(), IdentityResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("identify") }}
+        val Identity_Identify = EndpointType("Identity_Identify", IdentityRequestMessage.parser, IdentityResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("identify") }}
         @JvmField
-        val Identity_Login = EndpointType("Identity_Login",  IdentityRequestMessage.serializer(), IdentityResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("login") }}
+        val Identity_Login = EndpointType("Identity_Login",  IdentityRequestMessage.parser, IdentityResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("login") }}
         @JvmField
-        val Identity_Logout = EndpointType("Identity_Logout",  IdentityRequestMessage.serializer(), IdentityResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("logout") }}
+        val Identity_Logout = EndpointType("Identity_Logout",  IdentityRequestMessage.parser, IdentityResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("logout") }}
         @JvmField
-        val Identity_Modify = EndpointType("Identity_Modify",  IdentityRequestMessage.serializer(), IdentityResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("modify") }}
+        val Identity_Modify = EndpointType("Identity_Modify",  IdentityRequestMessage.parser, IdentityResponseMessage.serializer()) { it.split("/").let { it[it.size - 1].startsWith("modify") }}
     }
 
     override fun equals(other: Any?): Boolean {

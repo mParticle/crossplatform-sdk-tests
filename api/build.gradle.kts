@@ -36,7 +36,7 @@ kotlin {
         setVersion(0.1)
         ios.deploymentTarget= "14.3"
 
-        pod("mParticle-Apple-SDK", path = project.file("../.sdks/apple"))
+        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple"))
     }
     sourceSets {
         val commonMain by getting {
@@ -72,6 +72,10 @@ android {
         minSdkVersion(14)
         targetSdkVersion(29)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 dependencies {

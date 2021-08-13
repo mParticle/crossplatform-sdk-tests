@@ -16,14 +16,13 @@ import cocoapods.mParticle_Apple_SDK.MPModifyApiResultCallback as ModifyApiResul
 
 
 class IdentityApiImpl(val identityApi: IdentityApiIOS): IdentityApi {
-    override fun getCurrentUser(): MParticleUser? = identityApi.currentUser?.let { MParticleUserImpl(it) }
-    override fun getUser(mpid: Long): MParticleUser? = identityApi.getUser(NSNumber(long = mpid))?.let { MParticleUserImpl(it) }
-    override fun getUsers(): List<MParticleUser> = identityApi.getAllUsers().map { MParticleUserImpl(it as MParticleUserIOS) }
+    override fun getCurrentUser(): MParticleUser? = identityApi.currentUser?.let { MParticleUser(it) }
+    override fun getUser(mpid: Long): MParticleUser? = identityApi.getUser(NSNumber(long = mpid))?.let { MParticleUser(it) }
+    override fun getUsers(): List<MParticleUser> = identityApi.getAllUsers().map { MParticleUser(it as MParticleUserIOS) }
     override fun identify(request: IdentityApiRequest?) {
-        //TODO implement callback
         identityApi.identify(request?.identityRequest ?: MPIdentityApiRequest(), object: IdentityApiResultCallbackIOS {
             override fun invoke(p1: MPIdentityApiResult?, p2: NSError?) {
-                TODO("Not yet implemented")
+
             }
         })
     }
@@ -53,12 +52,12 @@ class IdentityApiImpl(val identityApi: IdentityApiIOS): IdentityApi {
     }
 }
 
-class MParticleUserImpl(val user: MParticleUserIOS): MParticleUser {
+actual class MParticleUser(val user: MParticleUserIOS) {
     
-    override fun getId(): Long = user.userId.longLongValue
-    override fun getUserAttributes(): Map<String, Any?> = user.userAttributes.entries.associate { it.key!!.toString() to it.value }
-    override fun getUserAttributes(listener: UserAttributeListener?): Map<String, Any?>? = throw RuntimeException("Not available on iOS")
-    override fun setUserAttributes(userAttributes: Map<String, Any?>): Boolean {
+    actual fun getId(): Long = user.userId.longLongValue
+    actual fun getUserAttributes(): Map<String, Any?> = user.userAttributes.entries.associate { it.key!!.toString() to it.value }
+    actual fun getUserAttributes(listener: UserAttributeListener?): Map<String, Any?>? = throw RuntimeException("Not available on iOS")
+    actual fun setUserAttributes(userAttributes: Map<String, Any?>): Boolean {
         userAttributes.entries
             .associate {
                 it.key as Any? to it.value
@@ -67,31 +66,25 @@ class MParticleUserImpl(val user: MParticleUserIOS): MParticleUser {
             }
         return true
     }
-    override fun getUserIdentities(): Map<IdentityType, String> = user.identities.entries.associate { it.key!!.toIdentityType() to it.value.toString() }
-    override fun setUserAttribute(key: String, value: Any): Boolean = user.setUserAttribute(key, value).let { true }
-    override fun setUserAttributeList(key: String, value: Any): Boolean = user.setUserAttributeList(key, value as List<*>).let { true }
-    override fun incrementUserAttribute(key: String, value: Int): Boolean = user.incrementUserAttribute(key, NSNumber(value)).let { true }
-    override fun removeUserAttribute(key: String): Boolean = user.removeUserAttribute(key).let { true }
-    override fun setUserTag(tag: String): Boolean = user.setUserTag(tag)?.let { true }
-    override fun getConsentState(): ConsentState = com.mparticle.api.identity.ConsentState(user.consentState())
-    override fun setConsentState(state: ConsentState?) = user.setConsentState(state ?: ConsentStateIOS())
-    override fun isLoggedIn(): Boolean = user.isLoggedIn
-    override fun getFirstSeenTime(): Long = user.firstSeen.timeIntervalSinceReferenceDate.toLong()
-    override fun getLastSeenTime(): Long = user.firstSeen.timeIntervalSinceReferenceDate.toLong()
+    actual fun getUserIdentities(): Map<IdentityType, String> = user.identities.entries.associate { it.key!!.toIdentityType() to it.value.toString() }
+    actual fun setUserAttribute(key: String, value: Any): Boolean = user.setUserAttribute(key, value).let { true }
+    actual fun setUserAttributeList(key: String, value: Any): Boolean = user.setUserAttributeList(key, value as List<*>).let { true }
+    actual fun incrementUserAttribute(key: String, value: Int): Boolean = user.incrementUserAttribute(key, NSNumber(value)).let { true }
+    actual fun removeUserAttribute(key: String): Boolean = user.removeUserAttribute(key).let { true }
+    actual fun setUserTag(tag: String): Boolean = user.setUserTag(tag)?.let { true }
+    actual fun getConsentState(): ConsentState = com.mparticle.api.identity.ConsentState(user.consentState())
+    actual fun setConsentState(state: ConsentState?) = user.setConsentState(state ?: ConsentStateIOS())
+    actual fun isLoggedIn(): Boolean = user.isLoggedIn
+    actual fun getFirstSeenTime(): Long = user.firstSeen.timeIntervalSinceReferenceDate.toLong()
+    actual fun getLastSeenTime(): Long = user.firstSeen.timeIntervalSinceReferenceDate.toLong()
 }
 
-actual class IdentityApiRequest actual constructor(user: MParticleUser?) {
-    val identityRequest: MPIdentityApiRequest = MPIdentityApiRequest.requestWithEmptyUser()
+actual class IdentityApiRequest(val identityRequest: MPIdentityApiRequest) {
+    actual constructor(user: MParticleUser?): this(user?.let { MPIdentityApiRequest.requestWithUser(it.user)} ?: MPIdentityApiRequest.requestWithEmptyUser())
 
-    init {
-        user?.getUserIdentities()?.forEach {
-            identityRequest.setIdentity(it.value, it.key.ordinal.toULong())
-        }
-    }
     actual fun addIdentity(key: IdentityType, value: String?) {
         identityRequest.setIdentity(value, key.ordinal.toULong())
     }
-
 }
 
 actual class ConsentState(val consentState: ConsentStateIOS? = null): ConsentStateIOS() {

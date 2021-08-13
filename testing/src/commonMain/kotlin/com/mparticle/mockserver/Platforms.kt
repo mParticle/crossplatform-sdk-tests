@@ -4,11 +4,11 @@ import com.mparticle.messages.*
 
 expect open class Platforms() {
 
-    var mainThreadRunner: ThreadRunner
+    var mainThreadRunner: MainThreadRunner
 
     fun sleep(millis: Long)
 
-    fun injectMockServer(mockserver: MockServer2)
+    fun injectMockServer()
 
     fun setCachedConfig(configMessage: ConfigResponseMessage)
 
@@ -22,11 +22,17 @@ expect open class Platforms() {
     //if null, return all tables
     fun getDatabaseSchema(): Map<String, Any>
     fun getDatabaseSchema(tables: List<String>?): Map<String, Any>
+
+    fun currentThread(): String?
+
+    fun isServerThread(): Boolean
+    fun prepareThread()
 }
 
-expect class ThreadRunner {
+expect class MainThreadRunner {
     fun run(runnable: Runnable)
     fun runDelayed(delay: Long, runnable: Runnable)
 }
 
 typealias Runnable = () -> Unit
+

@@ -15,14 +15,14 @@ import com.mparticle.consent.ConsentState as ConsentStateAndroid
 
 class IdentityApiImpl(val identityApi: IdentityApiAndroid): IdentityApi {
 
-    override fun getCurrentUser(): MParticleUser? = identityApi.currentUser?.let { MParticleUserImpl(it) }
+    override fun getCurrentUser(): MParticleUser? = identityApi.currentUser?.let { MParticleUser(it) }
 
     override fun getUser(mpid: Long): MParticleUser? {
-        return identityApi.getUser(mpid)?.let { MParticleUserImpl(it) }
+        return identityApi.getUser(mpid)?.let { MParticleUser(it) }
     }
 
     override fun getUsers(): List<MParticleUser> {
-        return identityApi.users.map { MParticleUserImpl(it) }
+        return identityApi.users.map { MParticleUser(it) }
     }
 
     override fun identify(request: IdentityApiRequest?) {
@@ -68,22 +68,22 @@ class MParticleUserAndroidImpl(val user: MParticleUser): MParticleUserAndroid {
     override fun getLastSeenTime(): Long = user.getLastSeenTime()
 }
 
-class MParticleUserImpl(val user: MParticleUserAndroid): MParticleUser {
-    override fun getId(): Long = user.id
-    override fun getUserAttributes(): Map<String, Any?> = user.userAttributes
-    override fun getUserAttributes(listener: UserAttributeListener?): Map<String, Any?>? = user.getUserAttributes(listener?.toUserAttributeListener())
-    override fun setUserAttributes(userAttributes: Map<String, Any?>): Boolean = user.setUserAttributes(userAttributes)
-    override fun getUserIdentities(): Map<IdentityType, String> = user.userIdentities.entries.associate { it.key.toIdentityType() to it.value }
-    override fun setUserAttribute(key: String, value: Any): Boolean = user.setUserAttribute(key, value)
-    override fun setUserAttributeList(key: String, value: Any): Boolean = user.setUserAttributeList(key, value)
-    override fun incrementUserAttribute(key: String, value: Int): Boolean = user.incrementUserAttribute(key, value)
-    override fun removeUserAttribute(key: String): Boolean = user.removeUserAttribute(key)
-    override fun setUserTag(tag: String): Boolean = user.setUserTag(tag)
-    override fun getConsentState(): ConsentState = ConsentState(user.consentState)
-    override fun setConsentState(state: ConsentState?) = user.setConsentState(state?.build())
-    override fun isLoggedIn(): Boolean = user.isLoggedIn
-    override fun getFirstSeenTime(): Long = user.firstSeenTime
-    override fun getLastSeenTime(): Long = user.lastSeenTime
+actual class MParticleUser(val user: MParticleUserAndroid) {
+    actual fun getId(): Long = user.id
+    actual fun getUserAttributes(): Map<String, Any?> = user.userAttributes
+    actual fun getUserAttributes(listener: UserAttributeListener?): Map<String, Any?>? = user.getUserAttributes(listener?.toUserAttributeListener())
+    actual fun setUserAttributes(userAttributes: Map<String, Any?>): Boolean = user.setUserAttributes(userAttributes)
+    actual fun getUserIdentities(): Map<IdentityType, String> = user.userIdentities.entries.associate { it.key.toIdentityType() to it.value }
+    actual fun setUserAttribute(key: String, value: Any): Boolean = user.setUserAttribute(key, value)
+    actual fun setUserAttributeList(key: String, value: Any): Boolean = user.setUserAttributeList(key, value)
+    actual fun incrementUserAttribute(key: String, value: Int): Boolean = user.incrementUserAttribute(key, value)
+    actual fun removeUserAttribute(key: String): Boolean = user.removeUserAttribute(key)
+    actual fun setUserTag(tag: String): Boolean = user.setUserTag(tag)
+    actual fun getConsentState(): ConsentState = ConsentState(user.consentState)
+    actual fun setConsentState(state: ConsentState?) = user.setConsentState(state?.build())
+    actual fun isLoggedIn(): Boolean = user.isLoggedIn
+    actual fun getFirstSeenTime(): Long = user.firstSeenTime
+    actual fun getLastSeenTime(): Long = user.lastSeenTime
 }
 
 fun IdentityType.toIdentityType(): IdentityTypeAndroid {
@@ -104,7 +104,7 @@ fun BaseIdentityTask.toBaseIdentityTask(): BaseIdentityTaskAndroid {
         task.addFailureListener { listener(it?.toIdentityHttpApiResponse()) }
     }
     successListeners.forEach { listener ->
-        task.addSuccessListener { listener(MParticleUserImpl(it.user), it.previousUser?.let { user -> MParticleUserImpl(user) })}
+        task.addSuccessListener { listener(MParticleUser(it.user), it.previousUser?.let { user -> MParticleUser(user) })}
     }
     return task
 }
