@@ -1,15 +1,14 @@
 package com.mparticle.mockserver
 
-import cocoapods.mParticle_Apple_SDK.IMPConnectorResponseProtocol
+import cocoapods.mParticle_Apple_SDK.MPConnectorResponseProtocolProtocol
 import com.mparticle.api.toByteArray
 import com.mparticle.api.toNSData
 import com.mparticle.mockserver.model.RawConnection
 import platform.Foundation.*
 import platform.darwin.NSObject
 
-//actual inheritors : IMPConnectorResponseProtocol, NSObject()
 class MockConnectorResponse(private val onRequestMade: OnRequestMade, private val url: NSURL, private val message: String? = null, serializedParams: NSData? = null): NSObject(),
-    IMPConnectorResponseProtocol {
+    MPConnectorResponseProtocolProtocol {
 
     var rawConnection: RawConnection = ThreadsafeRawConnection(url.absoluteString!!, message ?: serializedParams?.toByteArray()?.decodeToString()) //serializedParams?.toByteArray().decodeToString()
     private var requestMade = false

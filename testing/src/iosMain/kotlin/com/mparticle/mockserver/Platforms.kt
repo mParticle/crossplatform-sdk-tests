@@ -16,18 +16,9 @@ import cocoapods.mParticle_Apple_SDK.MParticle as MParticleIOS
 actual open class Platforms actual constructor() {
 
     actual fun injectMockServer() {
-        Logger.info("Setting Connection Factory")
         MPNetworkCommunication.setConnectorFactory(MockConnectorFactory { rawConnection: RawConnection ->
-            Logger.info("CHECKING MockServer2 Status (iOS Worker Thread)\n ${currentThread()}")
-//            Logger.error("(setConnectorFactory)Mockserver is frozen? = ${MockServerAccessor.run { isFrozen }}")
-            Logger.info("Attempting connection for request: $rawConnection")
             MockServerAccessor.runAndReturn {
-                Logger.info("(pre-onRequestMade)")
-                Logger.info(rawConnection.toString())
-                Logger.info("ON Request made")
-                val response = onRequestMade(rawConnection)
-                Logger.info("Response (in iOS) = $response")
-                response.freeze()
+                onRequestMade(rawConnection).freeze()
             }.freeze()
         }.freeze())
     }
