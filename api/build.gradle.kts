@@ -36,7 +36,7 @@ kotlin {
         setVersion(0.1)
         ios.deploymentTarget= "14.3"
 
-        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple"))
+        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))
     }
     sourceSets {
         val commonMain by getting {

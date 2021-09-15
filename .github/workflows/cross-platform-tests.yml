@@ -32,6 +32,7 @@ jobs:
           path: com.mparticle.mockserver/build/reports/androidTests/connected/**
   iOS-Tests:
     runs-on: macOS-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v2

@@ -4,7 +4,7 @@
 target 'XCodeTest' do
   use_frameworks!
   target 'XCodeTestUITests' do
-  	pod 'mParticle-Apple-SDK/mParticle', :path => '../../../.sdks/apple'
+  	pod 'mParticle-Apple-SDK', :path => '../../../.sdks/apple-testing'
   	pod 'Tests', :path => '../../../Tests'
   end
 

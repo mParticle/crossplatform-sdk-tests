@@ -2,6 +2,10 @@ build
 .idea
 .gradle
 
+
+# iOS Temp SDK
+.sdks/apple-testing
+
 # iOS test helper project
 **/Pods
 **/Podfile.lock
