@@ -104,18 +104,8 @@ val runIos by tasks.creating(Exec::class.java) {
         "-scheme", "XCodeTestUITests",
         "-workspace", "XCodeTest.xcworkspace",
         "-configuration", "Debug",
-        "-destination", "platform=iOS Simulator,name=iPhone 12,OS=latest",
+        "-destination", "platform=iOS Simulator,name=iPhone 11,OS=latest",
         "test")
-//    dependsOn("linkDebugFrameworkIos")
-//    description = "Builds the iOS application bundle using Xcode."
-//    workingDir = project.file("helpers/XCodeTest")
-//    setCommandLine("xcrun")
-//    args("xcodebuild",
-//        "-scheme", "XCodeTestUITests",
-//        "-workspace", "XCodeTest.xcworkspace",
-//        "-configuration", "Debug",
-//        "-destination", "platform=iOS Simulator,name=iPhone 12,OS=latest",
-//        "test")
 }
 
 val runAndroid by tasks.creating() {

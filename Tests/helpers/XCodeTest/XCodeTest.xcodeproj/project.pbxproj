@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		1FB795D14C52A1F1A7C86314 /* Pods_XCodeTest_XCodeTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609DFD38BDD89E68C9E4C224 /* Pods_XCodeTest_XCodeTestUITests.framework */; };
 		B2085C3525EEC192009D03F7 /* XCodeTests.h in Headers */ = {isa = PBXBuildFile; fileRef = B2085C2725EEC191009D03F7 /* XCodeTests.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B2085C4825EEC1D1009D03F7 /* XCodeTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2085C4725EEC1D1009D03F7 /* XCodeTestUITests.swift */; };
+		B2085C4825EEC1D1009D03F7 /* SimpleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2085C4725EEC1D1009D03F7 /* SimpleTests.swift */; };
+		B2445B4F26D01F0B00A5F7F1 /* CommerceIosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */; };
 		FEE048D69E5587E96A9CB50A /* Pods_XCodeTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE27824D2D7AA018C69F4CB1 /* Pods_XCodeTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,8 +24,10 @@
 		B2085C2725EEC191009D03F7 /* XCodeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XCodeTests.h; sourceTree = "<group>"; };
 		B2085C2825EEC191009D03F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2085C4525EEC1D1009D03F7 /* XCodeTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCodeTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2085C4725EEC1D1009D03F7 /* XCodeTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCodeTestUITests.swift; sourceTree = "<group>"; };
+		B2085C4725EEC1D1009D03F7 /* SimpleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTests.swift; sourceTree = "<group>"; };
 		B2085C4925EEC1D1009D03F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommerceIosTests.swift; sourceTree = "<group>"; };
+		B2445BC826D41BDE00A5F7F1 /* XCodeTestUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = XCodeTestUITests.xctestplan; sourceTree = "<group>"; };
 		FE27824D2D7AA018C69F4CB1 /* Pods_XCodeTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCodeTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -80,8 +83,10 @@
 		B2085C4625EEC1D1009D03F7 /* XCodeTestUITests */ = {
 			isa = PBXGroup;
 			children = (
-				B2085C4725EEC1D1009D03F7 /* XCodeTestUITests.swift */,
+				B2085C4725EEC1D1009D03F7 /* SimpleTests.swift */,
+				B2445BC826D41BDE00A5F7F1 /* XCodeTestUITests.xctestplan */,
 				B2085C4925EEC1D1009D03F7 /* Info.plist */,
+				B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */,
 			);
 			path = XCodeTestUITests;
 			sourceTree = "<group>";
@@ -287,7 +292,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2085C4825EEC1D1009D03F7 /* XCodeTestUITests.swift in Sources */,
+				B2445B4F26D01F0B00A5F7F1 /* CommerceIosTests.swift in Sources */,
+				B2085C4825EEC1D1009D03F7 /* SimpleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,9 +481,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mparticle.XCodeTestUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -494,9 +502,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mparticle.XCodeTestUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
