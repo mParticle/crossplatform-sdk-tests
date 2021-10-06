@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "6086006E-F9E0-42CB-8A68-AE9A6E46C915",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:XCodeTest.xcodeproj",
+        "identifier" : "B2085C4425EEC1D1009D03F7",
+        "name" : "XCodeTestUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
