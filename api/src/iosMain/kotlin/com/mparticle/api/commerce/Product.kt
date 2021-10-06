@@ -15,7 +15,7 @@ actual class Product(val product: MPProduct) {
     actual var sku: String? by nullableProperty(product::sku)
     actual var position: Int? by TransformDelegate(product::position, intULongTransformer)
     actual var price: Double by TransformDelegate(product::price, doubleNSNumberTransformer)
-    actual var quantity: Double by TransformDelegate(product::quantity, doubleNonNullNSNumberTransformer)
+    actual var quantity: Double by TransformDelegate(property(product::quantity), doubleNonNullNSNumberTransformer)
     actual var brand: String? by property(product::brand)
     actual var variant: String? by property(product::variant)
 }

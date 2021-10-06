@@ -1,7 +1,7 @@
 package com.mparticle.api.identity
 
 expect class MParticleUser {
-    fun getId(): Long
+    val mpid: Long
     fun getUserAttributes(): Map<String, Any?>
     fun getUserAttributes(listener: UserAttributeListener?): Map<String, Any?>?
     fun setUserAttributes(userAttributes: Map<String, Any?>): Boolean

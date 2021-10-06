@@ -1,5 +1,6 @@
 package com.mparticle.testing
 
+import co.touchlab.stately.freeze
 import com.mparticle.api.Logger
 import com.mparticle.mockserver.MockServerAccessor
 import com.mparticle.mockserver.Platforms
@@ -17,6 +18,7 @@ import kotlin.random.Random
  */
 
 var awaiterInstance: Awaiter? = null
+    get() = field.freeze()
 
 actual class FailureLatch actual constructor(val description: String) {
     val platforms = Platforms()

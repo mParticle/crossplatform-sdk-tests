@@ -6,12 +6,12 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable
 @SerialName("cm")
-class CommerceEvent: BaseEvent() {
+class CommerceEventMessage: BaseEvent() {
 
     override val messageType: String = "cm"
 
     @SerialName("pd")
-    var commerceProductActionObject: ProductActionObject? = null
+    var productActionObject: ProductActionObject? = null
 
     @SerialName("sn")
     var commerceScreenName: String? = null
@@ -84,6 +84,6 @@ class ProductMessage(
 
 @Serializable
 class ImpressionMessage(
-    @SerialName("pil") val location: String,
+    @SerialName("pil") val name: String,
     @SerialName("pl") val productList: List<ProductMessage>
 )

@@ -6,7 +6,8 @@ import platform.Foundation.NSNumber
 
 actual class MParticleUser(val user: MParticleUser) {
 
-    actual fun getId(): Long = user.userId.longLongValue
+    actual val mpid: Long
+        get() = user.userId.longLongValue
     actual fun getUserAttributes(): Map<String, Any?> = user.userAttributes.entries.associate { it.key!!.toString() to it.value }
     actual fun getUserAttributes(listener: UserAttributeListener?): Map<String, Any?>? = throw RuntimeException("Not available on iOS")
     actual fun setUserAttributes(userAttributes: Map<String, Any?>): Boolean {

@@ -1,15 +1,14 @@
 package com.mparticle.testing
 
+import co.touchlab.stately.freeze
 import com.mparticle.api.ClientPlatform
 import com.mparticle.api.ClientPlatformImpl
-
-actual val strict: Boolean = true
 
 actual fun beforeTest() {
 }
 
 actual fun setAwaiter(awaiter: Awaiter) {
-    awaiterInstance = awaiter
+    awaiterInstance = awaiter.freeze()
 }
 
 actual fun getClientPlatform(): ClientPlatform {

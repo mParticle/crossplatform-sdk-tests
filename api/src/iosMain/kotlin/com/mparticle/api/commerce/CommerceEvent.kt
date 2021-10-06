@@ -6,6 +6,7 @@ import com.mparticle.api.events.*
 import platform.Foundation.NSMutableDictionary
 import platform.Foundation.allKeys
 import platform.Foundation.valueForKey
+import kotlin.native.concurrent.freeze
 import kotlin.reflect.KProperty0
 
 
@@ -15,7 +16,8 @@ actual open class CommerceEvent(val commerceEvent: MPCommerceEvent = MPCommerceE
     actual var internalEventName: String? = null
 }
 
-actual class ProductBuilder actual constructor(productAction: Commerce.ProductActionEnum) : CommerceEvent(MPCommerceEvent(productAction.value).apply { action = productAction.value }) {
+@OptIn(ExperimentalUnsignedTypes::class)
+actual class ProductBuilder actual constructor(productAction: Commerce.ProductActionEnum) : CommerceEvent(MPCommerceEvent(productAction.platformValue as ULong).apply { action = productAction.platformValue as ULong }) {
 
     actual var products: List<Product>
         get() = commerceEvent.products?.map { Product(it as MPProduct) } ?: listOf()
@@ -33,20 +35,24 @@ actual class ProductBuilder actual constructor(productAction: Commerce.ProductAc
 }
 
 actual class PromotionBuilder actual constructor(promotionAction: Commerce.PromotionActionEnum): CommerceEvent(MPCommerceEvent(MPPromotionContainer(
-    promotionAction.value, null
-)).apply { action = promotionAction.value }) {
+    promotionAction.platformValue as  ULong, null
+)).apply { action = promotionAction.platformValue as ULong }) {
     actual var promotions: List<Promotion> by GenericDelegate(listOf()) { promotions ->
-        commerceEvent.promotionContainer?.promotions ?: listOf<MPPromotion>()
-            .let { mpPromotions ->
-                promotions.filter { promotion ->
-                    mpPromotions.any { it.name == promotion.name }
-                }.forEach {
-                    (commerceEvent.promotionContainer?: MPPromotionContainer().also { commerceEvent.promotionContainer = it })
-                        .addPromotion(it.promotion)
+        commerceEvent.apply {
+            promotionContainer = MPPromotionContainer(
+                promotionContainer!!.action,
+                promotions.firstOrNull()?.promotion
+            ).also { promotionContainer ->
+                promotions.forEachIndexed { index, promotion ->
+                    if (index > 0) {
+                        promotionContainer.addPromotion(promotion.promotion)
+                    }
                 }
             }
+        }
     }
 }
+
 val promotionListTransformDelegate = TransformBuilder
         .from<List<Promotion>, List<MPPromotion>> { map { it.promotion} }
 .to { map { Promotion(it) } }
@@ -64,8 +70,8 @@ class ProductListBuilder {
 }
 
 val mapTransformer = TransformBuilder
-    .from<Map<String, String?>, Map<Any?, *>?> { entries.associate { it.key to it.value } }
-    .to { this?.entries?.associate { it.key.toString() to it.value.toString()} ?: mapOf() }
+    .from<Map<String, String?>, Map<Any?, *>?> { this.freeze() as Map<Any?, *> }
+    .to { this?.entries?.associate { it.key.toString() to it.value.toString()}.freeze() ?: mapOf<String, String?>().freeze() }
 
 val mapDictionaryTransformer = TransformBuilder
     .from<Map<String, List<String>>?, NSMutableDictionary?>{ this?.toMutableDictionary() }

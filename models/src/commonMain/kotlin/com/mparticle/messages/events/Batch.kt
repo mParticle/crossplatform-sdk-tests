@@ -47,11 +47,12 @@ class BatchMessage(
         private val jsonBuilder = Json {
             serializersModule = SerializersModule {
                 polymorphic(BaseEvent::class, AppStateTransitionEvent::class, AppStateTransitionEvent.serializer())
-                polymorphic(BaseEvent::class, MPEvent::class, MPEvent.serializer())
-                polymorphic(BaseEvent::class, CommerceEvent::class, CommerceEvent.serializer())
-                polymorphic(BaseEvent::class, SessionEnd::class, SessionEnd.serializer())
-                polymorphic(BaseEvent::class, SessionStart::class, SessionStart.serializer())
-                polymorphic(BaseEvent::class, FirstRun::class, FirstRun.serializer())
+                polymorphic(BaseEvent::class, MPEventMessage::class, MPEventMessage.serializer())
+                polymorphic(BaseEvent::class, CommerceEventMessage::class, CommerceEventMessage.serializer())
+                polymorphic(BaseEvent::class, SessionEndMessage::class, SessionEndMessage.serializer())
+                polymorphic(BaseEvent::class, SessionStartMessage::class, SessionStartMessage.serializer())
+                polymorphic(BaseEvent::class, FirstRunMessage::class, FirstRunMessage.serializer())
+                polymorphic(BaseEvent::class, UserIdentityChangeMessage::class, UserIdentityChangeMessage.serializer())
             }
             ignoreUnknownKeys = true
             classDiscriminator = "dt"

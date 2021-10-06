@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @SerialName("e")
-class MPEvent: BaseEvent() {
+class MPEventMessage: BaseEvent() {
 
     override val messageType: String = "e"
 

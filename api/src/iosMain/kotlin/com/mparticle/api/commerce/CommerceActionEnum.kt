@@ -4,12 +4,12 @@ import cocoapods.mParticle_Apple_SDK.*
 
 actual enum class Commerce {
     Impression;
-    actual enum class PromotionActionEnum(val value: MPCommerceEventAction) {
+    actual enum class PromotionActionEnum(actual val platformValue: Any) {
         Click(MPPromotionActionClick),
         View(MPPromotionActionView)
     }
 
-    actual enum class ProductActionEnum(val value: MPCommerceEventAction) {
+    actual enum class ProductActionEnum(actual val platformValue: Any) {
         AddToCart(MPCommerceEventActionAddToCart),
         RemoveFromCart(MPCommerceEventActionRemoveFromCart),
         AddToWishlist(MPCommerceEventActionAddToWishList),

@@ -5,9 +5,11 @@ import com.mparticle.api.Logger
 import com.mparticle.messages.*
 import com.mparticle.mockserver.ThreadingUtil.runBlockingServer
 import com.mparticle.mockserver.model.RawConnection
+import com.mparticle.testing.FailureLatch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlin.jvm.JvmOverloads
+import kotlin.native.concurrent.SharedImmutable
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.random.Random
 
@@ -64,6 +66,46 @@ internal var instance: IsolateState<MockServer>?
         _instance = value
     }
 
+interface MockServerInterface {
+    fun <RequestType, ResponseType> endpoint(endpointType: EndpointType<RequestType, ResponseType>): EndpointInterface<RequestType, ResponseType>
+}
+
+interface EndpointInterface<RequestType, ResponseType> {
+    fun onRequestFinished(requestFilter: RequestFilter<RequestType>): FailureLatch
+    fun onRequestFinishedBlocking(requestFilter: RequestFilter<RequestType>)
+
+    fun nextResponse(responseLogic: ResponseLogic<RequestType, ResponseType>)
+}
+
+object MockServerWrapper: MockServerInterface {
+    override fun <RequestType, ResponseType> endpoint(endpointType: EndpointType<RequestType, ResponseType>): EndpointInterface<RequestType, ResponseType> {
+        return EndpointWrapper { it.getEndpoint(endpointType) }
+    }
+}
+
+class EndpointWrapper<RequestType, ResponseType>(private val endpoint: (MockServer) -> Endpoint<RequestType, ResponseType>): EndpointInterface<RequestType, ResponseType> {
+    override fun onRequestFinished(requestFilter: RequestFilter<RequestType>): FailureLatch {
+        return MockServerAccessor.runAndReturn {
+            endpoint(this).onRequestFinished(requestFilter)
+            FailureLatch()
+        }
+    }
+
+    override fun onRequestFinishedBlocking(requestFilter: RequestFilter<RequestType>) {
+        val latch = FailureLatch()
+        MockServerAccessor.run {
+            endpoint(this).onRequestFinished(requestFilter) { request, response -> latch.countDown() }
+        }
+        latch.await()
+    }
+
+    override fun nextResponse(responseLogic: ResponseLogic<RequestType, ResponseType>) {
+        MockServerAccessor.run {
+            endpoint(this).nextResponse(responseLogic)
+        }
+    }
+}
+
 class MockServer {
 
     private val endpointMap: Map<EndpointType<*, *>, Endpoint<*, *>> = EndpointType.values
@@ -96,10 +138,12 @@ class MockServer {
     }
 
     fun failHard(exception: Throwable) {
-        Logger.error("EXCEPTION: ${exception.message}")
-        runBlocking(Dispatchers.Main) {
-            exception.let { throw(it) }
-        }
+        Logger.error("EXCEPTION: ${exception.message}\ntoString: ${exception.toString()}")
+        exception.printStackTrace()
+        throw exception
+//        runBlocking(Dispatchers.Main) {
+//            exception.let { throw(it) }
+//        }
     }
 
 
@@ -192,16 +236,25 @@ class ReceivedRequests<T, R>(
     var response: Response<R>,
 )
 
-class SuccessResponse<R> @JvmOverloads constructor(
-    responseObject: R,
-    httpCode: Int = 200,
-    headers: Map<Any?, Any?> = mapOf()
-) : Response<R>(httpCode, responseObject, false, headers = headers)
+class SuccessResponse<R>(
+    override var responseObject: R? = null,
+    override var httpCode: Int = 200,
+    override var headers: Map<Any?, Any?> = mapOf()
+): Response<R>() {
+    override var errorMessage: String? = null
+    override var isError: Boolean = false
+}
+
+fun <ResponseType> SuccessResponse(initializer: SuccessResponse<ResponseType>.() -> Unit): SuccessResponse<ResponseType> = SuccessResponse<ResponseType>().apply(initializer)
 
 class ErrorResponse<R>(
-    httpCode: Int,
-    errorMessage: String
-) : Response<R>(httpCode, null, true, errorMessage)
+    override var httpCode: Int = 500,
+    override var errorMessage: String = "DEFAULT ERROR MESSAGE FOR MOCKSERER RESPONSE. (@link MockServerKt.ErrorResponse}"
+): Response<R>() {
+    override var isError: Boolean = true
+    override var responseObject: R? = null
+    override var headers: Map<Any?, Any?> = mapOf()
+}
 
 
 interface IRequestFilter<T> {
@@ -224,13 +277,18 @@ class Request<T>(
     constructor(body: T, connection: RawConnection) : this(connection.getUrl(), connection.getHeaderFields(), body)
 }
 
-abstract class Response<R>(
-    val httpCode: Int,
-    val responseObject: R?,
-    val isError: Boolean,
-    val errorMessage: String? = null,
-    val headers: Map<Any?, Any?> = mapOf()
-) {
+fun Request<IdentityRequestMessage>.modifyMpid(): Long =
+    url.split("/").let { segments ->
+        segments[segments.size - 2].toLong()
+    }
+
+abstract class Response<ResponseType> {
+    abstract var httpCode: Int
+    abstract var responseObject: ResponseType?
+    abstract var isError: Boolean
+    abstract val errorMessage: String?
+    abstract var headers: Map<Any?, Any?>
+
     override fun toString(): String {
         return """
                     httpCode: $httpCode
@@ -241,3 +299,13 @@ abstract class Response<R>(
                 """.trimIndent()
     }
 }
+
+class DefaultResponse<ResponseType>() :Response<ResponseType>() {
+    override var httpCode: Int = 0
+    override var responseObject: ResponseType? = null
+    override var isError: Boolean = false
+    override val errorMessage: String? = null
+    override var headers: Map<Any?, Any?> = mapOf()
+}
+
+fun <ResponseType> Response(initializer: Response<ResponseType>.() -> Unit): Response<ResponseType> = DefaultResponse<ResponseType>().apply(initializer)

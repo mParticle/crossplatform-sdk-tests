@@ -5,6 +5,8 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import kotlin.native.concurrent.SharedImmutable
 
+fun <T> T.andLog(logAction: () -> String): T = apply { Logger.error(logAction()) }
+
 @SharedImmutable
 private val serverThread by lazy { newSingleThreadContext("MockServerThread") }
 

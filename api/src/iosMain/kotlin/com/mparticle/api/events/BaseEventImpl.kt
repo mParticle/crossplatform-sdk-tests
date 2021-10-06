@@ -6,6 +6,7 @@ import com.mparticle.api.commerce.CommerceEvent
 import platform.Foundation.NSMutableDictionary
 import platform.Foundation.NSNumber
 import platform.Foundation.addEntriesFromDictionary
+import kotlin.native.concurrent.freeze
 import cocoapods.mParticle_Apple_SDK.MPBaseEvent as BaseEventIOS
 import cocoapods.mParticle_Apple_SDK.MPCommerceEvent as CommerceEventIOS
 import cocoapods.mParticle_Apple_SDK.MPEvent as MPEventIOS
@@ -15,7 +16,7 @@ import cocoapods.mParticle_Apple_SDK.MPEventType as MPEventTypeIOS
 fun BaseEvent.toBaseEvent(): BaseEventIOS {
     val event = when (this) {
         is CommerceEvent -> {
-            this.commerceEvent
+            this.commerceEvent.freeze()
         }
         is MPEvent -> {
             this.getEvent()

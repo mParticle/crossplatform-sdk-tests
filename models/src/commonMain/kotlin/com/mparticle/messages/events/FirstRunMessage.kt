@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-@SerialName("ss")
-class SessionStart: BaseEvent() {
-    override val messageType: String = "ss"
+@SerialName("fr")
+class FirstRunMessage: BaseEvent() {
+    override val messageType: String = "fr"
 }

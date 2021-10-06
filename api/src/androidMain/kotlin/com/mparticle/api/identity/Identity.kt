@@ -12,29 +12,29 @@ import com.mparticle.identity.IdentityHttpResponse as IdentityHttpResponseAndroi
 import com.mparticle.UserAttributeListener as UserAttributeListenerAndroid
 import com.mparticle.consent.ConsentState as ConsentStateAndroid
 
-class IdentityApiImpl(val identityApi: IdentityApiAndroid): IdentityApi {
+actual class IdentityApi(val identityApi: IdentityApiAndroid) {
 
-    override fun getCurrentUser(): MParticleUser? = identityApi.currentUser?.let { MParticleUser(it) }
+    actual val currentUser: MParticleUser?
+        get() = identityApi.currentUser?.let { MParticleUser(it) }
 
-    override fun getUser(mpid: Long): MParticleUser? {
+    actual val allUsers: List<MParticleUser>
+        get() = identityApi.users.map { MParticleUser(it) }
+
+    actual fun getUser(mpid: Long): MParticleUser? {
         return identityApi.getUser(mpid)?.let { MParticleUser(it) }
     }
 
-    override fun getUsers(): List<MParticleUser> {
-        return identityApi.users.map { MParticleUser(it) }
-    }
-
-    override fun identify(request: IdentityApiRequest?): IdentityResponse =
+    actual fun identify(request: IdentityApiRequest?): IdentityResponse =
         identityApi.identify(request?.build()).toIdentityResponse()
 
-    override fun login(request: IdentityApiRequest?): IdentityResponse =
+    actual fun login(request: IdentityApiRequest?): IdentityResponse =
         identityApi.login(request?.build()).toIdentityResponse()
 
-    override fun logout(request: IdentityApiRequest?): IdentityResponse =
+    actual fun logout(request: IdentityApiRequest?): IdentityResponse =
         identityApi.logout(request?.build()).toIdentityResponse()
 
 
-    override fun modify(request: IdentityApiRequest): IdentityResponse =
+    actual fun modify(request: IdentityApiRequest): IdentityResponse =
         identityApi.modify(request.build()).toIdentityResponse()
 }
 

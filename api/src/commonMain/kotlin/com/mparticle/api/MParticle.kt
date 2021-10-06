@@ -8,29 +8,17 @@ import com.mparticle.api.identity.IdentityApiRequest
 
 expect class MParticle {
 
-    /**
-     * TODO// Change a bunch of these to properties:
-     *
-     * //Actions
-     * val optOut: Boolean
-        //Configurations
-        var locationTracking: LocationTracking?
-        var uncaughtExceptionLogging: Boolean
+    val environment: Environment
+    val currentSession: Session?
+    val sessionTimeout: Int
+    val autoTrackingEnabled: Boolean
+    val devicePerformanceMetricsEnabled: Boolean
+    val uncaughtExceptionLogging: Boolean
+    var installReferrer: String?
+    var isOptOut: Boolean
 
-        val installReferrer: String?
-        val environment: Environment?
-        val currentSession: Session?
+    val identity: IdentityApi
 
-        val autoTrackingEnabled: Boolean?
-        val devicePerformanceMetricsDisabled: Boolean
-        val sessionTimeout: Int
-     */
-    //Actions
-    fun upload()
-    fun setOptOut(optOutStatus: Boolean)
-    fun getOptOut(): kotlin.Boolean
-
-    //Events
     fun logEvent(event: BaseEvent)
     fun logLtvIncrease(valueIncreased: Double, eventName: String, contextInfo: Map<String, String?>?)
     fun logScreen(screenName: String, eventData: Map<String, String?>?)
@@ -41,35 +29,23 @@ expect class MParticle {
     fun logException(exception: Exception?, eventData: Map<String?, String?>?, message: String?)
     fun logPushRegistration(instanceId: String?, senderId: String?)
 
-    //Other major APIs
-    fun Identity(): IdentityApi?
-    fun getKitInstance(kitId: Int): Any?
-    fun isKitActive(serviceProviderId:kotlin.Int): kotlin.Boolean
+    fun upload()
 
-    //Global properties
+    fun kitInstance(kitId: Int): Any?
+    fun isKitActive(serviceProviderId: Int): Boolean
+    fun isProviderActive(serviceProviderId: Int): Boolean
+
+
     fun setLocation(provider: String, latitude: Double?, longitude: Double?, accuracy: Float?)
     fun setSessionAttribute(key: String, value: Any?)
-    fun incrementSessionAttribute(key:kotlin.String, value:kotlin.Int): kotlin.Unit
+    fun incrementSessionAttribute(key: String, value: Int)
     fun setIntegrationAttributes(integrationId: Int, attributes: Map<String, String?>?)
-    fun getIntegrationAttributes(integrationId:kotlin.Int): kotlin.collections.MutableMap<kotlin.String?, kotlin.String?>?
+    fun getIntegrationAttributes(integrationId: Int): MutableMap<String?, String?>?
 
-    //Configurations
     fun enableLocationTracking(provider: String, minTime: Long, minDistance: Long)
-    fun disableLocationTracking(): kotlin.Unit
+    fun disableLocationTracking()
     fun isLocationTrackingEnabled(): Boolean
-    fun enableUncaughtExceptionLogging()
-    fun disableUncaughtExceptionLogging(): kotlin.Unit
 
-    fun setInstallReferrer(referrer: String?)
-    fun getInstallReferrer(): kotlin.String?
-    fun getEnvironment(): Environment?
-    fun getCurrentSession(): Session?
-
-    fun isAutoTrackingEnabled(): Boolean?
-    fun isDevicePerformanceMetricsDisabled(): Boolean
-    fun getSessionTimeout(): Int
-
-    fun isProviderActive(serviceProviderId: Int): Boolean
 
     companion object {
         fun start(options: MParticleOptions)
@@ -94,31 +70,20 @@ expect class MParticleOptions private constructor(apiKey: String = "api key", ap
     var dataplanVersion: Int?
 
     var identifyRequest: IdentityApiRequest?
-
-
-    //direct action
     var identifyTask: IdentityResponse?
-//    var attributionListener(attributionListener: AttributionListener?)
 
-    //disable/enable collection
     var enableUncaughtExceptionLogging: Boolean?
     var androidIdDisabled: Boolean?
     var devicePerformanceMetricsDisabled: Boolean?
-
     var locationTracking: LocationTracking?
-
-    // behavior, performance
     var sessionTimeout: Int?
     var uploadInterval: Int?
     var identityConnectionTimeout: Int?
 
-    // behavior, data flow
     var networkOptions: NetworkOptions?
     var dataplanOptions: DataplanOptions?
     var environment: Environment?
 
-
-    //developer tool
     var logLevel: LogLevel?
 }
 

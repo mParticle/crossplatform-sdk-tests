@@ -39,7 +39,10 @@ open class BaseTest() {
                 SuccessResponse(IdentityResponseMessage(mStartingMpid))
             }
         }
+        afterBeforeAll()
     }
+
+    open fun afterBeforeAll() {}
 
     fun startMParticle(options: MParticleOptions = MParticleOptions("apiKey", "apiSecret", clientPlatform).apply { environment = Environment.Development }
     , defaultConfigResponse: ConfigResponseMessage? = null) {
@@ -50,25 +53,22 @@ open class BaseTest() {
         if (identityTask == null) {
             identityTask = IdentityResponse()
         }
-//        if (strict) {
-            identityTask.addFailureListener { result ->
+        identityTask
+            .addFailureListener { result ->
                 Logger.error("Identity Failure")
                 fail(result.toString())
             }
-                .addSuccessListener { newUser, previousUser ->
-                    called.value = true
-                    latch.countDown()
-                }
-//        }
+            .addSuccessListener { newUser, previousUser ->
+                called.value = true
+                latch.countDown()
+            }
 
         options.identifyTask = identityTask
         options.identifyRequest = IdentityApiRequest(null)
         MParticle.start(options)
         defaultConfigResponse?.let { platforms.setCachedConfig(it) }
-        if (strict) {
-            latch.await()
-            assertTrue(called.value)
-        }
+        latch.await()
+        assertTrue(called.value)
     }
 
     fun initialConfigResponse(configResponse: ConfigResponseMessage) {
@@ -77,7 +77,6 @@ open class BaseTest() {
     }
 }
 
-expect val strict: Boolean
 expect fun beforeTest()
 expect fun getClientPlatform(): ClientPlatform
 expect fun setAwaiter(awaiter: Awaiter)

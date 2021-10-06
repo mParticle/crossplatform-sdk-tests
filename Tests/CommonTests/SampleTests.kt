@@ -3,9 +3,9 @@ package com.mparticle
 import com.mparticle.api.Environment
 import com.mparticle.api.Logger
 import com.mparticle.api.MParticle
-import com.mparticle.api.MParticleOptions
 import com.mparticle.api.events.EventType
 import com.mparticle.api.events.MPEvent
+import com.mparticle.api.mParticle
 import com.mparticle.messages.IdentityResponseMessage
 import com.mparticle.messages.events.BatchMessage
 import com.mparticle.mockserver.*
@@ -18,9 +18,7 @@ class SampleTests: BaseTest() {
     @Test
     @Throws(Throwable::class)
     fun testStarted() {
-        Logger().error("Test Started!")
         startMParticle()
-        Logger().error("MParticle instance: ${MParticle.getInstance()}")
         assertNotNull(MParticle.getInstance())
     }
 
@@ -28,7 +26,7 @@ class SampleTests: BaseTest() {
     @Throws(Throwable::class)
     fun testDefaultEnvironment() {
         startMParticle()
-        val environment = MParticle.getInstance()?.getEnvironment()
+        val environment = mParticle.environment
         assertNotNull(environment)
     }
 
@@ -36,10 +34,8 @@ class SampleTests: BaseTest() {
 
     @Throws(Throwable::class)
     fun testSetEnvironment() {
-        startMParticle(MParticleOptions("apiKey", "apiSecret", clientPlatform, {}).apply {
-            environment = Environment.Development
-        })
-        val environment = MParticle.getInstance()?.getEnvironment()
+        startMParticle()
+        val environment = mParticle.environment
         assertEquals(Environment.Development, environment)
     }
 
@@ -48,19 +44,17 @@ class SampleTests: BaseTest() {
     fun testSetMpid() {
         try {
             println("Setting request logic")
-            MockServerAccessor.run {
-                getEndpoint(EndpointType.Identity_Identify).addRequestResponseLogic(null) {
-                    SuccessResponse(IdentityResponseMessage(123))
+            MockServerWrapper.endpoint(EndpointType.Identity_Identify).nextResponse {
+                SuccessResponse {
+                    responseObject = IdentityResponseMessage(123)
                 }
             }
-            startMParticle(MParticleOptions("apiKey", "apiSecret", clientPlatform, {}).apply {
-                environment = Environment.Development
-            })
-            assertEquals(123, MParticle.getInstance()?.Identity()?.getCurrentUser()?.getId())
+            startMParticle()
+            assertEquals(123, mParticle.identity.currentUser?.mpid)
         }
         catch (e: Exception) {
             e.printStackTrace();
-            Logger().error("""EXCEPTIOPn: 
+            Logger.error("""EXCEPTIOPn: 
                     message: ${e.message}, 
                     cause: ${e.cause}, 
                     stacktrace: ${e.stackTraceToString()}
@@ -74,40 +68,27 @@ class SampleTests: BaseTest() {
     @Throws(Throwable::class)
     fun testLogEvent() {
         try {
-            val latch = FailureLatch("Log Event Uploaded")
-            Logger().error("Setting request logic")
-            MockServerAccessor.run {
-                Logger().error("Setting request logic on Endpoints Events")
-                getEndpoint(EndpointType.Events).onRequestFinished(requestFilter = { messageBatch: Request<BatchMessage> ->
-                    Logger().error("Event batch received. ${messageBatch.body.messages?.size ?: 0} messages included: ${messageBatch.body.messages?.joinToString { "${it::class.simpleName}(${it.messageType})" }}")
-                    if (messageBatch.body.messages
-                            ?.filterIsInstance<com.mparticle.messages.events.MPEvent>()
-                            ?.any {
-                                Logger().error("event named: ${it.name}")
-                                it.name == "Some Event Name"
-                            } == true
-                    ) {
-                        latch.countDown()
-                    }
-                } as RequestFilter<BatchMessage>, null)
-            }
-            println("Done setting request logic.")
-            startMParticle(MParticleOptions("apiKey", "apiSecret", clientPlatform, {}).apply {
-                environment = Environment.Development
-            })
-            Logger().error("About to log event... mparticle = ${MParticle.getInstance()}")
+            startMParticle()
+
+            val mpEvent = MPEvent("Some Event Name", EventType.Other)
             MParticle.getInstance()?.apply {
-                Logger().error("Logging Event...")
-                logEvent(MPEvent("Some Event Name", EventType.Other))
-                Logger().error("Event logged...")
+                logEvent(mpEvent)
                 upload()
-                Logger().error("Upload called...")
             }
-            latch.await()
+
+            MockServerWrapper.endpoint(EndpointType.Events).onRequestFinishedBlocking { messageBatch: Request<BatchMessage> ->
+                Logger.info("Event batch received. ${messageBatch.body.messages.size} messages included: ${messageBatch.body.messages?.joinToString { "${it::class.simpleName}(${it.messageType})" }}")
+                messageBatch.body.messages
+                    .filterIsInstance<com.mparticle.messages.events.MPEventMessage>()
+                    .any {
+                        Logger.error("event named: ${it.name}")
+                        it.name == "Some Event Name"
+                    }
+            }
         }
         catch (e: Exception) {
             e.printStackTrace();
-            Logger().error("""EXCEPTIOPn: 
+            Logger.error("""EXCEPTIOPn: 
                     message: ${e.message}, 
                     cause: ${e.cause}, 
                     stacktrace: ${e.stackTraceToString()}

@@ -13,17 +13,6 @@ fun <T> KMutableProperty0<T>.fieldd(): KMutableProperty0<T> = this
 
 
 actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
-    actual fun upload() {
-        mparticle.upload()
-    }
-
-    actual fun setOptOut(optOutStatus: Boolean) {
-        mparticle.setOptOut(optOutStatus)
-    }
-
-    actual fun getOptOut(): Boolean {
-        return mparticle.optOut
-    }
 
     actual fun logEvent(event: BaseEvent) {
         mparticle.logEvent(event.toBaseEvent())
@@ -70,9 +59,17 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
         TODO("Not yet implemented")
     }
 
-    actual fun Identity(): IdentityApi? = IdentityApiImpl(mparticle.identity)
+    actual fun upload() {
+        mparticle.upload()
+    }
 
-    actual fun getKitInstance(kitId: Int): Any? {
+    actual var isOptOut: Boolean by property(mparticle::optOut)
+
+
+    actual val identity: IdentityApi
+        get() = IdentityApi(mparticle.identity)
+
+    actual fun kitInstance(kitId: Int): Any? {
         TODO("Not yet implemented")
     }
 
@@ -85,15 +82,15 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
     }
 
     actual fun setSessionAttribute(key: String, value: Any?) {
-        TODO("Not yet implemented")
+        mparticle.setSessionAttribute(key, value)
     }
 
     actual fun incrementSessionAttribute(key: String, value: Int) {
-        TODO("Not yet implemented")
+        mparticle.incrementSessionAttribute(key, NSNumber(value))
     }
 
     actual fun setIntegrationAttributes(integrationId: Int, attributes: Map<String, String?>?) {
-        TODO("Not yet implemented")
+        mparticle.setIntegrationAttributes(attributes?.entries?.associate { it.key to it.value } ?: mapOf<Any?, Any>(), NSNumber(integrationId))
     }
 
     actual fun getIntegrationAttributes(integrationId: Int): MutableMap<String?, String?>? {
@@ -105,53 +102,38 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
     }
 
     actual fun disableLocationTracking() {
-        TODO("Not yet implemented")
+        mparticle.endLocationTracking()
     }
 
     actual fun isLocationTrackingEnabled(): Boolean {
         TODO("Not yet implemented")
     }
 
-    actual fun enableUncaughtExceptionLogging() {
-        TODO("Not yet implemented")
-    }
+    actual val uncaughtExceptionLogging: Boolean
+        get() = TODO("Not yet implemented")
 
-    actual fun disableUncaughtExceptionLogging() {
-        TODO("Not yet implemented")
-    }
+    actual var installReferrer: String?
+        get() = TODO("Not yet implemented")
+        set(value) {
+            TODO("Not yet implemented")
+        }
 
-    actual fun setInstallReferrer(referrer: String?) {
-        TODO("Not yet implemented")
-    }
+    actual val environment: Environment
+        get() = environmentTransformer.to(mparticle.environment)!!
 
-    actual fun getInstallReferrer(): String? {
-        TODO("Not yet implemented")
-    }
+    actual val currentSession: Session?
+        get() = mparticle.currentSession?.let { Session(it) }
 
-    actual fun getEnvironment(): Environment? {
-        return environmentTransformer.to(mparticle.environment)
-    }
+    actual val autoTrackingEnabled: Boolean
+        get() = mparticle.trackNotifications
 
-    actual fun getCurrentSession(): Session? {
-        TODO("Not yet implemented")
-    }
+    actual val devicePerformanceMetricsEnabled: Boolean
+        get() = TODO("Not yet implemented")
 
-    actual fun isAutoTrackingEnabled(): Boolean? {
-        return mparticle.trackNotifications
-    }
+    actual val sessionTimeout: Int
+        get() = mparticle.sessionTimeout.toInt()
 
-    actual fun isDevicePerformanceMetricsDisabled(): Boolean {
-        //TODO
-        throw RuntimeException("Not Implemented")
-    }
-
-    actual fun getSessionTimeout(): Int {
-        return mparticle.sessionTimeout.toInt()
-    }
-
-    actual fun isProviderActive(serviceProviderId: Int): Boolean {
-        TODO("Not yet implemented")
-    }
+    actual fun isProviderActive(serviceProviderId: Int): Boolean = mparticle.isKitActive(NSNumber(serviceProviderId))
 
     actual companion object {
         actual fun start(options: MParticleOptions) {

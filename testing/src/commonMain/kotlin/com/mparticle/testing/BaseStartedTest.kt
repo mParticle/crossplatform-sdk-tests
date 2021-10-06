@@ -5,7 +5,7 @@ import kotlin.test.BeforeTest
 
 abstract class BaseStartedTest: BaseTest() {
     @BeforeTest
-    fun beforeStarted() {
+    override fun afterBeforeAll() {
         MParticle.clearInstance()
         startMParticle()
 //        TODO

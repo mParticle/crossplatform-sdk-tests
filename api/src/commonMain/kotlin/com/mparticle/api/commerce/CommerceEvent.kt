@@ -6,7 +6,9 @@ expect enum class Commerce {
     Impression;
     enum class PromotionActionEnum {
         Click,
-        View
+        View;
+
+        val platformValue: Any
     }
     enum class ProductActionEnum {
         AddToCart,
@@ -18,7 +20,9 @@ expect enum class Commerce {
         Detail,
         Purchase,
         Refund,
-        CheckoutOption
+        CheckoutOption;
+
+        val platformValue: Any
     }
 }
 

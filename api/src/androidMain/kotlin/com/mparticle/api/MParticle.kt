@@ -5,7 +5,6 @@ import com.mparticle.api.events.MPEvent
 import com.mparticle.api.events.getEvent
 import com.mparticle.api.events.getMPEvent
 import com.mparticle.api.identity.IdentityApi
-import com.mparticle.api.identity.IdentityApiImpl
 import com.mparticle.api.identity.IdentityApiRequest
 import com.mparticle.api.identity.IdentityResponse
 import com.mparticle.internal.PushRegistrationHelper
@@ -20,11 +19,9 @@ actual class MParticle(val mparticle: MParticleAndroid) {
         mparticle.upload()
     }
 
-    actual fun setOptOut(optOutStatus: Boolean) {
-        mparticle.optOut = optOutStatus
-    }
-
-    actual fun getOptOut(): Boolean = mparticle.optOut
+    actual var isOptOut: Boolean
+        get() = mparticle.optOut
+        set(value) { mparticle.optOut = value}
 
     actual fun logEvent(event: BaseEvent) {
         mparticle.logEvent(getEvent(event))
@@ -67,11 +64,14 @@ actual class MParticle(val mparticle: MParticleAndroid) {
         mparticle.logPushRegistration(instanceId, senderId)
     }
 
-    actual fun Identity(): IdentityApi? {
-        return IdentityApiImpl(mparticle.Identity())
+    actual fun logException(exception: Exception?, eventData: Map<String?, String?>?, message: String?) {
+        mparticle.logException(Exception(exception), eventData, message)
     }
 
-    actual fun getKitInstance(kitId: Int): Any? {
+    actual val identity: IdentityApi
+        get() = IdentityApi(mparticle.Identity())
+
+    actual fun kitInstance(kitId: Int): Any? {
         return mparticle.getKitInstance(kitId)
     }
 
@@ -117,47 +117,33 @@ actual class MParticle(val mparticle: MParticleAndroid) {
         return mparticle.isLocationTrackingEnabled
     }
 
-    actual fun enableUncaughtExceptionLogging() {
-        mparticle.enableUncaughtExceptionLogging()
-    }
 
-    actual fun disableUncaughtExceptionLogging() {
-        mparticle.disableLocationTracking()
-    }
+    actual var installReferrer: String? by mparticle::installReferrer
 
-    actual fun setInstallReferrer(referrer: String?) {
-        mparticle.installReferrer = referrer
-    }
+    actual val environment: Environment
+        get() = Environment.values().first { it.name.equals(mparticle.environment.name, ignoreCase = true) }
 
-    actual fun getInstallReferrer(): String? {
-        return mparticle.installReferrer
-    }
+    actual val currentSession: Session?
+        get() = mparticle.currentSession?.let { Session(it) }
 
-    actual fun getEnvironment(): Environment? {
-        return Environment.values().first { it.name.equals(mparticle.environment.name, ignoreCase = true) }
-    }
+    actual val autoTrackingEnabled: Boolean
+        get() = mparticle.isAutoTrackingEnabled
 
-    actual fun getCurrentSession(): Session? =
-        mparticle.currentSession?.let { Session(it) }
+    actual val devicePerformanceMetricsEnabled: Boolean
+        get() = mparticle.isDevicePerformanceMetricsDisabled
 
-    actual fun isAutoTrackingEnabled(): Boolean? {
-        return mparticle.isAutoTrackingEnabled
-    }
-
-    actual fun isDevicePerformanceMetricsDisabled(): Boolean {
-        return mparticle.isDevicePerformanceMetricsDisabled
-    }
-
-    actual fun getSessionTimeout(): Int {
-        return mparticle.sessionTimeout
-    }
+    actual val sessionTimeout: Int by mparticle::sessionTimeout
 
     actual fun isProviderActive(serviceProviderId: Int): Boolean {
         return mparticle.isProviderActive(serviceProviderId)
     }
 
-    actual fun logException(exception: Exception?, eventData: Map<String?, String?>?, message: String?) {
-        mparticle.logException(Exception(exception), eventData, message)
+    actual val uncaughtExceptionLogging: Boolean by GenericDelegate(false) {
+        if (it) {
+            mparticle.enableUncaughtExceptionLogging()
+        } else {
+            mparticle.disableLocationTracking()
+        }
     }
 
     actual companion object {

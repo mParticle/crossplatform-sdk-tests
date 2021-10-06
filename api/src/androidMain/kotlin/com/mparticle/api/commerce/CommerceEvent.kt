@@ -14,7 +14,7 @@ actual open class CommerceEvent(internal val commerceEventBuilder: CommerceEvent
 }
 
 actual class ProductBuilder(commerceEventBuilder: CommerceEventAndroid.Builder): CommerceEvent(commerceEventBuilder) {
-    actual constructor(productAction: Commerce.ProductActionEnum) : this(CommerceEventAndroidInit())
+    actual constructor(productAction: Commerce.ProductActionEnum) : this(CommerceEventAndroidInit(productAction))
 
     actual var products: List<Product> by GenericDelegate(listOf()) {
         it
@@ -30,7 +30,7 @@ actual class ProductBuilder(commerceEventBuilder: CommerceEventAndroid.Builder):
 }
 
 actual class PromotionBuilder(commerceEventBuilder: CommerceEventAndroid.Builder): CommerceEvent(commerceEventBuilder) {
-    actual constructor(promotionAction: Commerce.PromotionActionEnum): this(CommerceEventAndroidInit())
+    actual constructor(promotionAction: Commerce.PromotionActionEnum): this(CommerceEventAndroidInit(promotionAction))
 
     actual var promotions: List<Promotion> by GenericDelegate(listOf()) {
         it

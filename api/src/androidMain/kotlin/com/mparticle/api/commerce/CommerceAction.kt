@@ -5,12 +5,12 @@ import com.mparticle.commerce.Promotion
 
 actual enum class Commerce {
     Impression;
-    actual enum class PromotionActionEnum(val value: String) {
+    actual enum class PromotionActionEnum(actual val platformValue: Any) {
         Click(Promotion.CLICK),
         View(Promotion.VIEW)
     }
 
-    actual enum class ProductActionEnum(val value: String) {
+    actual enum class ProductActionEnum(actual val platformValue: Any) {
         AddToCart(Product.ADD_TO_CART),
         RemoveFromCart(Product.REMOVE_FROM_CART),
         AddToWishlist(Product.ADD_TO_WISHLIST),

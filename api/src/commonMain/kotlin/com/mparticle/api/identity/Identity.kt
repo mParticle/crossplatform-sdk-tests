@@ -1,13 +1,14 @@
 package com.mparticle.api.identity
 
-interface IdentityApi {
-    fun getCurrentUser(): MParticleUser?
-    fun getUser(mpid: Long): MParticleUser?
-    fun getUsers(): List<MParticleUser>
+expect class IdentityApi {
+    val currentUser: MParticleUser?
+    val allUsers: List<MParticleUser>
 
-    fun identify(request: IdentityApiRequest?): IdentityResponse
-    fun login(request: IdentityApiRequest?): IdentityResponse
-    fun logout(request: IdentityApiRequest?): IdentityResponse
+    fun getUser(mpid: Long): MParticleUser?
+
+    fun identify(request: IdentityApiRequest? = null): IdentityResponse
+    fun login(request: IdentityApiRequest? = null): IdentityResponse
+    fun logout(request: IdentityApiRequest? = null): IdentityResponse
     fun modify(request: IdentityApiRequest): IdentityResponse
 }
 

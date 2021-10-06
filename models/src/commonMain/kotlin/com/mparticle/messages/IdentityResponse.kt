@@ -12,10 +12,23 @@ class IdentityResponseMessage @JvmOverloads constructor(
     @SerialName("is_logged_in") val isLoggedIn: Boolean? = null,
 ) {
     constructor(mpid: String): this(mpid.toLong())
+
+    class Builder {
+        var mpid: Long? = null
+        var context: String? = null
+        var errors: List<Error>? = null
+        var isLoggedIn: Boolean? = null
+
+        fun build():IdentityResponseMessage = IdentityResponseMessage(mpid, context, errors, isLoggedIn)
+    }
 }
+
+fun IdentityResponseMessage(intializer: IdentityResponseMessage.Builder.() -> Unit) = IdentityResponseMessage.Builder().apply(intializer).build()
 
 @Serializable
 data class Error (
     @SerialName("code") val code: String? = null,
     @SerialName("message") val message: String? = null
 )
+
+fun Error(initializer: Error.() -> Unit) = Error().apply(initializer)

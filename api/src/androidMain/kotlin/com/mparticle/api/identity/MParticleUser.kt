@@ -3,7 +3,8 @@ package com.mparticle.api.identity
 import com.mparticle.identity.MParticleUser
 
 actual class MParticleUser(val user: MParticleUser) {
-    actual fun getId(): Long = user.id
+    actual val mpid: Long
+        get() = user.id
     actual fun getUserAttributes(): Map<String, Any?> = user.userAttributes
     actual fun getUserAttributes(listener: UserAttributeListener?): Map<String, Any?>? = user.getUserAttributes(listener?.toUserAttributeListener())
     actual fun setUserAttributes(userAttributes: Map<String, Any?>): Boolean = user.setUserAttributes(userAttributes)

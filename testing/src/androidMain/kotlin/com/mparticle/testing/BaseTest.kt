@@ -13,13 +13,11 @@ import com.mparticle.mockserver.MockServerAccessor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
-actual val strict: Boolean = true
-
 //awaiter only used for iOS
 actual fun beforeTest() {
-    if (Looper.myLooper() == null) {
-        Looper.prepare()
-    }
+//    if (Looper.myLooper() == null) {
+//        Looper.prepare()
+//    }
     AppStateManager.mInitialized = false
     //set the timeout on the FailureLatch higher if developer is debugging. This way you won't have
     //as many annoying failures while trying to figure out whats happening in a breakpoint

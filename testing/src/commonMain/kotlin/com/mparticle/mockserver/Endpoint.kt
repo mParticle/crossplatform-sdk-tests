@@ -9,15 +9,15 @@ import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmSynthetic
 
 
-class Endpoint<T, R> (private val mockServer: MockServer, private val endpointType: EndpointType<T, R>) {
+class Endpoint<RequestType, ResponseType> (private val mockServer: MockServer, private val endpointType: EndpointType<RequestType, ResponseType>) {
 
 
-    private val requestFinishedFilters: MutableList<(T, Response<R>, RawConnection) -> Boolean> = mutableListOf()
-    internal val responseLogic: MutableMap<RequestFilter<T>, ResponseLogic<T, R>> = mutableMapOf()
-    private var _receivedRequests = mutableListOf<ReceivedRequests<T, R>>()
+    private val requestFinishedFilters: MutableList<(RequestType, Response<ResponseType>, RawConnection) -> Boolean> = mutableListOf()
+    internal val responseLogic: MutableMap<RequestFilter<RequestType>, ResponseLogic<RequestType, ResponseType>> = mutableMapOf()
+    private var _receivedRequests = mutableListOf<ReceivedRequests<RequestType, ResponseType>>()
 
 
-    val receivedRequests: List<ReceivedRequests<T, R>>
+    val receivedRequests: List<ReceivedRequests<RequestType, ResponseType>>
         get() {
             return ArrayList(_receivedRequests)
         }
@@ -25,7 +25,7 @@ class Endpoint<T, R> (private val mockServer: MockServer, private val endpointTy
     /**
      * internal method for processing a request to this endpoing
      */
-    internal fun onReceive(request: T, connection: RawConnection): RawConnection {
+    internal fun onReceive(request: RequestType, connection: RawConnection): RawConnection {
         //reverse so the most recently registered logic gets precedence
         val responseLogic = responseLogic.entries.reversed().firstOrNull { it.key(
             Request(
@@ -53,7 +53,7 @@ class Endpoint<T, R> (private val mockServer: MockServer, private val endpointTy
         //add request/response to the receivedRequests list
         try {
             _receivedRequests.add(
-                ReceivedRequests<T, R>(
+                ReceivedRequests<RequestType, ResponseType>(
                     endpointType,
                     Request(request, connection),
                     response
@@ -70,37 +70,54 @@ class Endpoint<T, R> (private val mockServer: MockServer, private val endpointTy
                 { connection.getRequestBody() },
                 response.httpCode,
                 response.errorMessage,
-                responseBody = if (response.responseObject != null) {
-                    Json.encodeToString(endpointType.responseSerializer, response.responseObject)
-                } else {
-                    null
+                responseBody = response.responseObject.let { responseObject ->
+                    if (responseObject != null) {
+                        Json.encodeToString(endpointType.responseSerializer, responseObject)
+                    } else {
+                        null
+                    }
                 },
                 responseHeaders = response.headers
             )
         Logger.error("Removing request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         //loop through all the registered callbacks, remove any matches after they have been invoked
-        try {
+//        try {
             requestFinishedFilters.removeAll {
                 val result = it(request, response, returnConnection)
                 result
             }
-        }
-        catch (ex: Exception) {
-            Logger.error(ex.message ?: ex.toString())
-        }
+//        }
+//        catch (ex: Exception) {
+//            Logger.error(ex.message ?: ex.toString())
+//        }
         Logger.info("Returning connection: $returnConnection")
         return returnConnection
     }
 
     @JvmOverloads
-    fun onRequestFinishedBlocking(requestFilter: IRequestFilter<T>? = null, onRequestCallback: IOnRequestCallback<T, R>? = null): Endpoint<T, R> {
+    fun onRequestFinishedBlocking(requestFilter: IRequestFilter<RequestType>? = null, onRequestCallback: IOnRequestCallback<RequestType, ResponseType>? = null): Endpoint<RequestType, ResponseType> {
         onRequestFinishedBlocking({ requestFilter?.isMatch(it) ?: true}) { req, resp -> onRequestCallback?.onRequest(req, resp)}
         return this
     }
 
     @JvmSynthetic
-    fun onRequestFinishedBlocking(requestFilter: RequestFilter<T>? = null, onRequestCallback: OnRequestCallback<T, R>? = null): Endpoint<T, R> {
+    fun onRequestFinishedBlocking(requestFilter: RequestFilter<RequestType>? = null, onRequestCallback: OnRequestCallback<RequestType, ResponseType>? = null): Endpoint<RequestType, ResponseType> {
         val latch = FailureLatch()
+        Logger.error("Received Requests size: ${receivedRequests.size}")
+        receivedRequests.forEach {
+            try {
+                Logger.error("Previously received request: ${it.request}")
+
+                if (requestFilter?.invoke(it.request) == true) {
+                    Logger.error("Found matching!!")
+                    onRequestCallback?.invoke(it.request, it.response)
+                    return this
+                }
+            } catch (ex: Exception) {
+                Logger.error("Could not add onRequestFinishedBlocking filter: ${ex.message}")
+            }
+        }
+        Logger.error("Adding blocking request filter..")
         onRequestFinished(requestFilter) { request, response ->
             onRequestCallback?.invoke(request, response)
             latch.countDown();
@@ -109,14 +126,8 @@ class Endpoint<T, R> (private val mockServer: MockServer, private val endpointTy
         return this
     }
 
-    @JvmOverloads
-    fun onRequestFinished(requestFilter: IRequestFilter<T>? = null, onRequestCallback: IOnRequestCallback<T, R>? = null): Endpoint<T, R> {
-        onRequestFinished({ requestFilter?.isMatch(it) ?: true}) { req, resp -> onRequestCallback?.onRequest(req, resp)}
-        return this
-    }
-
     @JvmSynthetic
-    fun onRequestFinished(requestFilter: RequestFilter<T>?, onRequestCallback: OnRequestCallback<T, R>?): Endpoint<T, R> {
+    fun onRequestFinished(requestFilter: RequestFilter<RequestType>?, onRequestCallback: OnRequestCallback<RequestType, ResponseType>? = null): Endpoint<RequestType, ResponseType> {
         Logger.info("Adding request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         requestFinishedFilters.add ({ request, response, connection ->
             var isMatch = requestFilter?.invoke(Request(request, connection)) ?: true
@@ -146,15 +157,19 @@ class Endpoint<T, R> (private val mockServer: MockServer, private val endpointTy
      * @param logic a callback to generate a Response object for a given Request
      */
     @JvmOverloads
-    fun addRequestResponseLogic(filter: IRequestFilter<T>?, logic: IResponseLogic<T, R>): Endpoint<T, R> {
+    fun addRequestResponseLogic(filter: IRequestFilter<RequestType>?, logic: IResponseLogic<RequestType, ResponseType>): Endpoint<RequestType, ResponseType> {
         addRequestResponseLogic({ filter?.isMatch(it) ?: true}) { req -> logic.generateResponse(req)}
         return this
     }
 
     @JvmSynthetic
-    fun addRequestResponseLogic(filter: RequestFilter<T>?, logic: ResponseLogic<T, R>): Endpoint<T, R> {
+    fun addRequestResponseLogic(filter: RequestFilter<RequestType>?, logic: ResponseLogic<RequestType, ResponseType>): Endpoint<RequestType, ResponseType> {
         responseLogic.put(filter ?: { true }, logic)
         return this
+    }
+
+    fun nextResponse(response: ResponseLogic<RequestType, ResponseType>) {
+        addRequestResponseLogic(null, response)
     }
 
     fun clearRequestResponseLogic() {

@@ -11,24 +11,29 @@ import cocoapods.mParticle_Apple_SDK.MParticleUser as MParticleUserIOS
 import cocoapods.mParticle_Apple_SDK.MPIdentityApiRequest
 import com.mparticle.api.MParticle
 import com.mparticle.api.identity.*
+import com.mparticle.api.mParticle
 import cocoapods.mParticle_Apple_SDK.MPIdentityApiResultCallback as IdentityApiResultCallbackIOS
 import cocoapods.mParticle_Apple_SDK.MPModifyApiResultCallback as ModifyApiResultCallbackIOS
 
 
-class IdentityApiImpl(val identityApi: IdentityApiIOS): IdentityApi {
-    override fun getCurrentUser(): MParticleUser? = identityApi.currentUser?.let { MParticleUser(it) }
-    override fun getUser(mpid: Long): MParticleUser? = identityApi.getUser(NSNumber(long = mpid))?.let { MParticleUser(it) }
-    override fun getUsers(): List<MParticleUser> = identityApi.getAllUsers().map { MParticleUser(it as MParticleUserIOS) }
+actual class IdentityApi(val identityApi: IdentityApiIOS) {
+    actual val currentUser: MParticleUser?
+        get() = identityApi.currentUser?.let { MParticleUser(it) }
 
-    override fun identify(request: IdentityApiRequest?): IdentityResponse = makeIdentityRequest(IdentityRequestType.Identify, request)
-    override fun login(request: IdentityApiRequest?): IdentityResponse = makeIdentityRequest(IdentityRequestType.Login, request)
-    override fun logout(request: IdentityApiRequest?): IdentityResponse = makeIdentityRequest(IdentityRequestType.Logout, request)
-    override fun modify(request: IdentityApiRequest): IdentityResponse = makeIdentityRequest(IdentityRequestType.Modify, request)
+    actual val allUsers: List<MParticleUser>
+        get() = identityApi.getAllUsers().map { MParticleUser(it as MParticleUserIOS) }
+
+    actual fun getUser(mpid: Long): MParticleUser? = identityApi.getUser(NSNumber(long = mpid))?.let { MParticleUser(it) }
+
+    actual fun identify(request: IdentityApiRequest?): IdentityResponse = makeIdentityRequest(IdentityRequestType.Identify, request)
+    actual fun login(request: IdentityApiRequest?): IdentityResponse = makeIdentityRequest(IdentityRequestType.Login, request)
+    actual fun logout(request: IdentityApiRequest?): IdentityResponse = makeIdentityRequest(IdentityRequestType.Logout, request)
+    actual fun modify(request: IdentityApiRequest): IdentityResponse = makeIdentityRequest(IdentityRequestType.Modify, request)
 
 
     private fun makeIdentityRequest(identityRequestType: IdentityRequestType, identityApiRequest: IdentityApiRequest?): IdentityResponse {
         val response = IdentityResponse()
-        val currentMpid = MParticle.getInstance()?.Identity()?.getCurrentUser()?.getId()
+        val currentMpid = mParticle.identity.currentUser?.mpid
         val callback = object: IdentityApiResultCallbackIOS {
             override fun invoke(result: MPIdentityApiResult?, error: NSError?) {
                 when {
