@@ -17,8 +17,6 @@ actual open class Platforms {
     }
     var mContext = TestLifecycleContext(InstrumentationRegistry.getInstrumentation().context.applicationContext);
 
-    actual var mainThreadRunner: MainThreadRunner = MainThreadRunner()
-
     actual fun injectMockServer() {
         setMPUrlFactory {
             MPUrlTestImpl(it) as MPUrl
@@ -56,20 +54,10 @@ actual open class Platforms {
     actual fun getDatabaseSchema(tables: List<String>?): Map<String, Any> = getDatabaseSchema(MParticleDBManager(mContext).getDatabase())
 
     actual fun currentThread(): String? = Thread.currentThread().name
-    actual fun isServerThread(): Boolean = Looper.getMainLooper() == Looper.myLooper()
+    actual fun isServerThread(): Boolean = true //Looper.getMainLooper() == Looper.myLooper()
     actual fun prepareThread() {
         if (Looper.myLooper() == null) {
             Looper.prepare()
         }
-    }
-}
-
-actual class MainThreadRunner {
-    actual fun run(runnable: () -> Unit) {
-        Handler(Looper.getMainLooper()).post(runnable)
-    }
-
-    actual fun runDelayed(delay: Long, runnable: () -> Unit) {
-        Handler(Looper.getMainLooper()).postDelayed(runnable, delay)
     }
 }

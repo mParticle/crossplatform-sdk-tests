@@ -24,7 +24,6 @@ kotlin {
         }
     } else {
         iosX64("ios") {
-            println("NOTTTT on phone")
             binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
         }
     }

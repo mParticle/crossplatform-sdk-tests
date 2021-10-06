@@ -5,7 +5,6 @@ import com.mparticle.messages.*
 import com.mparticle.messages.events.BatchMessage
 import com.mparticle.mockserver.model.RawConnection
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.json.Json
 import kotlin.jvm.JvmField
 
 
@@ -17,7 +16,7 @@ class EndpointType<T, R> private constructor(val name: String,
         values.add(this)
     }
 
-    internal fun onReceive(mockServer: MockServer2, connection: RawConnection): RawConnection? {
+    internal fun onReceive(mockServer: MockServer, connection: RawConnection): RawConnection? {
         val request = parse(mockServer, connection)
         return if (request != null) {
             mockServer.getEndpoint(this).onReceive(request, connection)
@@ -26,15 +25,15 @@ class EndpointType<T, R> private constructor(val name: String,
         }
     }
 
-    internal fun parse(mockServer: MockServer2, connection: RawConnection): T? {
+    internal fun parse(mockServer: MockServer, connection: RawConnection): T? {
         try {
-            Logger().error("Handling Request in $name Endpoint")
+            Logger.info("Handling Request in $name Endpoint")
 
             val json = connection.getRequestBody()
             if (json == null || json.isEmpty() || json == "null") {
                 return Empty() as T
             }
-            Logger().error("Decoding request: $json")
+            Logger.info("Decoding request: $json")
             return requestDeserializer(json)
         } catch (e: Exception) {
             mockServer.failHard(e)

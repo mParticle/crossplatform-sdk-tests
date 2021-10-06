@@ -2,30 +2,32 @@ package com.mparticle.api
 
 import com.mparticle.MParticle
 import com.mparticle.api.identity.toBaseIdentityTask
+import java.util.*
+import kotlin.reflect.KCallable
 
 fun MParticleOptions.toMParticleOptions(): com.mparticle.MParticleOptions {
     com.mparticle.internal.Logger.setLogHandler(object: com.mparticle.internal.Logger.AbstractLogHandler() {
         override fun verbose(error: Throwable?, message: String?) {
-            Logger().info("$message, error: ${error?.stackTraceToString()}")
+            Logger.info("$message, error: ${error?.stackTraceToString()}")
         }
 
         override fun info(error: Throwable?, message: String?) {
-            Logger().info("$message, error: ${error?.stackTraceToString()}")
+            Logger.info("$message, error: ${error?.stackTraceToString()}")
 
         }
 
         override fun debug(error: Throwable?, message: String?) {
-            Logger().info("$message, error: ${error?.stackTraceToString()}")
+            Logger.info("$message, error: ${error?.stackTraceToString()}")
 
         }
 
         override fun warning(error: Throwable?, message: String?) {
-            Logger().warning("$message, error: ${error?.stackTraceToString()}")
+            Logger.warning("$message, error: ${error?.stackTraceToString()}")
 
         }
 
         override fun error(error: Throwable?, message: String?) {
-            Logger().error("$message, error: ${error?.stackTraceToString()}")
+            Logger.error("$message, error: ${error?.stackTraceToString()}")
 
         }
 

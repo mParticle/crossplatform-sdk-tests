@@ -2,7 +2,7 @@ package com.mparticle.api
 
 import platform.Foundation.NSLog
 
-actual class Logger {
+actual object Logger {
     actual fun info(message: String) {
         NSLog("MParticle info: $message")
     }

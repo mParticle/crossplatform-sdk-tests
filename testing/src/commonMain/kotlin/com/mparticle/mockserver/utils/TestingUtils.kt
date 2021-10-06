@@ -35,12 +35,14 @@ object TestingUtils {
                 event.customAttributes = infoMap
             }
             if (RandomUtils.nextBoolean()) {
-                for (i in 0 until RandomUtils.randomInt(0, 10)) {
+                (0 until RandomUtils.randomInt(0, 10)).map {
                     val key: String = RandomUtils.getAlphaNumericString(RandomUtils.randomInt(0, 55))
                     (0..RandomUtils.randomInt(0, 5))
                         .map {  RandomUtils.getAlphaNumericString(RandomUtils.randomInt(0, 55))}
-                        .let { event.customFlags.put(key, it)}
+                        .let { key to it}
                 }
+                    .associate { it.first to it.second }
+                    .let { event.customFlags = it }
             }
             return event
         }

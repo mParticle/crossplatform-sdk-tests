@@ -1,19 +1,13 @@
 package com.mparticle.api
 
 import cocoapods.mParticle_Apple_SDK.*
-import com.mparticle.Platforms
 import com.mparticle.api.events.BaseEvent
 import com.mparticle.api.events.MPEvent
 import com.mparticle.api.events.toBaseEvent
 import com.mparticle.api.identity.*
 import com.mparticle.api.identity.MParticleUser
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonObject
 import platform.Foundation.*
 import kotlin.reflect.KMutableProperty0
-import kotlin.reflect.KProperty
-import kotlin.reflect.KProperty0
 
 fun <T> KMutableProperty0<T>.fieldd(): KMutableProperty0<T> = this
 
@@ -161,19 +155,20 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
 
     actual companion object {
         actual fun start(options: MParticleOptions) {
-            Platforms().start(options)
+            options.options.setLogLevel(MPILogLevelVerbose)
+            cocoapods.mParticle_Apple_SDK.MParticle.sharedInstance().startWithOptions(options.options)
         }
 
         actual fun getInstance(): MParticle? {
-            return Platforms().getInstance()
+            return cocoapods.mParticle_Apple_SDK.MParticle.sharedInstance().let { MParticle(it )}
         }
 
         actual fun clearInstance() {
-            Platforms().clearInstance()
+
         }
 
         actual fun reset(clientPlatform: ClientPlatform) {
-            Platforms().reset(clientPlatform)
+            cocoapods.mParticle_Apple_SDK.MParticle.sharedInstance().reset()
         }
     }
 }
@@ -199,7 +194,7 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
     actual var dataplanId: String? by property(options::dataPlanId)
     actual var dataplanVersion: Int? by TransformDelegate(options::dataPlanVersion, intNSNumberTransformer)
 
-    actual var identifyTask: BaseIdentityTask? = null
+    actual var identifyTask: IdentityResponse? = null
         get() = field
         set(value) {
             field = value
@@ -255,59 +250,6 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
         set(value) {}
 }
 
-val dataplanOptionsTransformer = TransformBuilder
-    .from<DataplanOptions?, MPDataPlanOptions?> { this!!.dataplanOptions}
-    .to { this?.let { DataplanOptions(it) } }
-
-val networkOptionsTransformer = TransformBuilder
-    .from<NetworkOptions?, MPNetworkOptions> { this!!.networkOptions }
-    .to { NetworkOptions(this) as NetworkOptions? }
-
-val identityRequestTransformer = TransformBuilder
-    .from <IdentityApiRequest?, MPIdentityApiRequest> { this!!.identityRequest}
-    .to {
-        IdentityApiRequest(null).also { request ->
-            identities?.forEach { (key, value) ->
-                if (key != null) request.addIdentity(
-                    key.toIdentityType(),
-                    value.toString()
-                )
-            }
-        } as IdentityApiRequest?
-    }
-
-val intNSNumberTransformer = TransformBuilder
-    .from<Int?, NSNumber?> { this?.let { NSNumber(it) } }
-    .to { this?.intValue }
-
-val intDoubleTransformer = TransformBuilder
-    .from<Int?, Double>{ this!!.toDouble() }
-    .to { toInt() as Int? }
-
-val installTypeTransformer = TransformBuilder
-    .from<InstallType?, MPInstallationType> { this!!.ordinal.toLong() }
-    .to { InstallType.values().firstOrNull { it.ordinal == this.toInt() } }
-
-val logLevelTransformer = TransformBuilder
-    .from<LogLevel?, MPILogLevel> { this!!.level.toULong() }
-    .to { LogLevel.values().firstOrNull { it.level == this.toInt() } }
-
-val environmentTransformer = TransformBuilder
-    .from<Environment?, MPEnvironment> { this!!.ordinal.toULong() }
-    .to { Environment.values().firstOrNull { it.ordinal == this.toInt() } }
-
-val jsonStringMapTransformer = TransformBuilder
-    .from<String?, Map<Any?, *>?> {
-        (this as NSString?)
-            ?.dataUsingEncoding(NSUTF8StringEncoding)
-            ?.let {
-                NSJSONSerialization.JSONObjectWithData(it, 0, null) as Map<Any?, *>
-            }
-    }
-    .to {
-        this?.let { NSJSONSerialization.dataWithJSONObject(it, 0, null) as NSData }
-            ?.let { it.toByteArray().contentToString() }
-    }
 
 actual class NetworkOptions (val networkOptions: MPNetworkOptions) {
     actual constructor(): this(MPNetworkOptions())

@@ -24,7 +24,6 @@ actual class FailureLatch actual constructor(val description: String) {
     val id = Random.nextInt() % 1000
 
     init {
-        Logger().error("Initializing Expectation: $description($id)")
         awaiterInstance!!.initializeExpectation(description)
     }
 
@@ -32,18 +31,6 @@ actual class FailureLatch actual constructor(val description: String) {
 
 
     actual fun countDown() {
-        Logger().error("Start COUNTDOWN: $description($id)")
-//        count {
-//            decrement()
-//        }
-//        count {
-//            decrement()
-//        }
-//        condition.apply {
-//            lock()
-//            broadcast()
-//            unlock()
-//        }
         if (NSThread.currentThread.isMainThread) {
             awaiterInstance!!.countdown(description)
         } else {
@@ -51,38 +38,19 @@ actual class FailureLatch actual constructor(val description: String) {
                 awaiterInstance!!.countdown(description)
             }
         }
-        Logger().error("countdown: $description($id)")
+        Logger.info("countdown: $description($id)")
     }
 
     actual fun await() {
 
-//        if (count { value} <= 0) {
-//            Logger().error("Already counted down, skipping await(). count = ${count { value }}")
-//        } else {
-            Logger().error("Awaiting..  $description($id)")
-            await(MockServerAccessor.defaultTimeout)
-//        }
+        await(MockServerAccessor.defaultTimeout)
     }
 
     actual fun await(timeout: Long) {
         val timeout = 5.0
         val endTime: NSDate = NSDate()!!.addTimeInterval(timeout) as NSDate
-        Logger().error("Pre Await call. $description($id). Thread: \n${platforms.currentThread()}")
+        Logger.info("Awaiting latch:  $description($id)")
         awaiterInstance!!.await(description, timeout)
-        Logger().error("Post Await call. $description($id). Thread:\n ${platforms.currentThread()}")
-//        Logger().error("await, pre lock(). Is Main Thread?: ${isServerThread()}")
-//        if (count { value } < 0) {
-//            return
-//        }
-//        Logger().error("Awaiting for : ${endTime.timeIntervalSince1970 - NSDate().timeIntervalSince1970}ms")
-//        while(count { value } > 0) {
-//            val result = condition.waitUntilDate(NSDate().addTimeInterval(0.05) as NSDate)
-//            Logger().error("Await loop, ${endTime.timeIntervalSince1970 - NSDate().timeIntervalSince1970}ms left")
-//            if (NSDate().timeIntervalSince1970 > endTime.timeIntervalSince1970) {
-//                Logger().error("timed out. More than ${timeout}ms have elapsed")
-//                throw AssertionError("timed out. More than ${timeout}ms have elapsed")
-//            }
-//        }
-
+        Logger.info("Latch released: $description($id).")
     }
 }

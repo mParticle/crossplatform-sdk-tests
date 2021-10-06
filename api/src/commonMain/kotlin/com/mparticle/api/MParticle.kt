@@ -1,9 +1,8 @@
 package com.mparticle.api
 
-import com.mparticle.Platforms
 import com.mparticle.api.events.BaseEvent
 import com.mparticle.api.events.MPEvent
-import com.mparticle.api.identity.BaseIdentityTask
+import com.mparticle.api.identity.IdentityResponse
 import com.mparticle.api.identity.IdentityApi
 import com.mparticle.api.identity.IdentityApiRequest
 
@@ -98,7 +97,7 @@ expect class MParticleOptions private constructor(apiKey: String = "api key", ap
 
 
     //direct action
-    var identifyTask: BaseIdentityTask?
+    var identifyTask: IdentityResponse?
 //    var attributionListener(attributionListener: AttributionListener?)
 
     //disable/enable collection

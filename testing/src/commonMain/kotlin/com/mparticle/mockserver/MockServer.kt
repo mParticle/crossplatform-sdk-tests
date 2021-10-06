@@ -1,12 +1,12 @@
 package com.mparticle.mockserver
 
-import co.touchlab.stately.concurrency.AtomicReference
-import co.touchlab.stately.freeze
 import co.touchlab.stately.isolate.IsolateState
 import com.mparticle.api.Logger
 import com.mparticle.messages.*
 import com.mparticle.mockserver.ThreadingUtil.runBlockingServer
 import com.mparticle.mockserver.model.RawConnection
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlin.jvm.JvmOverloads
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.random.Random
@@ -17,9 +17,8 @@ typealias OnRequestCallback<T, R> = (Request<T>, Response<R>) -> Unit
 typealias ResponseLogic<T, R> = (Request<T>) -> Response<R>
 
 object MockServerAccessor {
-    fun <T> run(runnable: MockServer2.() -> T) {
+    fun <T> run(runnable: MockServer.() -> T) {
         val runnable: () -> Unit = {
-            Logger().error("Running runnable..")
             instance!!.access {
                 it.runnable()
                 Unit
@@ -28,9 +27,8 @@ object MockServerAccessor {
         runBlockingServer { runnable() }
     }
 
-    fun <T> runAndReturn(runnable: MockServer2.() -> T): T {
+    fun <T> runAndReturn(runnable: MockServer.() -> T): T {
         val runnable: () -> T = {
-            Logger().error("Running runnable..")
             val result = instance?.access(runnable) ?: throw IllegalStateException("MockServer is NULL")
             result
         }
@@ -38,20 +36,17 @@ object MockServerAccessor {
     }
 
     fun start(platforms: Platforms) {
-        Logger().error("Starting: ${platforms.currentThread()}")
         val runnable = {
-            Logger().error("Starting (in thread): ${platforms.currentThread()}")
-            MockServer2.start(platforms)
-            Logger().error("Started (in thread): ${platforms.currentThread()}")
+            MockServer.start(platforms)
         }
         runBlockingServer { runnable() }
     }
 
     var defaultTimeout: Long = 5 * 1000
         set(value) {
-            Logger().info("Setting default timeout:$value")
+            Logger.info("Setting default timeout:$value")
             val runnable = {
-                Logger().info("Set!")
+                Logger.info("Set!")
                 field = value
             }
             runBlockingServer { runnable() }
@@ -60,19 +55,17 @@ object MockServerAccessor {
 }
 
 @ThreadLocal
-private var _instance: IsolateState<MockServer2>? = null
+private var _instance: IsolateState<MockServer>? = null
 
-internal var instance: IsolateState<MockServer2>?
-    get() = _instance.apply { Logger().error("Getting instance: $this") }
+internal var instance: IsolateState<MockServer>?
+    get() = _instance
 
     set(value) {
-        Logger().error("Setting instance: $value")
         _instance = value
     }
 
-class MockServer2 constructor(platforms: Platforms) {
+class MockServer {
 
-    internal val testingHandler = platforms.mainThreadRunner
     private val endpointMap: Map<EndpointType<*, *>, Endpoint<*, *>> = EndpointType.values
         .associate {
             it to Endpoint(this, it)
@@ -84,16 +77,15 @@ class MockServer2 constructor(platforms: Platforms) {
     companion object {
 
         fun start(platforms: Platforms) {
-            Logger().error("mockserver initialize")
-            instance = IsolateState { MockServer2(platforms) }
-            Logger().error("starting mockserver...")
+            Logger.info("mockserver initialize")
+            instance = IsolateState { MockServer() }
+            Logger.info("starting mockserver...")
             instance?.access { it.start(platforms) }
-            Logger().error("STARTED Mockserver2: ${platforms.currentThread()}")
         }
 
         internal var defaultTimeout: Long = 5 * 1000
             set(value) {
-                Logger().info("Setting default timeout:$value")
+                Logger.info("Setting default timeout:$value")
                 field = value
             }
             get() = field
@@ -104,18 +96,16 @@ class MockServer2 constructor(platforms: Platforms) {
     }
 
     fun failHard(exception: Throwable) {
-        Logger().error("EXCEPTION: ${exception.message}")
-        testingHandler.run {
-            exception.let { throw(it.freeze()) }
+        Logger.error("EXCEPTION: ${exception.message}")
+        runBlocking(Dispatchers.Main) {
+            exception.let { throw(it) }
         }
     }
 
 
     fun onRequestMade(connection: RawConnection): RawConnection {
-        Logger().error("On request made: received")
         Platforms().sleep(100)
         try {
-            Logger().error("Request made: ${connection.getUrl()}")
             val url = connection.getUrl()
             val matchingEndpointType = EndpointType.values
                 .filter { it.urlMatch(url)}
@@ -134,15 +124,12 @@ class MockServer2 constructor(platforms: Platforms) {
     }
 
     private fun start(platforms: Platforms){
-        Logger().error("injecting mockserver..")
+        Logger.info("injecting mockserver..")
         platforms.injectMockServer()
-        Logger().error("setting defaults..")
         setDefaults()
-        Logger().error("done start()")
     }
 
     private fun setDefaults() {
-        Logger().error("setting config endpoint default")
         getEndpoint(EndpointType.Config).addRequestResponseLogic(null) {
             SuccessResponse(ConfigResponseMessage(
                 id = "1234578",
@@ -154,11 +141,9 @@ class MockServer2 constructor(platforms: Platforms) {
                 "eTag" to Random.nextLong().toString()
             ))
         }
-        Logger().error("setting Events endpoint default")
         getEndpoint(EndpointType.Events).addRequestResponseLogic(null) {
             SuccessResponse(Empty(), 202)
         }
-        Logger().error("setting Alias endpoint default")
         getEndpoint(EndpointType.Alias).addRequestResponseLogic(null) {
             SuccessResponse(Empty(), 202)
         }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.runBlocking
 import kotlin.native.concurrent.SharedImmutable
 
 @SharedImmutable
-private val serverThread by lazy { newSingleThreadContext("MyOwnThread") }
+private val serverThread by lazy { newSingleThreadContext("MockServerThread") }
 
 object ThreadingUtil {
     val platforms = Platforms()
@@ -14,9 +14,9 @@ object ThreadingUtil {
         return if (platforms.isServerThread()) {
             runnable()
         } else {
-            Logger().error("Hopping on Server Thread")
-            platforms.prepareThread()
-            runBlocking(serverThread) { runnable() }.apply { Logger().error("OFF Server Thread") }
+            Logger.error("Hopping on Server Thread")
+//            platforms.prepareThread()
+            runBlocking(serverThread) { runnable() }.apply { Logger.error("OFF Server Thread") }
         }
     }
 }

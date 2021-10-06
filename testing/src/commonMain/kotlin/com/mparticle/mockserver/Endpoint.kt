@@ -1,18 +1,15 @@
 package com.mparticle.mockserver
 
-import com.mparticle.*
 import com.mparticle.api.Logger
 import com.mparticle.mockserver.model.RawConnection
 import com.mparticle.testing.FailureLatch
 import com.mparticle.mockserver.model.SimpleRawConnection
-import com.mparticle.mockserver.*
 import kotlinx.serialization.json.Json
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmSynthetic
-import kotlin.native.concurrent.ThreadLocal
 
 
-class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointType: EndpointType<T, R>) {
+class Endpoint<T, R> (private val mockServer: MockServer, private val endpointType: EndpointType<T, R>) {
 
 
     private val requestFinishedFilters: MutableList<(T, Response<R>, RawConnection) -> Boolean> = mutableListOf()
@@ -29,7 +26,7 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
      * internal method for processing a request to this endpoing
      */
     internal fun onReceive(request: T, connection: RawConnection): RawConnection {
-        //reverse so the most recently registered logic gets precidence
+        //reverse so the most recently registered logic gets precedence
         val responseLogic = responseLogic.entries.reversed().firstOrNull { it.key(
             Request(
                 request,
@@ -52,7 +49,7 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
             mockServer.failHard(e)
             throw e
         }
-        Logger().error("Response: $response")
+        Logger.info("Response: $response")
         //add request/response to the receivedRequests list
         try {
             _receivedRequests.add(
@@ -63,10 +60,10 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
                 )
             )
         } catch (e: Exception) {
-            Logger().error("Could not modify receivedRequests: ${e.message}")
+            Logger.error("Could not modify receivedRequests: ${e.message}")
         }
 
-        Logger().error("Copying over to new response object")
+        Logger.info("Copying over to new response object")
         val returnConnection =
             SimpleRawConnection(
                 connection.getUrl(),
@@ -80,20 +77,18 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
                 },
                 responseHeaders = response.headers
             )
-        Logger().error("Removing request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
+        Logger.error("Removing request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         //loop through all the registered callbacks, remove any matches after they have been invoked
         try {
             requestFinishedFilters.removeAll {
-                Logger().error("testing requestFinisheddFilter..")
                 val result = it(request, response, returnConnection)
-                Logger().error("result, isMatch = $result")
                 result
             }
         }
         catch (ex: Exception) {
-            Logger().error(ex.message ?: ex.toString())
+            Logger.error(ex.message ?: ex.toString())
         }
-        Logger().error("Returning connection: $returnConnection")
+        Logger.info("Returning connection: $returnConnection")
         return returnConnection
     }
 
@@ -122,10 +117,8 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
 
     @JvmSynthetic
     fun onRequestFinished(requestFilter: RequestFilter<T>?, onRequestCallback: OnRequestCallback<T, R>?): Endpoint<T, R> {
-        Logger().error("log")
-        Logger().error("Adding request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
+        Logger.info("Adding request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         requestFinishedFilters.add ({ request, response, connection ->
-            Logger().error("Request filter is null = ${requestFilter == null}")
             var isMatch = requestFilter?.invoke(Request(request, connection)) ?: true
             if (isMatch) {
                 try {
@@ -136,7 +129,6 @@ class Endpoint<T, R> (private val mockServer: MockServer2, private val endpointT
             }
             isMatch
         })
-        Logger().error("ADDED request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         return this
     }
 

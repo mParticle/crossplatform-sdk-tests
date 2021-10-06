@@ -2,6 +2,7 @@ package com.mparticle.api.events
 
 import cocoapods.mParticle_Apple_SDK.setProducts
 import cocoapods.mParticle_Apple_SDK.setUserDefinedAttributes
+import com.mparticle.api.commerce.CommerceEvent
 import platform.Foundation.NSMutableDictionary
 import platform.Foundation.NSNumber
 import platform.Foundation.addEntriesFromDictionary
@@ -14,7 +15,7 @@ import cocoapods.mParticle_Apple_SDK.MPEventType as MPEventTypeIOS
 fun BaseEvent.toBaseEvent(): BaseEventIOS {
     val event = when (this) {
         is CommerceEvent -> {
-            this.getEvent()
+            this.commerceEvent
         }
         is MPEvent -> {
             this.getEvent()
@@ -32,40 +33,6 @@ fun MPEvent.getEvent(): MPEventIOS {
         it.customAttributes = customAttributes.entries.associate { it.key to it.value }
         it.name = eventName
         it.type = eventType.ordinal.toULong()
-    }
-}
-
-fun CommerceEvent.getEvent(): CommerceEventIOS {
-    val event = this.productAction?.let { productAction ->
-        CommerceEventIOS(productAction, products!!.get(0).toProduct()).also {
-            it.setProducts(products.subList(1, products.size).toProducts())
-//            it.setImpressions(impressions.toImpressions())
-        }
-
-    }
-
-
-    return event!!
-}
-
-//fun Impression.toImpression(): ImpressionIOS
-
-fun List<Product>.toProducts(): List<ProductIOS> {
-    return map { it.toProduct() }
-}
-
-fun Product.toProduct(): ProductIOS {
-    return ProductIOS().also { product ->
-        brand?.let { product.name = it }
-        category?.let { product.category = it }
-        couponCode?.let { product.couponCode = it }
-        name?.let { product.name = it }
-        position?.let { product.position = it.toULong() }
-        quantity?.let { product.quantity = NSNumber(it) }
-        sku?.let { product.sku = it }
-        variant?.let { product.variant = it }
-        price?.let { product.price = NSNumber(it) }
-        customAttributes?.let { product.setUserDefinedAttributes(it.toMutableDictionary()) }
     }
 }
 

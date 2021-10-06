@@ -41,7 +41,7 @@ class AsyncRawConnectionImpl(val url: String, private val message: String? = nul
     }
 
     override fun getResponseCode(): Int {
-        Logger().error("GetResponse Code, url = $url")
+        Logger.error("GetResponse Code, url = $url")
         return responseCode?: let {
             fail("Missing Response Code!")
             -1

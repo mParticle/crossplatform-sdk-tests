@@ -3,7 +3,7 @@ package com.mparticle.api
 import android.util.Log
 import com.mparticle.internal.Logger as LoggerAndroid
 
-actual class Logger {
+actual object Logger {
     actual fun info(message: String) {
 //        LoggerAndroid.info(message)
         Log.i("MParticleTest", message)

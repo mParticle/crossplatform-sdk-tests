@@ -7,6 +7,7 @@ abstract class BaseStartedTest: BaseTest() {
     @BeforeTest
     fun beforeStarted() {
         MParticle.clearInstance()
+        startMParticle()
 //        TODO
 //        convert this to common API
 

@@ -1,21 +1,17 @@
 package com.mparticle.api
 
-import android.content.Context
-import com.mparticle.Platforms
-import com.mparticle.internal.PushRegistrationHelper
-import java.lang.RuntimeException
-import java.math.BigDecimal
-import com.mparticle.api.identity.IdentityApiRequest
+import com.mparticle.api.events.BaseEvent
+import com.mparticle.api.events.MPEvent
+import com.mparticle.api.events.getEvent
+import com.mparticle.api.events.getMPEvent
 import com.mparticle.api.identity.IdentityApi
 import com.mparticle.api.identity.IdentityApiImpl
-import com.mparticle.api.identity.BaseIdentityTask
-import com.mparticle.api.identity.toBaseIdentityTask
-import com.mparticle.api.events.*
-import com.mparticle.internal.Logger.AbstractLogHandler
+import com.mparticle.api.identity.IdentityApiRequest
+import com.mparticle.api.identity.IdentityResponse
+import com.mparticle.internal.PushRegistrationHelper
+import java.math.BigDecimal
 import com.mparticle.MParticle as MParticleAndroid
 import com.mparticle.MParticleOptions as MParticleOptionsAndroid
-import com.mparticle.MParticle.InstallType as InstallTypeAndroid
-import com.mparticle.MParticle.LogLevel as LogLevelAndroid
 
 
 actual class MParticle(val mparticle: MParticleAndroid) {
@@ -166,19 +162,20 @@ actual class MParticle(val mparticle: MParticleAndroid) {
 
     actual companion object {
         actual fun start(options: MParticleOptions) {
-            Platforms().start(options)
+            com.mparticle.MParticle.start(options.toMParticleOptions())
         }
 
         actual fun getInstance(): MParticle? {
-            return Platforms().getInstance()
+            return com.mparticle.MParticle.getInstance()?.let { MParticle(it) }
         }
 
         actual fun clearInstance() {
-            Platforms().clearInstance()
+            com.mparticle.MParticle.setInstance(null)
         }
 
         actual fun reset(clientPlatform: ClientPlatform) {
-            Platforms().reset(clientPlatform)
+            //TODO how to get a context object here
+            com.mparticle.MParticle.reset(clientPlatform.context)
         }
     }
 }
@@ -208,7 +205,7 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
 
     actual var identifyRequest: IdentityApiRequest? = null
 
-    actual var identifyTask: BaseIdentityTask? = null
+    actual var identifyTask: IdentityResponse? = null
     actual var enableUncaughtExceptionLogging: Boolean? = null
     actual var androidIdDisabled: Boolean? = null
     actual var devicePerformanceMetricsDisabled: Boolean? = null

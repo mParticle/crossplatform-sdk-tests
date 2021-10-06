@@ -29,7 +29,7 @@ class BatchMessage(
     @SerialName("con") val consentState: ConsentStateMessage? = null,
     @SerialName("ctx") val dataplanContext: DataplanContextMessage? = null,
     @SerialName("sh") val sessionHistory: JsonObject? = null,
-    @SerialName("msgs") val messages: List<@Polymorphic BaseEvent>? = null,
+    @SerialName("msgs") val messages: List<@Polymorphic BaseEvent> = listOf(),
     @SerialName("fsr") val reportingMessages: List<ReportingMessageMessage>? = null,
     @SerialName("ai") val appInfo: AppInfoMessage? = null,
     @SerialName("di") val deviceInfo: DeviceInfoMessage? = null,

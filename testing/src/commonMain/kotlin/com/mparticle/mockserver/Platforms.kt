@@ -4,8 +4,6 @@ import com.mparticle.messages.*
 
 expect open class Platforms() {
 
-    var mainThreadRunner: MainThreadRunner
-
     fun sleep(millis: Long)
 
     fun injectMockServer()
@@ -27,11 +25,6 @@ expect open class Platforms() {
 
     fun isServerThread(): Boolean
     fun prepareThread()
-}
-
-expect class MainThreadRunner {
-    fun run(runnable: Runnable)
-    fun runDelayed(delay: Long, runnable: Runnable)
 }
 
 typealias Runnable = () -> Unit
