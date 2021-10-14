@@ -17,6 +17,11 @@ jobs:
           done
           git submodule sync
           git submodule update --init
+      - name: "Install JDK 11"
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "11"
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Run Instrumented Tests
@@ -45,6 +50,11 @@ jobs:
           done
           git submodule sync
           git submodule update --init
+      - name: "Install JDK 11"
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "11"
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Run iOS cross platform tests
