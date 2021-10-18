@@ -73,13 +73,13 @@ val installTypeTransformer = TransformBuilder
 
 @SharedImmutable
 val logLevelTransformer = TransformBuilder
-    .from<LogLevel?, MPILogLevel> { this!!.level.toULong() }
-    .to { LogLevel.values().firstOrNull { it.level == this.toInt() } }
+    .from<LogLevel?, MPILogLevel> { this!!.apple }
+    .to { LogLevel.values().firstOrNull { it.apple == this } }
 
 @SharedImmutable
 val environmentTransformer = TransformBuilder
-    .from<Environment?, MPEnvironment> { this!!.ordinal.toULong() }
-    .to { Environment.values().firstOrNull { it.ordinal == this.toInt() } }
+    .from<Environment?, MPEnvironment> { this!!.apple }
+    .to { Environment.values().firstOrNull { it.apple == this } }
 
 @SharedImmutable
 val jsonStringMapTransformer = TransformBuilder

@@ -35,11 +35,11 @@ fun MParticleOptions.toMParticleOptions(): com.mparticle.MParticleOptions {
     val builder = com.mparticle.MParticleOptions.builder(clientPlatform.context)
         .credentials(apiKey, apiSecret)
         .logLevel(com.mparticle.MParticle.LogLevel.INFO)
-        .environment(com.mparticle.MParticle.Environment.Development)
         .dataplan(dataplanId, dataplanVersion)
 
-    this.androidIdDisabled?.let { builder.androidIdDisabled(it) }
-    this.dataplanOptions?.let {
+    environment?.let { builder.environment(it.android) }
+    androidIdDisabled?.let { builder.androidIdDisabled(it) }
+    dataplanOptions?.let {
         builder.dataplanOptions(
             com.mparticle.MParticleOptions.DataplanOptions.builder()
                 .dataplanVersion(it.dataplan)
@@ -62,7 +62,7 @@ fun MParticleOptions.toMParticleOptions(): com.mparticle.MParticleOptions {
     this.identityConnectionTimeout?.let { builder.identityConnectionTimeout(it) }
     this.sessionTimeout?.let { builder.sessionTimeout(it) }
     this.uploadInterval?.let { builder.uploadInterval(it) }
-    this.logLevel?.let { logLevel -> builder.logLevel(logLevel.toLogLevel())}
+    this.logLevel?.let { logLevel -> builder.logLevel(logLevel.android)}
 
     if (pushRegistrationInstanceId != null && pushRegistrationSenderId != null) {
         builder.pushRegistration(pushRegistrationInstanceId!!, pushRegistrationSenderId!!)
@@ -74,11 +74,5 @@ fun MParticleOptions.toMParticleOptions(): com.mparticle.MParticleOptions {
 fun InstallType.toInstallType(): MParticle.InstallType {
     return MParticle.InstallType.values().first {
         it.name == name
-    }
-}
-
-fun LogLevel.toLogLevel(): MParticle.LogLevel {
-    return MParticle.LogLevel.values().first {
-        it.logLevel == level
     }
 }

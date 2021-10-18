@@ -11,6 +11,7 @@
 		B2085C3525EEC192009D03F7 /* XCodeTests.h in Headers */ = {isa = PBXBuildFile; fileRef = B2085C2725EEC191009D03F7 /* XCodeTests.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B2085C4825EEC1D1009D03F7 /* SimpleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2085C4725EEC1D1009D03F7 /* SimpleTests.swift */; };
 		B2445B4F26D01F0B00A5F7F1 /* CommerceIosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */; };
+		B24F51D7271DDB9C0039E6D2 /* MParticleOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */; };
 		FEE048D69E5587E96A9CB50A /* Pods_XCodeTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE27824D2D7AA018C69F4CB1 /* Pods_XCodeTest.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		B2085C4925EEC1D1009D03F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommerceIosTests.swift; sourceTree = "<group>"; };
 		B2445BC826D41BDE00A5F7F1 /* XCodeTestUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = XCodeTestUITests.xctestplan; sourceTree = "<group>"; };
+		B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MParticleOptions.swift; sourceTree = "<group>"; };
 		FE27824D2D7AA018C69F4CB1 /* Pods_XCodeTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XCodeTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,6 +89,7 @@
 				B2445BC826D41BDE00A5F7F1 /* XCodeTestUITests.xctestplan */,
 				B2085C4925EEC1D1009D03F7 /* Info.plist */,
 				B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */,
+				B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */,
 			);
 			path = XCodeTestUITests;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			files = (
 				B2445B4F26D01F0B00A5F7F1 /* CommerceIosTests.swift in Sources */,
 				B2085C4825EEC1D1009D03F7 /* SimpleTests.swift in Sources */,
+				B24F51D7271DDB9C0039E6D2 /* MParticleOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,8 @@ import com.mparticle.internal.PushRegistrationHelper
 import java.math.BigDecimal
 import com.mparticle.MParticle as MParticleAndroid
 import com.mparticle.MParticleOptions as MParticleOptionsAndroid
-
+import com.mparticle.MParticle.Environment as AndroidEnvironment
+import com.mparticle.MParticle.LogLevel as AndroidLogLevel
 
 actual class MParticle(val mparticle: MParticleAndroid) {
 
@@ -122,6 +123,12 @@ actual class MParticle(val mparticle: MParticleAndroid) {
 
     actual val environment: Environment
         get() = Environment.values().first { it.name.equals(mparticle.environment.name, ignoreCase = true) }
+
+    actual val logLevel: LogLevel?
+        get() = LogLevel.values().firstOrNull { it.android == com.mparticle.internal.Logger.getMinLogLevel() }
+
+    actual val uploadInterval: Long
+        get() = mparticle.Internal().configManager.uploadInterval
 
     actual val currentSession: Session?
         get() = mparticle.currentSession?.let { Session(it) }
@@ -247,4 +254,18 @@ actual class DataplanOptions(val dataplanOptions: com.mparticle.MParticleOptions
             dataplanOptions.blockEvents(value)
             field = value
         }
+}
+
+actual enum class Environment(val android: AndroidEnvironment) {
+    AutoDetect(AndroidEnvironment.AutoDetect),
+    Development(AndroidEnvironment.Development),
+    Production(AndroidEnvironment.Production)
+}
+
+actual enum class LogLevel(val android: AndroidLogLevel) {
+    None(AndroidLogLevel.NONE),
+    Error(AndroidLogLevel.ERROR),
+    Warning(AndroidLogLevel.WARNING),
+    Debug(AndroidLogLevel.DEBUG),
+    Verbose(AndroidLogLevel.VERBOSE)
 }

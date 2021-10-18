@@ -5,5 +5,5 @@ import com.mparticle.api.platform
 import kotlin.test.assertEquals
 
 fun <T> assertPlatformDifference(value: T, message: String? = null, assertion: (Platform) -> T) {
-    assertEquals (value, assertion(platform), message)
+    assertEquals (assertion(platform), value, message)
 }

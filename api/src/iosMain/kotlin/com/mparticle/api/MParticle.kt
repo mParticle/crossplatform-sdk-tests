@@ -109,6 +109,11 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
         TODO("Not yet implemented")
     }
 
+    actual val logLevel: LogLevel? by TransformDelegate(mparticle::logLevel, logLevelTransformer)
+
+    actual val uploadInterval
+        get() = mparticle.uploadInterval.toLong()
+
     actual val uncaughtExceptionLogging: Boolean
         get() = TODO("Not yet implemented")
 
@@ -137,7 +142,10 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
 
     actual companion object {
         actual fun start(options: MParticleOptions) {
-            options.options.setLogLevel(MPILogLevelVerbose)
+            if (options.options.logLevel == null) {
+                options.options.setLogLevel(MPILogLevelVerbose)
+            }
+            Logger.info("Starting MParticle SDK with environment: ${options.environment} aka ${options.options.environment}")
             cocoapods.mParticle_Apple_SDK.MParticle.sharedInstance().startWithOptions(options.options)
         }
 
@@ -250,4 +258,18 @@ actual class DataplanOptions(val dataplanOptions: MPDataPlanOptions) {
     actual var blockUserIdentities: Boolean by property(dataplanOptions::blockUserIdentities)
     actual var blockEventAttributes: Boolean by property(dataplanOptions::blockEventAttributes)
     actual var blockEvents: Boolean by property(dataplanOptions::blockEvents)
+}
+
+actual enum class Environment(val apple: MPEnvironment) {
+    AutoDetect(MPEnvironmentAutoDetect),
+    Development(MPEnvironmentDevelopment),
+    Production(MPEnvironmentProduction)
+}
+
+actual enum class LogLevel(val apple: MPILogLevel) {
+    None(MPILogLevelNone),
+    Error(MPILogLevelError),
+    Warning(MPILogLevelWarning),
+    Debug(MPILogLevelDebug),
+    Verbose(MPILogLevelVerbose)
 }
