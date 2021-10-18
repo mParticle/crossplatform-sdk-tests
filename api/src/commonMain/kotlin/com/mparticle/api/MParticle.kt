@@ -5,6 +5,7 @@ import com.mparticle.api.events.MPEvent
 import com.mparticle.api.identity.IdentityResponse
 import com.mparticle.api.identity.IdentityApi
 import com.mparticle.api.identity.IdentityApiRequest
+import com.mparticle.api.MParticleOptions
 
 expect class MParticle {
 
@@ -16,6 +17,8 @@ expect class MParticle {
     val uncaughtExceptionLogging: Boolean
     var installReferrer: String?
     var isOptOut: Boolean
+    val logLevel: LogLevel?
+    val uploadInterval: Long
 
     val identity: IdentityApi
 
@@ -97,19 +100,18 @@ class LocationTracking(
     val minDistance: Long? = null
 )
 
-enum class LogLevel(val level: Int) {
-    Non(0),
-    Error(1),
-    Warning(2),
-    Debug(3),
-    Verbose(4),
-    Info(5)
+expect enum class LogLevel {
+    None,
+    Error,
+    Warning,
+    Debug,
+    Verbose
 }
 
-enum class Environment() {
-    Production,
+expect enum class Environment {
+    AutoDetect,
     Development,
-    AutoDetect
+    Production
 }
 
 expect class Session {

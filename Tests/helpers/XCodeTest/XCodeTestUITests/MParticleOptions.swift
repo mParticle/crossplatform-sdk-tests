@@ -1,8 +1,10 @@
 import XCTest;
 import mParticle_Multiplatform_Tests
 
-class CommerceIosTests: XCTestCase, TestingAwaiter {
-    var commerceTests = CommerceTests()
+import Foundation
+
+class MParticleOptionsTest: XCTestCase, TestingAwaiter {
+    var optionsTests = MParticleOptionsTests()
     private var expectations = [String: XCTestExpectation]()
 
     override func setUpWithError() throws {
@@ -10,7 +12,7 @@ class CommerceIosTests: XCTestCase, TestingAwaiter {
     }
 
     override func setUp() {
-        commerceTests.beforeAll(awaiter: self)
+        optionsTests.beforeAll(awaiter: self)
     }
 
     
@@ -37,15 +39,24 @@ class CommerceIosTests: XCTestCase, TestingAwaiter {
 
     override func tearDownWithError() throws {}
 
-    func testCommerceProductEvent() throws {
-        try commerceTests.testCommerceProductEvent()
+    func testApiKey() throws {
+        try optionsTests.testApiKey()
     }
 
-    func testCommercePromotionEvent() throws {
-        try commerceTests.testCommercePromotionEvent()
+    func testUploadIntervalDevelopment() throws {
+        try optionsTests.testUploadIntervalDevelopment()
     }
 
-    func testCommerceImpressionEvent() throws {
-        try commerceTests.testCommerceImpressionEvent()
+
+    func testUploadIntervalProduction() throws {
+        try optionsTests.testUploadIntervalProduction()
+    }
+
+    func testSetProductionEnvironment() throws {
+        try optionsTests.testSetProductionEnvironment()
+    }
+    
+    func testLogLevel() throws {
+        try optionsTests.testLogLevel()
     }
 }
