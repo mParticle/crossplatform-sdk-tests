@@ -2,7 +2,7 @@ package com.mparticle.testing
 
 import co.touchlab.stately.freeze
 import com.mparticle.api.Logger
-import com.mparticle.mockserver.MockServerAccessor
+import com.mparticle.mockserver.Server
 import com.mparticle.mockserver.Platforms
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -29,8 +29,6 @@ actual class FailureLatch actual constructor(val description: String) {
         awaiterInstance!!.initializeExpectation(description)
     }
 
-    private val condition = NSCondition()
-
 
     actual fun countDown() {
         if (NSThread.currentThread.isMainThread) {
@@ -44,8 +42,7 @@ actual class FailureLatch actual constructor(val description: String) {
     }
 
     actual fun await() {
-
-        await(MockServerAccessor.defaultTimeout)
+        await(Server.defaultTimeout)
     }
 
     actual fun await(timeout: Long) {

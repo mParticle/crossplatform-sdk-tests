@@ -9,7 +9,7 @@ import com.mparticle.api.ClientPlatform
 import com.mparticle.api.ClientPlatformImpl
 import com.mparticle.internal.AppStateManager
 import com.mparticle.internal.Logger
-import com.mparticle.mockserver.MockServerAccessor
+import com.mparticle.mockserver.Server
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
@@ -23,7 +23,7 @@ actual fun beforeTest() {
     //as many annoying failures while trying to figure out whats happening in a breakpoint
     if (Debug.isDebuggerConnected() || Debug.waitingForDebugger()) {
         Log.e("MockServer2", "debug mode")
-        MockServerAccessor.defaultTimeout = 60 * 1000
+        Server.defaultTimeout = 60 * 1000
     }
     Logger.setLogHandler(null)
 }

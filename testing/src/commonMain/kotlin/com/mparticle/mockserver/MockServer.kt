@@ -5,11 +5,8 @@ import com.mparticle.api.Logger
 import com.mparticle.messages.*
 import com.mparticle.mockserver.ThreadingUtil.runBlockingServer
 import com.mparticle.mockserver.model.RawConnection
+import com.mparticle.mockserver.utils.Mutable
 import com.mparticle.testing.FailureLatch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlin.jvm.JvmOverloads
-import kotlin.native.concurrent.SharedImmutable
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.random.Random
 
@@ -18,8 +15,136 @@ typealias RequestFilter<T> = (Request<T>) -> Boolean
 typealias OnRequestCallback<T, R> = (Request<T>, Response<R>) -> Unit
 typealias ResponseLogic<T, R> = (Request<T>) -> Response<R>
 
-object MockServerAccessor {
-    fun <T> run(runnable: MockServer.() -> T) {
+
+object Server {
+    private val _defaultTimeout = IsolateState { Mutable(5 * 1000L) }
+
+    var defaultTimeout: Long
+        get() = _defaultTimeout.access { it.value }
+        set(value) = _defaultTimeout.access { it.value = value }
+
+    fun start(platforms: Platforms) {
+        val runnable = {
+            MockServer.start(platforms)
+        }
+        runBlockingServer { runnable() }
+    }
+
+    fun <RequestType, ResponseType> endpoint(endpointType: EndpointType<RequestType, ResponseType>): ServerEndpoint<RequestType, ResponseType> {
+        return ServerEndpoint(endpointType)
+    }
+
+    fun onRequestMade(connection: RawConnection): RawConnection {
+        return runOnServerAndReturn {
+            onRequestMade(connection)
+        }
+    }
+
+    class ServerEndpoint<RequestType, ResponseType>(internal val endpointType: EndpointType<RequestType, ResponseType>) {
+
+        fun nextResponse(responseLogic: ResponseLogic<RequestType, ResponseType>) {
+            runOnServer {
+                getEndpoint(endpointType).nextResponse(responseLogic)
+            }
+        }
+
+        fun assertHasReceived(assertion: RequestFilter<RequestType>) {
+            runOnServerAndReturn {
+                getEndpoint(endpointType).receivedRequests.any { assertion(it.request) }
+            }.also {
+                if (!it) {
+                    throw (AssertionError("Request matching filter has not been received"))
+                }
+            }
+        }
+
+        fun assertHasNotReceived(assertion: RequestFilter<RequestType>): Negation<RequestType> {
+            runOnServerAndReturn {
+                getEndpoint(endpointType).receivedRequests.any { assertion(it.request) }
+            }.also {
+                if (it) {
+                    throw AssertionError("Request matching filter HAS been received")
+                }
+            }
+            return Negation(assertion, this)
+        }
+
+        fun assertWillReceive(filter: RequestFilter<RequestType>): Assertion<RequestType, ResponseType> =
+            Assertion(filter, endpointType).also {
+                runOnServer {
+                    getEndpoint(endpointType).onRequestFinished(it)
+                }
+            }
+
+        fun assertWillNotReceive(filter: RequestFilter<RequestType>): Assertion<RequestType, ResponseType> =
+            Assertion(filter, endpointType, true).also {
+                runOnServer {
+                    getEndpoint(endpointType).onRequestFinished(it)
+                }
+            }
+
+
+        open class Assertion<RequestType, ResponseType>(
+            private val assertion: RequestFilter<RequestType>?,
+            private val endpointType: EndpointType<RequestType, ResponseType>,
+            private val isInverse: Boolean = false
+        ) : RequestFilter<RequestType> {
+            private val finished = IsolateState { Mutable(false) }
+            private val latch by lazy { FailureLatch() }
+
+            fun orHasAlready(): Assertion<RequestType, ResponseType> {
+                runOnServerAndReturn {
+                    if (getEndpoint(endpointType).receivedRequests.any { assertion?.invoke(it.request) == true }) {
+                        finished.access { it.value = true }
+                    }
+                }
+                return this
+            }
+
+            open override fun invoke(p1: Request<RequestType>): Boolean =
+                when (assertion?.invoke(p1)) {
+                    true -> {
+                        latch.countDown()
+                        Logger.error("Isolate finished = true")
+                            .let { finished.access { it.value = true } }
+                        if (isInverse) {
+                            throw AssertionError("Received Request when matching one wasn't expected: $p1")
+                        }
+                        true
+                    }
+                    else -> false
+                }
+
+            fun blockUntilFinished() {
+                Logger.error("BLOCK UNTIL FINISHED")
+                latch.await()
+            }
+
+            fun cancel() = latch.countDown()
+
+            fun assertFinished() {
+                if (finished.access { it.value } == isInverse) {
+                    throw AssertionError("Assertion was not finished when ${this::assertFinished.name} was called")
+                }
+            }
+
+            fun after(lambda: () -> Unit): Assertion<RequestType, ResponseType> =
+                lambda().let { this }
+
+            fun latch(): FailureLatch = latch
+        }
+
+        inner class Negation<RequestType>(
+            private val assertion: RequestFilter<RequestType>,
+            private val serverEndpoint: ServerEndpoint<RequestType, ResponseType>
+        ) {
+            fun butWill(): Assertion<RequestType, ResponseType> {
+                return serverEndpoint.assertWillReceive(assertion)
+            }
+        }
+    }
+
+    private fun <T> runOnServer(runnable: MockServer.() -> T) {
         val runnable: () -> Unit = {
             instance!!.access {
                 it.runnable()
@@ -29,31 +154,15 @@ object MockServerAccessor {
         runBlockingServer { runnable() }
     }
 
-    fun <T> runAndReturn(runnable: MockServer.() -> T): T {
+    private fun <T> runOnServerAndReturn(runnable: MockServer.() -> T): T {
+        Logger.error("Run on server")
+        RuntimeException().printStackTrace()
         val runnable: () -> T = {
             val result = instance?.access(runnable) ?: throw IllegalStateException("MockServer is NULL")
             result
         }
         return runBlockingServer { runnable() }
     }
-
-    fun start(platforms: Platforms) {
-        val runnable = {
-            MockServer.start(platforms)
-        }
-        runBlockingServer { runnable() }
-    }
-
-    var defaultTimeout: Long = 5 * 1000
-        set(value) {
-            Logger.info("Setting default timeout:$value")
-            val runnable = {
-                Logger.info("Set!")
-                field = value
-            }
-            runBlockingServer { runnable() }
-        }
-        get() = runBlockingServer { field }
 }
 
 @ThreadLocal
@@ -65,46 +174,6 @@ internal var instance: IsolateState<MockServer>?
     set(value) {
         _instance = value
     }
-
-interface MockServerInterface {
-    fun <RequestType, ResponseType> endpoint(endpointType: EndpointType<RequestType, ResponseType>): EndpointInterface<RequestType, ResponseType>
-}
-
-interface EndpointInterface<RequestType, ResponseType> {
-    fun onRequestFinished(requestFilter: RequestFilter<RequestType>): FailureLatch
-    fun onRequestFinishedBlocking(requestFilter: RequestFilter<RequestType>)
-
-    fun nextResponse(responseLogic: ResponseLogic<RequestType, ResponseType>)
-}
-
-object MockServerWrapper: MockServerInterface {
-    override fun <RequestType, ResponseType> endpoint(endpointType: EndpointType<RequestType, ResponseType>): EndpointInterface<RequestType, ResponseType> {
-        return EndpointWrapper { it.getEndpoint(endpointType) }
-    }
-}
-
-class EndpointWrapper<RequestType, ResponseType>(private val endpoint: (MockServer) -> Endpoint<RequestType, ResponseType>): EndpointInterface<RequestType, ResponseType> {
-    override fun onRequestFinished(requestFilter: RequestFilter<RequestType>): FailureLatch {
-        return MockServerAccessor.runAndReturn {
-            endpoint(this).onRequestFinished(requestFilter)
-            FailureLatch()
-        }
-    }
-
-    override fun onRequestFinishedBlocking(requestFilter: RequestFilter<RequestType>) {
-        val latch = FailureLatch()
-        MockServerAccessor.run {
-            endpoint(this).onRequestFinished(requestFilter) { request, response -> latch.countDown() }
-        }
-        latch.await()
-    }
-
-    override fun nextResponse(responseLogic: ResponseLogic<RequestType, ResponseType>) {
-        MockServerAccessor.run {
-            endpoint(this).nextResponse(responseLogic)
-        }
-    }
-}
 
 class MockServer {
 
@@ -219,7 +288,7 @@ class MockServer {
 
         //add listeners for streaming
         EndpointType.values.forEach {
-            getEndpoint(it).onRequestFinished(null) { any, response ->
+            getEndpoint(it).onRequestFinished(requestFilter = null) { any, response ->
                 onRequestCallbacks.forEach { callback -> callback(any as Request<Any?>, response) }
             }
         }

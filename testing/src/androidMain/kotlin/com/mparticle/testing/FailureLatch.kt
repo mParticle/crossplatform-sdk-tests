@@ -2,7 +2,7 @@ package com.mparticle.testing
 
 import android.os.Handler
 import android.os.Looper
-import com.mparticle.mockserver.MockServerAccessor
+import com.mparticle.mockserver.Server
 import java.lang.RuntimeException
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -31,7 +31,7 @@ actual class FailureLatch actual constructor(val description: String) : CountDow
     }
 
     actual override fun await() {
-        await(MockServerAccessor.defaultTimeout)
+        await(Server.defaultTimeout)
     }
 
     actual fun await(timeout: Long) {

@@ -24,6 +24,7 @@ expect open class Platforms() {
     fun currentThread(): String?
 
     fun isServerThread(): Boolean
+    fun setServerThread()
     fun prepareThread()
 }
 

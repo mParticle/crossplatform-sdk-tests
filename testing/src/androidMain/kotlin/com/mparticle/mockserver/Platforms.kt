@@ -55,6 +55,7 @@ actual open class Platforms {
 
     actual fun currentThread(): String? = Thread.currentThread().name
     actual fun isServerThread(): Boolean = true //Looper.getMainLooper() == Looper.myLooper()
+    actual fun setServerThread() {}
     actual fun prepareThread() {
         if (Looper.myLooper() == null) {
             Looper.prepare()
