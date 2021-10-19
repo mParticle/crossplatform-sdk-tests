@@ -44,11 +44,13 @@ class SampleTests: BaseTest() {
     fun testSetMpid() {
         try {
             println("Setting request logic")
-            MockServerWrapper.endpoint(EndpointType.Identity_Identify).nextResponse {
-                SuccessResponse {
-                    responseObject = IdentityResponseMessage(123)
+            Server
+                .endpoint(EndpointType.Identity_Identify)
+                .nextResponse {
+                    SuccessResponse {
+                        responseObject = IdentityResponseMessage(123)
+                    }
                 }
-            }
             startMParticle()
             assertEquals(123, mParticle.identity.currentUser?.mpid)
         }
@@ -71,20 +73,25 @@ class SampleTests: BaseTest() {
             startMParticle()
 
             val mpEvent = MPEvent("Some Event Name", EventType.Other)
-            MParticle.getInstance()?.apply {
-                logEvent(mpEvent)
-                upload()
-            }
 
-            MockServerWrapper.endpoint(EndpointType.Events).onRequestFinishedBlocking { messageBatch: Request<BatchMessage> ->
-                Logger.info("Event batch received. ${messageBatch.body.messages.size} messages included: ${messageBatch.body.messages?.joinToString { "${it::class.simpleName}(${it.messageType})" }}")
-                messageBatch.body.messages
-                    .filterIsInstance<com.mparticle.messages.events.MPEventMessage>()
-                    .any {
-                        Logger.error("event named: ${it.name}")
-                        it.name == "Some Event Name"
+            Server
+                .endpoint(EndpointType.Events)
+                .assertWillReceive { messageBatch: Request<BatchMessage> ->
+                    Logger.info("Event batch received. ${messageBatch.body.messages.size} messages included: ${messageBatch.body.messages?.joinToString { "${it::class.simpleName}(${it.messageType})" }}")
+                    messageBatch.body.messages
+                        .filterIsInstance<com.mparticle.messages.events.MPEventMessage>()
+                        .any {
+                            Logger.error("event named: ${it.name}")
+                            it.name == "Some Event Name"
+                        }
+                }
+                .after {
+                    MParticle.getInstance()?.apply {
+                        logEvent(mpEvent)
+                        upload()
                     }
-            }
+                }
+                .blockUntilFinished()
         }
         catch (e: Exception) {
             e.printStackTrace();

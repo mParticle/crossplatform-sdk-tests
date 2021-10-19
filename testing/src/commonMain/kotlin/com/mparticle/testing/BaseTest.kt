@@ -32,13 +32,13 @@ open class BaseTest() {
 
         mStartingMpid = Random.nextLong()
         Logger.info("Starting MockSerrver...")
-        MockServerAccessor.start(platforms)
+        Server.start(platforms)
         Logger.info("MockServer started")
-        MockServerAccessor.run {
-            getEndpoint(EndpointType.Identity_Identify).addRequestResponseLogic(null) {
+        Server
+            .endpoint(EndpointType.Identity_Identify)
+            .nextResponse {
                 SuccessResponse(IdentityResponseMessage(mStartingMpid))
             }
-        }
         afterBeforeAll()
     }
 

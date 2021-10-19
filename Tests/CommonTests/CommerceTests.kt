@@ -1,23 +1,19 @@
 package com.mparticle
 
-import com.mparticle.api.MParticle
 import com.mparticle.api.Platform.Android
 import com.mparticle.api.Platform.iOS
 import com.mparticle.api.commerce.*
 import com.mparticle.api.mParticle
-import com.mparticle.messages.events.BatchMessage
 import com.mparticle.messages.events.ImpressionMessage
 import com.mparticle.messages.events.ProductMessage
 import com.mparticle.messages.events.PromotionMessage
 import com.mparticle.mockserver.*
 import com.mparticle.testing.BaseStartedTest
-import com.mparticle.testing.FailureLatch
 import com.mparticle.testing.assertPlatformDifference
 import kotlin.test.*
 
 class CommerceTests: BaseStartedTest() {
 
-    //just verify that we can log an event and it will get sent to the server. Not testing the event message
     @Test
     @Throws(Throwable::class)
     fun testCommerceProductEvent() {
@@ -27,13 +23,10 @@ class CommerceTests: BaseStartedTest() {
                 customAttributes = mapOf("this" to "that")
                 productListName = "something"
             }
-        mParticle.apply {
-            logEvent(commerceEvent)
-            upload()
-        }
 
-        MockServerWrapper.endpoint(EndpointType.Events)
-            .onRequestFinishedBlocking(requestFilter = { request ->
+        Server
+            .endpoint(EndpointType.Events)
+            .assertWillReceive { request ->
                 request.body.messages
                     .filterIsInstance<com.mparticle.messages.events.CommerceEventMessage>()
                     .filter { it.productActionObject != null }
@@ -52,10 +45,16 @@ class CommerceTests: BaseStartedTest() {
                         assertEquals("view_detail", commerceMessage.productActionObject?.action)
                         true
                     } ?: false
-            })
+            }
+            .after {
+                mParticle.apply {
+                    logEvent(commerceEvent)
+                    upload()
+                }
+            }
+            .blockUntilFinished()
     }
 
-    //just verify that we can log an event and it will get sent to the server. Not testing the event message
     @Test
     @Throws(Throwable::class)
     fun testCommercePromotionEvent() {
@@ -71,13 +70,9 @@ class CommerceTests: BaseStartedTest() {
                 customAttributes = mapOf("this" to "that")
             }
 
-        mParticle.apply {
-            logEvent(commerceEvent)
-            upload()
-        }
-
-        MockServerWrapper.endpoint(EndpointType.Events)
-            .onRequestFinishedBlocking { request ->
+        Server
+            .endpoint(EndpointType.Events)
+            .assertWillReceive{ request ->
                 request.body.messages
                     .filterIsInstance<com.mparticle.messages.events.CommerceEventMessage>()
                     .filter { it.promotionActionObject != null }
@@ -97,9 +92,15 @@ class CommerceTests: BaseStartedTest() {
                         true
                     } ?: false
             }
+            .after {
+                mParticle.apply {
+                    logEvent(commerceEvent)
+                    upload()
+                }
+            }
+            .blockUntilFinished()
     }
 
-    //just verify that we can log an event and it will get sent to the server. Not testing the event message
     @Test
     @Throws(Throwable::class)
     fun testCommerceImpressionEvent() {
@@ -121,8 +122,9 @@ class CommerceTests: BaseStartedTest() {
             upload()
         }
 
-        MockServerWrapper.endpoint(EndpointType.Events)
-            .onRequestFinishedBlocking { request ->
+        Server
+            .endpoint(EndpointType.Events)
+            .assertWillReceive { request ->
                 request.body.messages
                     .filterIsInstance<com.mparticle.messages.events.CommerceEventMessage>()
                     .filter { it.impressionObject != null }
@@ -138,6 +140,13 @@ class CommerceTests: BaseStartedTest() {
                         true
                     } ?: false
             }
+            .after {
+                mParticle.apply {
+                    logEvent(commerceEvent)
+                    upload()
+                }
+            }
+            .blockUntilFinished()
     }
 }
 

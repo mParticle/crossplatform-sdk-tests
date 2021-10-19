@@ -1,6 +1,6 @@
 package com.mparticle.networking
 
-import com.mparticle.mockserver.MockServerAccessor
+import com.mparticle.mockserver.Server
 import com.mparticle.mockserver.model.RawConnection
 import com.mparticle.mockserver.model.SimpleRawConnection
 import java.io.*
@@ -144,9 +144,7 @@ class MPConnectionTestImpl internal constructor(var url: MPUrl) : MPConnection {
     private fun makeRequest() {
         if (!requestMade) {
             requestMade = true
-            connection = MockServerAccessor.runAndReturn {
-                onRequestMade(connection)
-            }
+            connection = Server.onRequestMade(connection)
         }
     }
 }

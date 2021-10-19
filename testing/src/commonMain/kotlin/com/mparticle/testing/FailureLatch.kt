@@ -1,6 +1,6 @@
 package com.mparticle.testing
 
-import com.mparticle.mockserver.MockServerAccessor
+import com.mparticle.mockserver.Server
 
 /**
  * important to run fail() calls on the testing thread. JUnit doesn't always pick up on test failures
@@ -9,5 +9,5 @@ import com.mparticle.mockserver.MockServerAccessor
 expect class FailureLatch(description: String = "Internal Latch") {
     fun countDown()
     fun await()
-    fun await(timeout: Long = MockServerAccessor.defaultTimeout)
+    fun await(timeout: Long = Server.defaultTimeout)
 }
