@@ -59,4 +59,21 @@ class MParticleOptionsTest: XCTestCase, TestingAwaiter {
     func testLogLevel() throws {
         try optionsTests.testLogLevel()
     }
+
+    func testDataPlanId() throws {
+        try optionsTests.testDataPlanId()
+    }
+
+    func testDataPlanVersion() throws {
+        try optionsTests.testDataPlanVersion()
+    }
+
+    func testOptOutDefault() throws {
+            try optionsTests.testOptOutDefault()
+    }
+
+    func testDeviceApplicationStamp() throws {
+            try optionsTests.testDeviceApplicationStamp()
+    }
+
 }

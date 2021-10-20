@@ -8,7 +8,7 @@ Cross-Platform testing is a framework, implemented with Kotlin Multiplatform, th
 Tests are located in the `Tests/` directory. To add a new test, either write a new function in one of the existing classes, or create a new class and add the function into the `Tests/` directory.
 
 > caveats:
->   - (iOS) for each new test, you need to add a function in testing/XCodeProject/XCodeProjectUITests/XCodeProjectUITest.swift **(TODO)**
+>   - (iOS) for each new test, you need to add a function in Tests/helpers/XCodeTest/XCodeTestUITests **(TODO)**
 >   - (Android) simply add the @Test annotation, and it will be run automatically
 
 #### Running Tests
