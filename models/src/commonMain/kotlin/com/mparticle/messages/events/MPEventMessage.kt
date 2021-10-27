@@ -12,6 +12,9 @@ class MPEventMessage: BaseEvent() {
     @SerialName("n")
     var name: String? = null
 
+    @SerialName("et")
+    var eventType: String? = null
+
     @SerialName("el")
     var eventDuration: Double? = null
 
