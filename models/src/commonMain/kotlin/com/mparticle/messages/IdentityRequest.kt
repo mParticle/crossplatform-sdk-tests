@@ -12,7 +12,7 @@ class IdentityRequestMessage (
     @SerialName("request_id") val requestId: String? = null,
     @SerialName("request_timestamp_ms") val requestTimestamp: Long? = null,
     @SerialName("previous_mpid") val previousMpid: Long? = null,
-    @SerialName("known_identities") val knownIdentities: Map<String, String>? = null,
+    @SerialName("known_identities") val knownIdentities: Map<String, String?>? = null,
     @SerialName("identity_changes") val identityChanges: List<IdentityChange>? = null
 ) {
     companion object {

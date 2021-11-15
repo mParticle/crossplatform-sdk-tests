@@ -35,6 +35,7 @@ actual class FailureLatch actual constructor(val description: String) : CountDow
     }
 
     actual fun await(timeout: Long) {
+        val awaitStackTrace = RuntimeException()
         if (finished) {
             return
         }
@@ -43,7 +44,7 @@ actual class FailureLatch actual constructor(val description: String) : CountDow
         //the test
         this.await(5 * 1000, TimeUnit.MILLISECONDS)
         if (!finished) {
-            AssertionError("$description timed out. More than ${timeout}ms have elapsed").let {
+            RuntimeException("$description timed out. More than ${timeout}ms have elapsed", awaitStackTrace).let {
                 Handler(Looper.getMainLooper()).post { throw it }
             }
 

@@ -18,7 +18,15 @@ object ThreadingUtil {
         } else {
             Logger.error("Hopping on Server Thread")
 //            platforms.prepareThread()
-            runBlocking(serverThread) { runnable() }.apply { Logger.error("OFF Server Thread") }
+            runBlocking(serverThread) {
+                try {
+                    runnable()
+                } catch (ex: Throwable) {
+                        Logger.error(ex.message ?: "error receiving request")
+                        Logger.error(ex.stackTraceToString())
+                    throw ex
+                }
+            }.apply { Logger.error("OFF Server Thread") }
         }
     }
 }

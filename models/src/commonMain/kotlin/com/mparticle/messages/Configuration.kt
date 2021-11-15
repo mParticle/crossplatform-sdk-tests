@@ -30,6 +30,7 @@ data class ConfigResponseMessage(
         return Json {
             isLenient = true
             ignoreUnknownKeys = true
+            coerceInputValues = true
         }.decodeFromString(serializer(), from)
     }
 }

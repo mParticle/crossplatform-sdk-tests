@@ -1,7 +1,7 @@
 package com.mparticle.messages.events
 
 import com.mparticle.messages.EventType
-import com.mparticle.messages.IdentityType
+import com.mparticle.messages.UserIdentities
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -33,7 +33,7 @@ class BatchMessage(
     @SerialName("fsr") val reportingMessages: List<ReportingMessageMessage>? = null,
     @SerialName("ai") val appInfo: AppInfoMessage? = null,
     @SerialName("di") val deviceInfo: DeviceInfoMessage? = null,
-    @SerialName("ui") val identities: List<IdentityType>? = null,
+    @SerialName("ui") val identities: List<UserIdentities>? = null,
     @SerialName("ua") val attributes: JsonObject? = null
 ) {
 
@@ -57,6 +57,7 @@ class BatchMessage(
             ignoreUnknownKeys = true
             classDiscriminator = "dt"
             isLenient = true
+            coerceInputValues = true
         }
     }
 }

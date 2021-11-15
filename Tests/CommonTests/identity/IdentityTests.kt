@@ -31,14 +31,10 @@ interface IdentityTester {
 open class IdentityTests(val identify_login_logout: (IdentityApi.(IdentityApiRequest?) -> IdentityResponse), val identify_login_logoutEndpoint: EndpointType<IdentityRequestMessage, IdentityResponseMessage>): BaseStartedTest(), IdentityTester {
 
         override fun testNullRequest() {
-            mParticle.identity.identify_login_logout(null)
             Server
                 .endpoint(identify_login_logoutEndpoint)
-                .assertWillReceive {
-                    //assertNull(it.body.previousMpid)
-                    //TODO  why not null?
-                    true
-                }
+                .assertWillReceive { true }
+                .after { mParticle.identity.identify_login_logout(null) }
                 .blockUntilFinished()
         }
 
@@ -81,24 +77,34 @@ open class IdentityTests(val identify_login_logout: (IdentityApi.(IdentityApiReq
                 )
             }
             mParticle.identity.modify(modifyRequest).addSuccessListener { _, _ ->
-                mParticle.identity.apply {
-                    Server
-                        .endpoint(identify_login_logoutEndpoint)
-                        .assertWillReceive {
-                            assertEquals(mParticle.identity.currentUser!!.mpid, it.body.previousMpid)
-                            assertEquals(modifyRequest.identities[IdentityType.Facebook], it.body.knownIdentities?.get(IdentityType.Facebook.name.toLowerCase()))
-                            assertEquals(modifyRequest.identities[IdentityType.Microsoft], it.body.knownIdentities?.get(IdentityType.Microsoft.name.toLowerCase()))
-                            assertEquals(modifyRequest.identities[IdentityType.Other4], it.body.knownIdentities?.get(IdentityType.Other4.name.toLowerCase()))
-                            true
-                        }
-                        .after {
-                            identify_login_logout(IdentityApiRequest(currentUser))
-                        }
-                        .blockUntilFinished()
-                    latch.countDown()
-                }
+                latch.countDown()
             }
             latch.await()
+
+            mParticle.identity.apply {
+                Server
+                    .endpoint(identify_login_logoutEndpoint)
+                    .assertWillReceive {
+                        assertEquals(mParticle.identity.currentUser!!.mpid, it.body.previousMpid)
+                        assertEquals(
+                            modifyRequest.identities[IdentityType.Facebook],
+                            it.body.knownIdentities?.get(IdentityType.Facebook.name.toLowerCase())
+                        )
+                        assertEquals(
+                            modifyRequest.identities[IdentityType.Microsoft],
+                            it.body.knownIdentities?.get(IdentityType.Microsoft.name.toLowerCase())
+                        )
+                        assertEquals(
+                            modifyRequest.identities[IdentityType.Other4],
+                            it.body.knownIdentities?.get(IdentityType.Other4.name.toLowerCase())
+                        )
+                        true
+                    }
+                    .after {
+                        identify_login_logout(IdentityApiRequest(currentUser))
+                    }
+                    .blockUntilFinished()
+            }
         }
 
         override fun testIdentityRequestChangesIds() {
@@ -132,30 +138,29 @@ open class IdentityTests(val identify_login_logout: (IdentityApi.(IdentityApiReq
                     IdentityType.Microsoft to null
                 )
             }
-            mParticle.identity.apply {
-                modify(modifyRequest).addSuccessListener { _, _ ->
-                    Server
-                        .endpoint(identify_login_logoutEndpoint)
-                        .assertWillReceive { request ->
-                            if (request.body.previousMpid == mParticle.identity.currentUser!!.mpid) {
-                                assertEquals(mParticle.identity.currentUser!!.mpid, request.body.previousMpid)
-                                assertEquals(0, request.body.identityChanges?.size  ?: 0)
-                                assertEquals(identityRequest.identities[IdentityType.Other4], request.body.knownIdentities?.get(IdentityType.Other4.name.toLowerCase()))
-                                assertEquals(identityRequest.identities[IdentityType.Google], request.body.knownIdentities?.get(IdentityType.Google.name.toLowerCase()))
-                                assertEquals(identityRequest.identities[IdentityType.Microsoft], request.body.knownIdentities?.get(IdentityType.Microsoft.name.toLowerCase()))
-                                true
-                            } else {
-                                false
-                            }
-                        }
-                        .after {
-                            identify_login_logout(identityRequest)
-                        }
-                        .blockUntilFinished()
-                    latch.countDown()
-                }
+            mParticle.identity.modify(modifyRequest).addSuccessListener { _, _ ->
+                latch.countDown()
             }
             latch.await()
+
+            Server
+                .endpoint(identify_login_logoutEndpoint)
+                .assertWillReceive { request ->
+                    if (request.body.previousMpid == mParticle.identity.currentUser!!.mpid) {
+                        assertEquals(mParticle.identity.currentUser!!.mpid, request.body.previousMpid)
+                        assertEquals(0, request.body.identityChanges?.size  ?: 0)
+                        assertEquals(identityRequest.identities[IdentityType.Other4], request.body.knownIdentities?.get(IdentityType.Other4.name.toLowerCase()))
+                        assertEquals(identityRequest.identities[IdentityType.Google], request.body.knownIdentities?.get(IdentityType.Google.name.toLowerCase()))
+                        assertEquals(identityRequest.identities[IdentityType.Microsoft], request.body.knownIdentities?.get(IdentityType.Microsoft.name.toLowerCase()))
+                        true
+                    } else {
+                        false
+                    }
+                }
+                .after {
+                    mParticle.identity.identify_login_logout(identityRequest)
+                }
+                .blockUntilFinished()
         }
 
         override fun testIdentityRequestWithIdsWithCurrentUserWithIds() {
@@ -172,28 +177,29 @@ open class IdentityTests(val identify_login_logout: (IdentityApi.(IdentityApiReq
                 IdentityType.Google to "me@gmail.com",
                 IdentityType.Microsoft to null
             )
-            mParticle.identity.apply {
-                modify(modifyRequest).addSuccessListener { _, _ ->
-                    Server
-                        .endpoint(identify_login_logoutEndpoint)
-                        .assertWillReceive {
-                            assertEquals(mParticle.identity.currentUser!!.mpid, it.body.previousMpid)
-                            assertEquals(identifyIdentities[IdentityType.Other4], it.body.knownIdentities?.get(IdentityType.Other4.name.toLowerCase()))
-                            assertEquals(identifyIdentities[IdentityType.Google], it.body.knownIdentities?.get(IdentityType.Google.name.toLowerCase()))
-                            assertEquals(identifyIdentities[IdentityType.Microsoft], it.body.knownIdentities?.get(IdentityType.Microsoft.name.toLowerCase()))
-                            assertEquals(modifyRequest.identities[IdentityType.Facebook], it.body.knownIdentities?.get(IdentityType.Facebook.name.toLowerCase()))
-                            true
-                        }
-                        .after {
-                            identify_login_logout(IdentityApiRequest(currentUser) {
-                                identities = identifyIdentities
-                            })
-                        }
-                        .blockUntilFinished()
-                    latch.countDown()
-                }
+            mParticle.identity.modify(modifyRequest).addSuccessListener { _, _ ->
+                latch.countDown()
             }
             latch.await()
+
+            Server
+                .endpoint(identify_login_logoutEndpoint)
+                .assertWillReceive {
+                    assertEquals(mParticle.identity.currentUser!!.mpid, it.body.previousMpid)
+                    assertEquals(identifyIdentities[IdentityType.Other4], it.body.knownIdentities?.get(IdentityType.Other4.name.toLowerCase()))
+                    assertEquals(identifyIdentities[IdentityType.Google], it.body.knownIdentities?.get(IdentityType.Google.name.toLowerCase()))
+                    assertEquals(identifyIdentities[IdentityType.Microsoft], it.body.knownIdentities?.get(IdentityType.Microsoft.name.toLowerCase()))
+                    assertEquals(modifyRequest.identities[IdentityType.Facebook], it.body.knownIdentities?.get(IdentityType.Facebook.name.toLowerCase()))
+                    true
+                }
+                .after {
+                    mParticle.identity.apply {
+                        identify_login_logout(IdentityApiRequest(currentUser) {
+                            identities = identifyIdentities
+                        })
+                    }
+                }
+                .blockUntilFinished()
         }
 
 
@@ -213,22 +219,23 @@ open class IdentityTests(val identify_login_logout: (IdentityApi.(IdentityApiReq
                     IdentityType.Microsoft to null
                 )
             }
-            mParticle.identity.apply {
-                modify(modifyRequest).addSuccessListener { _, _ ->
-                    Server
-                        .endpoint(identify_login_logoutEndpoint)
-                        .assertWillReceive {
-                            assertEquals(mParticle.identity.currentUser!!.mpid, it.body.previousMpid)
-                            true
-                        }
-                        .after {
-                            identify_login_logout(identityRequest)
-                        }
-                        .blockUntilFinished()
-                    latch.countDown()
-                }
+            mParticle.identity.modify(modifyRequest).addSuccessListener { _, _ ->
+                latch.countDown()
             }
             latch.await()
+
+            Server
+                .endpoint(identify_login_logoutEndpoint)
+                .assertWillReceive {
+                    assertEquals(mParticle.identity.currentUser!!.mpid, it.body.previousMpid)
+                    true
+                }
+                .after {
+                    mParticle.identity.apply {
+                        identify_login_logout(identityRequest)
+                    }
+                }
+                .blockUntilFinished()
         }
 
         override fun testUpdateToNewMpid() {
