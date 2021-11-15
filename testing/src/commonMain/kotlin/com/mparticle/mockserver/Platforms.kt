@@ -24,7 +24,7 @@ expect open class Platforms() {
     fun currentThread(): String?
 
     fun isServerThread(): Boolean
-    fun setServerThread()
+    fun <T> runInForeground(runnable: () -> T): T
     fun prepareThread()
 }
 

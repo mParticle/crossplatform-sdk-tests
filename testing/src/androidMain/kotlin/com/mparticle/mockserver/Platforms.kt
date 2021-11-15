@@ -9,6 +9,8 @@ import com.mparticle.testing.TestLifecycleContext
 import android.os.Handler
 import android.os.Looper
 import androidx.test.platform.app.InstrumentationRegistry
+import com.mparticle.mockserver.utils.Mutable
+import com.mparticle.testing.FailureLatch
 
 
 actual open class Platforms {
@@ -55,7 +57,9 @@ actual open class Platforms {
 
     actual fun currentThread(): String? = Thread.currentThread().name
     actual fun isServerThread(): Boolean = true //Looper.getMainLooper() == Looper.myLooper()
-    actual fun setServerThread() {}
+    actual fun <T> runInForeground(runnable: () -> T): T {
+        return runnable()
+    }
     actual fun prepareThread() {
         if (Looper.myLooper() == null) {
             Looper.prepare()

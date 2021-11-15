@@ -4,6 +4,8 @@ import cocoapods.mParticle_Apple_SDK.MPNetworkCommunication
 import com.mparticle.messages.ConfigResponseMessage
 import com.mparticle.mockserver.*
 import com.mparticle.mockserver.model.RawConnection
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import platform.Foundation.NSThread
 import platform.Foundation.allKeys
 import platform.Foundation.setValue
@@ -46,8 +48,8 @@ actual open class Platforms actual constructor() {
         return NSThread.currentThread.threadDictionary.allKeys.contains("server thread")
     }
 
-    actual fun setServerThread() {
-        NSThread.currentThread.threadDictionary.setValue(true, "server thread")
+    actual fun <T> runInForeground(runnable: () -> T): T {
+        return runBlocking(Dispatchers.Main) { runnable() }
     }
 
     actual fun prepareThread() {}

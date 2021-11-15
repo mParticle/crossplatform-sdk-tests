@@ -9,6 +9,7 @@ import cocoapods.mParticle_Apple_SDK.MPGDPRConsent as GDPRConsentIOS
 import cocoapods.mParticle_Apple_SDK.MPCCPAConsent
 import cocoapods.mParticle_Apple_SDK.MParticleUser as MParticleUserIOS
 import cocoapods.mParticle_Apple_SDK.MPIdentityApiRequest
+import com.mparticle.api.Logger
 import com.mparticle.api.MParticle
 import com.mparticle.api.identity.*
 import com.mparticle.api.mParticle
@@ -70,43 +71,9 @@ actual class IdentityApi(val identityApi: IdentityApiIOS) {
     }
 }
 
-
-
-//actual class Consent {
-//    actual var isConsented: Boolean
-//        get() = consentInstance.consented
-//        set(value) {
-//            throw RuntimeException("Read Only Instance!")
-//        }
-//    actual var document: String?
-//        get() = consentInstance.document
-//        set(value) {
-//            throw RuntimeException("Read Only Instance!")
-//        }
-//    actual var timestamp: Long?
-//        get() = consentInstance.timestamp.timeIntervalSinceReferenceDate.toLong()
-//        set(value) {
-//            throw RuntimeException("Read Only Instance!")
-//        }
-//    actual var location: String?
-//        get() = consentInstance.location
-//        set(value) {
-//            throw RuntimeException("Read Only Instance!")
-//        }
-//    actual var hardwareId: String?
-//        get() = consentInstance.hardwareId
-//        set(value) {
-//            throw RuntimeException("Read Only Instance!")
-//        }
-//}
-
-
-
-
-
-
 fun Any.toIdentityType(): IdentityType {
+    Logger.info("translating iOS IdentityType of: $this")
     return IdentityType.values().first {
-        it.value == this
+        it.value == (this as? Number)?.toInt()
     }
 }

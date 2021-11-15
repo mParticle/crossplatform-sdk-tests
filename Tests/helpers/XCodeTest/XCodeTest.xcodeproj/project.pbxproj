@@ -10,6 +10,10 @@
 		1FB795D14C52A1F1A7C86314 /* Pods_XCodeTest_XCodeTestUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 609DFD38BDD89E68C9E4C224 /* Pods_XCodeTest_XCodeTestUITests.framework */; };
 		B2085C3525EEC192009D03F7 /* XCodeTests.h in Headers */ = {isa = PBXBuildFile; fileRef = B2085C2725EEC191009D03F7 /* XCodeTests.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B2085C4825EEC1D1009D03F7 /* SimpleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2085C4725EEC1D1009D03F7 /* SimpleTests.swift */; };
+		B22110FA270D9B0300DB3135 /* IdentifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22110F9270D9B0300DB3135 /* IdentifyTests.swift */; };
+		B2211116270D9EFE00DB3135 /* LoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2211115270D9EFE00DB3135 /* LoginTests.swift */; };
+		B221111A270D9F5100DB3135 /* LogoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2211119270D9F5100DB3135 /* LogoutTests.swift */; };
+		B221111E270D9F8A00DB3135 /* ModifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B221111D270D9F8A00DB3135 /* ModifyTests.swift */; };
 		B2445B4F26D01F0B00A5F7F1 /* CommerceIosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */; };
 		B24F51D7271DDB9C0039E6D2 /* MParticleOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */; };
 		FEE048D69E5587E96A9CB50A /* Pods_XCodeTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE27824D2D7AA018C69F4CB1 /* Pods_XCodeTest.framework */; };
@@ -27,6 +31,10 @@
 		B2085C4525EEC1D1009D03F7 /* XCodeTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCodeTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2085C4725EEC1D1009D03F7 /* SimpleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTests.swift; sourceTree = "<group>"; };
 		B2085C4925EEC1D1009D03F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B22110F9270D9B0300DB3135 /* IdentifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifyTests.swift; sourceTree = "<group>"; };
+		B2211115270D9EFE00DB3135 /* LoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTests.swift; sourceTree = "<group>"; };
+		B2211119270D9F5100DB3135 /* LogoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutTests.swift; sourceTree = "<group>"; };
+		B221111D270D9F8A00DB3135 /* ModifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyTests.swift; sourceTree = "<group>"; };
 		B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommerceIosTests.swift; sourceTree = "<group>"; };
 		B2445BC826D41BDE00A5F7F1 /* XCodeTestUITests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = XCodeTestUITests.xctestplan; sourceTree = "<group>"; };
 		B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MParticleOptions.swift; sourceTree = "<group>"; };
@@ -90,6 +98,10 @@
 				B2085C4925EEC1D1009D03F7 /* Info.plist */,
 				B2445B4E26D01F0B00A5F7F1 /* CommerceIosTests.swift */,
 				B24F51D6271DDB9C0039E6D2 /* MParticleOptions.swift */,
+				B22110F9270D9B0300DB3135 /* IdentifyTests.swift */,
+				B2211115270D9EFE00DB3135 /* LoginTests.swift */,
+				B2211119270D9F5100DB3135 /* LogoutTests.swift */,
+				B221111D270D9F8A00DB3135 /* ModifyTests.swift */,
 			);
 			path = XCodeTestUITests;
 			sourceTree = "<group>";
@@ -296,8 +308,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2445B4F26D01F0B00A5F7F1 /* CommerceIosTests.swift in Sources */,
+				B22110FA270D9B0300DB3135 /* IdentifyTests.swift in Sources */,
+				B221111A270D9F5100DB3135 /* LogoutTests.swift in Sources */,
+				B221111E270D9F8A00DB3135 /* ModifyTests.swift in Sources */,
 				B2085C4825EEC1D1009D03F7 /* SimpleTests.swift in Sources */,
 				B24F51D7271DDB9C0039E6D2 /* MParticleOptions.swift in Sources */,
+				B2211116270D9EFE00DB3135 /* LoginTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

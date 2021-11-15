@@ -3,6 +3,7 @@ package com.mparticle.mockserver
 import co.touchlab.stately.isolate.IsolateState
 import com.mparticle.api.Logger
 import com.mparticle.messages.*
+import com.mparticle.mockserver.ThreadingUtil.platforms
 import com.mparticle.mockserver.ThreadingUtil.runBlockingServer
 import com.mparticle.mockserver.model.RawConnection
 import com.mparticle.mockserver.utils.Mutable
@@ -29,6 +30,9 @@ object Server {
         }
         runBlockingServer { runnable() }
     }
+
+    val requests: List<ReceivedRequests<*, *>>
+        get() { return runOnServerAndReturn { receivedRequests } }
 
     fun <RequestType, ResponseType> endpoint(endpointType: EndpointType<RequestType, ResponseType>): ServerEndpoint<RequestType, ResponseType> {
         return ServerEndpoint(endpointType)
@@ -101,23 +105,29 @@ object Server {
                 return this
             }
 
-            open override fun invoke(p1: Request<RequestType>): Boolean =
-                when (assertion?.invoke(p1)) {
-                    true -> {
-                        latch.countDown()
-                        Logger.error("Isolate finished = true")
-                            .let { finished.access { it.value = true } }
-                        if (isInverse) {
-                            throw AssertionError("Received Request when matching one wasn't expected: $p1")
+            override fun invoke(p1: Request<RequestType>): Boolean =
+                platforms.runInForeground {
+                    when (assertion?.invoke(p1)) {
+                        true -> {
+                            latch.countDown()
+                            Logger.error("Isolate finished = true")
+                                .let { finished.access { it.value = true } }
+                            if (isInverse) {
+                                throw AssertionError("Received Request when matching one wasn't expected: $p1")
+                            }
+                            true
                         }
-                        true
+                        else -> false
                     }
-                    else -> false
                 }
 
             fun blockUntilFinished() {
-                Logger.error("BLOCK UNTIL FINISHED")
-                latch.await()
+                if (!finished.access { it.value }) {
+                    Logger.error("BLOCK UNTIL FINISHED")
+                    latch.await()
+                } else {
+                    Logger.info("Latch already counted down, will not wait")
+                }
             }
 
             fun cancel() = latch.countDown()
@@ -156,7 +166,6 @@ object Server {
 
     private fun <T> runOnServerAndReturn(runnable: MockServer.() -> T): T {
         Logger.error("Run on server")
-        RuntimeException().printStackTrace()
         val runnable: () -> T = {
             val result = instance?.access(runnable) ?: throw IllegalStateException("MockServer is NULL")
             result
@@ -183,7 +192,7 @@ class MockServer {
         }
     private val onRequestCallbacks: MutableList<OnRequestCallback<Any?, out Any?>> = mutableListOf()
     var receivedRequests: List<ReceivedRequests<out Any?, out Any?>> = listOf()
-        get() = ArrayList(field)
+        get() = endpointMap.values.flatMap { it.receivedRequests }
 
     companion object {
 
@@ -231,6 +240,8 @@ class MockServer {
                 else -> failHard("multiple matches for url: $url\n${matchingEndpointType.joinToString { item -> item.name }}")
             }
         } catch (ex: Throwable) {
+            Logger.error(ex.message ?: "error receiving request")
+            Logger.error(ex.stackTraceToString())
             failHard(ex)
         }
         return connection
