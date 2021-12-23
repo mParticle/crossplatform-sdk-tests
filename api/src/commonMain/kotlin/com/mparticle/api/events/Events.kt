@@ -9,6 +9,7 @@ expect open class BaseEvent(type: MessageType) {
     val type: MessageType
     var customFlags: Map<String, List<String>>
     var customAttributes: Map<String, String?>
+    var shouldStartSession: Boolean
 }
 
 open class CustomEvent protected constructor(var eventName: String, var eventType: EventType, type: MessageType): BaseEvent(type) {

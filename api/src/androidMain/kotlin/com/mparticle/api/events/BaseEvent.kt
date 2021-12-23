@@ -18,4 +18,5 @@ actual open class BaseEvent(type: () -> MessageType, customAttributes: (Map<Stri
     actual val type: MessageType = type()
     actual var customFlags: Map<String, List<String>> by GenericDelegate(mapOf()) { customFlags(it) }
     actual var customAttributes: Map<String, String?> by GenericDelegate(mapOf()) { customAttributes(it)}
+    actual var shouldStartSession: Boolean = false
 }

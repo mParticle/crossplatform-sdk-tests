@@ -6,11 +6,8 @@ import com.mparticle.networking.setMPUrlFactory
 import com.mparticle.internal.database.services.MParticleDBManager
 import com.mparticle.messages.ConfigResponseMessage
 import com.mparticle.testing.TestLifecycleContext
-import android.os.Handler
 import android.os.Looper
 import androidx.test.platform.app.InstrumentationRegistry
-import com.mparticle.mockserver.utils.Mutable
-import com.mparticle.testing.FailureLatch
 
 
 actual open class Platforms {

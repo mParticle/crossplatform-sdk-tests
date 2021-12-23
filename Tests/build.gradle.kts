@@ -66,6 +66,8 @@ kotlin {
                 implementation(project(":testing"))
             }
         }
+
+        val androidAndroidTest by getting {}
     }
 }
 
@@ -98,6 +100,17 @@ val runIos by tasks.creating(Exec::class.java) {
     linkDebugFrameworkIos?.dependsOn(installTestPods)
     installTestPods.dependsOn("podImport")
     description = "Builds the iOS application bundle using Xcode."
+    workingDir = project.file("helpers/XCodeTest")
+    setCommandLine("xcrun")
+    args("xcodebuild",
+        "-scheme", "XCodeTestUITests",
+        "-workspace", "XCodeTest.xcworkspace",
+        "-configuration", "Debug",
+        "-destination", "platform=iOS Simulator,name=iPhone 11,OS=latest",
+        "test")
+}
+
+val executeBuiltiOSTests by tasks.creating(Exec::class.java) {
     workingDir = project.file("helpers/XCodeTest")
     setCommandLine("xcrun")
     args("xcodebuild",

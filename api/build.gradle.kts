@@ -44,6 +44,9 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
 
+                implementation("co.touchlab:stately-isolate:1.1.4-a1")
+                implementation("co.touchlab:stately-common:1.1.4")
+                implementation("co.touchlab:stately-concurrency:1.1.4")
             }
         }
         val commonTest by getting {

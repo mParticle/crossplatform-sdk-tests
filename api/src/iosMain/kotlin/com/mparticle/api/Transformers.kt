@@ -74,7 +74,7 @@ val installTypeTransformer = TransformBuilder
 @SharedImmutable
 val logLevelTransformer = TransformBuilder
     .from<LogLevel?, MPILogLevel> { this!!.apple }
-    .to { LogLevel.values().firstOrNull { it.apple == this } }
+    .to { LogLevel.values().first { it.apple == this } as LogLevel? }
 
 @SharedImmutable
 val environmentTransformer = TransformBuilder

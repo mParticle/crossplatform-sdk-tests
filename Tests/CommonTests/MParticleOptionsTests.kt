@@ -26,7 +26,7 @@ class MParticleOptionsTests: BaseTest() {
         Server
             .endpoint(EndpointType.Events)
             .assertWillReceive { request ->
-                { request.url.contains(testApiKey) }
+                request.url!!.contains(testApiKey)
                 true
             }
             .after {

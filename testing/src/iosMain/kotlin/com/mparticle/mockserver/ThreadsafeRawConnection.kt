@@ -5,11 +5,11 @@ import com.mparticle.mockserver.model.SimpleRawConnection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 
-class ThreadsafeRawConnection(url: String, message: String? = null): RawConnection {
+class ThreadsafeRawConnection(url: String?, message: String? = null): RawConnection {
 
     private val connection: RawConnection by lazy { SimpleRawConnection(url = url, requestBody = message) }
 
-    override fun getUrl(): String {
+    override fun getUrl(): String? {
         return connection.getUrl()
     }
 

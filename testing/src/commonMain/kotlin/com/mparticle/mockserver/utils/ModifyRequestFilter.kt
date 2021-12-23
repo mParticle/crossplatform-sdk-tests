@@ -6,6 +6,6 @@ import com.mparticle.mockserver.Request
 
 class ModifyRequestFilter(val mpid: Long): IRequestFilter<IdentityRequestMessage> {
     override fun isMatch(request: Request<IdentityRequestMessage>): Boolean {
-        return request.url.endsWith("$mpid/modify")
+        return request.url?.endsWith("$mpid/modify") ?: false
     }
 }

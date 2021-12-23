@@ -4,6 +4,7 @@ import cocoapods.mParticle_Apple_SDK.MPBaseEvent
 import com.mparticle.api.TransformDelegate
 import com.mparticle.api.commerce.mapTransformer
 import com.mparticle.api.commerce.messageTypeTransformer
+import com.mparticle.api.property
 import platform.Foundation.allKeys
 import platform.Foundation.valueForKey
 
@@ -19,4 +20,6 @@ actual open class BaseEvent(val baseEvent: MPBaseEvent)  {
         set(value) {
             value?.entries?.forEach { baseEvent.addCustomFlag(it.value.joinToString(), it.key) }
         }
+
+    actual var shouldStartSession: Boolean by property(baseEvent::shouldBeginSession)
 }

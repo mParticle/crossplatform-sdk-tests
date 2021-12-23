@@ -22,6 +22,8 @@ expect class MParticle {
 
     val identity: IdentityApi
 
+    val automaticSessionTracking: Boolean
+
     fun logEvent(event: BaseEvent)
     fun logLtvIncrease(valueIncreased: Double, eventName: String, contextInfo: Map<String, String?>?)
     fun logScreen(screenName: String, eventData: Map<String, String?>?)
@@ -49,12 +51,18 @@ expect class MParticle {
     fun disableLocationTracking()
     fun isLocationTrackingEnabled(): Boolean
 
+    fun startSession()
+    fun endSession()
+
+
 
     companion object {
         fun start(options: MParticleOptions)
         fun getInstance(): MParticle?
         fun clearInstance()
         fun reset(clientPlatform: ClientPlatform)
+        fun onSessionStart(onSession: (Session) -> Unit)
+        fun onSessionEnd(onSession: (Session) -> Unit)
     }
 }
 
@@ -88,6 +96,9 @@ expect class MParticleOptions private constructor(apiKey: String = "api key", ap
     var environment: Environment?
 
     var logLevel: LogLevel?
+
+    var automaticSessionTracking: Boolean?
+    var shouldBeginSession: Boolean
 }
 
 fun MParticleOptions(apiKey: String = "api key", apiSecret: String = "api secret", clientPlatform: ClientPlatform, initializer: (MParticleOptions.() -> Unit) = {}): MParticleOptions {

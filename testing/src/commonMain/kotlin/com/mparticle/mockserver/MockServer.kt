@@ -6,7 +6,7 @@ import com.mparticle.messages.*
 import com.mparticle.mockserver.ThreadingUtil.platforms
 import com.mparticle.mockserver.ThreadingUtil.runBlockingServer
 import com.mparticle.mockserver.model.RawConnection
-import com.mparticle.mockserver.utils.Mutable
+import com.mparticle.utils.Mutable
 import com.mparticle.testing.FailureLatch
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.random.Random
@@ -229,6 +229,10 @@ class MockServer {
         Platforms().sleep(100)
         try {
             val url = connection.getUrl()
+            if (url == null) {
+                Logger.error("URL for request is null. request:\n $connection, body: ${connection.getRequestBody()} headers: ${connection.getHeaderFields()}")
+                return connection
+            }
             val matchingEndpointType = EndpointType.values
                 .filter { it.urlMatch(url)}
             when (matchingEndpointType.size) {
@@ -350,7 +354,7 @@ interface IOnRequestCallback<T, R> {
 }
 
 class Request<T>(
-    val url: String,
+    val url: String?,
     val headers: Map<String, List<String?>?>?,
     val body: T
 ) {
@@ -358,9 +362,9 @@ class Request<T>(
 }
 
 fun Request<IdentityRequestMessage>.modifyMpid(): Long =
-    url.split("/").let { segments ->
+    url?.split("/")?.let { segments ->
         segments[segments.size - 2].toLong()
-    }
+    } ?: 0
 
 abstract class Response<ResponseType> {
     abstract var httpCode: Int

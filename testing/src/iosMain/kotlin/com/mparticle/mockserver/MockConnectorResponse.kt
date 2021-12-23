@@ -10,7 +10,7 @@ import platform.darwin.NSObject
 class MockConnectorResponse(private val onRequestMade: OnRequestMade, private val url: NSURL, private val message: String? = null, serializedParams: NSData? = null): NSObject(),
     MPConnectorResponseProtocolProtocol {
 
-    var rawConnection: RawConnection = ThreadsafeRawConnection(url.absoluteString!!, message ?: serializedParams?.toByteArray()?.decodeToString()) //serializedParams?.toByteArray().decodeToString()
+    var rawConnection: RawConnection = ThreadsafeRawConnection(url.absoluteString, message ?: serializedParams?.toByteArray()?.decodeToString()) //serializedParams?.toByteArray().decodeToString()
     private var requestMade = false
 
      private fun makeRequest() {

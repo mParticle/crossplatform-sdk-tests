@@ -1,11 +1,14 @@
 package com.mparticle.api
 
 import cocoapods.mParticle_Apple_SDK.*
+import com.mparticle.api.MParticle.Companion.onSessionStartLambda
 import com.mparticle.api.events.BaseEvent
 import com.mparticle.api.events.MPEvent
 import com.mparticle.api.events.toBaseEvent
 import com.mparticle.api.identity.*
 import com.mparticle.api.identity.MParticleUser
+import com.mparticle.utils.ThreadsafeMutable
+import kotlinx.cinterop.ObjCAction
 import platform.Foundation.*
 import kotlin.reflect.KMutableProperty0
 
@@ -68,6 +71,9 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
 
     actual val identity: IdentityApi
         get() = IdentityApi(mparticle.identity)
+
+    actual val automaticSessionTracking
+        get() = mparticle.automaticSessionTracking
 
     actual fun kitInstance(kitId: Int): Any? {
         TODO("Not yet implemented")
@@ -140,11 +146,19 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
 
     actual fun isProviderActive(serviceProviderId: Int): Boolean = mparticle.isKitActive(NSNumber(serviceProviderId))
 
+    actual fun startSession() {
+        mparticle.beginSession()
+    }
+
+    actual fun endSession(){
+
+        mparticle.endSession()
+    }
+
     actual companion object {
         actual fun start(options: MParticleOptions) {
-            if (options.options.logLevel == null) {
-                options.options.setLogLevel(MPILogLevelVerbose)
-            }
+            Logger.info("Starting MParticle SDK with loglevel: ${options.logLevel} aka ${options.options.logLevel}")
+
             Logger.info("Starting MParticle SDK with environment: ${options.environment} aka ${options.options.environment}")
             cocoapods.mParticle_Apple_SDK.MParticle.sharedInstance().startWithOptions(options.options)
         }
@@ -160,6 +174,64 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
         actual fun reset(clientPlatform: ClientPlatform) {
             cocoapods.mParticle_Apple_SDK.MParticle.sharedInstance().reset()
         }
+
+        actual fun onSessionStart(onSession: (Session) -> Unit) {
+            onSessionStartLambda.value = onSession
+//            NSNotificationCenter.defaultCenter.addObserver(OnSessionStartCallback(ThreadsafeMutable(onSession)), NSSelectorFromString(::onSessionStartCallback.name), mParticleSessionDidBeginNotification, null)
+            NSNotificationCenter.defaultCenter.addObserverForName(mParticleSessionDidBeginNotification, this, null) {
+                Logger.error("ON SESSION BEGIN CALLBACK IN MPARTICLE API")
+                onSession(
+                    Session(
+                        id = it?.userInfo?.get(mParticleSessionId).toString().toLong(),
+                        uusd = it?.userInfo?.get(mParticleSessionUUID).toString()
+                    )
+                )
+            }
+        }
+        actual fun onSessionEnd(onSession: (Session) -> Unit) {
+            onSessionEndLambda.value = onSession
+            NSNotificationCenter.defaultCenter.addObserver(OnSessionStartCallback(ThreadsafeMutable(onSession)), NSSelectorFromString(OnSessionStartCallback::onSessionStartCallback.name), mParticleSessionDidEndNotification, null)
+//        NSNotificationCenter.defaultCenter.addObserverForName(mParticleSessionDidEndNotification, this, null) {
+//            onSession(
+//                Session(
+//                    id = it?.userInfo?.get(mParticleSessionId).toString().toLong(),
+//                    uusd = it?.userInfo?.get(mParticleSessionUUID).toString()
+//                )
+//            )
+//        }
+        }
+
+
+        @ObjCAction
+        fun onSessionEndCallback(notification: NSNotification) {
+
+        }
+
+       @ObjCAction
+        fun onSessionStartCallback(notification: NSNotification) {
+           onSessionStartLambda.value(
+               Session(
+                   id = notification.userInfo?.get(mParticleSessionId).toString().toLong(),
+                   uusd = notification.userInfo?.get(mParticleSessionUUID).toString()
+               )
+           )
+        }
+
+        var onSessionEndLambda: ThreadsafeMutable<(Session) -> Unit> = ThreadsafeMutable({})
+        var onSessionStartLambda: ThreadsafeMutable<(Session) -> Unit> = ThreadsafeMutable({})
+    }
+}
+
+class OnSessionStartCallback(val onSessionStart: ThreadsafeMutable<(Session) -> Unit>) {
+
+    @ObjCAction
+    fun onSessionStartCallback(notification: NSNotification) {
+        onSessionStart.value(
+            Session(
+                id = notification.userInfo?.get(mParticleSessionId).toString().toLong(),
+                uusd = notification.userInfo?.get(mParticleSessionUUID).toString()
+            )
+        )
     }
 }
 
@@ -170,6 +242,7 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
     init {
         options.apiKey = apiKey
         options.apiSecret = apiSecret
+        options.logLevel = MPILogLevelVerbose
     }
 
     actual var clientPlatform = clientPlatform
@@ -183,6 +256,7 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
     actual var logLevel: LogLevel? by TransformDelegate(options::logLevel, logLevelTransformer)
     actual var dataplanId: String? by property(options::dataPlanId)
     actual var dataplanVersion: Int? by TransformDelegate(options::dataPlanVersion, intNSNumberTransformer)
+    actual var shouldBeginSession: Boolean by property(options::shouldBeginSession)
 
     actual var identifyTask: IdentityResponse? = null
         get() = field
@@ -238,6 +312,8 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
     actual var pushRegistrationSenderId: String?
         get() = TODO("Not yet implemented")
         set(value) {}
+
+    actual var automaticSessionTracking: Boolean? by NullableDelegate { options.automaticSessionTracking = it ?: true }
 }
 
 
@@ -245,10 +321,17 @@ actual class NetworkOptions (val networkOptions: MPNetworkOptions) {
     actual constructor(): this(MPNetworkOptions())
 }
 
-actual class Session(session: MParticleSession) {
-    actual val uusd: String = session.UUID
-    actual val id: Long = session.sessionID.longValue
-    actual val startTime: Long = throw NotImplementedError()
+actual class Session(actual val uusd: String, actual val id: Long, actual val startTime: Long = 0) {
+    constructor(session: MParticleSession = MParticleSession()): this(session.UUID, session.sessionID.longValue, session.startTime.longValue)
+
+    override fun toString(): String {
+        return """
+            Session:
+                id: $id
+                uuid: $uusd
+                startTime: $startTime
+        """.trimIndent()
+    }
 }
 
 actual class DataplanOptions(val dataplanOptions: MPDataPlanOptions) {

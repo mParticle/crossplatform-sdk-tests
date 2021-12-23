@@ -7,7 +7,7 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 
 interface RawConnection {
-    fun getUrl(): String
+    fun getUrl(): String?
     fun getRequestBody(): String
     fun getHeaderFields(): Map<String, List<String?>?>
 
@@ -21,14 +21,14 @@ interface RawConnection {
     fun setError(responseError: String?)
 }
 
-class SimpleRawConnection(private val url: String,
+class SimpleRawConnection(private val url: String?,
                           private val requestBody: () -> String?,
                           private val responseCode: Int? = null,
                           private val error: String? = null,
                           private val responseBody: String? = null,
                           private val responseHeaders: Map<Any?, Any?> = mapOf()
 ): RawConnection {
-    constructor(url: String, requestBody: String?): this(url, {requestBody})
+    constructor(url: String?, requestBody: String?): this(url, {requestBody})
 
 //    constructor(connection: RawConnection, response: Response<out Any>): this(
 //        connection.getUrl(),

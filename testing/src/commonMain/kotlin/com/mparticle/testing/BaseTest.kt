@@ -5,7 +5,7 @@ import com.mparticle.messages.*
 import com.mparticle.api.identity.*
 import com.mparticle.mockserver.*
 import com.mparticle.mockserver.SuccessResponse
-import com.mparticle.mockserver.utils.Mutable
+import com.mparticle.utils.Mutable
 import kotlin.random.Random
 import kotlin.test.*
 import kotlin.test.BeforeTest
@@ -39,6 +39,7 @@ open class BaseTest() {
             .nextResponse {
                 SuccessResponse(IdentityResponseMessage(mStartingMpid))
             }
+        MParticle.clearInstance()
         afterBeforeAll()
     }
 
@@ -65,10 +66,17 @@ open class BaseTest() {
 
         options.identifyTask = identityTask
         options.identifyRequest = IdentityApiRequest(null)
+        if (options.logLevel == null) {
+            options.logLevel = LogLevel.Verbose
+        }
+        if (options.environment == null) {
+            options.environment = Environment.Development
+        }
         MParticle.start(options)
         defaultConfigResponse?.let { platforms.setCachedConfig(it) }
         latch.await()
         assertTrue(called.value)
+        assertEquals(LogLevel.Verbose.name, mParticle.logLevel?.name)
     }
 
     fun initialConfigResponse(configResponse: ConfigResponseMessage) {

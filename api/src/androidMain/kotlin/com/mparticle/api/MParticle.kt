@@ -16,6 +16,10 @@ import com.mparticle.MParticle.LogLevel as AndroidLogLevel
 
 actual class MParticle(val mparticle: MParticleAndroid) {
 
+    init {
+
+    }
+
     actual fun upload() {
         mparticle.upload()
     }
@@ -71,6 +75,9 @@ actual class MParticle(val mparticle: MParticleAndroid) {
 
     actual val identity: IdentityApi
         get() = IdentityApi(mparticle.Identity())
+
+    actual val automaticSessionTracking
+        get() = false
 
     actual fun kitInstance(kitId: Int): Any? {
         return mparticle.getKitInstance(kitId)
@@ -153,6 +160,10 @@ actual class MParticle(val mparticle: MParticleAndroid) {
         }
     }
 
+    actual fun startSession() {}
+
+    actual fun endSession() {}
+
     actual companion object {
         actual fun start(options: MParticleOptions) {
             com.mparticle.MParticle.start(options.toMParticleOptions())
@@ -170,6 +181,13 @@ actual class MParticle(val mparticle: MParticleAndroid) {
             //TODO how to get a context object here
             com.mparticle.MParticle.reset(clientPlatform.context)
         }
+
+        actual fun onSessionStart(onSession: (Session) -> Unit) {
+
+        }
+
+        actual fun onSessionEnd(onSession: (Session) -> Unit) {}
+
     }
 }
 
@@ -210,6 +228,8 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
     actual var dataplanOptions: DataplanOptions? = null
     actual var environment: Environment? = null
     actual var logLevel: LogLevel? = null
+    actual var automaticSessionTracking: Boolean? = null
+    actual var shouldBeginSession: Boolean = false
 }
 
 actual class NetworkOptions actual constructor() {
