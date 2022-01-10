@@ -19,7 +19,7 @@ fun BaseEvent.toBaseEvent(): BaseEventIOS {
             this.commerceEvent.freeze()
         }
         is MPEvent -> {
-            this.getEvent()
+            this.getEvent().freeze()
         }
         else -> {
 
@@ -34,6 +34,7 @@ fun MPEvent.getEvent(): MPEventIOS {
         it.customAttributes = customAttributes.entries.associate { it.key to it.value }
         it.name = eventName
         it.type = eventType.ordinal.toULong()
+        it.shouldBeginSession = shouldStartSession
     }
 }
 

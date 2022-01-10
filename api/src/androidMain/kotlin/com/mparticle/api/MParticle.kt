@@ -1,5 +1,7 @@
 package com.mparticle.api
 
+import android.content.Context
+import com.mparticle.SdkListener
 import com.mparticle.api.events.BaseEvent
 import com.mparticle.api.events.MPEvent
 import com.mparticle.api.events.getEvent
@@ -7,7 +9,12 @@ import com.mparticle.api.events.getMPEvent
 import com.mparticle.api.identity.IdentityApi
 import com.mparticle.api.identity.IdentityApiRequest
 import com.mparticle.api.identity.IdentityResponse
+import com.mparticle.internal.InternalSession
+import com.mparticle.internal.MPUtility
 import com.mparticle.internal.PushRegistrationHelper
+import com.mparticle.internal.listeners.InternalListener
+import com.mparticle.internal.listeners.InternalListenerManager
+import java.lang.ref.WeakReference
 import java.math.BigDecimal
 import com.mparticle.MParticle as MParticleAndroid
 import com.mparticle.MParticleOptions as MParticleOptionsAndroid
@@ -15,10 +22,6 @@ import com.mparticle.MParticle.Environment as AndroidEnvironment
 import com.mparticle.MParticle.LogLevel as AndroidLogLevel
 
 actual class MParticle(val mparticle: MParticleAndroid) {
-
-    init {
-
-    }
 
     actual fun upload() {
         mparticle.upload()
@@ -165,7 +168,13 @@ actual class MParticle(val mparticle: MParticleAndroid) {
     actual fun endSession() {}
 
     actual companion object {
+        private val sessionStartListeners = mutableListOf<(Session) -> Unit>()
+        private val sessionEndListeners = mutableListOf<(Session) -> Unit>()
+        private var contextRef = WeakReference<Context>(null)
+
         actual fun start(options: MParticleOptions) {
+            contextRef = WeakReference(options.clientPlatform.context)
+            initSessionListeners(options.clientPlatform.context)
             com.mparticle.MParticle.start(options.toMParticleOptions())
         }
 
@@ -178,15 +187,38 @@ actual class MParticle(val mparticle: MParticleAndroid) {
         }
 
         actual fun reset(clientPlatform: ClientPlatform) {
-            //TODO how to get a context object here
+            sessionEndListeners.clear()
+            sessionStartListeners.clear()
             com.mparticle.MParticle.reset(clientPlatform.context)
         }
 
         actual fun onSessionStart(onSession: (Session) -> Unit) {
-
+            initSessionListeners(contextRef.get()!!)
+            Logger.error("Added onSessionStart listener")
+            sessionStartListeners.add(onSession)
         }
 
-        actual fun onSessionEnd(onSession: (Session) -> Unit) {}
+        actual fun onSessionEnd(onSession: (Session) -> Unit) {
+            initSessionListeners(contextRef.get()!!)
+            Logger.error("Added onSessionEND listener")
+            sessionEndListeners.add(onSession)
+        }
+
+        fun initSessionListeners(context: Context) {
+            if (!InternalListenerManager.isEnabled()) {
+                InternalListenerManager.start(context)?.addListener(object : SdkListener() {
+                    override fun onSessionUpdated(start: Boolean?, session: InternalSession?) {
+                        Logger.error("SESSION UPDATED!!: active = ${session?.isActive}")
+//                        Logger.error("from: \n${RuntimeException().stackTraceToString()}")
+                        when (start) {
+                            true -> sessionStartListeners.forEach { it(mParticle.currentSession ?: Session(session!!)) }
+                            false -> sessionEndListeners.forEach { it(mParticle.currentSession ?: Session(session!!) ) }
+                            else -> Logger.error("Modify Session")
+                        }
+                    }
+                })
+            }
+        }
 
     }
 }
@@ -236,11 +268,13 @@ actual class NetworkOptions actual constructor() {
 
 }
 
-actual class Session(val session: com.mparticle.Session) {
-    actual val uusd: String = session.sessionUUID!!
-    actual val id: Long = session.sessionID
-    actual val startTime: Long = session.sessionStartTime!!
-
+actual class Session(actual val uusd: String, actual val id: Long, actual val startTime: Long) {
+    constructor(session: com.mparticle.Session): this(session.sessionUUID!!, session.sessionID, session.sessionStartTime!!)
+    constructor(session: com.mparticle.internal.InternalSession): this(
+        session.mSessionID,
+        //hack, missing public API
+        MPUtility.hashFnv1A(session.mSessionID.toByteArray(charset("UTF-16LE"))).toLong(),
+        session.mSessionStartTime)
 }
 
 actual class DataplanOptions(val dataplanOptions: com.mparticle.MParticleOptions.DataplanOptions.Builder) {

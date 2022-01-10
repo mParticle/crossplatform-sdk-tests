@@ -6,8 +6,8 @@ import com.mparticle.messages.*
 import com.mparticle.mockserver.ThreadingUtil.platforms
 import com.mparticle.mockserver.ThreadingUtil.runBlockingServer
 import com.mparticle.mockserver.model.RawConnection
+import com.mparticle.testing.Assertion
 import com.mparticle.utils.Mutable
-import com.mparticle.testing.FailureLatch
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.random.Random
 
@@ -73,82 +73,55 @@ object Server {
             return Negation(assertion, this)
         }
 
-        fun assertWillReceive(filter: RequestFilter<RequestType>): Assertion<RequestType, ResponseType> =
-            Assertion(filter, endpointType).also {
-                runOnServer {
-                    getEndpoint(endpointType).onRequestFinished(it)
-                }
-            }
+        fun assertWillReceive(filter: RequestFilter<RequestType>): Assertion<Request<RequestType>> =
+            ServerAssertion(filter, endpointType).load()
 
-        fun assertWillNotReceive(filter: RequestFilter<RequestType>): Assertion<RequestType, ResponseType> =
-            Assertion(filter, endpointType, true).also {
-                runOnServer {
-                    getEndpoint(endpointType).onRequestFinished(it)
-                }
-            }
+        fun assertWillNotReceive(filter: RequestFilter<RequestType>): Assertion<Request<RequestType>> =
+            ServerAssertion(filter, endpointType, true).load()
 
+        open class ServerAssertion<RequestType>(
+            private val assertion: (Request<RequestType>) -> Boolean,
+            private val endpointType: EndpointType<RequestType, *>,
+            isInverse: Boolean = false
+        ) : Assertion<Request<RequestType>>(isInverse), RequestFilter<RequestType> {
 
-        open class Assertion<RequestType, ResponseType>(
-            private val assertion: RequestFilter<RequestType>?,
-            private val endpointType: EndpointType<RequestType, ResponseType>,
-            private val isInverse: Boolean = false
-        ) : RequestFilter<RequestType> {
-            private val finished = IsolateState { Mutable(false) }
-            private val latch by lazy { FailureLatch() }
-
-            fun orHasAlready(): Assertion<RequestType, ResponseType> {
+            override fun orHasAlready(): Assertion<Request<RequestType>> {
                 runOnServerAndReturn {
                     if (getEndpoint(endpointType).receivedRequests.any { assertion?.invoke(it.request) == true }) {
-                        finished.access { it.value = true }
+                        result.access { it.value = true }
                     }
+                }
+                return this
+            }
+
+            override fun load(): Assertion<Request<RequestType>> {
+                runOnServer {
+                    getEndpoint(endpointType).onRequestFinished(this@ServerAssertion)
                 }
                 return this
             }
 
             override fun invoke(p1: Request<RequestType>): Boolean =
                 platforms.runInForeground {
-                    when (assertion?.invoke(p1)) {
+                    when (assertion.invoke(p1)) {
                         true -> {
-                            latch.countDown()
-                            Logger.error("Isolate finished = true")
-                                .let { finished.access { it.value = true } }
-                            if (isInverse) {
-                                throw AssertionError("Received Request when matching one wasn't expected: $p1")
-                            }
+                            finish(true)
                             true
                         }
                         else -> false
                     }
                 }
 
-            fun blockUntilFinished() {
-                if (!finished.access { it.value }) {
-                    Logger.error("BLOCK UNTIL FINISHED")
-                    latch.await()
-                } else {
-                    Logger.info("Latch already counted down, will not wait")
-                }
+            override fun cleanup() {
+                //do nothing
             }
-
-            fun cancel() = latch.countDown()
-
-            fun assertFinished() {
-                if (finished.access { it.value } == isInverse) {
-                    throw AssertionError("Assertion was not finished when ${this::assertFinished.name} was called")
-                }
-            }
-
-            fun after(lambda: () -> Unit): Assertion<RequestType, ResponseType> =
-                lambda().let { this }
-
-            fun latch(): FailureLatch = latch
         }
 
         inner class Negation<RequestType>(
             private val assertion: RequestFilter<RequestType>,
             private val serverEndpoint: ServerEndpoint<RequestType, ResponseType>
         ) {
-            fun butWill(): Assertion<RequestType, ResponseType> {
+            fun butWill(): Assertion<Request<RequestType>> {
                 return serverEndpoint.assertWillReceive(assertion)
             }
         }

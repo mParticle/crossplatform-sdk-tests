@@ -9,5 +9,7 @@ actual abstract class ClientPlatform {
 }
 
 open class ClientPlatformImpl(override var context: Context): ClientPlatform() {
-
+    init {
+        MParticle.initSessionListeners(context)
+    }
 }

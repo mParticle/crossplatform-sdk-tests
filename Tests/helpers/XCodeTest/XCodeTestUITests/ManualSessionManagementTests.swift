@@ -44,24 +44,24 @@ class ManualSessionManagementTests: XCTestCase, TestingAwaiter {
 
     override func tearDownWithError() throws {}
     
-    func testSessionDoesNotAutomaticallyStart() throws {
-        try tests.testSessionDoesNotAutomaticallyStart()
+    func testManualSessionManagementDoesNotAutomaticallyStartSession() throws {
+        try tests.testManualSessionManagementDoesNotAutomaticallyStartSession()
     }
     
-   func testSessionManuallyStarts() throws {
-       try tests.testSessionManuallyStarts()
+   func testStartSessionManuallyStartsSession() throws {
+       try tests.testStartSessionManuallyStartsSession()
    }
 
-   func testSessionManuallyEnds() throws {
+   func testEventManuallyStartsSession() throws {
+       try tests.testEventManuallyStartsSession()
+   }
+
+    func testSessionlessEventDoesNotStartSession() throws {
+       try tests.testSessionlessEventDoesNotStartSession()
+   }
+
+    func testSessionManuallyEnds() throws {
        try tests.testSessionManuallyEnds()
-   }
-
-    func testOnSessionStartManualShouldntStart() throws {
-       try tests.testOnSessionStartManualShouldntStart()
-   }
-
-    func testOnSessionStartManualShouldStart() throws {
-       try tests.testOnSessionStartManualShouldStart()
    }
 
 }

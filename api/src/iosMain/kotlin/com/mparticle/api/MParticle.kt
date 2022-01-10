@@ -1,7 +1,6 @@
 package com.mparticle.api
 
 import cocoapods.mParticle_Apple_SDK.*
-import com.mparticle.api.MParticle.Companion.onSessionStartLambda
 import com.mparticle.api.events.BaseEvent
 import com.mparticle.api.events.MPEvent
 import com.mparticle.api.events.toBaseEvent
@@ -11,9 +10,6 @@ import com.mparticle.utils.ThreadsafeMutable
 import kotlinx.cinterop.ObjCAction
 import platform.Foundation.*
 import kotlin.reflect.KMutableProperty0
-
-fun <T> KMutableProperty0<T>.fieldd(): KMutableProperty0<T> = this
-
 
 actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
 
@@ -156,6 +152,8 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
     }
 
     actual companion object {
+        val observers = ThreadsafeMutable{ mutableMapOf<String, Any>() }
+
         actual fun start(options: MParticleOptions) {
             Logger.info("Starting MParticle SDK with loglevel: ${options.logLevel} aka ${options.options.logLevel}")
 
@@ -173,12 +171,20 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
 
         actual fun reset(clientPlatform: ClientPlatform) {
             cocoapods.mParticle_Apple_SDK.MParticle.sharedInstance().reset()
+            observers.mutate {
+                entries.forEach {
+                    NSNotificationCenter.defaultCenter.removeObserver(
+                        observer = it.value,
+                        name = it.key,
+                        null
+                    )
+                }
+            }
+            observers.setValue { mutableMapOf() }
         }
 
         actual fun onSessionStart(onSession: (Session) -> Unit) {
-            onSessionStartLambda.value = onSession
-//            NSNotificationCenter.defaultCenter.addObserver(OnSessionStartCallback(ThreadsafeMutable(onSession)), NSSelectorFromString(::onSessionStartCallback.name), mParticleSessionDidBeginNotification, null)
-            NSNotificationCenter.defaultCenter.addObserverForName(mParticleSessionDidBeginNotification, this, null) {
+            NSNotificationCenter.defaultCenter.addObserverForName(name = mParticleSessionDidBeginNotification, null, NSOperationQueue.mainQueue) {
                 Logger.error("ON SESSION BEGIN CALLBACK IN MPARTICLE API")
                 onSession(
                     Session(
@@ -186,56 +192,24 @@ actual class MParticle(val mparticle: cocoapods.mParticle_Apple_SDK.MParticle) {
                         uusd = it?.userInfo?.get(mParticleSessionUUID).toString()
                     )
                 )
-            }
+            }.let { observers.mutate { put(mParticleSessionDidBeginNotification, it) } }
         }
         actual fun onSessionEnd(onSession: (Session) -> Unit) {
-            onSessionEndLambda.value = onSession
-            NSNotificationCenter.defaultCenter.addObserver(OnSessionStartCallback(ThreadsafeMutable(onSession)), NSSelectorFromString(OnSessionStartCallback::onSessionStartCallback.name), mParticleSessionDidEndNotification, null)
-//        NSNotificationCenter.defaultCenter.addObserverForName(mParticleSessionDidEndNotification, this, null) {
-//            onSession(
-//                Session(
-//                    id = it?.userInfo?.get(mParticleSessionId).toString().toLong(),
-//                    uusd = it?.userInfo?.get(mParticleSessionUUID).toString()
-//                )
-//            )
-//        }
+            NSNotificationCenter.defaultCenter.addObserverForName(mParticleSessionDidEndNotification, null, NSOperationQueue.mainQueue) {
+                Logger.error("ON SESSION BEGIN CALLBACK IN MPARTICLE API")
+                onSession(
+                    Session(
+                        id = it?.userInfo?.get(mParticleSessionId).toString().toLong(),
+                        uusd = it?.userInfo?.get(mParticleSessionUUID).toString()
+                    )
+                )
+            }.let { observers.mutate { put(mParticleSessionDidEndNotification, it) } }
         }
-
-
-        @ObjCAction
-        fun onSessionEndCallback(notification: NSNotification) {
-
-        }
-
-       @ObjCAction
-        fun onSessionStartCallback(notification: NSNotification) {
-           onSessionStartLambda.value(
-               Session(
-                   id = notification.userInfo?.get(mParticleSessionId).toString().toLong(),
-                   uusd = notification.userInfo?.get(mParticleSessionUUID).toString()
-               )
-           )
-        }
-
-        var onSessionEndLambda: ThreadsafeMutable<(Session) -> Unit> = ThreadsafeMutable({})
-        var onSessionStartLambda: ThreadsafeMutable<(Session) -> Unit> = ThreadsafeMutable({})
     }
 }
 
-class OnSessionStartCallback(val onSessionStart: ThreadsafeMutable<(Session) -> Unit>) {
-
-    @ObjCAction
-    fun onSessionStartCallback(notification: NSNotification) {
-        onSessionStart.value(
-            Session(
-                id = notification.userInfo?.get(mParticleSessionId).toString().toLong(),
-                uusd = notification.userInfo?.get(mParticleSessionUUID).toString()
-            )
-        )
-    }
-}
-
-actual class MParticleOptions actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform) {
+actual class MParticleOptions(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform, logLevel: LogLevel) {
+    actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform): this(apiKey, apiSecret, clientPlatform, LogLevel.Verbose)
 
     val options: cocoapods.mParticle_Apple_SDK.MParticleOptions = MParticleOptions()
 

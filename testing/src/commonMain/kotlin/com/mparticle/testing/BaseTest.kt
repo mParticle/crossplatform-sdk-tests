@@ -67,6 +67,7 @@ open class BaseTest() {
         options.identifyTask = identityTask
         options.identifyRequest = IdentityApiRequest(null)
         if (options.logLevel == null) {
+            Logger.warning("LogLevel not set, defaulting to Verbose")
             options.logLevel = LogLevel.Verbose
         }
         if (options.environment == null) {

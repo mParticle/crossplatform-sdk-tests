@@ -18,13 +18,19 @@ open class CustomEvent protected constructor(var eventName: String, var eventTyp
     var length: Double? = null
 }
 
-class MPEvent(eventName: String, eventType: EventType): CustomEvent(eventName, eventType, MessageType.Event) {
+class MPEvent(eventName: String, eventType: EventType = EventType.Other): CustomEvent(eventName, eventType, MessageType.Event) {
     override val isScreenEvent: Boolean = false
 }
 
 class ScreenEvent(screenName: String): CustomEvent(screenName, EventType.Other, MessageType.ScreenView) {
     override val isScreenEvent: Boolean = true
 }
+
+fun MPEvent(eventName: String, eventType: EventType = EventType.Other, initializer: MPEvent.() -> Unit) =
+    MPEvent(eventName, eventType).apply(initializer)
+
+fun ScreenEvent(screenName: String, initializer: ScreenEvent.() -> Unit) =
+    ScreenEvent(screenName).apply(initializer)
 
 
 enum class EventType {

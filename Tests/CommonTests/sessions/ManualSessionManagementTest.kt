@@ -3,124 +3,154 @@ package com.mparticle.sessions
 import com.mparticle.api.*
 import com.mparticle.api.events.EventType
 import com.mparticle.api.events.MPEvent
+import com.mparticle.messages.events.MPEventMessage
 import com.mparticle.mockserver.EndpointType
 import com.mparticle.mockserver.Platforms
 import com.mparticle.mockserver.Server
+import com.mparticle.mockserver.utils.Sdk
 import com.mparticle.utils.Mutable
 import com.mparticle.testing.BaseTest
 import com.mparticle.testing.FailureLatch
+import com.mparticle.utils.ThreadsafeMutable
 import kotlin.test.*
 
 class ManualSessionManagementTest: BaseTest() {
 
     @Test
-    fun testOnSessionStartManualShouldntStart() {
-        val latch = FailureLatch()
-
-        MParticle.onSessionStart {
-            Logger.error("SESSION STARTED IN CALLBACK")
-            Logger.error("session: $it")
-            latch.countDown()
-        }
-        MParticleOptions(clientPlatform = clientPlatform) {
-            automaticSessionTracking = false
-            shouldBeginSession = false
-        }.let {
-            startMParticle(it)
-        }
-        latch.await()
+    fun testManualSessionManagementDoesNotAutomaticallyStartSession() {
+        Sdk
+            .sessions()
+            .willNotStart()
+            .after {
+                MParticleOptions(clientPlatform = clientPlatform) {
+                    automaticSessionTracking = false
+                    shouldBeginSession = false
+                }.let {
+                    startMParticle(it)
+                }
+            }
+            .assertFinished()
     }
 
     @Test
-    fun testOnSessionStartManualShouldStart() {
-        val latch = FailureLatch()
+    fun testStartSessionManuallyStartsSession() {
+        Sdk
+            .sessions()
+            .willNotStart()
+            .after {
+                MParticleOptions(clientPlatform = clientPlatform) {
+                    automaticSessionTracking = false
+                    shouldBeginSession = false
+                }.let {
+                    startMParticle(it)
+                }
+            }
+            .assertFinished()
 
-        MParticle.onSessionStart {
-            Logger.error("SESSION STARTED IN CALLBACK")
-            Logger.error("session: $it")
-            latch.countDown()
-        }
-        MParticleOptions(clientPlatform = clientPlatform) {
-            automaticSessionTracking = false
-            shouldBeginSession = false
-        }.let {
-            startMParticle(it)
-        }
-        Logger.error("should start session...")
-        mParticle.startSession()
-        Logger.error("after should start session...")
-        latch.await()
-    }
-
-    @Test
-    fun testSessionDoesNotAutomaticallyStart() {
-        MParticleOptions(clientPlatform = clientPlatform) {
-            automaticSessionTracking = false
-            shouldBeginSession = false
-        }.let {
-            startMParticle(it)
-        }
-
-        assertFalse(mParticle.automaticSessionTracking)
-        MParticle.onSessionStart {
-            Logger.error(it.toString())
-            fail(it.toString())
-        }
-        mParticle.logEvent(MPEvent("this", EventType.Other))
-
-        Server
-            .endpoint(EndpointType.Events)
-            .assertWillReceive { true }
+        Sdk
+            .sessions()
+            .willStart()
+            .after {
+                mParticle.startSession()
+            }
             .blockUntilFinished()
     }
 
     @Test
-    fun testSessionManuallyStarts() {
-        val started = Mutable(false)
-        val latch = FailureLatch("manually starts")
-        MParticle.onSessionStart {
-            started.value = true
-            latch.countDown()
-        }
+    fun testEventManuallyStartsSession() {
+        Sdk
+            .sessions()
+            .willNotStart()
+            .after {
+                MParticleOptions(clientPlatform = clientPlatform) {
+                    automaticSessionTracking = false
+                    shouldBeginSession = false
+                }.let {
+                    startMParticle(it)
+                }
+            }
+            .assertFinished()
 
-        MParticleOptions(clientPlatform = clientPlatform) {
-            automaticSessionTracking = false
-            shouldBeginSession = false
-        }.let {
-            startMParticle(it)
-        }
+        Sdk
+            .sessions()
+            .willStart()
+            .after {
+                mParticle.apply {
+                    logEvent(MPEvent("this", EventType.Other))
+                    upload()
+                }
+            }
+            .blockUntilFinished()
+    }
 
-        assertFalse(mParticle.automaticSessionTracking)
-        assertFalse { started.value }
-        mParticle.startSession()
-        latch.await()
-        assertTrue { started.value }
+    @Test
+    fun testSessionlessEventDoesNotStartSession() {
+        Sdk
+            .sessions()
+            .willNotStart()
+            .after {
+                MParticleOptions(clientPlatform = clientPlatform) {
+                    automaticSessionTracking = false
+                    shouldBeginSession = false
+                }.let {
+                    startMParticle(it)
+                }
+            }
+            .assertFinished()
 
+        Sdk
+            .sessions()
+            .willNotStart()
+            .after {
+                MPEvent("some event", EventType.Other) {
+                    shouldStartSession = false
+                    this.category = "no sessionstart category"
+                }.let {
+                    Server
+                        .endpoint(EndpointType.Events)
+                        .assertWillReceive { it.body.messages.filterIsInstance<MPEventMessage>().any { event -> event.name == "some event"} }
+                        .after {
+                            mParticle.apply {
+                                logEvent(it)
+                                upload()
+                            } 
+                        }
+                        .blockUntilFinished()
+
+                }
+            }
+            .assertFinished()
     }
 
     @Test
     fun testSessionManuallyEnds() {
-        MParticleOptions(clientPlatform = clientPlatform) {
-            automaticSessionTracking = false
-            shouldBeginSession = false
-        }.let {
-            startMParticle(it)
-        }
+        Sdk
+            .sessions()
+            .willNotStart()
+            .after {
+                MParticleOptions(clientPlatform = clientPlatform) {
+                    automaticSessionTracking = false
+                    shouldBeginSession = false
+                }.let {
+                    startMParticle(it)
+                }
+            }
+            .assertFinished()
 
-        assertFalse(mParticle.automaticSessionTracking)
-        val ended = Mutable(false)
-        MParticle.onSessionEnd {
-            ended.value = true
-        }
-        mParticle.startSession()
-        mParticle.endSession()
+        Sdk
+            .sessions()
+            .willStart()
+            .after {
+                mParticle.startSession()
+            }
+            .blockUntilFinished()
 
-        Platforms().sleep(100)
-        Platforms().sleep(100)
-        Platforms().sleep(100)
-        Platforms().sleep(100)
-
-        assertTrue { ended.value }
-
+        Sdk
+            .sessions()
+            .willEnd()
+            .after {
+                mParticle.endSession()
+            }
+            .blockUntilFinished()
     }
 }

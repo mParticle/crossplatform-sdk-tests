@@ -1,7 +1,11 @@
 package com.mparticle.mockserver.utils
 
+import com.mparticle.api.MParticle
+import com.mparticle.api.Session
 import com.mparticle.api.events.EventType
 import com.mparticle.api.events.MPEvent
+import com.mparticle.testing.Assertion
+import kotlin.test.fail
 
 object TestingUtils {
     var isFirebasePresent = false
@@ -144,4 +148,64 @@ object TestingUtils {
 //            Logger.setLogHandler(logListener)
 //        }
 //    }
+}
+
+object Sdk {
+    fun sessions(): SessionConditional {
+        return SessionConditional()
+    }
+
+    class SessionConditional {
+        internal var start: Boolean? = null
+        internal var end: Boolean? = null
+
+        fun willStart(): Assertion<Session> {
+            start = true
+            return SessionAssertion(this).load()
+        }
+
+        fun willNotStart(): Assertion<Session> {
+            start = true
+            return SessionAssertion(this, true).load()
+        }
+
+        fun willEnd(): Assertion<Session> {
+            end = true
+            return SessionAssertion(this).load()
+        }
+
+        fun willNotEnd(): Assertion<Session> {
+            end = true
+            return SessionAssertion(this, true).load()
+        }
+    }
+
+    class SessionAssertion(private val sessionAssertion: SessionConditional, isInverse: Boolean = false): Assertion<Session>(isInverse = isInverse) {
+
+        override fun load(): Assertion<Session> {
+            if (sessionAssertion.start != null) {
+                MParticle.onSessionStart {
+                    if (!complete.access { it.value }) {
+                        finish(true)
+                    }
+                }
+            }
+            if (sessionAssertion.end != null) {
+                MParticle.onSessionEnd {
+                    if (!complete.access { it.value }) {
+                        finish(true)
+                    }
+                }
+            }
+            return this
+        }
+
+        override fun orHasAlready(): Assertion<Session> {
+            fail("No implemented for Sessions")
+        }
+
+        override fun cleanup() {
+
+        }
+    }
 }

@@ -8,26 +8,26 @@ import kotlin.reflect.KCallable
 fun MParticleOptions.toMParticleOptions(): com.mparticle.MParticleOptions {
     com.mparticle.internal.Logger.setLogHandler(object: com.mparticle.internal.Logger.AbstractLogHandler() {
         override fun verbose(error: Throwable?, message: String?) {
-            Logger.info("$message, error: ${error?.stackTraceToString()}")
+            Logger.info("mParticle: $message, error: ${error?.stackTraceToString()}")
         }
 
         override fun info(error: Throwable?, message: String?) {
-            Logger.info("$message, error: ${error?.stackTraceToString()}")
+            Logger.info("mParticle: $message, error: ${error?.stackTraceToString()}")
 
         }
 
         override fun debug(error: Throwable?, message: String?) {
-            Logger.info("$message, error: ${error?.stackTraceToString()}")
+            Logger.info("mParticle: $message, error: ${error?.stackTraceToString()}")
 
         }
 
         override fun warning(error: Throwable?, message: String?) {
-            Logger.warning("$message, error: ${error?.stackTraceToString()}")
+            Logger.warning("mParticle: $message, error: ${error?.stackTraceToString()}")
 
         }
 
         override fun error(error: Throwable?, message: String?) {
-            Logger.error("$message, error: ${error?.stackTraceToString()}")
+            Logger.error("mParticle: $message, error: ${error?.stackTraceToString()}")
 
         }
 
@@ -62,7 +62,7 @@ fun MParticleOptions.toMParticleOptions(): com.mparticle.MParticleOptions {
     this.identityConnectionTimeout?.let { builder.identityConnectionTimeout(it) }
     this.sessionTimeout?.let { builder.sessionTimeout(it) }
     this.uploadInterval?.let { builder.uploadInterval(it) }
-    this.logLevel?.let { logLevel -> builder.logLevel(logLevel.android)}
+    this.logLevel?.let { logLevel -> builder.logLevel(logLevel.android)} ?: builder.logLevel(LogLevel.Verbose.android)
 
     if (pushRegistrationInstanceId != null && pushRegistrationSenderId != null) {
         builder.pushRegistration(pushRegistrationInstanceId!!, pushRegistrationSenderId!!)
