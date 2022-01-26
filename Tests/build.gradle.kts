@@ -33,7 +33,6 @@ kotlin {
             summary = "Cross Platform Testing"
             homepage = "."
             baseName = "mParticle_Multiplatform_Tests"
-            setVersion(1.0)
             ios.deploymentTarget = "14.3"
         }
         pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))

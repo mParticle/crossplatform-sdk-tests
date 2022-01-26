@@ -38,7 +38,6 @@ kotlin {
             summary = "MParticle Unified Api"
             homepage = "."
             baseName = "mParticle-Api"
-            setVersion(0.1)
             ios.deploymentTarget = "14.3"
             transitiveExport = true
         }

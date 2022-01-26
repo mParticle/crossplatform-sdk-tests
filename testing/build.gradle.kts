@@ -35,7 +35,6 @@ kotlin {
             summary = "Cross Platform Testing"
             homepage = "."
             baseName = "mParticle_testing"
-            setVersion(1.0)
             ios.deploymentTarget = "14.3"
             transitiveExport = true
             export(project(":api"))
