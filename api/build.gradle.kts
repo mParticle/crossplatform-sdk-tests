@@ -21,22 +21,28 @@ kotlin {
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
         iosArm64("ios") {
-            binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
+            binaries.framework {
+                compilation = compilations.maybeCreate("test")
+            }
         }
     } else {
         iosX64("ios") {
-            binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
+            binaries.framework {
+                compilation = compilations.maybeCreate("test")
+            }
         }
     }
 
     cocoapods {
-        summary = "MParticle Unified Api"
-        homepage = "."
-        frameworkName = "mParticle-Api"
-        setVersion(0.1)
-        ios.deploymentTarget= "14.3"
-
-        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))
+        framework {
+            summary = "MParticle Unified Api"
+            homepage = "."
+            baseName = "mParticle-Api"
+            setVersion(0.1)
+            ios.deploymentTarget = "14.3"
+            transitiveExport = true
+        }
+        pod("mParticle-Apple-SDK/mParticle", version = "8.5.4", path = project.file("../.sdks/apple-testing"))
     }
     sourceSets {
         val commonMain by getting {
