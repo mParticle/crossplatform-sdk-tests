@@ -37,6 +37,7 @@ kotlin {
             baseName = "mParticle_testing"
             ios.deploymentTarget = "14.3"
             transitiveExport = true
+            isStatic = true
             export(project(":api"))
         }
         pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))

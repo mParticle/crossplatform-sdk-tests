@@ -34,6 +34,7 @@ kotlin {
             homepage = "."
             baseName = "mParticle_Multiplatform_Tests"
             ios.deploymentTarget = "14.3"
+            isStatic = true
         }
         pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))
         podfile = project.file("helpers/XCodeTest/Podfile")
