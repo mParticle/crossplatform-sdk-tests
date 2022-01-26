@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 
 plugins {
     id("com.android.library")
-    id("kotlin-android-extensions")
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     kotlin("native.cocoapods")
@@ -17,22 +16,22 @@ kotlin {
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
         iosArm64("ios") {
-            binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
+            binaries.framework()
         }
     } else {
         iosX64("ios") {
-            binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
+            binaries.framework()
         }
     }
     cocoapods {
-        summary = "Cross Platform Testing"
-        homepage = "."
-        frameworkName = "mParticle_Multiplatform_Tests"
-        setVersion(1.0)
-        ios.deploymentTarget = "14.3"
-
+        framework {
+            summary = "Cross Platform Testing"
+            homepage = "."
+            baseName = "mParticle_Multiplatform_Tests"
+            ios.deploymentTarget = "14.3"
+            transitiveExport = true
+        }
         pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))
-
         podfile = project.file("helpers/XCodeTest/Podfile")
 
     }
@@ -40,15 +39,16 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
-                api(project(":testing"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
+            kotlin.srcDirs("CommonTests")
         }
-        commonTest.kotlin.srcDirs("CommonTests")
         val commonMain by getting {
             dependencies {
                 implementation(project(":testing"))
+                implementation(project(":api"))
+                implementation(project(":models"))
             }
         }
         val androidMain by getting {
@@ -62,9 +62,7 @@ kotlin {
             }
         }
         val iosMain by getting {
-            dependencies {
-                implementation(project(":testing"))
-            }
+            kotlin.srcDir("CommonTests")
         }
     }
 }

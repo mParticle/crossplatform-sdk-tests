@@ -1,6 +1,6 @@
 [submodule "android"]
 	path = .sdks/android
-    url = git@github.com:mParticle/mparticle-android-sdk-internal.git
+    url = git@github.com:mParticle/mparticle-android-sdk.git
 [submodule "apple"]
 	path = .sdks/apple
-   	url = git@github.com:mParticle/mparticle-apple-sdk-internal.git
+   	url = git@github.com:mParticle/mparticle-apple-sdk.git

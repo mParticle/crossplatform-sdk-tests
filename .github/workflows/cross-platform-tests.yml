@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: android-test-results
-          path: com.mparticle.mockserver/build/reports/androidTests/connected/**
+          path: Tests/build/reports/androidTests/connected/**
   iOS-Tests:
     runs-on: macOS-latest
     timeout-minutes: 30
@@ -64,4 +64,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ios-test-results
-          path: Users/runner/Library/Developer/Xcode/DerivedData
+          path: /Users/runner/Library/Developer/Xcode/DerivedData

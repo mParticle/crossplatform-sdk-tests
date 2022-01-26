@@ -1,12 +1,13 @@
 import org.gradle.internal.impldep.org.apache.commons.io.FileUtils.copyDirectory
 
-subprojects {
+allprojects {
+    version = "1.0"
     repositories {
         google()
         mavenCentral()
-        maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
     }
 }
+
 
 val appleSDKTempDirPath = "${project.rootDir.absolutePath}/.sdks/apple-testing"
 
