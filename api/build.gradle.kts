@@ -42,7 +42,7 @@ kotlin {
             ios.deploymentTarget = "14.3"
             transitiveExport = true
         }
-        pod("mParticle-Apple-SDK/mParticle", version = "8.5.4", path = project.file("../.sdks/apple-testing"))
+        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))
     }
     sourceSets {
         val commonMain by getting {
