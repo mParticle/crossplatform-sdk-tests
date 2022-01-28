@@ -9,33 +9,27 @@ plugins {
     kotlin("native.cocoapods")
 }
 
-repositories {
-    mavenLocal()
-    jcenter()
-    maven { setUrl("https://dl.bintray.com/kotlin/kotlinx.html/") }
-}
-
 kotlin {
 
     android()
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
         iosArm64("ios") {
-            binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
+            binaries.framework()
         }
     } else {
         iosX64("ios") {
-            binaries.getFramework(DEBUG).compilation = compilations.maybeCreate("test")
+            binaries.framework()
         }
     }
 
     cocoapods {
-        summary = "MParticle Unified Api"
-        homepage = "."
-        frameworkName = "mParticle-Api"
-        setVersion(0.1)
-        ios.deploymentTarget= "14.3"
-
+        framework {
+            summary = "MParticle Unified Api"
+            homepage = "."
+            baseName = "mParticle-Api"
+            ios.deploymentTarget = "14.3"
+        }
         pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))
     }
     sourceSets {
