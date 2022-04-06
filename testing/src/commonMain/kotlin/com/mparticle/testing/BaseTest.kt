@@ -3,9 +3,9 @@ package com.mparticle.testing
 import com.mparticle.api.*
 import com.mparticle.messages.*
 import com.mparticle.api.identity.*
-import com.mparticle.mockserver.*
-import com.mparticle.mockserver.SuccessResponse
-import com.mparticle.mockserver.utils.Mutable
+import com.mparticle.testing.mockserver.*
+import com.mparticle.testing.mockserver.SuccessResponse
+import com.mparticle.testing.mockserver.utils.Mutable
 import kotlin.random.Random
 import kotlin.test.*
 import kotlin.test.BeforeTest

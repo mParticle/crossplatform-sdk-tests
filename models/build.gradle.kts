@@ -1,23 +1,48 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     kotlin("native.cocoapods")
+    id("maven-publish")
 }
 
 repositories {
     mavenLocal()
 }
 
+val xcFramework = XCFramework()
+
 kotlin {
-    android()
-    ios()
+    android {
+        publishLibraryVariants("debug")
+        mavenPublication {
+            artifactId = project.name
+        }
+    }
+    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
+    if (onPhone) {
+        iosArm64("ios") {
+            binaries.framework(listOf(NativeBuildType.DEBUG)) {
+                xcFramework.add(this)
+            }
+
+        }
+    } else {
+        iosX64("ios") {
+            binaries.framework(listOf(NativeBuildType.DEBUG)) {
+                xcFramework.add(this)
+            }
+        }
+    }
 
     cocoapods {
         summary = "MParticle SDK Server Models"
         homepage = "."
         frameworkName = "mParticle-Models"
-        setVersion(1.0)
         ios.deploymentTarget= "14.3"
     }
     sourceSets {
@@ -43,5 +68,18 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "github"
+            setUrl("https://maven.pkg.github.com/mParticle/crossplatform-sdk-tests")
+            credentials {
+                username = System.getenv("githubUsername")
+                password = System.getenv("githubToken")
+            }
+        }
     }
 }

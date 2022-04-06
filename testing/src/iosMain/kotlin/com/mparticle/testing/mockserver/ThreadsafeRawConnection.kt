@@ -1,9 +1,7 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
-import com.mparticle.mockserver.model.RawConnection
-import com.mparticle.mockserver.model.SimpleRawConnection
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import com.mparticle.testing.mockserver.model.RawConnection
+import com.mparticle.testing.mockserver.model.SimpleRawConnection
 
 class ThreadsafeRawConnection(url: String, message: String? = null): RawConnection {
 

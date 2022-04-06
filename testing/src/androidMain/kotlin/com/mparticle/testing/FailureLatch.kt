@@ -2,11 +2,11 @@ package com.mparticle.testing
 
 import android.os.Handler
 import android.os.Looper
-import com.mparticle.mockserver.Server
+import com.mparticle.testing.mockserver.MockServer
+import com.mparticle.testing.mockserver.Server
 import java.lang.RuntimeException
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
-import kotlin.test.fail
 
 /**
  * important to run fail() calls on the testing thread. JUnit doesn't always pick up on test failures
@@ -42,7 +42,7 @@ actual class FailureLatch actual constructor(val description: String) : CountDow
         //this should never finish. Either FailureLatch#countDown() is called, and the
         //timeoutRunnable is removed from the handler, or the timeoutRunnable executes, failing
         //the test
-        this.await(5 * 1000, TimeUnit.MILLISECONDS)
+        this.await(timeout, TimeUnit.MILLISECONDS)
         if (!finished) {
             RuntimeException("$description timed out. More than ${timeout}ms have elapsed", awaitStackTrace).let {
                 Handler(Looper.getMainLooper()).post { throw it }

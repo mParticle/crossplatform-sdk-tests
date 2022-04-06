@@ -8,9 +8,8 @@ import com.mparticle.api.events.MPEvent
 import com.mparticle.api.mParticle
 import com.mparticle.messages.IdentityResponseMessage
 import com.mparticle.messages.events.BatchMessage
-import com.mparticle.mockserver.*
+import com.mparticle.testing.mockserver.*
 import com.mparticle.testing.BaseTest
-import com.mparticle.testing.FailureLatch
 import kotlin.test.*
 
 class SampleTests: BaseTest() {

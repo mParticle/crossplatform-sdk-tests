@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 import java.lang.System.getProperty
 
 plugins {
@@ -7,19 +8,30 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     kotlin("native.cocoapods")
+    id("maven-publish")
 }
 
 kotlin {
 
-    android()
+    android {
+        publishLibraryVariants("debug")
+        mavenPublication {
+            artifactId = project.name
+        }
+    }
+    val xcFramework = XCFramework()
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
         iosArm64("ios") {
-            binaries.framework()
+            binaries.framework(listOf(NativeBuildType.DEBUG)) {
+                xcFramework.add(this)
+            }
         }
     } else {
         iosX64("ios") {
-            binaries.framework()
+            binaries.framework(listOf(NativeBuildType.DEBUG)) {
+                xcFramework.add(this)
+            }
         }
     }
 
@@ -74,4 +86,17 @@ android {
 }
 dependencies {
     implementation("androidx.lifecycle:lifecycle-common:2.2.0")
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "github"
+            setUrl("https://maven.pkg.github.com/mParticle/crossplatform-sdk-tests")
+            credentials {
+                username = System.getenv("githubUsername")
+                password = System.getenv("githubToken")
+            }
+        }
+    }
 }

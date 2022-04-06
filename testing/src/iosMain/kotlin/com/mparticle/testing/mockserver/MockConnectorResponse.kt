@@ -1,9 +1,9 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import cocoapods.mParticle_Apple_SDK.MPConnectorResponseProtocolProtocol
 import com.mparticle.api.toByteArray
 import com.mparticle.api.toNSData
-import com.mparticle.mockserver.model.RawConnection
+import com.mparticle.testing.mockserver.model.RawConnection
 import platform.Foundation.*
 import platform.darwin.NSObject
 

@@ -1,6 +1,6 @@
 package com.mparticle.identity
 
-import com.mparticle.mockserver.EndpointType
+import com.mparticle.testing.mockserver.EndpointType
 import com.mparticle.testing.BaseStartedTest
 import kotlin.test.Test
 

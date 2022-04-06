@@ -1,14 +1,15 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import com.mparticle.api.Logger
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.CoroutineContext
 import kotlin.native.concurrent.SharedImmutable
 
 fun <T> T.andLog(logAction: () -> String): T = apply { Logger.error(logAction()) }
 
 @SharedImmutable
-private val serverThread by lazy { newSingleThreadContext("MockServerThread") }
+private val serverThread: CoroutineContext = newSingleThreadContext("MockServerThread")
 
 object ThreadingUtil {
     val platforms = Platforms()

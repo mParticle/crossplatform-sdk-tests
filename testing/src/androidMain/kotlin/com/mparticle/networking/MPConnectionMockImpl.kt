@@ -1,16 +1,15 @@
 package com.mparticle.networking
 
-import com.mparticle.mockserver.Server
-import com.mparticle.mockserver.model.RawConnection
-import com.mparticle.mockserver.model.SimpleRawConnection
+import com.mparticle.testing.mockserver.Server
+import com.mparticle.testing.mockserver.model.RawConnection
+import com.mparticle.testing.mockserver.model.SimpleRawConnection
 import java.io.*
-import java.lang.IllegalStateException
 import java.util.*
 import java.util.zip.GZIPInputStream
 import javax.net.ssl.SSLSocketFactory
 
 
-class MPConnectionTestImpl internal constructor(var url: MPUrl) : MPConnection {
+class MPConnectionMockImpl internal constructor(var url: MPUrl) : MPConnection {
     var connection: RawConnection = SimpleRawConnection(url.toString(), { outputStream?.getString()})
     private var requestMethod: String = "GET"
     private var doOutput: Boolean? = null

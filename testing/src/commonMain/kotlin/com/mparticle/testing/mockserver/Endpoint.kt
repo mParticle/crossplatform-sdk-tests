@@ -1,9 +1,9 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import com.mparticle.api.Logger
-import com.mparticle.mockserver.model.RawConnection
+import com.mparticle.testing.mockserver.model.RawConnection
 import com.mparticle.testing.FailureLatch
-import com.mparticle.mockserver.model.SimpleRawConnection
+import com.mparticle.testing.mockserver.model.SimpleRawConnection
 import kotlinx.serialization.json.Json
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmSynthetic
@@ -19,6 +19,7 @@ class Endpoint<RequestType, ResponseType> (private val mockServer: MockServer, p
 
     val receivedRequests: List<ReceivedRequests<RequestType, ResponseType>>
         get() {
+            Int.MAX_VALUE
             return ArrayList(_receivedRequests)
         }
 

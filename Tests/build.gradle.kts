@@ -12,15 +12,19 @@ kotlin {
             ?.startsWith("iphoneos") == true
     ) presets.getByName("iosArm64") else presets.getByName("iosX64")
 
-    android()
+    android {
+        publishLibraryVariants("debug")
+    }
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
         iosArm64("ios") {
-            binaries.framework()
+            binaries.framework(listOf(org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG))
+
         }
     } else {
         iosX64("ios") {
-            binaries.framework()
+            binaries.framework(listOf(org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG))
+
         }
     }
     cocoapods {

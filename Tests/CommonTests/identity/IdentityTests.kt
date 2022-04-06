@@ -7,9 +7,9 @@ import com.mparticle.api.identity.IdentityType
 import com.mparticle.api.mParticle
 import com.mparticle.messages.IdentityRequestMessage
 import com.mparticle.messages.IdentityResponseMessage
-import com.mparticle.mockserver.EndpointType
-import com.mparticle.mockserver.Server
-import com.mparticle.mockserver.SuccessResponse
+import com.mparticle.testing.mockserver.EndpointType
+import com.mparticle.testing.mockserver.Server
+import com.mparticle.testing.mockserver.SuccessResponse
 import com.mparticle.testing.BaseStartedTest
 import com.mparticle.testing.FailureLatch
 import kotlin.random.Random

@@ -1,12 +1,11 @@
 package com.mparticle.identity
 
-import com.mparticle.api.Logger
 import com.mparticle.api.Platform
 import com.mparticle.api.identity.IdentityApiRequest
 import com.mparticle.api.identity.IdentityType
 import com.mparticle.api.mParticle
 import com.mparticle.messages.IdentityResponseMessage
-import com.mparticle.mockserver.*
+import com.mparticle.testing.mockserver.*
 import com.mparticle.testing.BaseStartedTest
 import com.mparticle.testing.FailureLatch
 import com.mparticle.testing.assertPlatformDifference

@@ -1,17 +1,13 @@
 package com.mparticle.testing
 
-import android.content.Context
 import android.os.Debug
-import android.os.Looper
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import com.mparticle.api.ClientPlatform
 import com.mparticle.api.ClientPlatformImpl
 import com.mparticle.internal.AppStateManager
 import com.mparticle.internal.Logger
-import com.mparticle.mockserver.Server
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import com.mparticle.testing.mockserver.Server
 
 //awaiter only used for iOS
 actual fun beforeTest() {

@@ -4,9 +4,9 @@ import java.net.MalformedURLException
 import java.net.URL
 
 
-class MPUrlTestImpl(var url: String) : com.mparticle.networking.MPUrl() {
+class MPUrlMockImpl(var url: String) : com.mparticle.networking.MPUrl() {
     override fun openConnection(): MPConnection {
-        return MPConnectionTestImpl(this)
+        return MPConnectionMockImpl(this)
     }
 
     override fun getFile(): String {

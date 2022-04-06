@@ -1,9 +1,8 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import cocoapods.mParticle_Apple_SDK.MPConnectorProtocolProtocol
 import cocoapods.mParticle_Apple_SDK.MPURL
 import platform.Foundation.NSData
-import platform.Foundation.NSURL
 import platform.darwin.NSObject
 
 class MockConnector(private val onRequestMade: OnRequestMade): NSObject(), MPConnectorProtocolProtocol {

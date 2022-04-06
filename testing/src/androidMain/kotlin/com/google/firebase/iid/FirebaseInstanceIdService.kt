@@ -1,6 +1,6 @@
 package com.google.firebase.iid;
 
-import com.mparticle.mockserver.utils.TestingUtils
+import com.mparticle.testing.mockserver.utils.TestingUtils
 
 class FirebaseInstanceIdService {
 

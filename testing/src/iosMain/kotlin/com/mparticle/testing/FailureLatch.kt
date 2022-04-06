@@ -2,11 +2,10 @@ package com.mparticle.testing
 
 import co.touchlab.stately.freeze
 import com.mparticle.api.Logger
-import com.mparticle.mockserver.Server
-import com.mparticle.mockserver.Platforms
+import com.mparticle.testing.mockserver.Platforms
+import com.mparticle.testing.mockserver.Server
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import platform.Foundation.NSCondition
 import platform.Foundation.NSDate
 import platform.Foundation.NSThread
 import platform.Foundation.addTimeInterval
