@@ -1,6 +1,6 @@
 package com.mparticle.testing
 
-import com.mparticle.mockserver.Server
+import com.mparticle.testing.mockserver.Server
 
 /**
  * important to run fail() calls on the testing thread. JUnit doesn't always pick up on test failures

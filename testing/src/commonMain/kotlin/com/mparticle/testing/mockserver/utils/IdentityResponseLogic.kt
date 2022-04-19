@@ -1,8 +1,8 @@
-package com.mparticle.mockserver.utils
+package com.mparticle.testing.mockserver.utils
 
 import com.mparticle.messages.IdentityRequestMessage
 import com.mparticle.messages.IdentityResponseMessage
-import com.mparticle.mockserver.*
+import com.mparticle.testing.mockserver.*
 import kotlin.jvm.JvmOverloads
 
 class IdentityResponseLogic @JvmOverloads constructor(val mpid: Long, val isLoggedIn: Boolean = false):

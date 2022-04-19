@@ -1,4 +1,4 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import com.mparticle.messages.*
 

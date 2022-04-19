@@ -72,7 +72,7 @@ fun <T> nullableProperty(property: KMutableProperty0<T>) =
  */
 class TransformDelegate<Kotlin, Native>(private val property: KMutableProperty0<Native>, private val transformer: Transformer<Kotlin, Native>) {
     operator fun getValue(ref: Any?, kProp: KProperty<*>): Kotlin {
-        return property.getValue(ref, kProp).let { transformer .to(it) }
+        return property.getValue(ref, kProp).let { transformer.to(it) }
     }
 
     operator fun setValue(ref: Any?, kProp: KProperty<*>, value: Kotlin) {

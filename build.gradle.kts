@@ -1,13 +1,21 @@
 import org.gradle.internal.impldep.org.apache.commons.io.FileUtils.copyDirectory
 
 allprojects {
-    version = "1.0"
     repositories {
         google()
         mavenCentral()
     }
 }
 
+subprojects {
+    group = project.properties["group"].toString()
+    version = project.properties["version"].toString()
+    afterEvaluate {
+        if (plugins.any { it is MavenPublishPlugin }) {
+            tasks.register("publishAndroid") { dependsOn("publishAndroidDebugPublicationToMavenLocal") }
+        }
+    }
+}
 
 val appleSDKTempDirPath = "${project.rootDir.absolutePath}/.sdks/apple-testing"
 
@@ -37,6 +45,17 @@ val addTestingHeadersToAppleSDK by tasks.creating {
 subprojects {
     afterEvaluate {
         tasks.findByName("podGenIOS")?.dependsOn(addTestingHeadersToAppleSDK)
+    }
+}
+
+allprojects {
+    afterEvaluate {
+        tasks.register("publishNativeToMavenLocal") {
+            if (tasks.findByName("publish") != null) {
+                dependsOn("publishAndroidDebugPublicationToMavenLocal")
+                dependsOn("publishIosPublicationToMavenLocal")
+            }
+        }
     }
 }
 

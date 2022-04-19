@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 import java.lang.System.getProperty
 
 plugins {
@@ -7,22 +8,29 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     kotlin("native.cocoapods")
-
+    id("maven-publish")
 }
 
-
 kotlin {
-    val iOSTarget = if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true) presets.getByName("iosArm64") else presets.getByName("iosX64")
-
-    android()
+    android {
+        publishLibraryVariants("debug")
+        mavenPublication {
+            artifactId = "testing"
+        }
+    }
+    val xcFramework = XCFramework()
     val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
     if (onPhone) {
         iosArm64("ios") {
-            binaries.framework()
+            binaries.framework(listOf(NativeBuildType.DEBUG)) {
+                xcFramework.add(this)
+            }
         }
     } else {
         iosX64("ios") {
-            binaries.framework()
+            binaries.framework(listOf(NativeBuildType.DEBUG)) {
+                xcFramework.add(this)
+            }
         }
     }
     cocoapods {
@@ -41,9 +49,9 @@ kotlin {
                 api(project(":models"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1-native-mt") {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core") {
                     version {
-                        strictly("1.5.1-native-mt")
+                        strictly("1.5.2-native-mt")
                     }
                 }
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
@@ -56,6 +64,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                dependsOn(commonMain)
                 api(project(":api"))
                 compileOnly("group:android-core")
                 implementation(kotlin("test-junit"))
@@ -67,7 +76,9 @@ kotlin {
             }
         }
 
-        val iosMain by getting
+        val iosMain by getting {
+            dependsOn(commonMain)
+        }
     }
 }
 
@@ -86,4 +97,26 @@ android {
 }
 dependencies {
     implementation("androidx.lifecycle:lifecycle-common:2.2.0")
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "github"
+            setUrl("https://maven.pkg.github.com/mParticle/crossplatform-sdk-tests")
+            credentials {
+                username = System.getenv("githubUsername")
+                password = System.getenv("githubToken")
+            }
+        }
+    }
+    afterEvaluate {
+        publications {
+            try {
+                named<MavenPublication>("androidDebug") {
+                    artifactId = project.name
+                }
+            } catch (e: java.lang.Exception) {}
+        }
+    }
 }

@@ -1,9 +1,7 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import cocoapods.mParticle_Apple_SDK.MPConnectorFactoryProtocolProtocol
-import kotlinx.coroutines.Dispatchers
 import platform.darwin.NSObject
-import kotlin.native.concurrent.ThreadLocal
 
 //actual inheritors : NSObject(), MPConnectorFactoryProtocol
 class MockConnectorFactory(private val onRequestMade: OnRequestMade): NSObject(), MPConnectorFactoryProtocolProtocol {

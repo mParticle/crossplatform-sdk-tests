@@ -1,13 +1,12 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import com.mparticle.api.Logger
 import com.mparticle.messages.*
 import com.mparticle.messages.events.BatchMessage
-import com.mparticle.mockserver.model.RawConnection
+import com.mparticle.testing.mockserver.model.RawConnection
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlin.jvm.JvmField
 

@@ -1,10 +1,6 @@
-package com.mparticle.mockserver.model
+package com.mparticle.testing.mockserver.model
 
-import com.mparticle.api.Logger
-import com.mparticle.mockserver.Response
 import kotlin.random.Random
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.json.Json
 
 interface RawConnection {
     fun getUrl(): String

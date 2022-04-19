@@ -4,6 +4,33 @@ Cross-Platform testing is a framework, implemented with Kotlin Multiplatform, th
 
 ## Getting Started
 
+#### Adding a package to you Android project
+
+Currently, other projects can pull in any of our `api`, `models`, or `testing` modules from the artifacts published in our Github Artifact repository
+
+In your `build.gradle` file, add:
+
+```kotlin
+repositories {
+    ...
+    maven {
+       setUrl("https://maven.pkg.github.com/mParticle/crossplatform-sdk-tests")
+    }
+}
+
+dependencies {
+    ...
+    implementation("com.mparticle:models:0.1")              // <--- add for serializable server DTOs
+    ...
+    androidTestImplementation("com.mparticle:testing:0.1")  // <--- add for `Server` and instrumented testing base classes
+ }
+```
+
+transitive dependencies:
+`api` -> `models`
+`models`
+`testing` -> `api` -> `models`
+
 #### Adding Tests
 Tests are located in the `Tests/` directory. To add a new test, either write a new function in one of the existing classes, or create a new class and add the function into the `Tests/` directory.
 

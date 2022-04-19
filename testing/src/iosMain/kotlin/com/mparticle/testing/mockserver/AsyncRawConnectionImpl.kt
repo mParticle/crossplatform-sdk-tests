@@ -1,13 +1,11 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import com.mparticle.api.Logger
-import com.mparticle.mockserver.ThreadingUtil.runBlockingServer
-import com.mparticle.mockserver.model.RawConnection
+import com.mparticle.testing.mockserver.ThreadingUtil.runBlockingServer
+import com.mparticle.testing.mockserver.model.RawConnection
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import platform.Foundation.*
+import platform.Foundation.NSData
 import platform.posix.memcpy
 
 class AsyncRawConnectionImpl(val url: String, private val message: String? = null): RawConnection {

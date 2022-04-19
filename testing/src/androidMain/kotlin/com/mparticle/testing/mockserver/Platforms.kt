@@ -1,16 +1,13 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import com.mparticle.networking.MPUrl
-import com.mparticle.networking.MPUrlTestImpl
+import com.mparticle.networking.MPUrlMockImpl
 import com.mparticle.networking.setMPUrlFactory
 import com.mparticle.internal.database.services.MParticleDBManager
 import com.mparticle.messages.ConfigResponseMessage
 import com.mparticle.testing.TestLifecycleContext
-import android.os.Handler
 import android.os.Looper
 import androidx.test.platform.app.InstrumentationRegistry
-import com.mparticle.mockserver.utils.Mutable
-import com.mparticle.testing.FailureLatch
 
 
 actual open class Platforms {
@@ -21,7 +18,7 @@ actual open class Platforms {
 
     actual fun injectMockServer() {
         setMPUrlFactory {
-            MPUrlTestImpl(it) as MPUrl
+            MPUrlMockImpl(it) as MPUrl
         }
     }
 

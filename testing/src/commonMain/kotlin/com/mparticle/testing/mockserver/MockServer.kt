@@ -1,12 +1,12 @@
-package com.mparticle.mockserver
+package com.mparticle.testing.mockserver
 
 import co.touchlab.stately.isolate.IsolateState
 import com.mparticle.api.Logger
 import com.mparticle.messages.*
-import com.mparticle.mockserver.ThreadingUtil.platforms
-import com.mparticle.mockserver.ThreadingUtil.runBlockingServer
-import com.mparticle.mockserver.model.RawConnection
-import com.mparticle.mockserver.utils.Mutable
+import com.mparticle.testing.mockserver.ThreadingUtil.platforms
+import com.mparticle.testing.mockserver.ThreadingUtil.runBlockingServer
+import com.mparticle.testing.mockserver.model.RawConnection
+import com.mparticle.testing.mockserver.utils.Mutable
 import com.mparticle.testing.FailureLatch
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.random.Random

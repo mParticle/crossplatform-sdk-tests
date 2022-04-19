@@ -1,4 +1,4 @@
-package com.mparticle.mockserver.utils
+package com.mparticle.testing.mockserver.utils
 
 import kotlin.jvm.JvmField
 

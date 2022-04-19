@@ -7,7 +7,7 @@ import com.mparticle.api.mParticle
 import com.mparticle.messages.events.ImpressionMessage
 import com.mparticle.messages.events.ProductMessage
 import com.mparticle.messages.events.PromotionMessage
-import com.mparticle.mockserver.*
+import com.mparticle.testing.mockserver.*
 import com.mparticle.testing.BaseStartedTest
 import com.mparticle.testing.assertPlatformDifference
 import kotlin.test.*

@@ -1,4 +1,4 @@
-package com.mparticle.mockserver.utils
+package com.mparticle.testing.mockserver.utils
 
 import com.mparticle.api.events.EventType
 import com.mparticle.api.identity.IdentityType
