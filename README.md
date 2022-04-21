@@ -31,8 +31,100 @@ transitive dependencies:
 `models`
 `testing` -> `api` -> `models`
 
-#### Adding Tests
-Tests are located in the `Tests/` directory. To add a new test, either write a new function in one of the existing classes, or create a new class and add the function into the `Tests/` directory.
+#### Writing Tests
+
+Tests are located in the `Tests` directory.
+
+End-to-End tests often utilize the `MockServer` API to either assert against certain messages reaching the server or simply blocking the thread until a request is sent/received.
+
+A new `MockServer` instance is automatically initialized before every single test, as long as your test class extends one of the base classes.
+
+* `BaseTest`: a fresh `MockServer` instance. mParticle SDK has not already been started when the tests execute.
+* `BaseStartedTest`: a fresh `MockServer` instance. A fully initialized mParticle SDK instance (initial `identify()` call has completed) .
+
+The `MockServer` instance is stored in a singleton, `server`. Tests should only interact with their `MockServer` instance through this singleton, attempting to invoke the class directly **will** lead to threading/freezing erros when run on iOS.
+
+##### Assertions
+
+Tests may use the `MockServer` to assert against one of the following:
+* "current" requests state (have/have not already received a matching request)
+* "future" requests state (will/will not be received)
+
+For the "future" requests, you can also choose to block until the assertion passes or continue the test logic and check its state at a later point. In order to avoid race conditions in these tests, we suggest you utilize an `after { }` block to define the code that will trigger the network request at the focus of your assertion.
+
+**log an event and block until it is received**
+```kotlin
+Server
+    .endpoint(EndpointType.Events)
+    .assertWillReceive { messageBatch: Request<BatchMessage> ->
+        messageBatch.body.messages
+            .filterIsInstance<MPEvent>()
+            .any {
+                it.eventName == "my event" && it.eventType == EventType.Social
+            }
+    }
+    .after { mParticle.logEvent(MPEvent("my event", EventType.Social)) }
+    .blockUntilFinished()
+```
+
+In the previous test we performed the following tasks:
+
+1. Select an EndpointType. Each endpoint type will automatically populate the following methods with the correct request/response type:
+    - `Events`
+    - `Alias`
+    - `Identity_{Login|Logout|Identify|Modify}`
+    - `Config`
+2. Select an "assertion type."
+    - `assert{Will|WillNot}Receiver { }`
+    - `assert{Has|HasNot}Received { }`
+3. If *Will/WillNot*, define a "trigger" in the `after { }` block.
+4. Select a continuation behavior:
+    - `blockUntilFinished()`: will block and timeout after 5 seconds if the assertion is not satisfied.
+    - `assertFinished()`: will check if the assertion has been satisfied and immediately fail if it has not.
+    - `cancel()`: will cancel any timeout timer, if one has been set.
+    - `latch`: will return an `MPLatch` instance which can be used to block at any arbitrary point in the test. This instance will automatically un-block if the assertion is satisfied.
+
+##### Request/Response Logic
+
+Tests may also set custom request/response logic via the `MockServer`:
+
+**On the next config request, return a custom response**
+```kotlin
+Server
+   .endpoint(EndpointType.Config)
+   .nextResponse {
+       SuccessResponse {
+           ConfigResponseMessage(workspaceToken = "some token")
+       }
+   }
+```
+
+**For the next Events request, send a 404 failure response**
+```kotlin
+Server
+    .endpoint(EndpointType.Events)
+    .nextResponse {
+        ErrorResponse(httpCode = 404, errorMessage = "some error")
+    }
+```
+
+**If the next login request is from mpid=123, send a 500 failure response, otherwise keep the mpid the same**
+```kotlin
+Server
+    .endpoint(EndpointType.Identity_Login)
+    .nextResponse { request ->
+        val prevMpid = request.body.previousMpid
+        when (prevMpid) {
+            123L -> ErrorResponse(httpCode = 500, errorMessage = "some error")
+            else -> SuccessResponse {
+                IdentityResponseMessage {
+                    mpid = prevMpid
+                }
+            }
+        }
+    }
+}
+```
 
 > caveats:
 >   - (iOS) for each new test, you need to add a function in Tests/helpers/XCodeTest/XCodeTestUITests **(TODO)**
