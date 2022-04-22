@@ -14,7 +14,7 @@ actual open class Platforms {
     init {
         prepareThread()
     }
-    var mContext = TestLifecycleContext(InstrumentationRegistry.getInstrumentation().context.applicationContext);
+    var mContext = TestLifecycleContext(InstrumentationRegistry.getInstrumentation().targetContext.applicationContext);
 
     actual fun injectMockServer() {
         setMPUrlFactory {

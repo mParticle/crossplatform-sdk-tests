@@ -28,13 +28,13 @@ class BatchMessage(
     @SerialName("ia") val integrationAttributes: JsonObject? = null,
     @SerialName("con") val consentState: ConsentStateMessage? = null,
     @SerialName("ctx") val dataplanContext: DataplanContextMessage? = null,
-    @SerialName("sh") val sessionHistory: JsonObject? = null,
     @SerialName("msgs") val messages: List<@Polymorphic BaseEvent> = listOf(),
     @SerialName("fsr") val reportingMessages: List<ReportingMessageMessage>? = null,
     @SerialName("ai") val appInfo: AppInfoMessage? = null,
     @SerialName("di") val deviceInfo: DeviceInfoMessage? = null,
     @SerialName("ui") val identities: List<UserIdentities>? = null,
-    @SerialName("ua") val attributes: JsonObject? = null
+    @SerialName("ua") val attributes: JsonObject? = null,
+    @SerialName("sh") val sessionHistory: List<@Polymorphic BaseEvent> = listOf()
 ) {
 
     companion object {
@@ -53,6 +53,8 @@ class BatchMessage(
                 polymorphic(BaseEvent::class, SessionStartMessage::class, SessionStartMessage.serializer())
                 polymorphic(BaseEvent::class, FirstRunMessage::class, FirstRunMessage.serializer())
                 polymorphic(BaseEvent::class, UserIdentityChangeMessage::class, UserIdentityChangeMessage.serializer())
+                polymorphic(BaseEvent::class, ScreenViewMessage::class, ScreenViewMessage.serializer())
+                polymorphic(BaseEvent::class, PushRegistrationMessage::class, PushRegistrationMessage.serializer())
             }
             ignoreUnknownKeys = true
             classDiscriminator = "dt"
