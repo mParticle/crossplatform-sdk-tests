@@ -3,7 +3,7 @@ package com.mparticle.testing
 import com.mparticle.api.MParticle
 import kotlin.test.BeforeTest
 
-abstract class BaseStartedTest: BaseTest() {
+abstract class BaseStartedTest: BaseTest(false) {
     @BeforeTest
     override fun afterBeforeAll() {
         MParticle.clearInstance()

@@ -1,37 +1,43 @@
 package com.mparticle.testing
 
-import com.mparticle.api.*
-import com.mparticle.messages.*
-import com.mparticle.api.identity.*
-import com.mparticle.testing.mockserver.*
+import com.mparticle.api.ClientPlatform
+import com.mparticle.api.Environment
+import com.mparticle.api.Logger
+import com.mparticle.api.MParticle
+import com.mparticle.api.MParticleOptions
+import com.mparticle.api.identity.IdentityApiRequest
+import com.mparticle.api.identity.IdentityResponse
+import com.mparticle.messages.ConfigResponseMessage
+import com.mparticle.messages.IdentityResponseMessage
+import com.mparticle.testing.mockserver.EndpointType
+import com.mparticle.testing.mockserver.Platforms
+import com.mparticle.testing.mockserver.Server
 import com.mparticle.testing.mockserver.SuccessResponse
 import com.mparticle.testing.mockserver.utils.Mutable
 import kotlin.random.Random
-import kotlin.test.*
 import kotlin.test.BeforeTest
+import kotlin.test.assertTrue
+import kotlin.test.fail
 
 
-open class BaseTest() {
+open class BaseTest(val keepSdkInstance: Boolean = false) {
     var mStartingMpid = Random.nextLong()
     internal lateinit var platforms: Platforms
     lateinit var clientPlatform: ClientPlatform
 
+    // iOS "@Before" hoot
     fun beforeAll(awaiter: Awaiter) {
+        MParticle.clearInstance()
         setAwaiter(awaiter)
         beforeAll()
     }
 
-    @BeforeTest
-    fun beforeAll() {
+    // manual hook for inializing MockServer (i.e if MParticle is started in Application onCreate() as a part of
+    // test setup, and need to start Mockserver for initial identity request
+    fun initializeTestServer() {
         platforms = Platforms()
         platforms.prepareThread()
-        clientPlatform = getClientPlatform()
-        MParticle.reset(clientPlatform)
-
-        beforeTest()
-
-        mStartingMpid = Random.nextLong()
-        Logger.info("Starting MockSerrver...")
+        Logger.info("Starting MockServer...")
         Server.start(platforms)
         Logger.info("MockServer started")
         Server
@@ -39,6 +45,17 @@ open class BaseTest() {
             .nextResponse {
                 SuccessResponse(IdentityResponseMessage(mStartingMpid))
             }
+    }
+
+    @BeforeTest
+    fun beforeAll() {
+        mStartingMpid = Random.nextLong()
+        clientPlatform = getClientPlatform()
+        if (MParticle.getInstance() == null || !keepSdkInstance) {
+            MParticle.reset(clientPlatform)
+        }
+        initializeTestServer()
+        beforeTest()
         afterBeforeAll()
     }
 

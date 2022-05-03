@@ -82,49 +82,17 @@ class Endpoint<RequestType, ResponseType> (private val mockServer: MockServer, p
             )
         Logger.error("Removing request finished filters for Endpoint ${endpointType.name}. Count = ${requestFinishedFilters.size}...")
         //loop through all the registered callbacks, remove any matches after they have been invoked
-//        try {
+        try {
             requestFinishedFilters.removeAll {
                 val result = it(request, response, returnConnection)
                 result
             }
-//        }
-//        catch (ex: Exception) {
-//            Logger.error(ex.message ?: ex.toString())
-//        }
+        }
+        catch (ex: Exception) {
+            Logger.error(ex.message ?: ex.toString())
+        }
         Logger.info("Returning connection: $returnConnection")
         return returnConnection
-    }
-
-    @JvmOverloads
-    fun onRequestFinishedBlocking(requestFilter: IRequestFilter<RequestType>? = null, onRequestCallback: IOnRequestCallback<RequestType, ResponseType>? = null): Endpoint<RequestType, ResponseType> {
-        onRequestFinishedBlocking({ requestFilter?.isMatch(it) ?: true}) { req, resp -> onRequestCallback?.onRequest(req, resp)}
-        return this
-    }
-
-    @JvmSynthetic
-    fun onRequestFinishedBlocking(requestFilter: RequestFilter<RequestType>? = null, onRequestCallback: OnRequestCallback<RequestType, ResponseType>? = null): Endpoint<RequestType, ResponseType> {
-        val latch = FailureLatch()
-        Logger.error("Received Requests size: ${receivedRequests.size}")
-        receivedRequests.forEach {
-            try {
-                Logger.error("Previously received request: ${it.request}")
-
-                if (requestFilter?.invoke(it.request) == true) {
-                    Logger.error("Found matching!!")
-                    onRequestCallback?.invoke(it.request, it.response)
-                    return this
-                }
-            } catch (ex: Exception) {
-                Logger.error("Could not add onRequestFinishedBlocking filter: ${ex.message}")
-            }
-        }
-        Logger.error("Adding blocking request filter..")
-        onRequestFinished(requestFilter) { request, response ->
-            onRequestCallback?.invoke(request, response)
-            latch.countDown();
-        }
-        latch.await()
-        return this
     }
 
     @JvmSynthetic
@@ -134,12 +102,14 @@ class Endpoint<RequestType, ResponseType> (private val mockServer: MockServer, p
             var isMatch = requestFilter?.invoke(Request(request, connection)) ?: true
             if (isMatch) {
                 try {
-                    onRequestCallback?.invoke(Request(request, connection), response)
+                    onRequestCallback?.invoke(Request(request, connection), response) ?: false
                 } catch (e: Throwable) {
                     mockServer.failHard(exception = e);
+                    false
                 }
+            } else {
+                false
             }
-            isMatch
         })
         return this
     }

@@ -13,7 +13,7 @@ import kotlin.random.Random
 
 
 typealias RequestFilter<T> = (Request<T>) -> Boolean
-typealias OnRequestCallback<T, R> = (Request<T>, Response<R>) -> Unit
+typealias OnRequestCallback<T, R> = (Request<T>, Response<R>) -> Boolean
 typealias ResponseLogic<T, R> = (Request<T>) -> Response<R>
 
 
@@ -76,14 +76,14 @@ object Server {
         fun assertWillReceive(filter: RequestFilter<RequestType>): Assertion<RequestType, ResponseType> =
             Assertion(filter, endpointType).also {
                 runOnServer {
-                    getEndpoint(endpointType).onRequestFinished(it)
+                    getEndpoint(endpointType).onRequestFinished(it) { _, _ -> true }
                 }
             }
 
         fun assertWillNotReceive(filter: RequestFilter<RequestType>): Assertion<RequestType, ResponseType> =
             Assertion(filter, endpointType, true).also {
                 runOnServer {
-                    getEndpoint(endpointType).onRequestFinished(it)
+                    getEndpoint(endpointType).onRequestFinished(it) { _, _ -> true }
                 }
             }
 
@@ -301,6 +301,7 @@ class MockServer {
         EndpointType.values.forEach {
             getEndpoint(it).onRequestFinished(requestFilter = null) { any, response ->
                 onRequestCallbacks.forEach { callback -> callback(any as Request<Any?>, response) }
+                false
             }
         }
     }
@@ -346,7 +347,7 @@ interface IResponseLogic<T, R> {
 }
 
 interface IOnRequestCallback<T, R> {
-    fun onRequest(request: Request<T>, response: Response<R>)
+    fun onRequest(request: Request<T>, response: Response<R>): Boolean
 }
 
 class Request<T>(
