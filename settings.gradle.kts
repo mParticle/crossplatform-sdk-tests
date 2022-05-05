@@ -16,6 +16,7 @@ pluginManagement {
         kotlin("multiplatform") version ("1.6.20")
         kotlin("plugin.serialization") version ("1.6.20")
         kotlin("native.cocoapods") version ("1.6.20")
+        kotlin("js") version "1.6.20"
     }
     resolutionStrategy {
         eachPlugin {

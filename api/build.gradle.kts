@@ -35,11 +35,17 @@ kotlin {
         }
     }
 
+    js {
+        browser {
+        }
+        binaries.executable()
+    }
+
     cocoapods {
         framework {
-            summary = "MParticle Unified Api"
+            summary = "MParticle Cross-Platform API"
             homepage = "."
-            baseName = "mParticle-Api"
+            baseName = "mParticle-API"
             ios.deploymentTarget = "14.3"
         }
         pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing"))
@@ -63,6 +69,12 @@ kotlin {
                 compileOnly("group:android-core")
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13")
+            }
+        }
+
+        val jsMain by getting {
+            dependencies {
+                implementation(npm("@mparticle/web-sdk", "2.15.4"))
             }
         }
 
