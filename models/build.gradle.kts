@@ -7,8 +7,9 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     kotlin("native.cocoapods")
-    id("maven-publish")
 }
+apply(from = "../.scripts/maven.gradle")
+
 
 repositories {
     mavenLocal()
@@ -18,7 +19,7 @@ val xcFramework = XCFramework()
 
 kotlin {
     android {
-        publishLibraryVariants("debug")
+        publishLibraryVariants("release")
         mavenPublication {
             artifactId = project.name
         }
@@ -68,18 +69,5 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-}
-
-publishing {
-    repositories {
-        maven {
-            name = "github"
-            setUrl("https://maven.pkg.github.com/mParticle/crossplatform-sdk-tests")
-            credentials {
-                username = System.getenv("githubUsername")
-                password = System.getenv("githubToken")
-            }
-        }
     }
 }

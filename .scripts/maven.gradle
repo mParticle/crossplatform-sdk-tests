@@ -1,0 +1,76 @@
+apply plugin: "maven-publish"
+apply plugin: "signing"
+
+publishing {
+    publications {
+        try {
+            androidDebug {
+                artifactId = project.name
+            }
+        } catch (ignored) {}
+        release(MavenPublication) {
+            groupId = project.group
+            artifactId = project.name
+
+            project.tasks.findByName("generateJavadocsJar")?.let {
+                artifact(it)
+            }
+            project.tasks.findByName("generateSourcesJar")?.let {
+                artifact(it)
+            }
+
+            pom {
+                name.set(project.name)
+                description.set(project.name)
+                url.set("https://github.com/mParticle/crossplatform-sdk-tests")
+                licenses {
+                    license {
+                        name.set("The Apache Software License, Version 2.0")
+                        url.set("https://www.apache.org/license/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("mParticle")
+                        name.set("mParticle Inc.")
+                        email.set("developers@mparticle.com")
+                    }
+                }
+                scm {
+                    url.set("https://github.com/mParticle/crossplatform-sdk-tests")
+                    connection.set("scm:git:https://github.com/mparticle/crossplatform-sdk-tests")
+                    developerConnection.set("scm:git:git@github.com:mparticle/crossplatform-sdk-tests.git")
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "github"
+            setUrl("https://maven.pkg.github.com/mParticle/crossplatform-sdk-tests")
+            credentials {
+                username = System.getenv("githubUsername")
+                password = System.getenv("githubToken")
+            }
+        }
+        maven {
+            name = "mavenCentral"
+            setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = System.getenv("sonatypeUsername")
+                password = System.getenv("sonatypePassword")
+            }
+        }
+    }
+}
+
+
+signing {
+    def signingKey = System.getenv("mavenSigningKeyId")
+    def signingPassword = System.getenv("mavenSigningKeyPassword")
+    gradle.taskGraph.whenReady {
+        required = it.hasTask("publishReleasePublicationToMavenRepository")
+    }
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications["release"])
+}
