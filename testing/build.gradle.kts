@@ -1,19 +1,17 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-import java.lang.System.getProperty
 
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     kotlin("native.cocoapods")
-    id("maven-publish")
 }
+apply(from = "../.scripts/maven.gradle")
 
 kotlin {
     android {
-        publishLibraryVariants("debug")
+        publishLibraryVariants("release")
         mavenPublication {
             artifactId = "testing"
         }
@@ -97,26 +95,4 @@ android {
 }
 dependencies {
     implementation("androidx.lifecycle:lifecycle-common:2.2.0")
-}
-
-publishing {
-    repositories {
-        maven {
-            name = "github"
-            setUrl("https://maven.pkg.github.com/mParticle/crossplatform-sdk-tests")
-            credentials {
-                username = System.getenv("githubUsername")
-                password = System.getenv("githubToken")
-            }
-        }
-    }
-    afterEvaluate {
-        publications {
-            try {
-                named<MavenPublication>("androidDebug") {
-                    artifactId = project.name
-                }
-            } catch (e: java.lang.Exception) {}
-        }
-    }
 }
