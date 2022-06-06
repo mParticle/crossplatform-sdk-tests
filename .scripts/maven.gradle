@@ -1,5 +1,7 @@
 apply plugin: "maven-publish"
 apply plugin: "signing"
+apply from: project.rootProject.file('.scripts/maven-metadata.gradle')
+
 
 publishing {
     publications {
@@ -43,6 +45,10 @@ publishing {
                 }
             }
         }
+
+        task stubJavadoc(type: Jar) {
+            classifier = 'javadoc'
+        }
     }
     repositories {
         maven {
@@ -68,9 +74,18 @@ publishing {
 signing {
     def signingKey = System.getenv("mavenSigningKeyId")
     def signingPassword = System.getenv("mavenSigningKeyPassword")
-    gradle.taskGraph.whenReady {
-        required = it.hasTask("publishReleasePublicationToMavenRepository")
+    if (signingKey != null && signingPassword != null) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications)
     }
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications["release"])
+}
+
+afterEvaluate {
+    publishing {
+        // Rename artifacts for backward compatibility
+        publications.all {
+            pom.withXml(configureMavenCentralMetadata)
+            artifact stubJavadoc
+        }
+    }
 }
