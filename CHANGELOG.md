@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/mParticle/crossplatform-sdk-tests/compare/v1.0.0...v1.1.0) (2022-06-08)
+
+
+### Features
+
+* configure Sonatype release for publishing to Maven Central ([#16](https://github.com/mParticle/crossplatform-sdk-tests/issues/16)) ([a7961a4](https://github.com/mParticle/crossplatform-sdk-tests/commit/a7961a43f983914e4bdaa17ffc6eb7dc3e7513eb))
+
 # 1.0.0 (2022-05-03)
 
 
