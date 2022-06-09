@@ -7,4 +7,4 @@ import kotlinx.serialization.Serializable
 class UserIdentities (
     @SerialName("i") var value: String? = null,
     @SerialName("n") var identityType: Int? = null
-)
+): DTO()

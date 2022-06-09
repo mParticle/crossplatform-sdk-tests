@@ -141,6 +141,7 @@ class ModifyTest: BaseStartedTest() {
                     when (it) {
                         Platform.Android -> mStartingMpid
                         Platform.iOS -> 1
+                        else -> null
                     }
                 }
                 it.body.identityChanges.let { identityChanges ->

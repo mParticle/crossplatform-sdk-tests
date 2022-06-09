@@ -172,8 +172,6 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
         options.apiSecret = apiSecret
     }
 
-    actual var clientPlatform = clientPlatform
-
     actual var apiKey: String by property(options::apiKey)
     actual var apiSecret: String by property(options::apiSecret)
     actual var installType: InstallType? by TransformDelegate(options::installType, installTypeTransformer)

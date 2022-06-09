@@ -51,7 +51,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                compileOnly("group:android-core")
+                implementation("com.mparticle:android-core:+")
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13")
             }

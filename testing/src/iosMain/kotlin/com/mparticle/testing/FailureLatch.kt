@@ -2,8 +2,6 @@ package com.mparticle.testing
 
 import co.touchlab.stately.freeze
 import com.mparticle.api.Logger
-import com.mparticle.testing.mockserver.Platforms
-import com.mparticle.testing.mockserver.Server
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import platform.Foundation.NSDate
@@ -41,14 +39,12 @@ actual class FailureLatch actual constructor(val description: String) {
     }
 
     actual fun await() {
-        await(Server.defaultTimeout)
+        await(5L)
     }
 
     actual fun await(timeout: Long) {
-        val timeout = 5.0
-        val endTime: NSDate = NSDate()!!.addTimeInterval(timeout) as NSDate
         Logger.info("Awaiting latch:  $description($id)")
-        awaiterInstance!!.await(description, timeout)
+        awaiterInstance!!.await(description, timeout.toDouble())
         Logger.info("Latch released: $description($id).")
     }
 }

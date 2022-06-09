@@ -1,10 +1,5 @@
 package com.mparticle.testing
 
-import android.os.Handler
-import android.os.Looper
-import com.mparticle.testing.mockserver.MockServer
-import com.mparticle.testing.mockserver.Server
-import java.lang.RuntimeException
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -31,7 +26,7 @@ actual class FailureLatch actual constructor(val description: String) : CountDow
     }
 
     actual override fun await() {
-        await(Server.defaultTimeout)
+        await(5000L)
     }
 
     actual fun await(timeout: Long) {
@@ -45,7 +40,8 @@ actual class FailureLatch actual constructor(val description: String) : CountDow
         this.await(timeout, TimeUnit.MILLISECONDS)
         if (!finished) {
             RuntimeException("$description timed out. More than ${timeout}ms have elapsed", awaitStackTrace).let {
-                Handler(Looper.getMainLooper()).post { throw it }
+//                Handler(Looper.getMainLooper()).post { throw it }
+                throw it
             }
 
         }

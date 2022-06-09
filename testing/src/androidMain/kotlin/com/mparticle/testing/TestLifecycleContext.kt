@@ -89,7 +89,11 @@ actual class TestLifecycleContext(val context: Context): Application() {
             }
             else -> throw IllegalStateException("Cannot send App to foreground when current state is: $currentState")
         }
-        assertEquals(LifecycleEvent.ScreenStart, currentState, "Failed to send application to Foreground")
+        assertEquals(
+            LifecycleEvent.ScreenStart,
+            currentState,
+            "Failed to send application to Foreground"
+        )
     }
 
     actual fun sendBackground() {
@@ -105,7 +109,11 @@ actual class TestLifecycleContext(val context: Context): Application() {
                 throw IllegalStateException("Application has not entered foreground, call sendForeground() first")
             }
         }
-        assertEquals(currentState, LifecycleEvent.ScreenStop, "Failed to send application to Background")
+        assertEquals(
+            currentState,
+            LifecycleEvent.ScreenStop,
+            "Failed to send application to Background"
+        )
     }
 
     override fun getApplicationContext(): Context {

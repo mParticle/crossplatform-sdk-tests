@@ -62,7 +62,7 @@ jobs:
     if: always() && !failure()
     runs-on: macOS-latest
     needs: pr-checks
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v2
