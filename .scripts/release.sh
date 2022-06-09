@@ -9,6 +9,8 @@ sed -i '.bak' "s/\"com.mparticle:api:.*\"/\"com.mparticle:api:$1\"/g" README.md
 sed -i '.bak' "s/\"com.mparticle:models:.*\"/\"com.mparticle:models:$1\"/g" README.md
 sed -i '.bak' "s/\"com.mparticle:testing:.*\"/\"com.mparticle:testing:$1\"/g" README.md
 
+sed -i '.bak' "s/\"version\": \".*\"/\"version\": \"$1\"/g" mParticle_Internal.podspec.json
+sed -i '.bak' "s/\"tag\": \".*\"/\"tag\": \"$1\"/g" mParticle_Internal.podspec.json
 #commit the version bump, tag, and push to private and public
 git add gradle.properties
 git add README.md

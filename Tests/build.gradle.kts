@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     id("com.android.library")
@@ -8,25 +10,16 @@ plugins {
 }
 
 kotlin {
-    val iOSTarget = if (System.getenv("SDK_NAME")
-            ?.startsWith("iphoneos") == true
-    ) presets.getByName("iosArm64") else presets.getByName("iosX64")
-
     android {
         publishLibraryVariants("debug")
     }
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios") {
-            binaries.framework(listOf(org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG))
-
-        }
-    } else {
-        iosX64("ios") {
-            binaries.framework(listOf(org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType.DEBUG))
-
+    val xcFramework = XCFramework()
+    ios {
+        binaries.framework(listOf(NativeBuildType.RELEASE)) {
+            xcFramework.add(this)
         }
     }
+
     cocoapods {
         framework {
             summary = "Cross Platform Testing"
@@ -95,9 +88,9 @@ val installTestPods by tasks.creating(Exec::class.java) {
 
 
 val runIos by tasks.creating(Exec::class.java) {
-    val linkDebugFrameworkIos = tasks.findByName("linkDebugFrameworkIos")
-    dependsOn("linkDebugFrameworkIos")
-    linkDebugFrameworkIos?.dependsOn(installTestPods)
+    val linkReleaseFrameworkIos = tasks.findByName("linkReleaseFrameworkIosX64")
+    dependsOn(linkReleaseFrameworkIos)
+    linkReleaseFrameworkIos?.dependsOn(installTestPods)
     installTestPods.dependsOn("podImport")
     description = "Builds the iOS application bundle using Xcode."
     workingDir = project.file("helpers/XCodeTest")

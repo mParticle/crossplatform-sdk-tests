@@ -20,18 +20,9 @@ kotlin {
         }
     }
     val xcFramework = XCFramework()
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios") {
-            binaries.framework(listOf(NativeBuildType.DEBUG)) {
-                xcFramework.add(this)
-            }
-        }
-    } else {
-        iosX64("ios") {
-            binaries.framework(listOf(NativeBuildType.DEBUG)) {
-                xcFramework.add(this)
-            }
+    ios {
+        binaries.framework(listOf(NativeBuildType.RELEASE)) {
+            xcFramework.add(this)
         }
     }
 
