@@ -1,0 +1,6 @@
+framework module mParticle_Api {
+    umbrella header "mParticle_Api.h"
+
+    export *
+    module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module mParticle_Multiplatform_Tests {
+    umbrella header "mParticle_Multiplatform_Tests.h"
+
+    export *
+    module * { export * }
+}

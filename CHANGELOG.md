@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/mParticle/crossplatform-sdk-tests/compare/v1.1.0...v1.2.0) (2022-06-15)
+
+
+### Features
+
+* publish iOS frameworks to repository ([#18](https://github.com/mParticle/crossplatform-sdk-tests/issues/18)) ([73f0e36](https://github.com/mParticle/crossplatform-sdk-tests/commit/73f0e36b79bb6a501c9fd182bc540849644b44a1))
+
 # [1.1.0](https://github.com/mParticle/crossplatform-sdk-tests/compare/v1.0.0...v1.1.0) (2022-06-08)
 
 

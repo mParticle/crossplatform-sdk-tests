@@ -1,6 +1,6 @@
 {
   "name": "mParticle-Cross-Platform",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "summary": "mParticle Internal Tools generated using Kotlin Multiplatform",
   "description": "A collection on internal crossplatform tools and packages",
   "homepage": "https://www.mparticle.com",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/mParticle/crossplatform-sdk-tests.git",
-    "tag": "1.1.0"
+    "tag": "1.2.0"
   },
   "default_subspecs": "Testing",
   "subspecs": [

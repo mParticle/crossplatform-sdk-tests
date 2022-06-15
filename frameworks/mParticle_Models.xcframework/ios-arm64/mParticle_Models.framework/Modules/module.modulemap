@@ -1,0 +1,6 @@
+framework module mParticle_Models {
+    umbrella header "mParticle_Models.h"
+
+    export *
+    module * { export * }
+}
