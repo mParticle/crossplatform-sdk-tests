@@ -15,6 +15,15 @@ subprojects {
             tasks.register("publishAndroid") { dependsOn("publishAndroidDebugPublicationToMavenLocal") }
         }
     }
+
+    afterEvaluate {
+        val copyXCFramework = tasks.register<Copy>("copyXCFramework") {
+            from("build/cocoapods/publish/release")
+            into("$rootDir/frameworks")
+        }
+
+        tasks.findByName("podPublishReleaseXCFramework")?.finalizedBy(copyXCFramework)
+    }
 }
 
 val appleSDKTempDirPath = "${project.rootDir.absolutePath}/.sdks/apple-testing"

@@ -35,14 +35,14 @@ module.exports = {
     [
       "@semantic-release/exec",
       {
-        prepareCmd: "sh ./.scripts/release.sh ${nextRelease.version}",
+        prepareCmd: "sh ./.scripts/release.sh ${nextRelease.version}; ./gradlew podPublishReleaseXCFramework",
       },
     ],
     ["@semantic-release/github"],
     [
       "@semantic-release/git",
       {
-        assets: ["CHANGELOG.md", "gradle.properties", "README.md"],
+        assets: ["CHANGELOG.md", "gradle.properties", "README.md", "frameworks", "mParticle_Internal.podspec.json"],
         message:
           "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}",
       },
