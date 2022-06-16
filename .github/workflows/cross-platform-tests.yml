@@ -90,3 +90,36 @@ jobs:
         with:
           name: ios-test-results
           path: /Users/runner/Library/Developer/Xcode/DerivedData
+  ios-tests-cached:
+    name: "IOS Test (cached artifacts)"
+    if: always() && !failure()
+    runs-on: macOS-latest
+    needs: pr-checks
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.SSH_KEY }}
+      - name: Checkout submodules
+        run: |
+          git config --file .gitmodules --get-regexp url | while read url; do
+            git config --file=.gitmodules $(echo "$url" | sed -E "s/git@github.com:|https:\/\/github.com\//https:\/\/${{ secrets.SSH_KEY }}:${{ secrets.SSH_KEY }}@github.com\//")
+          done
+          git submodule sync
+          git submodule update --init
+      - name: "Install JDK 11"
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "11"
+      - name: Install Cocoapods
+        run: sudo gem install cocoapods; sudo gem install cocoapods-generate
+      - name: Run iOS cross platform tests
+        run: ./gradlew runIosCached
+      - name: Archive Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: ios-test-results
+          path: /Users/runner/Library/Developer/Xcode/DerivedData

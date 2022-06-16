@@ -81,18 +81,37 @@ android {
     }
 }
 
-val installTestPods by tasks.creating(Exec::class.java) {
+var useCachedIosTestDependencies = false
+
+val installTestPods = tasks.register("installTestPods", Exec::class.java) {
+    println("USE CACHED? = $useCachedIosTestDependencies")
+    environment["cpt_cached"] = useCachedIosTestDependencies.toString()
     workingDir = project.file("helpers/XCodeTest")
     setCommandLine("pod")
     args("install")
 }
 
 
-val runIos by tasks.creating(Exec::class.java) {
+tasks.register("runIosCached", Exec::class.java) {
+    println("Setting chached...")
+    useCachedIosTestDependencies = true
+    dependsOn(installTestPods)
+    description = "Builds the iOS application bundle using Xcode and published crossplatform test artifacts."
+    workingDir = project.file("helpers/XCodeTest")
+    setCommandLine("xcrun")
+    args("xcodebuild",
+        "-scheme", "XCodeTestUITests",
+        "-workspace", "XCodeTest.xcworkspace",
+        "-configuration", "Debug",
+        "-destination", "platform=iOS Simulator,name=iPhone 11,OS=latest",
+        "test")
+}
+
+tasks.register("runIos", Exec::class.java) {
     val linkReleaseFrameworkIos = tasks.findByName("linkReleaseFrameworkIosX64")
     dependsOn(linkReleaseFrameworkIos)
     linkReleaseFrameworkIos?.dependsOn(installTestPods)
-    installTestPods.dependsOn("podImport")
+    installTestPods.configure { dependsOn("podImport") }
     description = "Builds the iOS application bundle using Xcode."
     workingDir = project.file("helpers/XCodeTest")
     setCommandLine("xcrun")
@@ -104,11 +123,11 @@ val runIos by tasks.creating(Exec::class.java) {
         "test")
 }
 
-val runAndroid by tasks.creating() {
+tasks.register("runAndroid") {
     dependsOn("connectedAndroidTest")
 }
 
-val runTests by tasks.creating() {
-    dependsOn(runAndroid)
-    dependsOn(runIos)
+tasks.register("runTests") {
+    dependsOn("runAndroid")
+    dependsOn("runIos")
 }
