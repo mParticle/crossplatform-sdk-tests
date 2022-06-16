@@ -43,6 +43,7 @@ kotlin {
         }
         val commonMain by getting {
             dependencies {
+                implementation(project(":mocking"))
                 implementation(project(":testing"))
                 implementation(project(":api"))
                 implementation(project(":models"))

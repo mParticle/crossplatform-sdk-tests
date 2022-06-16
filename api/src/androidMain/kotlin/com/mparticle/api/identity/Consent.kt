@@ -1,7 +1,6 @@
 package com.mparticle.api.identity
 
 import com.mparticle.consent.CCPAConsent
-import com.mparticle.consent.ConsentInstance
 import com.mparticle.consent.ConsentState
 import com.mparticle.consent.GDPRConsent
 
@@ -39,7 +38,7 @@ fun Consent.toCCPAConsent(): CCPAConsent = CCPAConsent.builder(isConsented)
     .timestamp(timestamp)
     .build()
 
-actual class Consent(val consentInstance: ConsentInstance) {
+actual class Consent(val consentInstance: GDPRConsent) {
     actual var isConsented: Boolean
         get() = consentInstance.isConsented
         set(value) { throw java.lang.RuntimeException("Read Only Instance!")}

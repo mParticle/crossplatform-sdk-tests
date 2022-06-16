@@ -2,7 +2,6 @@ package com.mparticle.api.identity
 
 import com.mparticle.MParticleTask
 import com.mparticle.consent.CCPAConsent
-import com.mparticle.consent.ConsentInstance
 import com.mparticle.consent.GDPRConsent
 import com.mparticle.identity.IdentityApiResult
 import com.mparticle.identity.IdentityApi as IdentityApiAndroid

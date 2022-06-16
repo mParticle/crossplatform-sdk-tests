@@ -10,7 +10,7 @@ class IdentityResponseMessage @JvmOverloads constructor(
     @SerialName("context") val context: String? = null,
     @SerialName("errors") val errors: List<Error>? = null,
     @SerialName("is_logged_in") val isLoggedIn: Boolean? = null,
-) {
+): DTO() {
     constructor(mpid: String): this(mpid.toLong())
 
     class Builder {
@@ -29,6 +29,6 @@ fun IdentityResponseMessage(intializer: IdentityResponseMessage.Builder.() -> Un
 data class Error (
     @SerialName("code") val code: String? = null,
     @SerialName("message") val message: String? = null
-)
+): DTO()
 
 fun Error(initializer: Error.() -> Unit) = Error().apply(initializer)

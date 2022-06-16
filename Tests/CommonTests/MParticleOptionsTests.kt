@@ -47,6 +47,7 @@ class MParticleOptionsTests: BaseTest() {
             when (it) {
                 Platform.Android -> 123L
                 Platform.iOS -> 123L
+                else -> null
             }
         }
     }
@@ -62,6 +63,7 @@ class MParticleOptionsTests: BaseTest() {
             when (it) {
                 Platform.Android -> 123000L
                 Platform.iOS -> 123L
+                else -> null
             }
         }
     }

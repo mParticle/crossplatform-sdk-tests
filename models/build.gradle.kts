@@ -40,8 +40,8 @@ kotlin {
         val androidMain by getting
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
             }
         }
         val iosMain by getting

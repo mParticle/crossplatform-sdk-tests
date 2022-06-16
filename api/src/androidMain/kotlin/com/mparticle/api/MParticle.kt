@@ -1,5 +1,6 @@
 package com.mparticle.api
 
+import android.util.Log
 import com.mparticle.api.events.BaseEvent
 import com.mparticle.api.events.MPEvent
 import com.mparticle.api.events.getEvent
@@ -7,7 +8,9 @@ import com.mparticle.api.events.getMPEvent
 import com.mparticle.api.identity.IdentityApi
 import com.mparticle.api.identity.IdentityApiRequest
 import com.mparticle.api.identity.IdentityResponse
+import com.mparticle.api.identity.toBaseIdentityTask
 import com.mparticle.internal.PushRegistrationHelper
+import java.lang.RuntimeException
 import java.math.BigDecimal
 import com.mparticle.MParticle as MParticleAndroid
 import com.mparticle.MParticleOptions as MParticleOptionsAndroid
@@ -155,7 +158,7 @@ actual class MParticle(val mparticle: MParticleAndroid) {
 
     actual companion object {
         actual fun start(options: MParticleOptions) {
-            com.mparticle.MParticle.start(options.toMParticleOptions())
+            com.mparticle.MParticle.start(options.builder.build())
         }
 
         actual fun getInstance(): MParticle? {
@@ -167,49 +170,78 @@ actual class MParticle(val mparticle: MParticleAndroid) {
         }
 
         actual fun reset(clientPlatform: ClientPlatform) {
-            //TODO how to get a context object here
             com.mparticle.MParticle.reset(clientPlatform.context)
         }
     }
 }
 
-actual class MParticleOptions actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform) {
+actual class MParticleOptions(actual var apiKey: String, actual var apiSecret: String, val builder: MParticleOptionsAndroid.Builder) {
 
-    class Dataplan(var dataplanId: String? = null, var dataplanVersion: Int? = null)
+    actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform): this(
+        apiKey,
+        apiSecret,
+        MParticleOptionsAndroid
+            .builder(clientPlatform.context)
+            .credentials(apiKey, apiSecret)
+    )
 
-    actual var apiKey = apiKey
-    actual var apiSecret = apiSecret
+    constructor(builder: com.mparticle.MParticleOptions.Builder):
+        this(
+            "key",
+            "secret",
+            builder
+        )
 
-    actual var clientPlatform = clientPlatform
-    val dataplan: Dataplan by lazy { Dataplan() }
-    val push: PushRegistrationHelper.PushRegistration by lazy { PushRegistrationHelper.PushRegistration(null, null) }
+    actual var pushRegistrationInstanceId: String? by GenericDelegate(null) { pushRegistrationSenderId?.let { senderId -> it?.let { builder.pushRegistration(it, senderId) }}}
+    actual var pushRegistrationSenderId: String? by GenericDelegate(null) { pushRegistrationInstanceId?.let { instanceId -> it?.let { builder.pushRegistration(instanceId, it) }}}
+    actual var dataplanId: String? by GenericDelegate(null) { builder.dataplan(it, dataplanVersion)}
+    actual var dataplanVersion: Int? by GenericDelegate(null) { builder.dataplan(dataplanId, it) }
 
-    val builder = MParticleOptionsAndroid.builder(clientPlatform.context)
+    actual var installType: InstallType? by GenericDelegate(null) { it?.toInstallType()?.let { builder.installType(it) }}
+    actual var identifyRequest: IdentityApiRequest? by GenericDelegate(null) { it?.build()?.let { builder.identify(it) } }
 
-    actual var installType: InstallType? = null
-        set(value) {
-            field = value
-            value?.toInstallType()?.let { builder.installType(it) }
-        }
-    actual var pushRegistrationInstanceId: String? by push::instanceId
-    actual var pushRegistrationSenderId: String? by push::senderId
-    actual var dataplanId: String? by dataplan::dataplanId
-    actual var dataplanVersion: Int? by dataplan::dataplanVersion
+    actual var identifyTask: IdentityResponse? by GenericDelegate(null) { it?.toBaseIdentityTask()?.let { builder.identifyTask(it)}}
+    actual var enableUncaughtExceptionLogging: Boolean? by GenericDelegate(null) { it?.let { builder.enableUncaughtExceptionLogging(it)}}
+    actual var androidIdDisabled: Boolean? by GenericDelegate(null) { it?.let { builder.androidIdEnabled(it)}}
+    actual var devicePerformanceMetricsDisabled: Boolean? by GenericDelegate(null) { it?.let { builder.devicePerformanceMetricsDisabled(it)}}
+    actual var locationTracking: LocationTracking? by GenericDelegate(null) { it?.apply { builder.locationTrackingEnabled(provider, minTime, minDistance) } }
+    actual var sessionTimeout: Int? by GenericDelegate(null) { it?.let { builder.sessionTimeout(it) }}
+    actual var uploadInterval: Int? by GenericDelegate(null) { it?.let { builder.uploadInterval(it)}}
+    actual var identityConnectionTimeout: Int? by GenericDelegate(null) { it?.let { builder.identityConnectionTimeout(it)}}
+    actual var networkOptions: NetworkOptions? by GenericDelegate(null) { throw RuntimeException("We don't map NetworkOptions yet..TODO")}
+    actual var dataplanOptions: DataplanOptions? by GenericDelegate(null) { it?.dataplanOptions?.build()?.let { builder.dataplanOptions(it)}}
+    actual var environment: Environment? by GenericDelegate(null) { it?.android?.let { builder.environment(it)}}
+    actual var logLevel: LogLevel? by GenericDelegate(null) { it?.android?.let { builder.logLevel(it)}}
 
-    actual var identifyRequest: IdentityApiRequest? = null
+    init {
+        com.mparticle.internal.Logger.setLogHandler(object: com.mparticle.internal.Logger.AbstractLogHandler() {
+            override fun verbose(error: Throwable?, message: String?) {
+                Logger.info("$message, error: ${error?.stackTraceToString()}")
+            }
 
-    actual var identifyTask: IdentityResponse? = null
-    actual var enableUncaughtExceptionLogging: Boolean? = null
-    actual var androidIdDisabled: Boolean? = null
-    actual var devicePerformanceMetricsDisabled: Boolean? = null
-    actual var locationTracking: LocationTracking? = null
-    actual var sessionTimeout: Int? = null
-    actual var uploadInterval: Int? = null
-    actual var identityConnectionTimeout: Int? = null
-    actual var networkOptions: NetworkOptions? = null
-    actual var dataplanOptions: DataplanOptions? = null
-    actual var environment: Environment? = null
-    actual var logLevel: LogLevel? = null
+            override fun info(error: Throwable?, message: String?) {
+                Logger.info("$message, error: ${error?.stackTraceToString()}")
+
+            }
+
+            override fun debug(error: Throwable?, message: String?) {
+                Logger.info("$message, error: ${error?.stackTraceToString()}")
+
+            }
+
+            override fun warning(error: Throwable?, message: String?) {
+                Logger.warning("$message, error: ${error?.stackTraceToString()}")
+
+            }
+
+            override fun error(error: Throwable?, message: String?) {
+                Logger.error("$message, error: ${error?.stackTraceToString()}")
+
+            }
+
+        })
+        logLevel = LogLevel.Debug
+    }
 }
 
 actual class NetworkOptions actual constructor() {

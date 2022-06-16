@@ -14,28 +14,18 @@ class IdentityRequestMessage (
     @SerialName("previous_mpid") val previousMpid: Long? = null,
     @SerialName("known_identities") val knownIdentities: Map<String, String?>? = null,
     @SerialName("identity_changes") val identityChanges: List<IdentityChange>? = null
-) {
-    companion object {
-        val parser: (String) -> IdentityRequestMessage = {
-            fromString(it)
-        }
-
-        fun fromString(message: String): IdentityRequestMessage {
-            return Json.decodeFromString(serializer(), message)
-        }
-    }
-}
+): DTO()
 
 @Serializable
 class ClientSdkMessage(
         @SerialName("platform") val platform: String?,
         @SerialName("sdk_vendor") val sdkVendor: String?,
         @SerialName("sdk_version") val sdkVersion: String?
-)
+): DTO()
 
 @Serializable
 class IdentityChange(
         @SerialName("new_value") val newValue: String?,
         @SerialName("old_value") val oldValue: String?,
         @SerialName("identity_type") val identityType: String?
-)
+): DTO()
