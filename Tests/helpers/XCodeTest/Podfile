@@ -13,7 +13,7 @@ target 'XCodeTest' do
             pod 'mParticle-Cross-Platform/Mocking', :git => 'https://github.com/mParticle/crossplatform-sdk-tests.git'
             pod 'mParticle-Cross-Platform/Testing', :git => 'https://github.com/mParticle/crossplatform-sdk-tests.git'
             pod 'mParticle-Cross-Platform/Tests', :git => 'https://github.com/mParticle/crossplatform-sdk-tests.git'
-            pod 'mParticle-Apple-SDK', :path => '../../../.sdks/apple-testing'
+            pod 'mParticle-Apple-SDK', '~> 8'
   	 else
   	    puts "using local"
   	    pod 'Tests', :path => '../../../Tests'

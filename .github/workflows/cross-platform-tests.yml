@@ -96,6 +96,8 @@ jobs:
     runs-on: macOS-latest
     needs: pr-checks
     timeout-minutes: 60
+    env:
+      cpt_cached: "true"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -116,7 +118,8 @@ jobs:
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Run iOS cross platform tests
-        run: ./gradlew runIosCached
+        working-directory: Tests/helpers/XCodeTest
+        run: pod install; xcrun xcodebuild -scheme XCodeTestUITests -workspace XCodeTest.xcworkspace -configuration Debug -destination "platform=iOS Simulator,name=iPhone 11,OS=latest" test
       - name: Archive Test Results
         if: always()
         uses: actions/upload-artifact@v2
