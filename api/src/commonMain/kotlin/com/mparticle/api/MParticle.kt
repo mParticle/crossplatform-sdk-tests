@@ -60,8 +60,6 @@ expect class MParticle {
 
 expect class MParticleOptions private constructor(apiKey: String = "api key", apiSecret: String = "api secret", clientPlatform: ClientPlatform) {
 
-    var clientPlatform: ClientPlatform
-
     var apiKey: String
     var apiSecret: String
     var installType: InstallType?
@@ -96,8 +94,8 @@ fun MParticleOptions(apiKey: String = "api key", apiSecret: String = "api secret
 
 class LocationTracking(
     val provider: String,
-    val minTime: Long? = null,
-    val minDistance: Long? = null
+    val minTime: Long,
+    val minDistance: Long
 )
 
 expect enum class LogLevel {

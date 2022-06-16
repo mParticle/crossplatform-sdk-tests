@@ -1,5 +1,7 @@
 package com.mparticle.messages.events
 
+import com.mparticle.messages.DTO
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -7,36 +9,18 @@ import kotlinx.serialization.json.JsonObject
 
 @Polymorphic
 @Serializable
-abstract class BaseEvent {
-
+abstract class BaseEvent(
+    @SerialName("ct") var timeStamp: Long? = null,
+    @SerialName("cs") var stateInfo: StateInfoMessage? = null,
+    @SerialName("id") var id: String? = null,
+    @SerialName("sid") var sessionId: String? = null,
+    @SerialName("sct") var sessionStartTimestamp: Long? = null,
+    @SerialName("lc") var location: LocationMessage? = null,
+    @SerialName("dct") var dataConnection: String? = null,
+    @SerialName("attrs") var attributes: JsonObject? = null,
+    @SerialName("flags") var eventFlags: JsonObject? = null
+): DTO() {
     abstract val messageType: String
-
-    @SerialName("ct")
-    var timeStamp: Long? = null
-
-    @SerialName("cs")
-    var stateInfo: StateInfoMessage? = null
-
-    @SerialName("id")
-    var id: String? = null
-
-    @SerialName("sid")
-    var sessionId: String? = null
-
-    @SerialName("sct")
-    var sessionStartTimestamp: Long? = null
-
-    @SerialName("lc")
-    var location: LocationMessage? = null
-    
-    @SerialName("dct")
-    var dataConnection: String? = null
-    
-    @SerialName("attrs")
-    var attributes: JsonObject? = null
-    
-    @SerialName("flags")
-    var eventFlags: JsonObject? = null
 }
 
 @Serializable
@@ -44,7 +28,7 @@ class LocationMessage(
     @SerialName("lat") val latitude: Double? = null,
     @SerialName("lng") val longitude: Double? = null,
     @SerialName("acc") val accuracy: Float? = null
-)
+): DTO()
 
 
 @Serializable
@@ -65,4 +49,4 @@ class StateInfoMessage(
     @SerialName("sml") var isMemoryLow: Boolean? = null,
     @SerialName("smt") var systemMemoryThreshold: Long? = null,
     @SerialName("ant") var networkType: String? = null,
-)
+): DTO()

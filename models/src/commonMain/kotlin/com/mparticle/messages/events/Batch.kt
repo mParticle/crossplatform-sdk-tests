@@ -1,5 +1,6 @@
 package com.mparticle.messages.events
 
+import com.mparticle.messages.DTO
 import com.mparticle.messages.EventType
 import com.mparticle.messages.UserIdentities
 import kotlinx.serialization.Polymorphic
@@ -35,34 +36,7 @@ class BatchMessage(
     @SerialName("ui") val identities: List<UserIdentities>? = null,
     @SerialName("ua") val attributes: JsonObject? = null,
     @SerialName("sh") val sessionHistory: List<@Polymorphic BaseEvent> = listOf()
-) {
-
-    companion object {
-        val parser: (String) -> BatchMessage = { fromString(it) }
-
-        fun fromString(batch: String): BatchMessage {
-            return jsonBuilder.decodeFromString(serializer(), batch)
-        }
-
-        private val jsonBuilder = Json {
-            serializersModule = SerializersModule {
-                polymorphic(BaseEvent::class, AppStateTransitionEvent::class, AppStateTransitionEvent.serializer())
-                polymorphic(BaseEvent::class, MPEventMessage::class, MPEventMessage.serializer())
-                polymorphic(BaseEvent::class, CommerceEventMessage::class, CommerceEventMessage.serializer())
-                polymorphic(BaseEvent::class, SessionEndMessage::class, SessionEndMessage.serializer())
-                polymorphic(BaseEvent::class, SessionStartMessage::class, SessionStartMessage.serializer())
-                polymorphic(BaseEvent::class, FirstRunMessage::class, FirstRunMessage.serializer())
-                polymorphic(BaseEvent::class, UserIdentityChangeMessage::class, UserIdentityChangeMessage.serializer())
-                polymorphic(BaseEvent::class, ScreenViewMessage::class, ScreenViewMessage.serializer())
-                polymorphic(BaseEvent::class, PushRegistrationMessage::class, PushRegistrationMessage.serializer())
-            }
-            ignoreUnknownKeys = true
-            classDiscriminator = "dt"
-            isLenient = true
-            coerceInputValues = true
-        }
-    }
-}
+): DTO()
 
 @Serializable
 class DataplanContextMessage(

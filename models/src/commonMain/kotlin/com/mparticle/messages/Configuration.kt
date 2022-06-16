@@ -1,5 +1,7 @@
 package com.mparticle.messages
 
+import com.mparticle.messages.events.BatchMessage
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -24,22 +26,15 @@ data class ConfigResponseMessage(
     @SerialName("dpmd") val devicePerformanceMetricsDisabled: Boolean? = null,
     @SerialName("wst") val workspaceToken: String? = null,
     @SerialName("alias_max_window") val aliasMaxWindow: Int? = null,
-    @SerialName("eks") val kits: List<KitConfigMessage>? = null
-) {
-    fun from(from: String): ConfigResponseMessage {
-        return Json {
-            isLenient = true
-            ignoreUnknownKeys = true
-            coerceInputValues = true
-        }.decodeFromString(serializer(), from)
-    }
-}
+    @SerialName("eks") val kits: List<KitConfigMessage>? = null,
+    @SerialName("inhd") val includeSessionHistory: Boolean? = null
+): DTO()
 
 @Serializable
 data class TriggerItemsMessage (
     @SerialName("mm") val triggerMatches: List<String>? = null,
     @SerialName("evts") val triggerMessageHashes: List<String>? = null
-)
+): DTO()
 
 @Serializable
 data class KitConfigMessage(
@@ -51,25 +46,25 @@ data class KitConfigMessage(
     @SerialName("pr") val projections: List<JsonObject>? = null,
     @SerialName("crvf") val consentForwardingRules: ConsentForwardingRuleMessage? = null,
     @SerialName("eau") val excludeAnnonymousUsers: Boolean? = null
-)
+): DTO()
 
 @Serializable
 class ConsentForwardingRuleMessage(
     @SerialName("i") val shouldIncludeMatches: Boolean? = null,
     @SerialName("v") val rules: List<Rules>? = null,
-)
+): DTO()
 
 @Serializable
 class Rules(
     @SerialName("h") val valueHash: Int,
     @SerialName("c") val consented: Boolean
-)
+): DTO()
 
 @Serializable
-class BracketMessage {
-    @SerialName("lo") val lowBracket: Int? = null
+class BracketMessage (
+    @SerialName("lo") val lowBracket: Int? = null,
     @SerialName("hi") val highBracket: Int? = null
-}
+): DTO()
 
 @Serializable
 class FilterMessage (
@@ -86,11 +81,11 @@ class FilterMessage (
     @SerialName("eaa") val eventAttributeAddUser: Map<Int, Boolean>? = null,
     @SerialName("eas") val eventAttributeSingleItemUser: Map<Int, Boolean>? = null,
     @SerialName("ear") val eventAttributeRemoveUser: Map<Int, Boolean>? = null
-)
+): DTO()
 
 @Serializable
-class AttributeValueFilter(
+class AttributeValueFilter (
     @SerialName("i") val shouldIncludeMatches: Boolean? = null,
     @SerialName("a") val attribute: Int? = null,
     @SerialName("v") val value: String? = null
-)
+): DTO()

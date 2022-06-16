@@ -56,13 +56,14 @@ kotlin {
             dependencies {
                 dependsOn(commonMain)
                 api(project(":api"))
-                compileOnly("group:android-core")
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
-
                 api("androidx.test:runner:1.4.0")
                 api("androidx.test.ext:junit:1.1.3")
                 api("androidx.test:rules:1.4.0")
+
+                compileOnly("com.mparticle:android-core:[5.0.0,]")
+
+                implementation(kotlin("test-junit"))
+                implementation("junit:junit:4.13.2")
             }
         }
 

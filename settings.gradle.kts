@@ -1,8 +1,9 @@
 rootProject.name = "sdk-multiplatform-test"
-include("models", "api", "testing", "Tests")
+include("api", "mocking", "models", "testing", "Tests")
 includeBuild(".sdks/android") {
     dependencySubstitution {
         substitute(module("group:android-core")).with(project(":android-core"))
+        substitute(module("com.mparticle:android-core:[5.0.0,]")).with(project(":android-core"))
     }
 }
 pluginManagement {

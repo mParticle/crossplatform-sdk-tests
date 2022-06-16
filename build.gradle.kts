@@ -59,10 +59,9 @@ subprojects {
 
 allprojects {
     afterEvaluate {
-        tasks.register("publishNativeToMavenLocal") {
+        tasks.register("publishLocal") {
             if (tasks.findByName("publish") != null) {
-                dependsOn("publishAndroidDebugPublicationToMavenLocal")
-                dependsOn("publishIosPublicationToMavenLocal")
+                dependsOn("publishAndroidReleasePublicationToMavenLocal")
             }
         }
     }
