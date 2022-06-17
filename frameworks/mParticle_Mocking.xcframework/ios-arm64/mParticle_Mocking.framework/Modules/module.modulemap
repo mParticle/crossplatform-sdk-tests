@@ -1,0 +1,6 @@
+framework module mParticle_Mocking {
+    umbrella header "mParticle_Mocking.h"
+
+    export *
+    module * { export * }
+}

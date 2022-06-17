@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class MPMTModelsConfigResponseMessage, MPMTApiMParticleOptions, MPMTApiClientPlatform, MPMTTestingBaseTest, MPMTTestingBaseStartedTest, MPMTIdentityTests, MPMTApiIdentityResponse, MPMTApiIdentityApi, MPMTApiIdentityApiRequest, MPMTModelsIdentityRequestMessage, MPMTModelsIdentityResponseMessage, MPMTTestingEndpointType<T, R>, MPMTApiProduct, MPMTApiImpression, MPMTModelsImpressionMessage, MPProduct, MPMTModelsProductMessage, MPPromotion, MPMTApiPromotion, MPMTModelsPromotionMessage, MPMTKotlinx_serialization_jsonJsonElement, MPMTModelsTriggerItemsMessage, MPMTModelsKitConfigMessage, MPMTModelsConfigResponseMessageCompanion, MPMTApiDataplanOptions, MPMTApiEnvironment, MPMTApiInstallType, MPMTApiLocationTracking, MPMTApiLogLevel, MPMTApiNetworkOptions, MParticleOptions, MPMTKotlinThrowable, MPMTKotlinArray<T>, MPMTApiIdentityHttpResponse, MPMTApiMParticleUser, MPMTKotlinUnit, MPIdentityApi, MPIdentityApiRequest, MPMTApiIdentityType, MPMTModelsClientSdkMessage, MPMTModelsIdentityChange, MPMTModelsIdentityRequestMessageCompanion, MPMTModelsError, MPMTModelsIdentityResponseMessageCompanion, MPMTTestingEndpointTypeCompanion, MPMTModelsImpressionMessageCompanion, MPMTModelsProductMessageCompanion, MPMTModelsPromotionMessageCompanion, MPMTKotlinx_serialization_jsonJsonElementCompanion, MPMTModelsTriggerItemsMessageCompanion, MPMTModelsAttributeValueFilter, MPMTModelsFilterMessage, MPMTModelsBracketMessage, MPMTModelsConsentForwardingRuleMessage, MPMTModelsKitConfigMessageCompanion, MPDataPlanOptions, MPMTKotlinEnumCompanion, MPMTKotlinEnum<E>, MPNetworkOptions, MPMTApiError, MParticleUser, MPMTApiConsentState, MPMTModelsClientSdkMessageCompanion, MPMTModelsIdentityChangeCompanion, MPMTModelsErrorCompanion, MPMTModelsAliasRequestMessage, MPMTModelsEmpty, MPMTModelsBatchMessage, MPMTModelsAttributeValueFilterCompanion, MPMTModelsFilterMessageCompanion, MPMTModelsBracketMessageCompanion, MPMTModelsRules, MPMTModelsConsentForwardingRuleMessageCompanion, MPConsentState, MPCCPAConsent, MPMTApiConsent, MPGDPRConsent, MPMTModelsAliasDataMessage, MPMTModelsAliasRequestMessageCompanion, MPMTModelsServerMessageObject, MPMTModelsEmptyCompanion, MPMTModelsConsentStateMessage, MPMTModelsDataplanContextMessage, MPMTModelsBaseEvent, MPMTModelsReportingMessageMessage, MPMTModelsAppInfoMessage, MPMTModelsDeviceInfoMessage, MPMTModelsUserIdentities, MPMTModelsBatchMessageCompanion, MPMTModelsRulesCompanion, MPMTKotlinx_serialization_coreSerializersModule, MPMTKotlinx_serialization_coreSerialKind, MPMTKotlinNothing, MPMTModelsAliasDataMessageCompanion, MPMTModelsConsentStateInstanceMessage, MPMTModelsConsentStateMessageCompanion, MPMTModelsDataplan, MPMTModelsDataplanContextMessageCompanion, MPMTModelsBaseEventCompanion, MPMTModelsLocationMessage, MPMTModelsStateInfoMessage, MPMTModelsProjectionReportMessage, MPMTModelsReportingMessageMessageCompanion, MPMTModelsAppInfoMessageCompanion, MPMTModelsDeviceRootedObject, MPMTModelsDeviceInfoMessageCompanion, MPMTModelsUserIdentitiesCompanion, MPMTModelsConsentStateInstanceMessageCompanion, MPMTModelsDataplanCompanion, MPMTModelsLocationMessageCompanion, MPMTModelsStateInfoMessageCompanion, MPMTModelsEventType, MPMTModelsProjectionReportMessageCompanion, MPMTModelsDeviceRootedObjectCompanion, MPMTModelsEventTypeCompanion;
+@class MPMTModelsConfigResponseMessage, MPMTApiMParticleOptions, MPMTApiClientPlatform, MPMTMockingBaseTest, MPMTMockingBaseStartedTest, MPMTIdentityTests, MPMTApiIdentityResponse, MPMTApiIdentityApi, MPMTApiIdentityApiRequest, MPMTModelsIdentityRequestMessage, MPMTModelsIdentityResponseMessage, MPMTMockingEndpointType<T, R>, MPMTApiProduct, MPMTApiImpression, MPMTModelsImpressionMessage, MPProduct, MPMTModelsProductMessage, MPPromotion, MPMTApiPromotion, MPMTModelsPromotionMessage, MPMTModelsDTOCompanion, MPMTModelsDTO, MPMTKotlinx_serialization_jsonJsonElement, MPMTModelsTriggerItemsMessage, MPMTModelsKitConfigMessage, MPMTModelsConfigResponseMessageCompanion, MPMTApiDataplanOptions, MPMTApiEnvironment, MPMTApiInstallType, MPMTApiLocationTracking, MPMTApiLogLevel, MPMTApiNetworkOptions, MParticleOptions, MPMTKotlinThrowable, MPMTKotlinArray<T>, MPMTApiIdentityHttpResponse, MPMTApiMParticleUser, MPMTKotlinUnit, MPIdentityApi, MPIdentityApiRequest, MPMTApiIdentityType, MPMTModelsClientSdkMessage, MPMTModelsIdentityChange, MPMTModelsIdentityRequestMessageCompanion, MPMTModelsError, MPMTModelsIdentityResponseMessageCompanion, MPMTMockingEndpointTypeCompanion, MPMTModelsImpressionMessageCompanion, MPMTModelsProductMessageCompanion, MPMTModelsPromotionMessageCompanion, MPMTKotlinx_serialization_jsonJson, MPMTKotlinx_serialization_jsonJsonElementCompanion, MPMTModelsTriggerItemsMessageCompanion, MPMTModelsAttributeValueFilter, MPMTModelsFilterMessage, MPMTModelsBracketMessage, MPMTModelsConsentForwardingRuleMessage, MPMTModelsKitConfigMessageCompanion, MPDataPlanOptions, MPMTKotlinEnumCompanion, MPMTKotlinEnum<E>, MPNetworkOptions, MPMTApiError, MParticleUser, MPMTApiConsentState, MPMTModelsClientSdkMessageCompanion, MPMTModelsIdentityChangeCompanion, MPMTModelsErrorCompanion, MPMTModelsAliasRequestMessage, MPMTModelsEmpty, MPMTModelsBatchMessage, MPMTKotlinx_serialization_coreSerializersModule, MPMTKotlinx_serialization_jsonJsonDefault, MPMTKotlinx_serialization_jsonJsonConfiguration, MPMTModelsAttributeValueFilterCompanion, MPMTModelsFilterMessageCompanion, MPMTModelsBracketMessageCompanion, MPMTModelsRules, MPMTModelsConsentForwardingRuleMessageCompanion, MPConsentState, MPCCPAConsent, MPMTApiConsent, MPGDPRConsent, MPMTModelsAliasDataMessage, MPMTModelsAliasRequestMessageCompanion, MPMTModelsEmptyCompanion, MPMTModelsConsentStateMessage, MPMTModelsDataplanContextMessage, MPMTModelsBaseEvent, MPMTModelsReportingMessageMessage, MPMTModelsAppInfoMessage, MPMTModelsDeviceInfoMessage, MPMTModelsUserIdentities, MPMTModelsBatchMessageCompanion, MPMTModelsRulesCompanion, MPMTKotlinx_serialization_coreSerialKind, MPMTKotlinNothing, MPMTModelsAliasDataMessageCompanion, MPMTModelsConsentStateInstanceMessage, MPMTModelsConsentStateMessageCompanion, MPMTModelsDataplan, MPMTModelsDataplanContextMessageCompanion, MPMTModelsStateInfoMessage, MPMTModelsLocationMessage, MPMTModelsBaseEventCompanion, MPMTModelsProjectionReportMessage, MPMTModelsReportingMessageMessageCompanion, MPMTModelsAppInfoMessageCompanion, MPMTModelsDeviceRootedObject, MPMTModelsDeviceInfoMessageCompanion, MPMTModelsUserIdentitiesCompanion, MPMTModelsConsentStateInstanceMessageCompanion, MPMTModelsDataplanCompanion, MPMTModelsStateInfoMessageCompanion, MPMTModelsLocationMessageCompanion, MPMTModelsEventType, MPMTModelsProjectionReportMessageCompanion, MPMTModelsDeviceRootedObjectCompanion, MPMTModelsEventTypeCompanion;
 
-@protocol MPMTTestingAwaiter, MPMTIdentityTester, MPMTKotlinx_serialization_coreKSerializer, MPMTKotlinComparable, MPMTKotlinIterator, MPMTApiUserAttributeListener, MPMTKotlinx_serialization_coreEncoder, MPMTKotlinx_serialization_coreSerialDescriptor, MPMTKotlinx_serialization_coreSerializationStrategy, MPMTKotlinx_serialization_coreDecoder, MPMTKotlinx_serialization_coreDeserializationStrategy, MPMTKotlinx_serialization_coreCompositeEncoder, MPMTKotlinAnnotation, MPMTKotlinx_serialization_coreCompositeDecoder, MPMTKotlinx_serialization_coreSerializersModuleCollector, MPMTKotlinKClass, MPMTKotlinKDeclarationContainer, MPMTKotlinKAnnotatedElement, MPMTKotlinKClassifier;
+@protocol MPMTTestingAwaiter, MPMTIdentityTester, MPMTKotlinx_serialization_coreKSerializer, MPMTKotlinComparable, MPMTKotlinIterator, MPMTApiUserAttributeListener, MPMTKotlinx_serialization_coreDeserializationStrategy, MPMTKotlinx_serialization_coreSerializationStrategy, MPMTKotlinx_serialization_coreSerialFormat, MPMTKotlinx_serialization_coreStringFormat, MPMTKotlinx_serialization_coreEncoder, MPMTKotlinx_serialization_coreSerialDescriptor, MPMTKotlinx_serialization_coreDecoder, MPMTKotlinx_serialization_coreSerializersModuleCollector, MPMTKotlinKClass, MPMTKotlinx_serialization_coreCompositeEncoder, MPMTKotlinAnnotation, MPMTKotlinx_serialization_coreCompositeDecoder, MPMTKotlinKDeclarationContainer, MPMTKotlinKAnnotatedElement, MPMTKotlinKClassifier;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -144,8 +144,8 @@ __attribute__((swift_name("KotlinBoolean")))
 + (instancetype)numberWithBool:(BOOL)value;
 @end;
 
-__attribute__((swift_name("TestingBaseTest")))
-@interface MPMTTestingBaseTest : MPMTBase
+__attribute__((swift_name("MockingBaseTest")))
+@interface MPMTMockingBaseTest : MPMTBase
 - (instancetype)initWithKeepSdkInstance:(BOOL)keepSdkInstance __attribute__((swift_name("init(keepSdkInstance:)"))) __attribute__((objc_designated_initializer));
 - (void)afterBeforeAll __attribute__((swift_name("afterBeforeAll()")));
 - (void)beforeAll __attribute__((swift_name("beforeAll()")));
@@ -153,22 +153,23 @@ __attribute__((swift_name("TestingBaseTest")))
 - (void)initialConfigResponseConfigResponse:(MPMTModelsConfigResponseMessage *)configResponse __attribute__((swift_name("initialConfigResponse(configResponse:)")));
 - (void)initializeTestServer __attribute__((swift_name("initializeTestServer()")));
 - (void)startMParticleOptions:(MPMTApiMParticleOptions *)options defaultConfigResponse:(MPMTModelsConfigResponseMessage * _Nullable)defaultConfigResponse __attribute__((swift_name("startMParticle(options:defaultConfigResponse:)")));
-@property MPMTApiClientPlatform *clientPlatform __attribute__((swift_name("clientPlatform")));
+@property (readonly) MPMTApiClientPlatform *clientPlatform __attribute__((swift_name("clientPlatform")));
 @property (readonly) BOOL keepSdkInstance __attribute__((swift_name("keepSdkInstance")));
 @property int64_t mStartingMpid __attribute__((swift_name("mStartingMpid")));
 @end;
 
-__attribute__((swift_name("TestingBaseStartedTest")))
-@interface MPMTTestingBaseStartedTest : MPMTTestingBaseTest
+__attribute__((swift_name("MockingBaseStartedTest")))
+@interface MPMTMockingBaseStartedTest : MPMTMockingBaseTest
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (instancetype)initWithKeepSdkInstance:(BOOL)keepSdkInstance __attribute__((swift_name("init(keepSdkInstance:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (void)afterBeforeAll __attribute__((swift_name("afterBeforeAll()")));
+- (MPMTApiMParticleOptions *)transformMParticleOptionsOptions:(MPMTApiMParticleOptions *)options __attribute__((swift_name("transformMParticleOptions(options:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("CommerceTests")))
-@interface MPMTCommerceTests : MPMTTestingBaseStartedTest
+@interface MPMTCommerceTests : MPMTMockingBaseStartedTest
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 
@@ -190,7 +191,7 @@ __attribute__((swift_name("CommerceTests")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MParticleOptionsTests")))
-@interface MPMTMParticleOptionsTests : MPMTTestingBaseTest
+@interface MPMTMParticleOptionsTests : MPMTMockingBaseTest
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (instancetype)initWithKeepSdkInstance:(BOOL)keepSdkInstance __attribute__((swift_name("init(keepSdkInstance:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
@@ -208,7 +209,7 @@ __attribute__((swift_name("MParticleOptionsTests")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SampleTests")))
-@interface MPMTSampleTests : MPMTTestingBaseTest
+@interface MPMTSampleTests : MPMTMockingBaseTest
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (instancetype)initWithKeepSdkInstance:(BOOL)keepSdkInstance __attribute__((swift_name("init(keepSdkInstance:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
@@ -256,7 +257,7 @@ __attribute__((swift_name("IdentityTester")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("IdentifyTests")))
-@interface MPMTIdentifyTests : MPMTTestingBaseStartedTest <MPMTIdentityTester>
+@interface MPMTIdentifyTests : MPMTMockingBaseStartedTest <MPMTIdentityTester>
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (void)createIdentityRequestBeforeAnotherRequestIsMade __attribute__((swift_name("createIdentityRequestBeforeAnotherRequestIsMade()")));
@@ -273,8 +274,8 @@ __attribute__((swift_name("IdentifyTests")))
 @end;
 
 __attribute__((swift_name("IdentityTests")))
-@interface MPMTIdentityTests : MPMTTestingBaseStartedTest <MPMTIdentityTester>
-- (instancetype)initWithIdentify_login_logout:(MPMTApiIdentityResponse *(^)(MPMTApiIdentityApi *, MPMTApiIdentityApiRequest * _Nullable))identify_login_logout identify_login_logoutEndpoint:(MPMTTestingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *)identify_login_logoutEndpoint __attribute__((swift_name("init(identify_login_logout:identify_login_logoutEndpoint:)"))) __attribute__((objc_designated_initializer));
+@interface MPMTIdentityTests : MPMTMockingBaseStartedTest <MPMTIdentityTester>
+- (instancetype)initWithIdentify_login_logout:(MPMTApiIdentityResponse *(^)(MPMTApiIdentityApi *, MPMTApiIdentityApiRequest * _Nullable))identify_login_logout identify_login_logoutEndpoint:(MPMTMockingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *)identify_login_logoutEndpoint __attribute__((swift_name("init(identify_login_logout:identify_login_logoutEndpoint:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 - (void)createIdentityRequestBeforeAnotherRequestIsMade __attribute__((swift_name("createIdentityRequestBeforeAnotherRequestIsMade()")));
@@ -288,12 +289,12 @@ __attribute__((swift_name("IdentityTests")))
 - (void)testNullRequest __attribute__((swift_name("testNullRequest()")));
 - (void)testUpdateToNewMpid __attribute__((swift_name("testUpdateToNewMpid()")));
 @property (readonly) MPMTApiIdentityResponse *(^identify_login_logout)(MPMTApiIdentityApi *, MPMTApiIdentityApiRequest * _Nullable) __attribute__((swift_name("identify_login_logout")));
-@property (readonly) MPMTTestingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *identify_login_logoutEndpoint __attribute__((swift_name("identify_login_logoutEndpoint")));
+@property (readonly) MPMTMockingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *identify_login_logoutEndpoint __attribute__((swift_name("identify_login_logoutEndpoint")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("LoginTests")))
-@interface MPMTLoginTests : MPMTTestingBaseStartedTest <MPMTIdentityTester>
+@interface MPMTLoginTests : MPMTMockingBaseStartedTest <MPMTIdentityTester>
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (void)createIdentityRequestBeforeAnotherRequestIsMade __attribute__((swift_name("createIdentityRequestBeforeAnotherRequestIsMade()")));
@@ -311,7 +312,7 @@ __attribute__((swift_name("LoginTests")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("LogoutTests")))
-@interface MPMTLogoutTests : MPMTTestingBaseStartedTest <MPMTIdentityTester>
+@interface MPMTLogoutTests : MPMTMockingBaseStartedTest <MPMTIdentityTester>
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (void)createIdentityRequestBeforeAnotherRequestIsMade __attribute__((swift_name("createIdentityRequestBeforeAnotherRequestIsMade()")));
@@ -329,7 +330,7 @@ __attribute__((swift_name("LogoutTests")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModifyTest")))
-@interface MPMTModifyTest : MPMTTestingBaseStartedTest
+@interface MPMTModifyTest : MPMTMockingBaseStartedTest
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (void)testModifyRequestAddNewIds __attribute__((swift_name("testModifyRequestAddNewIds()")));
@@ -404,10 +405,19 @@ __attribute__((swift_name("TestingAwaiter")))
 - (void)initializeExpectationDescription:(NSString *)description __attribute__((swift_name("initializeExpectation(description:)")));
 @end;
 
+__attribute__((swift_name("ModelsDTO")))
+@interface MPMTModelsDTO : MPMTBase
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+@property (class, readonly, getter=companion) MPMTModelsDTOCompanion *companion __attribute__((swift_name("companion")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsConfigResponseMessage")))
-@interface MPMTModelsConfigResponseMessage : MPMTBase
-- (instancetype)initWithType:(NSString * _Nullable)type id:(NSString * _Nullable)id debug:(MPMTBoolean * _Nullable)debug timeStamp:(MPMTLong * _Nullable)timeStamp logUnhandledExceptions:(NSString * _Nullable)logUnhandledExceptions pushMessages:(NSArray<id> * _Nullable)pushMessages ramp:(MPMTInt * _Nullable)ramp optOut:(MPMTBoolean * _Nullable)optOut providerPersistence:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence sessionTimeout:(MPMTLong * _Nullable)sessionTimeout uploadInterval:(MPMTLong * _Nullable)uploadInterval triggerItems:(MPMTModelsTriggerItemsMessage * _Nullable)triggerItems influenceOpenMessage:(MPMTLong * _Nullable)influenceOpenMessage aaidLat:(MPMTBoolean * _Nullable)aaidLat devicePerformanceMetricsDisabled:(MPMTBoolean * _Nullable)devicePerformanceMetricsDisabled workspaceToken:(NSString * _Nullable)workspaceToken aliasMaxWindow:(MPMTInt * _Nullable)aliasMaxWindow kits:(NSArray<MPMTModelsKitConfigMessage *> * _Nullable)kits __attribute__((swift_name("init(type:id:debug:timeStamp:logUnhandledExceptions:pushMessages:ramp:optOut:providerPersistence:sessionTimeout:uploadInterval:triggerItems:influenceOpenMessage:aaidLat:devicePerformanceMetricsDisabled:workspaceToken:aliasMaxWindow:kits:)"))) __attribute__((objc_designated_initializer));
+@interface MPMTModelsConfigResponseMessage : MPMTModelsDTO
+- (instancetype)initWithType:(NSString * _Nullable)type id:(NSString * _Nullable)id debug:(MPMTBoolean * _Nullable)debug timeStamp:(MPMTLong * _Nullable)timeStamp logUnhandledExceptions:(NSString * _Nullable)logUnhandledExceptions pushMessages:(NSArray<id> * _Nullable)pushMessages ramp:(MPMTInt * _Nullable)ramp optOut:(MPMTBoolean * _Nullable)optOut providerPersistence:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence sessionTimeout:(MPMTLong * _Nullable)sessionTimeout uploadInterval:(MPMTLong * _Nullable)uploadInterval triggerItems:(MPMTModelsTriggerItemsMessage * _Nullable)triggerItems influenceOpenMessage:(MPMTLong * _Nullable)influenceOpenMessage aaidLat:(MPMTBoolean * _Nullable)aaidLat devicePerformanceMetricsDisabled:(MPMTBoolean * _Nullable)devicePerformanceMetricsDisabled workspaceToken:(NSString * _Nullable)workspaceToken aliasMaxWindow:(MPMTInt * _Nullable)aliasMaxWindow kits:(NSArray<MPMTModelsKitConfigMessage *> * _Nullable)kits includeSessionHistory:(MPMTBoolean * _Nullable)includeSessionHistory __attribute__((swift_name("init(type:id:debug:timeStamp:logUnhandledExceptions:pushMessages:ramp:optOut:providerPersistence:sessionTimeout:uploadInterval:triggerItems:influenceOpenMessage:aaidLat:devicePerformanceMetricsDisabled:workspaceToken:aliasMaxWindow:kits:includeSessionHistory:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsConfigResponseMessageCompanion *companion __attribute__((swift_name("companion")));
 - (NSString * _Nullable)component1 __attribute__((swift_name("component1()")));
 - (MPMTLong * _Nullable)component10 __attribute__((swift_name("component10()")));
@@ -419,6 +429,7 @@ __attribute__((swift_name("ModelsConfigResponseMessage")))
 - (NSString * _Nullable)component16 __attribute__((swift_name("component16()")));
 - (MPMTInt * _Nullable)component17 __attribute__((swift_name("component17()")));
 - (NSArray<MPMTModelsKitConfigMessage *> * _Nullable)component18 __attribute__((swift_name("component18()")));
+- (MPMTBoolean * _Nullable)component19 __attribute__((swift_name("component19()")));
 - (NSString * _Nullable)component2 __attribute__((swift_name("component2()")));
 - (MPMTBoolean * _Nullable)component3 __attribute__((swift_name("component3()")));
 - (MPMTLong * _Nullable)component4 __attribute__((swift_name("component4()")));
@@ -427,9 +438,8 @@ __attribute__((swift_name("ModelsConfigResponseMessage")))
 - (MPMTInt * _Nullable)component7 __attribute__((swift_name("component7()")));
 - (MPMTBoolean * _Nullable)component8 __attribute__((swift_name("component8()")));
 - (NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)component9 __attribute__((swift_name("component9()")));
-- (MPMTModelsConfigResponseMessage *)doCopyType:(NSString * _Nullable)type id:(NSString * _Nullable)id debug:(MPMTBoolean * _Nullable)debug timeStamp:(MPMTLong * _Nullable)timeStamp logUnhandledExceptions:(NSString * _Nullable)logUnhandledExceptions pushMessages:(NSArray<id> * _Nullable)pushMessages ramp:(MPMTInt * _Nullable)ramp optOut:(MPMTBoolean * _Nullable)optOut providerPersistence:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence sessionTimeout:(MPMTLong * _Nullable)sessionTimeout uploadInterval:(MPMTLong * _Nullable)uploadInterval triggerItems:(MPMTModelsTriggerItemsMessage * _Nullable)triggerItems influenceOpenMessage:(MPMTLong * _Nullable)influenceOpenMessage aaidLat:(MPMTBoolean * _Nullable)aaidLat devicePerformanceMetricsDisabled:(MPMTBoolean * _Nullable)devicePerformanceMetricsDisabled workspaceToken:(NSString * _Nullable)workspaceToken aliasMaxWindow:(MPMTInt * _Nullable)aliasMaxWindow kits:(NSArray<MPMTModelsKitConfigMessage *> * _Nullable)kits __attribute__((swift_name("doCopy(type:id:debug:timeStamp:logUnhandledExceptions:pushMessages:ramp:optOut:providerPersistence:sessionTimeout:uploadInterval:triggerItems:influenceOpenMessage:aaidLat:devicePerformanceMetricsDisabled:workspaceToken:aliasMaxWindow:kits:)")));
+- (MPMTModelsConfigResponseMessage *)doCopyType:(NSString * _Nullable)type id:(NSString * _Nullable)id debug:(MPMTBoolean * _Nullable)debug timeStamp:(MPMTLong * _Nullable)timeStamp logUnhandledExceptions:(NSString * _Nullable)logUnhandledExceptions pushMessages:(NSArray<id> * _Nullable)pushMessages ramp:(MPMTInt * _Nullable)ramp optOut:(MPMTBoolean * _Nullable)optOut providerPersistence:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence sessionTimeout:(MPMTLong * _Nullable)sessionTimeout uploadInterval:(MPMTLong * _Nullable)uploadInterval triggerItems:(MPMTModelsTriggerItemsMessage * _Nullable)triggerItems influenceOpenMessage:(MPMTLong * _Nullable)influenceOpenMessage aaidLat:(MPMTBoolean * _Nullable)aaidLat devicePerformanceMetricsDisabled:(MPMTBoolean * _Nullable)devicePerformanceMetricsDisabled workspaceToken:(NSString * _Nullable)workspaceToken aliasMaxWindow:(MPMTInt * _Nullable)aliasMaxWindow kits:(NSArray<MPMTModelsKitConfigMessage *> * _Nullable)kits includeSessionHistory:(MPMTBoolean * _Nullable)includeSessionHistory __attribute__((swift_name("doCopy(type:id:debug:timeStamp:logUnhandledExceptions:pushMessages:ramp:optOut:providerPersistence:sessionTimeout:uploadInterval:triggerItems:influenceOpenMessage:aaidLat:devicePerformanceMetricsDisabled:workspaceToken:aliasMaxWindow:kits:includeSessionHistory:)")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
-- (MPMTModelsConfigResponseMessage *)fromFrom:(NSString *)from __attribute__((swift_name("from(from:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 @property (readonly) MPMTBoolean * _Nullable aaidLat __attribute__((swift_name("aaidLat")));
@@ -437,6 +447,7 @@ __attribute__((swift_name("ModelsConfigResponseMessage")))
 @property (readonly) MPMTBoolean * _Nullable debug __attribute__((swift_name("debug")));
 @property (readonly) MPMTBoolean * _Nullable devicePerformanceMetricsDisabled __attribute__((swift_name("devicePerformanceMetricsDisabled")));
 @property (readonly) NSString * _Nullable id __attribute__((swift_name("id")));
+@property (readonly) MPMTBoolean * _Nullable includeSessionHistory __attribute__((swift_name("includeSessionHistory")));
 @property (readonly) MPMTLong * _Nullable influenceOpenMessage __attribute__((swift_name("influenceOpenMessage")));
 @property (readonly) NSArray<MPMTModelsKitConfigMessage *> * _Nullable kits __attribute__((swift_name("kits")));
 @property (readonly) NSString * _Nullable logUnhandledExceptions __attribute__((swift_name("logUnhandledExceptions")));
@@ -459,7 +470,6 @@ __attribute__((swift_name("ApiMParticleOptions")))
 @property MPMTBoolean * _Nullable androidIdDisabled __attribute__((swift_name("androidIdDisabled")));
 @property NSString *apiKey __attribute__((swift_name("apiKey")));
 @property NSString *apiSecret __attribute__((swift_name("apiSecret")));
-@property MPMTApiClientPlatform *clientPlatform __attribute__((swift_name("clientPlatform")));
 @property NSString * _Nullable dataplanId __attribute__((swift_name("dataplanId")));
 @property MPMTApiDataplanOptions * _Nullable dataplanOptions __attribute__((swift_name("dataplanOptions")));
 @property MPMTInt * _Nullable dataplanVersion __attribute__((swift_name("dataplanVersion")));
@@ -537,8 +547,10 @@ __attribute__((swift_name("ApiIdentityApiRequest")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsIdentityRequestMessage")))
-@interface MPMTModelsIdentityRequestMessage : MPMTBase
+@interface MPMTModelsIdentityRequestMessage : MPMTModelsDTO
 - (instancetype)initWithClientSdk:(MPMTModelsClientSdkMessage * _Nullable)clientSdk context:(NSString * _Nullable)context environment:(NSString * _Nullable)environment requestId:(NSString * _Nullable)requestId requestTimestamp:(MPMTLong * _Nullable)requestTimestamp previousMpid:(MPMTLong * _Nullable)previousMpid knownIdentities:(NSDictionary<NSString *, id> * _Nullable)knownIdentities identityChanges:(NSArray<MPMTModelsIdentityChange *> * _Nullable)identityChanges __attribute__((swift_name("init(clientSdk:context:environment:requestId:requestTimestamp:previousMpid:knownIdentities:identityChanges:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsIdentityRequestMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) MPMTModelsClientSdkMessage * _Nullable clientSdk __attribute__((swift_name("clientSdk")));
 @property (readonly) NSString * _Nullable context __attribute__((swift_name("context")));
@@ -552,9 +564,11 @@ __attribute__((swift_name("ModelsIdentityRequestMessage")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsIdentityResponseMessage")))
-@interface MPMTModelsIdentityResponseMessage : MPMTBase
+@interface MPMTModelsIdentityResponseMessage : MPMTModelsDTO
 - (instancetype)initWithMpid:(NSString *)mpid __attribute__((swift_name("init(mpid:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)initWithMpid:(MPMTLong * _Nullable)mpid context:(NSString * _Nullable)context errors:(NSArray<MPMTModelsError *> * _Nullable)errors isLoggedIn:(MPMTBoolean * _Nullable)isLoggedIn __attribute__((swift_name("init(mpid:context:errors:isLoggedIn:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsIdentityResponseMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString * _Nullable context __attribute__((swift_name("context")));
 @property (readonly) NSArray<MPMTModelsError *> * _Nullable errors __attribute__((swift_name("errors")));
@@ -563,9 +577,9 @@ __attribute__((swift_name("ModelsIdentityResponseMessage")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("TestingEndpointType")))
-@interface MPMTTestingEndpointType<T, R> : MPMTBase
-@property (class, readonly, getter=companion) MPMTTestingEndpointTypeCompanion *companion __attribute__((swift_name("companion")));
+__attribute__((swift_name("MockingEndpointType")))
+@interface MPMTMockingEndpointType<T, R> : MPMTBase
+@property (class, readonly, getter=companion) MPMTMockingEndpointTypeCompanion *companion __attribute__((swift_name("companion")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 @property (readonly) NSString *name __attribute__((swift_name("name")));
@@ -573,8 +587,10 @@ __attribute__((swift_name("TestingEndpointType")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsImpressionMessage")))
-@interface MPMTModelsImpressionMessage : MPMTBase
+@interface MPMTModelsImpressionMessage : MPMTModelsDTO
 - (instancetype)initWithName:(NSString *)name productList:(NSArray<MPMTModelsProductMessage *> *)productList __attribute__((swift_name("init(name:productList:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsImpressionMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString *name __attribute__((swift_name("name")));
 @property (readonly) NSArray<MPMTModelsProductMessage *> *productList __attribute__((swift_name("productList")));
@@ -582,8 +598,10 @@ __attribute__((swift_name("ModelsImpressionMessage")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsProductMessage")))
-@interface MPMTModelsProductMessage : MPMTBase
+@interface MPMTModelsProductMessage : MPMTModelsDTO
 - (instancetype)initWithName:(NSString *)name category:(NSString * _Nullable)category couponCode:(NSString * _Nullable)couponCode sku:(NSString * _Nullable)sku position:(MPMTInt * _Nullable)position price:(MPMTDouble * _Nullable)price quantity:(MPMTDouble * _Nullable)quantity timeAdded:(MPMTLong * _Nullable)timeAdded totalAmount:(MPMTDouble * _Nullable)totalAmount brand:(NSString * _Nullable)brand variant:(NSString * _Nullable)variant customAttributes:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)customAttributes __attribute__((swift_name("init(name:category:couponCode:sku:position:price:quantity:timeAdded:totalAmount:brand:variant:customAttributes:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsProductMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString * _Nullable brand __attribute__((swift_name("brand")));
 @property (readonly) NSString * _Nullable category __attribute__((swift_name("category")));
@@ -601,13 +619,27 @@ __attribute__((swift_name("ModelsProductMessage")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsPromotionMessage")))
-@interface MPMTModelsPromotionMessage : MPMTBase
+@interface MPMTModelsPromotionMessage : MPMTModelsDTO
 - (instancetype)initWithId:(NSString *)id name:(NSString * _Nullable)name creative:(NSString * _Nullable)creative position:(NSString * _Nullable)position __attribute__((swift_name("init(id:name:creative:position:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsPromotionMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString * _Nullable creative __attribute__((swift_name("creative")));
 @property (readonly) NSString *id __attribute__((swift_name("id")));
 @property (readonly) NSString * _Nullable name __attribute__((swift_name("name")));
 @property (readonly) NSString * _Nullable position __attribute__((swift_name("position")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ModelsDTO.Companion")))
+@interface MPMTModelsDTOCompanion : MPMTBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPMTModelsDTOCompanion *shared __attribute__((swift_name("shared")));
+- (MPMTModelsDTO *)fromString:(NSString *)string __attribute__((swift_name("from(string:)")));
+@property (readonly) MPMTKotlinx_serialization_jsonJson *batchJsonBuilder __attribute__((swift_name("batchJsonBuilder")));
+@property (readonly) MPMTKotlinx_serialization_jsonJson *jsonBuilder __attribute__((swift_name("jsonBuilder")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_jsonJsonElement")))
@@ -617,8 +649,10 @@ __attribute__((swift_name("Kotlinx_serialization_jsonJsonElement")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsTriggerItemsMessage")))
-@interface MPMTModelsTriggerItemsMessage : MPMTBase
+@interface MPMTModelsTriggerItemsMessage : MPMTModelsDTO
 - (instancetype)initWithTriggerMatches:(NSArray<NSString *> * _Nullable)triggerMatches triggerMessageHashes:(NSArray<NSString *> * _Nullable)triggerMessageHashes __attribute__((swift_name("init(triggerMatches:triggerMessageHashes:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsTriggerItemsMessageCompanion *companion __attribute__((swift_name("companion")));
 - (NSArray<NSString *> * _Nullable)component1 __attribute__((swift_name("component1()")));
 - (NSArray<NSString *> * _Nullable)component2 __attribute__((swift_name("component2()")));
@@ -632,8 +666,10 @@ __attribute__((swift_name("ModelsTriggerItemsMessage")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsKitConfigMessage")))
-@interface MPMTModelsKitConfigMessage : MPMTBase
+@interface MPMTModelsKitConfigMessage : MPMTModelsDTO
 - (instancetype)initWithId:(int32_t)id a:(MPMTModelsAttributeValueFilter * _Nullable)a properties:(NSDictionary<id, id> * _Nullable)properties keyFilters:(MPMTModelsFilterMessage * _Nullable)keyFilters bracketing:(MPMTModelsBracketMessage * _Nullable)bracketing projections:(NSArray<NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> *> * _Nullable)projections consentForwardingRules:(MPMTModelsConsentForwardingRuleMessage * _Nullable)consentForwardingRules excludeAnnonymousUsers:(MPMTBoolean * _Nullable)excludeAnnonymousUsers __attribute__((swift_name("init(id:a:properties:keyFilters:bracketing:projections:consentForwardingRules:excludeAnnonymousUsers:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsKitConfigMessageCompanion *companion __attribute__((swift_name("companion")));
 - (int32_t)component1 __attribute__((swift_name("component1()")));
 - (MPMTModelsAttributeValueFilter * _Nullable)component2 __attribute__((swift_name("component2()")));
@@ -725,9 +761,9 @@ __attribute__((swift_name("ApiInstallType")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ApiLocationTracking")))
 @interface MPMTApiLocationTracking : MPMTBase
-- (instancetype)initWithProvider:(NSString *)provider minTime:(MPMTLong * _Nullable)minTime minDistance:(MPMTLong * _Nullable)minDistance __attribute__((swift_name("init(provider:minTime:minDistance:)"))) __attribute__((objc_designated_initializer));
-@property (readonly) MPMTLong * _Nullable minDistance __attribute__((swift_name("minDistance")));
-@property (readonly) MPMTLong * _Nullable minTime __attribute__((swift_name("minTime")));
+- (instancetype)initWithProvider:(NSString *)provider minTime:(int64_t)minTime minDistance:(int64_t)minDistance __attribute__((swift_name("init(provider:minTime:minDistance:)"))) __attribute__((objc_designated_initializer));
+@property (readonly) int64_t minDistance __attribute__((swift_name("minDistance")));
+@property (readonly) int64_t minTime __attribute__((swift_name("minTime")));
 @property (readonly) NSString *provider __attribute__((swift_name("provider")));
 @end;
 
@@ -846,8 +882,10 @@ __attribute__((swift_name("ApiIdentityType")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsClientSdkMessage")))
-@interface MPMTModelsClientSdkMessage : MPMTBase
+@interface MPMTModelsClientSdkMessage : MPMTModelsDTO
 - (instancetype)initWithPlatform:(NSString * _Nullable)platform sdkVendor:(NSString * _Nullable)sdkVendor sdkVersion:(NSString * _Nullable)sdkVersion __attribute__((swift_name("init(platform:sdkVendor:sdkVersion:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsClientSdkMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString * _Nullable platform __attribute__((swift_name("platform")));
 @property (readonly) NSString * _Nullable sdkVendor __attribute__((swift_name("sdkVendor")));
@@ -856,8 +894,10 @@ __attribute__((swift_name("ModelsClientSdkMessage")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsIdentityChange")))
-@interface MPMTModelsIdentityChange : MPMTBase
+@interface MPMTModelsIdentityChange : MPMTModelsDTO
 - (instancetype)initWithNewValue:(NSString * _Nullable)newValue oldValue:(NSString * _Nullable)oldValue identityType:(NSString * _Nullable)identityType __attribute__((swift_name("init(newValue:oldValue:identityType:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsIdentityChangeCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString * _Nullable identityType __attribute__((swift_name("identityType")));
 @property (readonly, getter=doNewValue) NSString * _Nullable newValue __attribute__((swift_name("newValue")));
@@ -871,15 +911,15 @@ __attribute__((swift_name("ModelsIdentityRequestMessage.Companion")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)companion __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) MPMTModelsIdentityRequestMessageCompanion *shared __attribute__((swift_name("shared")));
-- (MPMTModelsIdentityRequestMessage *)fromStringMessage:(NSString *)message __attribute__((swift_name("fromString(message:)")));
 - (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-@property (readonly) MPMTModelsIdentityRequestMessage *(^parser)(NSString *) __attribute__((swift_name("parser")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsError")))
-@interface MPMTModelsError : MPMTBase
+@interface MPMTModelsError : MPMTModelsDTO
 - (instancetype)initWithCode:(NSString * _Nullable)code message:(NSString * _Nullable)message __attribute__((swift_name("init(code:message:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsErrorCompanion *companion __attribute__((swift_name("companion")));
 - (NSString * _Nullable)component1 __attribute__((swift_name("component1()")));
 - (NSString * _Nullable)component2 __attribute__((swift_name("component2()")));
@@ -902,19 +942,19 @@ __attribute__((swift_name("ModelsIdentityResponseMessage.Companion")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("TestingEndpointTypeCompanion")))
-@interface MPMTTestingEndpointTypeCompanion : MPMTBase
+__attribute__((swift_name("MockingEndpointTypeCompanion")))
+@interface MPMTMockingEndpointTypeCompanion : MPMTBase
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) MPMTTestingEndpointTypeCompanion *shared __attribute__((swift_name("shared")));
-@property (readonly) MPMTTestingEndpointType<MPMTModelsAliasRequestMessage *, MPMTModelsEmpty *> *Alias __attribute__((swift_name("Alias")));
-@property (readonly) MPMTTestingEndpointType<MPMTModelsEmpty *, MPMTModelsConfigResponseMessage *> *Config __attribute__((swift_name("Config")));
-@property (readonly) MPMTTestingEndpointType<MPMTModelsBatchMessage *, MPMTModelsEmpty *> *Events __attribute__((swift_name("Events")));
-@property (readonly) MPMTTestingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *Identity_Identify __attribute__((swift_name("Identity_Identify")));
-@property (readonly) MPMTTestingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *Identity_Login __attribute__((swift_name("Identity_Login")));
-@property (readonly) MPMTTestingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *Identity_Logout __attribute__((swift_name("Identity_Logout")));
-@property (readonly) MPMTTestingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *Identity_Modify __attribute__((swift_name("Identity_Modify")));
+@property (class, readonly, getter=shared) MPMTMockingEndpointTypeCompanion *shared __attribute__((swift_name("shared")));
+@property (readonly) MPMTMockingEndpointType<MPMTModelsAliasRequestMessage *, MPMTModelsEmpty *> *Alias __attribute__((swift_name("Alias")));
+@property (readonly) MPMTMockingEndpointType<MPMTModelsEmpty *, MPMTModelsConfigResponseMessage *> *Config __attribute__((swift_name("Config")));
+@property (readonly) MPMTMockingEndpointType<MPMTModelsBatchMessage *, MPMTModelsEmpty *> *Events __attribute__((swift_name("Events")));
+@property (readonly) MPMTMockingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *Identity_Identify __attribute__((swift_name("Identity_Identify")));
+@property (readonly) MPMTMockingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *Identity_Login __attribute__((swift_name("Identity_Login")));
+@property (readonly) MPMTMockingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *Identity_Logout __attribute__((swift_name("Identity_Logout")));
+@property (readonly) MPMTMockingEndpointType<MPMTModelsIdentityRequestMessage *, MPMTModelsIdentityResponseMessage *> *Identity_Modify __attribute__((swift_name("Identity_Modify")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -947,6 +987,31 @@ __attribute__((swift_name("ModelsPromotionMessage.Companion")))
 - (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
 @end;
 
+__attribute__((swift_name("Kotlinx_serialization_coreSerialFormat")))
+@protocol MPMTKotlinx_serialization_coreSerialFormat
+@required
+@property (readonly) MPMTKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreStringFormat")))
+@protocol MPMTKotlinx_serialization_coreStringFormat <MPMTKotlinx_serialization_coreSerialFormat>
+@required
+- (id _Nullable)decodeFromStringDeserializer:(id<MPMTKotlinx_serialization_coreDeserializationStrategy>)deserializer string:(NSString *)string __attribute__((swift_name("decodeFromString(deserializer:string:)")));
+- (NSString *)encodeToStringSerializer:(id<MPMTKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeToString(serializer:value:)")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_jsonJson")))
+@interface MPMTKotlinx_serialization_jsonJson : MPMTBase <MPMTKotlinx_serialization_coreStringFormat>
+@property (class, readonly, getter=companion) MPMTKotlinx_serialization_jsonJsonDefault *companion __attribute__((swift_name("companion")));
+- (id _Nullable)decodeFromJsonElementDeserializer:(id<MPMTKotlinx_serialization_coreDeserializationStrategy>)deserializer element:(MPMTKotlinx_serialization_jsonJsonElement *)element __attribute__((swift_name("decodeFromJsonElement(deserializer:element:)")));
+- (id _Nullable)decodeFromStringDeserializer:(id<MPMTKotlinx_serialization_coreDeserializationStrategy>)deserializer string:(NSString *)string __attribute__((swift_name("decodeFromString(deserializer:string:)")));
+- (MPMTKotlinx_serialization_jsonJsonElement *)encodeToJsonElementSerializer:(id<MPMTKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeToJsonElement(serializer:value:)")));
+- (NSString *)encodeToStringSerializer:(id<MPMTKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeToString(serializer:value:)")));
+- (MPMTKotlinx_serialization_jsonJsonElement *)parseToJsonElementString:(NSString *)string __attribute__((swift_name("parseToJsonElement(string:)")));
+@property (readonly) MPMTKotlinx_serialization_jsonJsonConfiguration *configuration __attribute__((swift_name("configuration")));
+@property (readonly) MPMTKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Kotlinx_serialization_jsonJsonElement.Companion")))
 @interface MPMTKotlinx_serialization_jsonJsonElementCompanion : MPMTBase
@@ -969,8 +1034,10 @@ __attribute__((swift_name("ModelsTriggerItemsMessage.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsAttributeValueFilter")))
-@interface MPMTModelsAttributeValueFilter : MPMTBase
+@interface MPMTModelsAttributeValueFilter : MPMTModelsDTO
 - (instancetype)initWithShouldIncludeMatches:(MPMTBoolean * _Nullable)shouldIncludeMatches attribute:(MPMTInt * _Nullable)attribute value:(NSString * _Nullable)value __attribute__((swift_name("init(shouldIncludeMatches:attribute:value:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsAttributeValueFilterCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) MPMTInt * _Nullable attribute __attribute__((swift_name("attribute")));
 @property (readonly) MPMTBoolean * _Nullable shouldIncludeMatches __attribute__((swift_name("shouldIncludeMatches")));
@@ -979,8 +1046,10 @@ __attribute__((swift_name("ModelsAttributeValueFilter")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsFilterMessage")))
-@interface MPMTModelsFilterMessage : MPMTBase
+@interface MPMTModelsFilterMessage : MPMTModelsDTO
 - (instancetype)initWithEventTypesFilter:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)eventTypesFilter eventNameFilters:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)eventNameFilters eventAttributeFilter:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)eventAttributeFilter screenNameFilters:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)screenNameFilters screenAttributeFilters:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)screenAttributeFilters userIdentityFilter:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)userIdentityFilter userAttributeFilter:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)userAttributeFilter commerceAttributeFilter:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)commerceAttributeFilter commerceEntityFilter:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)commerceEntityFilter commerceEntityAttributeFilters:(NSDictionary<MPMTInt *, NSDictionary<MPMTInt *, MPMTBoolean *> *> * _Nullable)commerceEntityAttributeFilters eventAttributeAddUser:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)eventAttributeAddUser eventAttributeSingleItemUser:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)eventAttributeSingleItemUser eventAttributeRemoveUser:(NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable)eventAttributeRemoveUser __attribute__((swift_name("init(eventTypesFilter:eventNameFilters:eventAttributeFilter:screenNameFilters:screenAttributeFilters:userIdentityFilter:userAttributeFilter:commerceAttributeFilter:commerceEntityFilter:commerceEntityAttributeFilters:eventAttributeAddUser:eventAttributeSingleItemUser:eventAttributeRemoveUser:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsFilterMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSDictionary<MPMTInt *, MPMTBoolean *> * _Nullable commerceAttributeFilter __attribute__((swift_name("commerceAttributeFilter")));
 @property (readonly) NSDictionary<MPMTInt *, NSDictionary<MPMTInt *, MPMTBoolean *> *> * _Nullable commerceEntityAttributeFilters __attribute__((swift_name("commerceEntityAttributeFilters")));
@@ -999,9 +1068,10 @@ __attribute__((swift_name("ModelsFilterMessage")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsBracketMessage")))
-@interface MPMTModelsBracketMessage : MPMTBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+@interface MPMTModelsBracketMessage : MPMTModelsDTO
+- (instancetype)initWithLowBracket:(MPMTInt * _Nullable)lowBracket highBracket:(MPMTInt * _Nullable)highBracket __attribute__((swift_name("init(lowBracket:highBracket:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsBracketMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) MPMTInt * _Nullable highBracket __attribute__((swift_name("highBracket")));
 @property (readonly) MPMTInt * _Nullable lowBracket __attribute__((swift_name("lowBracket")));
@@ -1009,8 +1079,10 @@ __attribute__((swift_name("ModelsBracketMessage")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsConsentForwardingRuleMessage")))
-@interface MPMTModelsConsentForwardingRuleMessage : MPMTBase
+@interface MPMTModelsConsentForwardingRuleMessage : MPMTModelsDTO
 - (instancetype)initWithShouldIncludeMatches:(MPMTBoolean * _Nullable)shouldIncludeMatches rules:(NSArray<MPMTModelsRules *> * _Nullable)rules __attribute__((swift_name("init(shouldIncludeMatches:rules:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsConsentForwardingRuleMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSArray<MPMTModelsRules *> * _Nullable rules __attribute__((swift_name("rules")));
 @property (readonly) MPMTBoolean * _Nullable shouldIncludeMatches __attribute__((swift_name("shouldIncludeMatches")));
@@ -1118,8 +1190,10 @@ __attribute__((swift_name("ModelsError.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsAliasRequestMessage")))
-@interface MPMTModelsAliasRequestMessage : MPMTBase
+@interface MPMTModelsAliasRequestMessage : MPMTModelsDTO
 - (instancetype)initWithStartTime:(MPMTLong * _Nullable)startTime endTime:(MPMTLong * _Nullable)endTime data:(MPMTModelsAliasDataMessage *)data requestType:(NSString * _Nullable)requestType requestId:(NSString * _Nullable)requestId aliasEnvironment:(NSString * _Nullable)aliasEnvironment apiKey:(NSString *)apiKey __attribute__((swift_name("init(startTime:endTime:data:requestType:requestId:aliasEnvironment:apiKey:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsAliasRequestMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString * _Nullable aliasEnvironment __attribute__((swift_name("aliasEnvironment")));
 @property (readonly) NSString *apiKey __attribute__((swift_name("apiKey")));
@@ -1130,14 +1204,8 @@ __attribute__((swift_name("ModelsAliasRequestMessage")))
 @property (readonly) MPMTLong * _Nullable startTime __attribute__((swift_name("startTime")));
 @end;
 
-__attribute__((swift_name("ModelsServerMessageObject")))
-@interface MPMTModelsServerMessageObject : MPMTBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@end;
-
 __attribute__((swift_name("ModelsEmpty")))
-@interface MPMTModelsEmpty : MPMTModelsServerMessageObject
+@interface MPMTModelsEmpty : MPMTModelsDTO
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 @property (class, readonly, getter=companion) MPMTModelsEmptyCompanion *companion __attribute__((swift_name("companion")));
@@ -1145,8 +1213,10 @@ __attribute__((swift_name("ModelsEmpty")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsBatchMessage")))
-@interface MPMTModelsBatchMessage : MPMTBase
+@interface MPMTModelsBatchMessage : MPMTModelsDTO
 - (instancetype)initWithEcho:(MPMTBoolean * _Nullable)echo type:(NSString * _Nullable)type id:(NSString * _Nullable)id timestamp:(MPMTLong * _Nullable)timestamp mparticleVersion:(NSString * _Nullable)mparticleVersion optOutHeader:(MPMTBoolean * _Nullable)optOutHeader configUploadInterval:(MPMTInt * _Nullable)configUploadInterval configSessionTimeout:(MPMTInt * _Nullable)configSessionTimeout mpid:(NSString * _Nullable)mpid sandbox:(MPMTBoolean * _Nullable)sandbox deviceApplicationStamp:(NSString * _Nullable)deviceApplicationStamp deletedUserAttributes:(NSArray<NSString *> * _Nullable)deletedUserAttributes cookies:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)cookies providerPersistence:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence integrationAttributes:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)integrationAttributes consentState:(MPMTModelsConsentStateMessage * _Nullable)consentState dataplanContext:(MPMTModelsDataplanContextMessage * _Nullable)dataplanContext messages:(NSArray<MPMTModelsBaseEvent *> *)messages reportingMessages:(NSArray<MPMTModelsReportingMessageMessage *> * _Nullable)reportingMessages appInfo:(MPMTModelsAppInfoMessage * _Nullable)appInfo deviceInfo:(MPMTModelsDeviceInfoMessage * _Nullable)deviceInfo identities:(NSArray<MPMTModelsUserIdentities *> * _Nullable)identities attributes:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes sessionHistory:(NSArray<MPMTModelsBaseEvent *> *)sessionHistory __attribute__((swift_name("init(echo:type:id:timestamp:mparticleVersion:optOutHeader:configUploadInterval:configSessionTimeout:mpid:sandbox:deviceApplicationStamp:deletedUserAttributes:cookies:providerPersistence:integrationAttributes:consentState:dataplanContext:messages:reportingMessages:appInfo:deviceInfo:identities:attributes:sessionHistory:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsBatchMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) MPMTModelsAppInfoMessage * _Nullable appInfo __attribute__((swift_name("appInfo")));
 @property (readonly) NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable attributes __attribute__((swift_name("attributes")));
@@ -1172,6 +1242,40 @@ __attribute__((swift_name("ModelsBatchMessage")))
 @property (readonly) NSArray<MPMTModelsBaseEvent *> *sessionHistory __attribute__((swift_name("sessionHistory")));
 @property (readonly) MPMTLong * _Nullable timestamp __attribute__((swift_name("timestamp")));
 @property (readonly) NSString * _Nullable type __attribute__((swift_name("type")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreSerializersModule")))
+@interface MPMTKotlinx_serialization_coreSerializersModule : MPMTBase
+- (void)dumpToCollector:(id<MPMTKotlinx_serialization_coreSerializersModuleCollector>)collector __attribute__((swift_name("dumpTo(collector:)")));
+- (id<MPMTKotlinx_serialization_coreKSerializer> _Nullable)getContextualKClass:(id<MPMTKotlinKClass>)kClass typeArgumentsSerializers:(NSArray<id<MPMTKotlinx_serialization_coreKSerializer>> *)typeArgumentsSerializers __attribute__((swift_name("getContextual(kClass:typeArgumentsSerializers:)")));
+- (id<MPMTKotlinx_serialization_coreSerializationStrategy> _Nullable)getPolymorphicBaseClass:(id<MPMTKotlinKClass>)baseClass value:(id)value __attribute__((swift_name("getPolymorphic(baseClass:value:)")));
+- (id<MPMTKotlinx_serialization_coreDeserializationStrategy> _Nullable)getPolymorphicBaseClass:(id<MPMTKotlinKClass>)baseClass serializedClassName:(NSString * _Nullable)serializedClassName __attribute__((swift_name("getPolymorphic(baseClass:serializedClassName:)")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Kotlinx_serialization_jsonJson.Default")))
+@interface MPMTKotlinx_serialization_jsonJsonDefault : MPMTKotlinx_serialization_jsonJson
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)default_ __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPMTKotlinx_serialization_jsonJsonDefault *shared __attribute__((swift_name("shared")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("Kotlinx_serialization_jsonJsonConfiguration")))
+@interface MPMTKotlinx_serialization_jsonJsonConfiguration : MPMTBase
+- (NSString *)description __attribute__((swift_name("description()")));
+@property (readonly) BOOL allowSpecialFloatingPointValues __attribute__((swift_name("allowSpecialFloatingPointValues")));
+@property (readonly) BOOL allowStructuredMapKeys __attribute__((swift_name("allowStructuredMapKeys")));
+@property (readonly) NSString *classDiscriminator __attribute__((swift_name("classDiscriminator")));
+@property (readonly) BOOL coerceInputValues __attribute__((swift_name("coerceInputValues")));
+@property (readonly) BOOL encodeDefaults __attribute__((swift_name("encodeDefaults")));
+@property (readonly) BOOL ignoreUnknownKeys __attribute__((swift_name("ignoreUnknownKeys")));
+@property (readonly) BOOL isLenient __attribute__((swift_name("isLenient")));
+@property (readonly) BOOL prettyPrint __attribute__((swift_name("prettyPrint")));
+@property (readonly) NSString *prettyPrintIndent __attribute__((swift_name("prettyPrintIndent")));
+@property (readonly) BOOL useAlternativeNames __attribute__((swift_name("useAlternativeNames")));
+@property (readonly) BOOL useArrayPolymorphism __attribute__((swift_name("useArrayPolymorphism")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1206,8 +1310,10 @@ __attribute__((swift_name("ModelsBracketMessage.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsRules")))
-@interface MPMTModelsRules : MPMTBase
+@interface MPMTModelsRules : MPMTModelsDTO
 - (instancetype)initWithValueHash:(int32_t)valueHash consented:(BOOL)consented __attribute__((swift_name("init(valueHash:consented:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsRulesCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) BOOL consented __attribute__((swift_name("consented")));
 @property (readonly) int32_t valueHash __attribute__((swift_name("valueHash")));
@@ -1299,8 +1405,10 @@ __attribute__((swift_name("ApiConsent")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsAliasDataMessage")))
-@interface MPMTModelsAliasDataMessage : MPMTBase
+@interface MPMTModelsAliasDataMessage : MPMTModelsDTO
 - (instancetype)initWithSourceMpid:(MPMTLong * _Nullable)sourceMpid destinationMpid:(MPMTLong * _Nullable)destinationMpid deviceApplicationStamp:(NSString * _Nullable)deviceApplicationStamp __attribute__((swift_name("init(sourceMpid:destinationMpid:deviceApplicationStamp:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsAliasDataMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) MPMTLong * _Nullable destinationMpid __attribute__((swift_name("destinationMpid")));
 @property (readonly) NSString * _Nullable deviceApplicationStamp __attribute__((swift_name("deviceApplicationStamp")));
@@ -1314,9 +1422,7 @@ __attribute__((swift_name("ModelsAliasRequestMessage.Companion")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)companion __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) MPMTModelsAliasRequestMessageCompanion *shared __attribute__((swift_name("shared")));
-- (MPMTModelsAliasRequestMessage *)fromStringMessage:(NSString *)message __attribute__((swift_name("fromString(message:)")));
 - (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-@property (readonly) MPMTModelsAliasRequestMessage *(^parser)(NSString *) __attribute__((swift_name("parser")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1347,9 +1453,10 @@ __attribute__((swift_name("ModelsDataplanContextMessage")))
 @end;
 
 __attribute__((swift_name("ModelsBaseEvent")))
-@interface MPMTModelsBaseEvent : MPMTBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+@interface MPMTModelsBaseEvent : MPMTModelsDTO
+- (instancetype)initWithTimeStamp:(MPMTLong * _Nullable)timeStamp stateInfo:(MPMTModelsStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMTLong * _Nullable)sessionStartTimestamp location:(MPMTModelsLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsBaseEventCompanion *companion __attribute__((swift_name("companion")));
 @property NSDictionary<NSString *, MPMTKotlinx_serialization_jsonJsonElement *> * _Nullable attributes __attribute__((swift_name("attributes")));
 @property NSString * _Nullable dataConnection __attribute__((swift_name("dataConnection")));
@@ -1447,8 +1554,10 @@ __attribute__((swift_name("ModelsDeviceInfoMessage")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsUserIdentities")))
-@interface MPMTModelsUserIdentities : MPMTBase
+@interface MPMTModelsUserIdentities : MPMTModelsDTO
 - (instancetype)initWithValue:(NSString * _Nullable)value identityType:(MPMTInt * _Nullable)identityType __attribute__((swift_name("init(value:identityType:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsUserIdentitiesCompanion *companion __attribute__((swift_name("companion")));
 @property MPMTInt * _Nullable identityType __attribute__((swift_name("identityType")));
 @property NSString * _Nullable value __attribute__((swift_name("value")));
@@ -1461,9 +1570,39 @@ __attribute__((swift_name("ModelsBatchMessage.Companion")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)companion __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) MPMTModelsBatchMessageCompanion *shared __attribute__((swift_name("shared")));
-- (MPMTModelsBatchMessage *)fromStringBatch:(NSString *)batch __attribute__((swift_name("fromString(batch:)")));
 - (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-@property (readonly) MPMTModelsBatchMessage *(^parser)(NSString *) __attribute__((swift_name("parser")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreSerializersModuleCollector")))
+@protocol MPMTKotlinx_serialization_coreSerializersModuleCollector
+@required
+- (void)contextualKClass:(id<MPMTKotlinKClass>)kClass provider:(id<MPMTKotlinx_serialization_coreKSerializer> (^)(NSArray<id<MPMTKotlinx_serialization_coreKSerializer>> *))provider __attribute__((swift_name("contextual(kClass:provider:)")));
+- (void)contextualKClass:(id<MPMTKotlinKClass>)kClass serializer:(id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("contextual(kClass:serializer:)")));
+- (void)polymorphicBaseClass:(id<MPMTKotlinKClass>)baseClass actualClass:(id<MPMTKotlinKClass>)actualClass actualSerializer:(id<MPMTKotlinx_serialization_coreKSerializer>)actualSerializer __attribute__((swift_name("polymorphic(baseClass:actualClass:actualSerializer:)")));
+- (void)polymorphicDefaultBaseClass:(id<MPMTKotlinKClass>)baseClass defaultSerializerProvider:(id<MPMTKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultSerializerProvider __attribute__((swift_name("polymorphicDefault(baseClass:defaultSerializerProvider:)")));
+@end;
+
+__attribute__((swift_name("KotlinKDeclarationContainer")))
+@protocol MPMTKotlinKDeclarationContainer
+@required
+@end;
+
+__attribute__((swift_name("KotlinKAnnotatedElement")))
+@protocol MPMTKotlinKAnnotatedElement
+@required
+@end;
+
+__attribute__((swift_name("KotlinKClassifier")))
+@protocol MPMTKotlinKClassifier
+@required
+@end;
+
+__attribute__((swift_name("KotlinKClass")))
+@protocol MPMTKotlinKClass <MPMTKotlinKDeclarationContainer, MPMTKotlinKAnnotatedElement, MPMTKotlinKClassifier>
+@required
+- (BOOL)isInstanceValue:(id _Nullable)value __attribute__((swift_name("isInstance(value:)")));
+@property (readonly) NSString * _Nullable qualifiedName __attribute__((swift_name("qualifiedName")));
+@property (readonly) NSString * _Nullable simpleName __attribute__((swift_name("simpleName")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1494,14 +1633,6 @@ __attribute__((swift_name("Kotlinx_serialization_coreCompositeEncoder")))
 - (void)endStructureDescriptor:(id<MPMTKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("endStructure(descriptor:)")));
 - (BOOL)shouldEncodeElementDefaultDescriptor:(id<MPMTKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("shouldEncodeElementDefault(descriptor:index:)")));
 @property (readonly) MPMTKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_coreSerializersModule")))
-@interface MPMTKotlinx_serialization_coreSerializersModule : MPMTBase
-- (void)dumpToCollector:(id<MPMTKotlinx_serialization_coreSerializersModuleCollector>)collector __attribute__((swift_name("dumpTo(collector:)")));
-- (id<MPMTKotlinx_serialization_coreKSerializer> _Nullable)getContextualKClass:(id<MPMTKotlinKClass>)kClass typeArgumentsSerializers:(NSArray<id<MPMTKotlinx_serialization_coreKSerializer>> *)typeArgumentsSerializers __attribute__((swift_name("getContextual(kClass:typeArgumentsSerializers:)")));
-- (id<MPMTKotlinx_serialization_coreSerializationStrategy> _Nullable)getPolymorphicBaseClass:(id<MPMTKotlinKClass>)baseClass value:(id)value __attribute__((swift_name("getPolymorphic(baseClass:value:)")));
-- (id<MPMTKotlinx_serialization_coreDeserializationStrategy> _Nullable)getPolymorphicBaseClass:(id<MPMTKotlinKClass>)baseClass serializedClassName:(NSString * _Nullable)serializedClassName __attribute__((swift_name("getPolymorphic(baseClass:serializedClassName:)")));
 @end;
 
 __attribute__((swift_name("KotlinAnnotation")))
@@ -1594,30 +1725,11 @@ __attribute__((swift_name("ModelsDataplanContextMessage.Companion")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("ModelsBaseEvent.Companion")))
-@interface MPMTModelsBaseEventCompanion : MPMTBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) MPMTModelsBaseEventCompanion *shared __attribute__((swift_name("shared")));
-- (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-- (id<MPMTKotlinx_serialization_coreKSerializer>)serializerTypeParamsSerializers:(MPMTKotlinArray<id<MPMTKotlinx_serialization_coreKSerializer>> *)typeParamsSerializers __attribute__((swift_name("serializer(typeParamsSerializers:)")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("ModelsLocationMessage")))
-@interface MPMTModelsLocationMessage : MPMTBase
-- (instancetype)initWithLatitude:(MPMTDouble * _Nullable)latitude longitude:(MPMTDouble * _Nullable)longitude accuracy:(MPMTFloat * _Nullable)accuracy __attribute__((swift_name("init(latitude:longitude:accuracy:)"))) __attribute__((objc_designated_initializer));
-@property (class, readonly, getter=companion) MPMTModelsLocationMessageCompanion *companion __attribute__((swift_name("companion")));
-@property (readonly) MPMTFloat * _Nullable accuracy __attribute__((swift_name("accuracy")));
-@property (readonly) MPMTDouble * _Nullable latitude __attribute__((swift_name("latitude")));
-@property (readonly) MPMTDouble * _Nullable longitude __attribute__((swift_name("longitude")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsStateInfoMessage")))
-@interface MPMTModelsStateInfoMessage : MPMTBase
+@interface MPMTModelsStateInfoMessage : MPMTModelsDTO
 - (instancetype)initWithAvailableDisk:(MPMTLong * _Nullable)availableDisk externalDisk:(MPMTLong * _Nullable)externalDisk appMemoryUsage:(MPMTLong * _Nullable)appMemoryUsage freeMemory:(MPMTLong * _Nullable)freeMemory maxMemory:(MPMTLong * _Nullable)maxMemory avaialableMemery:(MPMTLong * _Nullable)avaialableMemery totalMemory:(MPMTLong * _Nullable)totalMemory batteryLevel:(MPMTDouble * _Nullable)batteryLevel timeSinceStart:(MPMTLong * _Nullable)timeSinceStart hasGps:(MPMTBoolean * _Nullable)hasGps activeNetworkName:(NSString * _Nullable)activeNetworkName orientation:(MPMTInt * _Nullable)orientation barOrientation:(MPMTInt * _Nullable)barOrientation isMemoryLow:(MPMTBoolean * _Nullable)isMemoryLow systemMemoryThreshold:(MPMTLong * _Nullable)systemMemoryThreshold networkType:(NSString * _Nullable)networkType __attribute__((swift_name("init(availableDisk:externalDisk:appMemoryUsage:freeMemory:maxMemory:avaialableMemery:totalMemory:batteryLevel:timeSinceStart:hasGps:activeNetworkName:orientation:barOrientation:isMemoryLow:systemMemoryThreshold:networkType:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMTModelsStateInfoMessageCompanion *companion __attribute__((swift_name("companion")));
 @property NSString * _Nullable activeNetworkName __attribute__((swift_name("activeNetworkName")));
 @property MPMTLong * _Nullable appMemoryUsage __attribute__((swift_name("appMemoryUsage")));
@@ -1635,6 +1747,29 @@ __attribute__((swift_name("ModelsStateInfoMessage")))
 @property MPMTLong * _Nullable systemMemoryThreshold __attribute__((swift_name("systemMemoryThreshold")));
 @property MPMTLong * _Nullable timeSinceStart __attribute__((swift_name("timeSinceStart")));
 @property MPMTLong * _Nullable totalMemory __attribute__((swift_name("totalMemory")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ModelsLocationMessage")))
+@interface MPMTModelsLocationMessage : MPMTModelsDTO
+- (instancetype)initWithLatitude:(MPMTDouble * _Nullable)latitude longitude:(MPMTDouble * _Nullable)longitude accuracy:(MPMTFloat * _Nullable)accuracy __attribute__((swift_name("init(latitude:longitude:accuracy:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
++ (instancetype)new __attribute__((unavailable));
+@property (class, readonly, getter=companion) MPMTModelsLocationMessageCompanion *companion __attribute__((swift_name("companion")));
+@property (readonly) MPMTFloat * _Nullable accuracy __attribute__((swift_name("accuracy")));
+@property (readonly) MPMTDouble * _Nullable latitude __attribute__((swift_name("latitude")));
+@property (readonly) MPMTDouble * _Nullable longitude __attribute__((swift_name("longitude")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ModelsBaseEvent.Companion")))
+@interface MPMTModelsBaseEventCompanion : MPMTBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPMTModelsBaseEventCompanion *shared __attribute__((swift_name("shared")));
+- (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+- (id<MPMTKotlinx_serialization_coreKSerializer>)serializerTypeParamsSerializers:(MPMTKotlinArray<id<MPMTKotlinx_serialization_coreKSerializer>> *)typeParamsSerializers __attribute__((swift_name("serializer(typeParamsSerializers:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1696,38 +1831,6 @@ __attribute__((swift_name("ModelsUserIdentities.Companion")))
 - (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
 @end;
 
-__attribute__((swift_name("Kotlinx_serialization_coreSerializersModuleCollector")))
-@protocol MPMTKotlinx_serialization_coreSerializersModuleCollector
-@required
-- (void)contextualKClass:(id<MPMTKotlinKClass>)kClass provider:(id<MPMTKotlinx_serialization_coreKSerializer> (^)(NSArray<id<MPMTKotlinx_serialization_coreKSerializer>> *))provider __attribute__((swift_name("contextual(kClass:provider:)")));
-- (void)contextualKClass:(id<MPMTKotlinKClass>)kClass serializer:(id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("contextual(kClass:serializer:)")));
-- (void)polymorphicBaseClass:(id<MPMTKotlinKClass>)baseClass actualClass:(id<MPMTKotlinKClass>)actualClass actualSerializer:(id<MPMTKotlinx_serialization_coreKSerializer>)actualSerializer __attribute__((swift_name("polymorphic(baseClass:actualClass:actualSerializer:)")));
-- (void)polymorphicDefaultBaseClass:(id<MPMTKotlinKClass>)baseClass defaultSerializerProvider:(id<MPMTKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultSerializerProvider __attribute__((swift_name("polymorphicDefault(baseClass:defaultSerializerProvider:)")));
-@end;
-
-__attribute__((swift_name("KotlinKDeclarationContainer")))
-@protocol MPMTKotlinKDeclarationContainer
-@required
-@end;
-
-__attribute__((swift_name("KotlinKAnnotatedElement")))
-@protocol MPMTKotlinKAnnotatedElement
-@required
-@end;
-
-__attribute__((swift_name("KotlinKClassifier")))
-@protocol MPMTKotlinKClassifier
-@required
-@end;
-
-__attribute__((swift_name("KotlinKClass")))
-@protocol MPMTKotlinKClass <MPMTKotlinKDeclarationContainer, MPMTKotlinKAnnotatedElement, MPMTKotlinKClassifier>
-@required
-- (BOOL)isInstanceValue:(id _Nullable)value __attribute__((swift_name("isInstance(value:)")));
-@property (readonly) NSString * _Nullable qualifiedName __attribute__((swift_name("qualifiedName")));
-@property (readonly) NSString * _Nullable simpleName __attribute__((swift_name("simpleName")));
-@end;
-
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsConsentStateInstanceMessage.Companion")))
 @interface MPMTModelsConsentStateInstanceMessageCompanion : MPMTBase
@@ -1749,22 +1852,22 @@ __attribute__((swift_name("ModelsDataplan.Companion")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("ModelsLocationMessage.Companion")))
-@interface MPMTModelsLocationMessageCompanion : MPMTBase
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-+ (instancetype)companion __attribute__((swift_name("init()")));
-@property (class, readonly, getter=shared) MPMTModelsLocationMessageCompanion *shared __attribute__((swift_name("shared")));
-- (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ModelsStateInfoMessage.Companion")))
 @interface MPMTModelsStateInfoMessageCompanion : MPMTBase
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)companion __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) MPMTModelsStateInfoMessageCompanion *shared __attribute__((swift_name("shared")));
+- (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ModelsLocationMessage.Companion")))
+@interface MPMTModelsLocationMessageCompanion : MPMTBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPMTModelsLocationMessageCompanion *shared __attribute__((swift_name("shared")));
 - (id<MPMTKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
 @end;
 

@@ -225,9 +225,9 @@ __attribute__((swift_name("Location")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("LocationTracking")))
 @interface MPALocationTracking : MPABase
-- (instancetype)initWithProvider:(NSString *)provider minTime:(MPALong * _Nullable)minTime minDistance:(MPALong * _Nullable)minDistance __attribute__((swift_name("init(provider:minTime:minDistance:)"))) __attribute__((objc_designated_initializer));
-@property (readonly) MPALong * _Nullable minDistance __attribute__((swift_name("minDistance")));
-@property (readonly) MPALong * _Nullable minTime __attribute__((swift_name("minTime")));
+- (instancetype)initWithProvider:(NSString *)provider minTime:(int64_t)minTime minDistance:(int64_t)minDistance __attribute__((swift_name("init(provider:minTime:minDistance:)"))) __attribute__((objc_designated_initializer));
+@property (readonly) int64_t minDistance __attribute__((swift_name("minDistance")));
+@property (readonly) int64_t minTime __attribute__((swift_name("minTime")));
 @property (readonly) NSString *provider __attribute__((swift_name("provider")));
 @end;
 
@@ -318,7 +318,6 @@ __attribute__((swift_name("MParticleOptions")))
 @property MPABoolean * _Nullable androidIdDisabled __attribute__((swift_name("androidIdDisabled")));
 @property NSString *apiKey __attribute__((swift_name("apiKey")));
 @property NSString *apiSecret __attribute__((swift_name("apiSecret")));
-@property MPAClientPlatform *clientPlatform __attribute__((swift_name("clientPlatform")));
 @property NSString * _Nullable dataplanId __attribute__((swift_name("dataplanId")));
 @property MPADataplanOptions * _Nullable dataplanOptions __attribute__((swift_name("dataplanOptions")));
 @property MPAInt * _Nullable dataplanVersion __attribute__((swift_name("dataplanVersion")));
@@ -833,12 +832,11 @@ __attribute__((swift_name("TransformersKt")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("UtilsKt")))
-@interface MPAUtilsKt : MPABase
+__attribute__((swift_name("ExtensionsKt")))
+@interface MPAExtensionsKt : MPABase
 + (MPATransformDelegate<id, id> *)nullablePropertyProperty:(id _Nullable (^)(void))property __attribute__((swift_name("nullableProperty(property:)")));
 + (id _Nullable (^)(void))propertyProperty:(id _Nullable (^)(void))property __attribute__((swift_name("property(property:)")));
 + (id<MPATransformer>)to:(id _Nullable (^)(id _Nullable))receiver toFunction:(id _Nullable (^)(id _Nullable))toFunction __attribute__((swift_name("to(_:toFunction:)")));
-+ (MPAKotlinByteArray *)toByteArray:(NSData *)receiver __attribute__((swift_name("toByteArray(_:)")));
 @property (class, readonly) MPAMParticle *mParticle __attribute__((swift_name("mParticle")));
 @end;
 
@@ -853,6 +851,12 @@ __attribute__((swift_name("MParticleKt")))
 @interface MPAMParticleKt : MPABase
 + (MPAMParticleOptions *)MParticleOptionsApiKey:(NSString *)apiKey apiSecret:(NSString *)apiSecret clientPlatform:(MPAClientPlatform *)clientPlatform initializer:(void (^)(MPAMParticleOptions *))initializer __attribute__((swift_name("MParticleOptions(apiKey:apiSecret:clientPlatform:initializer:)")));
 + (id _Nullable (^)(void))fieldd:(id _Nullable (^)(void))receiver __attribute__((swift_name("fieldd(_:)")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("UtilsKt")))
+@interface MPAUtilsKt : MPABase
++ (MPAKotlinByteArray *)toByteArray:(NSData *)receiver __attribute__((swift_name("toByteArray(_:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
