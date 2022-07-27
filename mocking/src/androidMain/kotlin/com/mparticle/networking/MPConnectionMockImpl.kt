@@ -10,7 +10,7 @@ import javax.net.ssl.SSLSocketFactory
 
 
 class MPConnectionMockImpl internal constructor(var url: MPUrl) : MPConnection {
-    var connection: RawConnection = SimpleRawConnection(url.toString(), { outputStream?.getString()})
+    var connection: RawConnection = SimpleRawConnection(url.toString(), { outputStream?.getString()}, { requestProperties.entries.associate { it.key to it.value?.joinToString { item -> item } } })
     private var requestMethod: String = "GET"
     private var doOutput: Boolean? = null
     private var connectTimeout: Int? = null

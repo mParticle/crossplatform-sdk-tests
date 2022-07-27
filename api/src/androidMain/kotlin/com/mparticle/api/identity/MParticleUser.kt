@@ -11,7 +11,7 @@ actual class MParticleUser(val user: MParticleUser) {
     actual fun getUserIdentities(): Map<IdentityType, String> = user.userIdentities.entries.associate { it.key.toIdentityType() to it.value }
     actual fun setUserAttribute(key: String, value: Any): Boolean = user.setUserAttribute(key, value)
     actual fun setUserAttributeList(key: String, value: Any): Boolean = user.setUserAttributeList(key, value)
-    actual fun incrementUserAttribute(key: String, value: Int): Boolean = user.incrementUserAttribute(key, value)
+    actual fun incrementUserAttribute(key: String, value: Number): Boolean = user.incrementUserAttribute(key, value)
     actual fun removeUserAttribute(key: String): Boolean = user.removeUserAttribute(key)
     actual fun setUserTag(tag: String): Boolean = user.setUserTag(tag)
     actual fun getConsentState(): ConsentState = ConsentState(user.consentState)

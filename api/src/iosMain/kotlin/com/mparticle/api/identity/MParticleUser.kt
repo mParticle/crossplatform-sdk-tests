@@ -22,7 +22,7 @@ actual class MParticleUser(val user: MParticleUser) {
     actual fun getUserIdentities(): Map<IdentityType, String> = user.identities.entries.associate { it.key!!.toIdentityType() to it.value.toString() }
     actual fun setUserAttribute(key: String, value: Any): Boolean = user.setUserAttribute(key, value).let { true }
     actual fun setUserAttributeList(key: String, value: Any): Boolean = user.setUserAttributeList(key, value as List<*>).let { true }
-    actual fun incrementUserAttribute(key: String, value: Int): Boolean = user.incrementUserAttribute(key, NSNumber(value)).let { true }
+    actual fun incrementUserAttribute(key: String, value: Number): Boolean = user.incrementUserAttribute(key, value.toNSNumber()).let { true }
     actual fun removeUserAttribute(key: String): Boolean = user.removeUserAttribute(key).let { true }
     actual fun setUserTag(tag: String): Boolean = user.setUserTag(tag).let { true }
     actual fun getConsentState(): ConsentState = ConsentState(user.consentState() ?: MPConsentState())
@@ -30,4 +30,14 @@ actual class MParticleUser(val user: MParticleUser) {
     actual fun isLoggedIn(): Boolean = user.isLoggedIn
     actual fun getFirstSeenTime(): Long = user.firstSeen.timeIntervalSinceReferenceDate.toLong()
     actual fun getLastSeenTime(): Long = user.firstSeen.timeIntervalSinceReferenceDate.toLong()
+
+    fun Number.toNSNumber(): NSNumber {
+        return when (this) {
+            is Int -> NSNumber(this)
+            is Long -> NSNumber(long = this)
+            is Double -> NSNumber(this)
+            is Float -> NSNumber(this)
+            else -> NSNumber(this.toDouble())
+        }
+    }
 }

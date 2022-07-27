@@ -1,6 +1,6 @@
 package com.mparticle.testing
 
-import com.mparticle.api.events.EventType
+import com.mparticle.messages.EventType
 import com.mparticle.api.events.MPEvent
 
 object TestingUtils {

@@ -2,7 +2,7 @@ package com.mparticle
 
 import com.mparticle.api.*
 import com.mparticle.api.MParticleOptions
-import com.mparticle.api.events.EventType
+import com.mparticle.messages.EventType
 import com.mparticle.api.events.MPEvent
 import com.mparticle.testing.mockserver.EndpointType
 import com.mparticle.testing.mockserver.Server

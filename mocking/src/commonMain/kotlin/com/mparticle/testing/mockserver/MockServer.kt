@@ -10,6 +10,7 @@ import com.mparticle.testing.FailureLatch
 import com.mparticle.testing.Mutable
 import kotlin.native.concurrent.ThreadLocal
 import kotlin.random.Random
+import kotlin.test.assertTrue
 
 
 typealias RequestFilter<T> = (Request<T>) -> Boolean
@@ -56,7 +57,7 @@ object Server {
             return this
         }
 
-        fun addResponseLogic(requestFilter: RequestFilter<RequestType>, responseLogic: ResponseLogic<RequestType, ResponseType>): ServerEndpoint<RequestType, ResponseType> {
+        fun addResponseLogic(requestFilter: RequestFilter<RequestType>? = null, responseLogic: ResponseLogic<RequestType, ResponseType>): ServerEndpoint<RequestType, ResponseType> {
             runOnServer {
                 getEndpoint(endpointType).addRequestResponseLogic(requestFilter, responseLogic)
             }
@@ -84,6 +85,18 @@ object Server {
             return Negation(assertion, this)
         }
 
+        fun assertNextRequest(filter: RequestFilter<RequestType>): Assertion<RequestType, ResponseType> {
+            val nextRequestFilter: RequestFilter<RequestType> = {
+                filter(it)
+                    .apply { assertTrue(this) }
+            }
+            return Assertion(nextRequestFilter, endpointType, childAssertion).also {
+                runOnServer {
+                    getEndpoint(endpointType).onRequestFinished(it) { _, _ -> true }
+                }
+            }
+        }
+
         fun assertWillReceive(filter: RequestFilter<RequestType>): Assertion<RequestType, ResponseType> =
             Assertion(filter, endpointType, childAssertion).also {
                 runOnServer {
@@ -103,9 +116,7 @@ object Server {
             private val assertion: RequestFilter<RequestType>?,
             private val endpointType: EndpointType<RequestType, ResponseType>,
             private val childAssertion: Assertion<RequestType, ResponseType>? = null,
-            private val isInverse: Boolean = false,
-            private val stacktrace: AssertionError = AssertionError()
-        ) : RequestFilter<RequestType> {
+            private val isInverse: Boolean = false) : RequestFilter<RequestType> {
             private val finished = IsolateState { Mutable(false) }
             private val latch by lazy { FailureLatch() }
 
@@ -125,17 +136,24 @@ object Server {
 
             override fun invoke(p1: Request<RequestType>): Boolean =
                 com.mparticle.testing.Platforms().runInForeground {
-                    when (assertion?.invoke(p1)) {
-                        true -> {
-                            latch.countDown()
-                            Logger.error("Isolate finished = true")
-                                .let { finished.access { it.value = true } }
-                            if (isInverse) {
-                                throw AssertionError("Received Request when matching one wasn't expected: $p1")
+                    try {
+                        when (assertion?.invoke(p1)) {
+                            true -> {
+                                latch.countDown()
+                                Logger.error("Isolate finished = true")
+                                    .let { finished.access { it.value = true } }
+                                if (isInverse) {
+                                    throw AssertionError("Received Request when matching one wasn't expected: $p1")
+                                }
+                                true
                             }
-                            true
+                            else -> false
                         }
-                        else -> false
+                    } catch (throwable: Throwable) {
+                        Logger.error("Assertion logic threw an Exception!")
+                        Logger.error(throwable.message?: "no message")
+                        Logger.error(throwable.stackTraceToString())
+                        false
                     }
                 }
 
@@ -150,11 +168,13 @@ object Server {
                                 if (!it.isInverse) {
                                     try {
                                         it.latch.await()
+                                        Logger.error("Latched released")
                                     } catch (e: Throwable) {
-                                        throw it.stacktrace
+                                        throw AssertionError(e)
                                     }
                                 }
                             }
+                            Logger.error("All latches released")
                             assertions.forEach { it.assertFinished() }
                         }
                     }
@@ -298,8 +318,6 @@ class MockServer {
         getEndpoint(EndpointType.Config).addRequestResponseLogic(null) {
             SuccessResponse(ConfigResponseMessage(
                 id = "1234578",
-                debug = false,
-                sessionTimeout = 1000,
                 type = "ac"
             ), 200,
             headers = mapOf(
@@ -393,7 +411,7 @@ interface IOnRequestCallback<T, R> {
 
 class Request<T>(
     val url: String,
-    val headers: Map<String, List<String?>?>?,
+    val headers: Map<String, String?>?,
     val body: T
 ) {
     constructor(body: T, connection: RawConnection) : this(connection.getUrl(), connection.getHeaderFields(), body)

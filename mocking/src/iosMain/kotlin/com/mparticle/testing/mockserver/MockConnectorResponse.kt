@@ -3,23 +3,28 @@ package com.mparticle.testing.mockserver
 import cocoapods.mParticle_Apple_SDK.MPConnectorResponseProtocolProtocol
 import com.mparticle.api.toByteArray
 import com.mparticle.api.toNSData
+import com.mparticle.messages.DTO
 import com.mparticle.testing.mockserver.model.RawConnection
+import com.mparticle.testing.mockserver.model.SimpleRawConnection
 import platform.Foundation.*
 import platform.darwin.NSObject
 
 class MockConnectorResponse(private val onRequestMade: OnRequestMade, private val url: NSURL, private val message: String? = null, serializedParams: NSData? = null): NSObject(),
     MPConnectorResponseProtocolProtocol {
 
-    var rawConnection: RawConnection = ThreadsafeRawConnection(url.absoluteString!!, message ?: serializedParams?.toByteArray()?.decodeToString()) //serializedParams?.toByteArray().decodeToString()
+    /**
+     * iOS does not pass the requests headers into the responseFromPostRequestToURL method, so we are unable to use the im crossplatform testing :(
+     */
+    var rawConnection: RawConnection = SimpleRawConnection(url.absoluteString!!, message ?: serializedParams?.toByteArray()?.decodeToString(), mapOf())
     private var requestMade = false
 
-     private fun makeRequest() {
-         if (!requestMade) {
-             requestMade = true
-                 rawConnection = onRequestMade(rawConnection)
+    private fun makeRequest() {
+        if (!requestMade) {
+            requestMade = true
+            rawConnection = onRequestMade(rawConnection)
 
-         }
-     }
+        }
+    }
 
     override fun data(): NSData? {
         makeRequest()

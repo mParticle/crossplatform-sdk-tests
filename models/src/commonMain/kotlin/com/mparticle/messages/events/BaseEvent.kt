@@ -17,8 +17,8 @@ abstract class BaseEvent(
     @SerialName("sct") var sessionStartTimestamp: Long? = null,
     @SerialName("lc") var location: LocationMessage? = null,
     @SerialName("dct") var dataConnection: String? = null,
-    @SerialName("attrs") var attributes: JsonObject? = null,
-    @SerialName("flags") var eventFlags: JsonObject? = null
+    @SerialName("attrs") var attributes: Map<String, String?>? = null,
+    @SerialName("flags") var eventFlags: Map<String, List<String>?>? = null
 ): DTO() {
     abstract val messageType: String
 }

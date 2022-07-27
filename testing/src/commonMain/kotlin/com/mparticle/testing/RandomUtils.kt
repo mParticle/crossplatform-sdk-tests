@@ -1,6 +1,6 @@
 package com.mparticle.testing
 
-import com.mparticle.api.events.EventType
+import com.mparticle.messages.EventType
 import com.mparticle.api.identity.IdentityType
 import kotlin.jvm.JvmOverloads
 import kotlin.random.Random
@@ -29,7 +29,7 @@ object RandomUtils {
     }
 
     @JvmOverloads
-    fun getRandomUserIdentities(count: Int = randomInt(1, IdentityType.values().size)): Map<IdentityType, String>? {
+    fun getRandomUserIdentities(count: Int = randomInt(1, IdentityType.values().size)): Map<IdentityType, String> {
         val randomIdentities: MutableMap<IdentityType, String> = HashMap()
         val identityIndices = randomIntSet(0, IdentityType.values().size, count)
         for (identityIndex in identityIndices) {
@@ -39,7 +39,7 @@ object RandomUtils {
         return randomIdentities
     }
 
-    fun getRandomCustomFlags(count: Int): Map<String?, List<String?>>? {
+    fun getRandomCustomFlags(count: Int): Map<String?, List<String?>> {
         val customFlags: MutableMap<String?, List<String?>> = HashMap()
         for ((key, value) in getRandomAttributes(count)) {
             val flags: MutableList<String?> = ArrayList()

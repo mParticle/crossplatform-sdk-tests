@@ -7,9 +7,8 @@ import java.util.concurrent.TimeUnit
  * important to run fail() calls on the testing thread. JUnit doesn't always pick up on test failures
  * from background threads, which request might be coming in on, so you could end up with false positives
  */
-actual class FailureLatch actual constructor(val description: String) : CountDownLatch(1) {
+actual class FailureLatch actual constructor(val description: String, var count: Int) : CountDownLatch(count) {
     var timedOut: Boolean = false
-    var count: Int = 1
 
     @Volatile private var finished = false
 
@@ -41,7 +40,7 @@ actual class FailureLatch actual constructor(val description: String) : CountDow
         if (!finished) {
             RuntimeException("$description timed out. More than ${timeout}ms have elapsed", awaitStackTrace).let {
 //                Handler(Looper.getMainLooper()).post { throw it }
-                throw it
+                Platforms().runInForeground { throw it }
             }
 
         }

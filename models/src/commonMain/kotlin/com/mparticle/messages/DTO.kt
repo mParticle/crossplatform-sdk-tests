@@ -10,6 +10,7 @@ import com.mparticle.messages.events.PushRegistrationMessage
 import com.mparticle.messages.events.ScreenViewMessage
 import com.mparticle.messages.events.SessionEndMessage
 import com.mparticle.messages.events.SessionStartMessage
+import com.mparticle.messages.events.UserAttributeChangeMessage
 import com.mparticle.messages.events.UserIdentityChangeMessage
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
@@ -31,6 +32,7 @@ abstract class DTO {
                 polymorphic(BaseEvent::class, SessionStartMessage::class, SessionStartMessage.serializer())
                 polymorphic(BaseEvent::class, FirstRunMessage::class, FirstRunMessage.serializer())
                 polymorphic(BaseEvent::class, UserIdentityChangeMessage::class, UserIdentityChangeMessage.serializer())
+                polymorphic(BaseEvent::class, UserAttributeChangeMessage::class, UserAttributeChangeMessage.serializer())
                 polymorphic(BaseEvent::class, ScreenViewMessage::class, ScreenViewMessage.serializer())
                 polymorphic(BaseEvent::class, PushRegistrationMessage::class, PushRegistrationMessage.serializer())
             }

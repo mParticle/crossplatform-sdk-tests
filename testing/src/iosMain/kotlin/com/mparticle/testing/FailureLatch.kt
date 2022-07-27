@@ -1,6 +1,7 @@
 package com.mparticle.testing
 
 import co.touchlab.stately.freeze
+import co.touchlab.stately.isolate.IsolateState
 import com.mparticle.api.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -17,7 +18,9 @@ import kotlin.random.Random
 var awaiterInstance: Awaiter? = null
     get() = field.freeze()
 
-actual class FailureLatch actual constructor(val description: String) {
+actual class FailureLatch actual constructor(val description: String, count: Int)  {
+
+    val remainingCount = IsolateState { Mutable(count) }
     val platforms = Platforms()
 
     val id = Random.nextInt() % 1000
@@ -28,14 +31,22 @@ actual class FailureLatch actual constructor(val description: String) {
 
 
     actual fun countDown() {
-        if (NSThread.currentThread.isMainThread) {
-            awaiterInstance!!.countdown(description)
-        } else {
-            runBlocking(Dispatchers.Main) {
-                awaiterInstance!!.countdown(description)
-            }
+        val countedDown = remainingCount.access {
+            it.value = it.value - 1
+            it.value == 0
         }
-        Logger.info("countdown: $description($id)")
+        if (countedDown) {
+            if (NSThread.currentThread.isMainThread) {
+                awaiterInstance!!.countdown(description)
+            } else {
+                runBlocking(Dispatchers.Main) {
+                    awaiterInstance!!.countdown(description)
+                }
+            }
+            Logger.info("countdown: $description($id)")
+        } else {
+            Logger.info("countdown(${remainingCount.access { it.value } } remaining)WAq 1w2qaz: $description($id)")
+        }
     }
 
     actual fun await() {

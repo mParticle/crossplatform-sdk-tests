@@ -37,7 +37,7 @@ class EndpointType<T, R> private constructor(val name: String,
                 return Empty() as T
             }
 
-            Logger.info("Decoding request: $json")
+            Logger.info("Decoding request: \n\turl: ${connection.getUrl()}\n\theaders: ${connection.getHeaderFields()}\n\tbody: ${connection.getRequestBody()}")
             json.split("{")
                 .flatMap { "{$it".split("}").map { "$it}"} }
                 .fold(StringBuilder()) { builder, item -> builder.append("\n$item")}

@@ -11,11 +11,12 @@ plugins {
 
 kotlin {
     android {
-        publishLibraryVariants("debug")
+        publishLibraryVariants("release")
     }
     val xcFramework = XCFramework()
     ios {
         binaries.framework(listOf(NativeBuildType.RELEASE)) {
+            baseName = "MP_Tests"
             xcFramework.add(this)
         }
     }

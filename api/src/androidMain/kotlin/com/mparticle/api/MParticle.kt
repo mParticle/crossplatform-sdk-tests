@@ -9,6 +9,8 @@ import com.mparticle.api.identity.IdentityApi
 import com.mparticle.api.identity.IdentityApiRequest
 import com.mparticle.api.identity.IdentityResponse
 import com.mparticle.api.identity.toBaseIdentityTask
+import com.mparticle.apiKey
+import com.mparticle.apiSecret
 import com.mparticle.internal.PushRegistrationHelper
 import java.lang.RuntimeException
 import java.math.BigDecimal
@@ -16,6 +18,7 @@ import com.mparticle.MParticle as MParticleAndroid
 import com.mparticle.MParticleOptions as MParticleOptionsAndroid
 import com.mparticle.MParticle.Environment as AndroidEnvironment
 import com.mparticle.MParticle.LogLevel as AndroidLogLevel
+import com.mparticle.logLevel
 
 actual class MParticle(val mparticle: MParticleAndroid) {
 
@@ -175,30 +178,25 @@ actual class MParticle(val mparticle: MParticleAndroid) {
     }
 }
 
-actual class MParticleOptions(actual var apiKey: String, actual var apiSecret: String, val builder: MParticleOptionsAndroid.Builder) {
+actual class MParticleOptions(val builder: MParticleOptionsAndroid.Builder, noDefaultKeySecret: Boolean = false) {
+    private val NoKey = "no key!"
+    private val NoSecret = "no secret!"
 
     actual constructor(apiKey: String, apiSecret: String, clientPlatform: ClientPlatform): this(
-        apiKey,
-        apiSecret,
         MParticleOptionsAndroid
             .builder(clientPlatform.context)
             .credentials(apiKey, apiSecret)
     )
 
-    constructor(builder: com.mparticle.MParticleOptions.Builder):
-        this(
-            "key",
-            "secret",
-            builder
-        )
-
+    actual var apiKey: String by GenericDelegate(builder.apiKey() ?: NoKey) { builder.credentials(it, apiSecret)}
+    actual var apiSecret: String by GenericDelegate(builder.apiSecret() ?: NoSecret) { builder.credentials(apiKey, it)}
     actual var pushRegistrationInstanceId: String? by GenericDelegate(null) { pushRegistrationSenderId?.let { senderId -> it?.let { builder.pushRegistration(it, senderId) }}}
     actual var pushRegistrationSenderId: String? by GenericDelegate(null) { pushRegistrationInstanceId?.let { instanceId -> it?.let { builder.pushRegistration(instanceId, it) }}}
     actual var dataplanId: String? by GenericDelegate(null) { builder.dataplan(it, dataplanVersion)}
     actual var dataplanVersion: Int? by GenericDelegate(null) { builder.dataplan(dataplanId, it) }
 
     actual var installType: InstallType? by GenericDelegate(null) { it?.toInstallType()?.let { builder.installType(it) }}
-    actual var identifyRequest: IdentityApiRequest? by GenericDelegate(null) { it?.build()?.let { builder.identify(it) } }
+    actual var identifyRequest: IdentityApiRequest? by GenericDelegate(null) { it?.request?.build()?.let { builder.identify(it) } }
 
     actual var identifyTask: IdentityResponse? by GenericDelegate(null) { it?.toBaseIdentityTask()?.let { builder.identifyTask(it)}}
     actual var enableUncaughtExceptionLogging: Boolean? by GenericDelegate(null) { it?.let { builder.enableUncaughtExceptionLogging(it)}}
@@ -211,9 +209,18 @@ actual class MParticleOptions(actual var apiKey: String, actual var apiSecret: S
     actual var networkOptions: NetworkOptions? by GenericDelegate(null) { throw RuntimeException("We don't map NetworkOptions yet..TODO")}
     actual var dataplanOptions: DataplanOptions? by GenericDelegate(null) { it?.dataplanOptions?.build()?.let { builder.dataplanOptions(it)}}
     actual var environment: Environment? by GenericDelegate(null) { it?.android?.let { builder.environment(it)}}
-    actual var logLevel: LogLevel? by GenericDelegate(null) { it?.android?.let { builder.logLevel(it)}}
+    actual var logLevel: LogLevel? by GenericDelegate(builder.logLevel()?.let { LogLevel.getLogLevel(it) }) { it?.android?.let { builder.logLevel(it)} }
 
     init {
+        //set default credentials unless flag is set
+        if (!noDefaultKeySecret) {
+            if (apiKey == NoKey) {
+                apiKey = "key"
+            }
+            if (apiSecret == NoSecret) {
+                apiSecret = "secret"
+            }
+        }
         com.mparticle.internal.Logger.setLogHandler(object: com.mparticle.internal.Logger.AbstractLogHandler() {
             override fun verbose(error: Throwable?, message: String?) {
                 Logger.info("$message, error: ${error?.stackTraceToString()}")
@@ -240,7 +247,9 @@ actual class MParticleOptions(actual var apiKey: String, actual var apiSecret: S
             }
 
         })
-        logLevel = LogLevel.Debug
+        if (logLevel == null) {
+            logLevel = LogLevel.Debug
+        }
     }
 }
 
@@ -291,7 +300,13 @@ actual class DataplanOptions(val dataplanOptions: com.mparticle.MParticleOptions
 actual enum class Environment(val android: AndroidEnvironment) {
     AutoDetect(AndroidEnvironment.AutoDetect),
     Development(AndroidEnvironment.Development),
-    Production(AndroidEnvironment.Production)
+    Production(AndroidEnvironment.Production);
+
+    companion object {
+        fun getEnvironment(android: AndroidEnvironment): Environment {
+            return values().firstOrNull { it.android == android }!!
+        }
+    }
 }
 
 actual enum class LogLevel(val android: AndroidLogLevel) {
@@ -299,5 +314,11 @@ actual enum class LogLevel(val android: AndroidLogLevel) {
     Error(AndroidLogLevel.ERROR),
     Warning(AndroidLogLevel.WARNING),
     Debug(AndroidLogLevel.DEBUG),
-    Verbose(AndroidLogLevel.VERBOSE)
+    Verbose(AndroidLogLevel.VERBOSE);
+
+    companion object {
+        fun getLogLevel(android: AndroidLogLevel): LogLevel {
+            return values().firstOrNull { it.android == android }!!
+        }
+    }
 }
