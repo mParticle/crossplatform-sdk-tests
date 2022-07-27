@@ -6,7 +6,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class MPMDTOCompanion, MPMDTO, MPMAliasDataMessageCompanion, MPMAliasDataMessage, MPMAliasRequestMessageCompanion, MPMAttributeValueFilterCompanion, MPMBracketMessageCompanion, MPMClientSdkMessageCompanion, MPMKotlinx_serialization_jsonJsonElement, MPMTriggerItemsMessage, MPMKitConfigMessage, MPMConfigResponseMessageCompanion, MPMConfigResponseMessage, MPMRules, MPMConsentForwardingRuleMessageCompanion, MPMKotlinx_serialization_jsonJson, MPMEmptyCompanion, MPMErrorCompanion, MPMError, MPMKotlinEnumCompanion, MPMKotlinEnum<E>, MPMEventTypeCompanion, MPMEventType, MPMKotlinArray<T>, MPMFilterMessageCompanion, MPMIdentityChangeCompanion, MPMClientSdkMessage, MPMIdentityChange, MPMIdentityRequestMessageCompanion, MPMIdentityResponseMessageCompanion, MPMIdentityResponseMessage, MPMAttributeValueFilter, MPMFilterMessage, MPMBracketMessage, MPMConsentForwardingRuleMessage, MPMKitConfigMessageCompanion, MPMRulesCompanion, MPMTriggerItemsMessageCompanion, MPMUserIdentitiesCompanion, MPMAppInfoMessageCompanion, MPMStateInfoMessage, MPMLocationMessage, MPMBaseEventCompanion, MPMBaseEvent, MPMAppStateTransitionEventCompanion, MPMConsentStateMessage, MPMDataplanContextMessage, MPMReportingMessageMessage, MPMAppInfoMessage, MPMDeviceInfoMessage, MPMUserIdentities, MPMBatchMessageCompanion, MPMProductActionObject, MPMPromotionActionObject, MPMImpressionMessage, MPMCommerceEventMessageCompanion, MPMConsentStateInstanceMessageCompanion, MPMConsentStateInstanceMessage, MPMConsentStateMessageCompanion, MPMDataplanCompanion, MPMDataplan, MPMDataplanContextMessageCompanion, MPMDeviceRootedObject, MPMDeviceInfoMessageCompanion, MPMDeviceRootedObjectCompanion, MPMFirstRunMessageCompanion, MPMProductMessage, MPMImpressionMessageCompanion, MPMLocationMessageCompanion, MPMMPEventMessageCompanion, MPMNewIdentityCompanion, MPMOldIdentityCompanion, MPMProductActionObjectCompanion, MPMProductMessageCompanion, MPMProjectionReportMessageCompanion, MPMPromotionMessage, MPMPromotionActionObjectCompanion, MPMPromotionMessageCompanion, MPMPushRegistrationMessageCompanion, MPMProjectionReportMessage, MPMReportingMessageMessageCompanion, MPMScreenViewMessageCompanion, MPMSessionEndMessageCompanion, MPMSessionStartMessageCompanion, MPMStateInfoMessageCompanion, MPMNewIdentity, MPMOldIdentity, MPMUserIdentityChangeMessageCompanion, MPMIdentityResponseMessageBuilder, MPMKotlinx_serialization_jsonJsonElementCompanion, MPMKotlinx_serialization_coreSerializersModule, MPMKotlinx_serialization_jsonJsonDefault, MPMKotlinx_serialization_jsonJsonConfiguration, MPMKotlinx_serialization_coreSerialKind, MPMKotlinNothing;
+@class MPMDTOCompanion, MPMDTO, MPMAliasDataMessageCompanion, MPMAliasDataMessage, MPMAliasRequestMessageCompanion, MPMAttributeValueFilterCompanion, MPMBracketMessageCompanion, MPMClientSdkMessageCompanion, MPMKotlinx_serialization_jsonJsonElement, MPMTriggerItemsMessage, MPMKitConfigMessage, MPMConfigResponseMessageCompanion, MPMConfigResponseMessage, MPMRules, MPMConsentForwardingRuleMessageCompanion, MPMKotlinx_serialization_jsonJson, MPMEmptyCompanion, MPMErrorCompanion, MPMError, MPMKotlinEnumCompanion, MPMKotlinEnum<E>, MPMEventTypeCompanion, MPMEventType, MPMKotlinArray<T>, MPMFilterMessageCompanion, MPMIdentityChangeCompanion, MPMClientSdkMessage, MPMIdentityChange, MPMIdentityRequestMessageCompanion, MPMIdentityResponseMessageCompanion, MPMIdentityResponseMessage, MPMFilterMessage, MPMBracketMessage, MPMConsentForwardingRuleMessage, MPMKitConfigMessageCompanion, MPMRulesCompanion, MPMTriggerItemsMessageCompanion, MPMUserIdentitiesCompanion, MPMAppInfoMessageCompanion, MPMStateInfoMessage, MPMLocationMessage, MPMBaseEventCompanion, MPMBaseEvent, MPMAppStateTransitionEventCompanion, MPMConsentStateMessage, MPMDataplanContextMessage, MPMReportingMessageMessage, MPMAppInfoMessage, MPMDeviceInfoMessage, MPMUserIdentities, MPMBatchMessageCompanion, MPMProductActionObject, MPMPromotionActionObject, MPMImpressionMessage, MPMCommerceEventMessageCompanion, MPMConsentStateInstanceMessageCompanion, MPMConsentStateInstanceMessage, MPMConsentStateMessageCompanion, MPMDataplanCompanion, MPMDataplan, MPMDataplanContextMessageCompanion, MPMDeviceRootedObject, MPMDeviceInfoMessageCompanion, MPMDeviceRootedObjectCompanion, MPMFirstRunMessageCompanion, MPMProductMessage, MPMImpressionMessageCompanion, MPMLocationMessageCompanion, MPMMPEventMessageCompanion, MPMNewIdentityCompanion, MPMOldIdentityCompanion, MPMProductActionObjectCompanion, MPMProductMessageCompanion, MPMProjectionReportMessageCompanion, MPMPromotionMessage, MPMPromotionActionObjectCompanion, MPMPromotionMessageCompanion, MPMPushRegistrationMessageCompanion, MPMProjectionReportMessage, MPMReportingMessageMessageCompanion, MPMScreenViewMessageCompanion, MPMSessionEndMessageCompanion, MPMSessionStartMessageCompanion, MPMStateInfoMessageCompanion, MPMUserAttributeChangeMessageCompanion, MPMNewIdentity, MPMOldIdentity, MPMUserIdentityChangeMessageCompanion, MPMIdentityResponseMessageBuilder, MPMKotlinx_serialization_jsonJsonElementCompanion, MPMKotlinx_serialization_coreSerializersModule, MPMKotlinx_serialization_jsonJsonDefault, MPMKotlinx_serialization_jsonJsonConfiguration, MPMKotlinx_serialization_coreSerialKind, MPMKotlinNothing;
 
 @protocol MPMKotlinx_serialization_coreKSerializer, MPMKotlinComparable, MPMKotlinx_serialization_coreEncoder, MPMKotlinx_serialization_coreSerialDescriptor, MPMKotlinx_serialization_coreSerializationStrategy, MPMKotlinx_serialization_coreDecoder, MPMKotlinx_serialization_coreDeserializationStrategy, MPMKotlinx_serialization_coreSerialFormat, MPMKotlinx_serialization_coreStringFormat, MPMKotlinIterator, MPMKotlinx_serialization_coreCompositeEncoder, MPMKotlinAnnotation, MPMKotlinx_serialization_coreCompositeDecoder, MPMKotlinx_serialization_coreSerializersModuleCollector, MPMKotlinKClass, MPMKotlinKDeclarationContainer, MPMKotlinKAnnotatedElement, MPMKotlinKClassifier;
 
@@ -206,9 +206,9 @@ __attribute__((swift_name("AttributeValueFilter")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMAttributeValueFilterCompanion *companion __attribute__((swift_name("companion")));
-@property (readonly) MPMInt * _Nullable attribute __attribute__((swift_name("attribute")));
-@property (readonly) MPMBoolean * _Nullable shouldIncludeMatches __attribute__((swift_name("shouldIncludeMatches")));
-@property (readonly) NSString * _Nullable value __attribute__((swift_name("value")));
+@property MPMInt * _Nullable attribute __attribute__((swift_name("attribute")));
+@property MPMBoolean * _Nullable shouldIncludeMatches __attribute__((swift_name("shouldIncludeMatches")));
+@property NSString * _Nullable value __attribute__((swift_name("value")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -228,8 +228,8 @@ __attribute__((swift_name("BracketMessage")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMBracketMessageCompanion *companion __attribute__((swift_name("companion")));
-@property (readonly) MPMInt * _Nullable highBracket __attribute__((swift_name("highBracket")));
-@property (readonly) MPMInt * _Nullable lowBracket __attribute__((swift_name("lowBracket")));
+@property MPMInt * _Nullable highBracket __attribute__((swift_name("highBracket")));
+@property MPMInt * _Nullable lowBracket __attribute__((swift_name("lowBracket")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -267,7 +267,7 @@ __attribute__((swift_name("ClientSdkMessage.Companion")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ConfigResponseMessage")))
 @interface MPMConfigResponseMessage : MPMDTO
-- (instancetype)initWithType:(NSString * _Nullable)type id:(NSString * _Nullable)id debug:(MPMBoolean * _Nullable)debug timeStamp:(MPMLong * _Nullable)timeStamp logUnhandledExceptions:(NSString * _Nullable)logUnhandledExceptions pushMessages:(NSArray<id> * _Nullable)pushMessages ramp:(MPMInt * _Nullable)ramp optOut:(MPMBoolean * _Nullable)optOut providerPersistence:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence sessionTimeout:(MPMLong * _Nullable)sessionTimeout uploadInterval:(MPMLong * _Nullable)uploadInterval triggerItems:(MPMTriggerItemsMessage * _Nullable)triggerItems influenceOpenMessage:(MPMLong * _Nullable)influenceOpenMessage aaidLat:(MPMBoolean * _Nullable)aaidLat devicePerformanceMetricsDisabled:(MPMBoolean * _Nullable)devicePerformanceMetricsDisabled workspaceToken:(NSString * _Nullable)workspaceToken aliasMaxWindow:(MPMInt * _Nullable)aliasMaxWindow kits:(NSArray<MPMKitConfigMessage *> * _Nullable)kits includeSessionHistory:(MPMBoolean * _Nullable)includeSessionHistory __attribute__((swift_name("init(type:id:debug:timeStamp:logUnhandledExceptions:pushMessages:ramp:optOut:providerPersistence:sessionTimeout:uploadInterval:triggerItems:influenceOpenMessage:aaidLat:devicePerformanceMetricsDisabled:workspaceToken:aliasMaxWindow:kits:includeSessionHistory:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithType:(NSString * _Nullable)type id:(NSString * _Nullable)id debug:(MPMBoolean * _Nullable)debug timeStamp:(MPMLong * _Nullable)timeStamp logUnhandledExceptions:(NSString * _Nullable)logUnhandledExceptions pushMessages:(NSArray<id> * _Nullable)pushMessages ramp:(MPMInt * _Nullable)ramp optOut:(MPMBoolean * _Nullable)optOut providerPersistence:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence sessionTimeout:(MPMLong * _Nullable)sessionTimeout uploadInterval:(MPMLong * _Nullable)uploadInterval triggerItems:(MPMTriggerItemsMessage * _Nullable)triggerItems influenceOpenMessage:(MPMLong * _Nullable)influenceOpenMessage aaidLat:(MPMBoolean * _Nullable)aaidLat devicePerformanceMetricsDisabled:(MPMBoolean * _Nullable)devicePerformanceMetricsDisabled workspaceToken:(NSString * _Nullable)workspaceToken aliasMaxWindow:(MPMInt * _Nullable)aliasMaxWindow kits:(NSArray<MPMKitConfigMessage *> * _Nullable)kits includeSessionHistory:(MPMBoolean * _Nullable)includeSessionHistory soc:(MPMLong * _Nullable)soc __attribute__((swift_name("init(type:id:debug:timeStamp:logUnhandledExceptions:pushMessages:ramp:optOut:providerPersistence:sessionTimeout:uploadInterval:triggerItems:influenceOpenMessage:aaidLat:devicePerformanceMetricsDisabled:workspaceToken:aliasMaxWindow:kits:includeSessionHistory:soc:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMConfigResponseMessageCompanion *companion __attribute__((swift_name("companion")));
@@ -283,6 +283,7 @@ __attribute__((swift_name("ConfigResponseMessage")))
 - (NSArray<MPMKitConfigMessage *> * _Nullable)component18 __attribute__((swift_name("component18()")));
 - (MPMBoolean * _Nullable)component19 __attribute__((swift_name("component19()")));
 - (NSString * _Nullable)component2 __attribute__((swift_name("component2()")));
+- (MPMLong * _Nullable)component20 __attribute__((swift_name("component20()")));
 - (MPMBoolean * _Nullable)component3 __attribute__((swift_name("component3()")));
 - (MPMLong * _Nullable)component4 __attribute__((swift_name("component4()")));
 - (NSString * _Nullable)component5 __attribute__((swift_name("component5()")));
@@ -290,29 +291,30 @@ __attribute__((swift_name("ConfigResponseMessage")))
 - (MPMInt * _Nullable)component7 __attribute__((swift_name("component7()")));
 - (MPMBoolean * _Nullable)component8 __attribute__((swift_name("component8()")));
 - (NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)component9 __attribute__((swift_name("component9()")));
-- (MPMConfigResponseMessage *)doCopyType:(NSString * _Nullable)type id:(NSString * _Nullable)id debug:(MPMBoolean * _Nullable)debug timeStamp:(MPMLong * _Nullable)timeStamp logUnhandledExceptions:(NSString * _Nullable)logUnhandledExceptions pushMessages:(NSArray<id> * _Nullable)pushMessages ramp:(MPMInt * _Nullable)ramp optOut:(MPMBoolean * _Nullable)optOut providerPersistence:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence sessionTimeout:(MPMLong * _Nullable)sessionTimeout uploadInterval:(MPMLong * _Nullable)uploadInterval triggerItems:(MPMTriggerItemsMessage * _Nullable)triggerItems influenceOpenMessage:(MPMLong * _Nullable)influenceOpenMessage aaidLat:(MPMBoolean * _Nullable)aaidLat devicePerformanceMetricsDisabled:(MPMBoolean * _Nullable)devicePerformanceMetricsDisabled workspaceToken:(NSString * _Nullable)workspaceToken aliasMaxWindow:(MPMInt * _Nullable)aliasMaxWindow kits:(NSArray<MPMKitConfigMessage *> * _Nullable)kits includeSessionHistory:(MPMBoolean * _Nullable)includeSessionHistory __attribute__((swift_name("doCopy(type:id:debug:timeStamp:logUnhandledExceptions:pushMessages:ramp:optOut:providerPersistence:sessionTimeout:uploadInterval:triggerItems:influenceOpenMessage:aaidLat:devicePerformanceMetricsDisabled:workspaceToken:aliasMaxWindow:kits:includeSessionHistory:)")));
+- (MPMConfigResponseMessage *)doCopyType:(NSString * _Nullable)type id:(NSString * _Nullable)id debug:(MPMBoolean * _Nullable)debug timeStamp:(MPMLong * _Nullable)timeStamp logUnhandledExceptions:(NSString * _Nullable)logUnhandledExceptions pushMessages:(NSArray<id> * _Nullable)pushMessages ramp:(MPMInt * _Nullable)ramp optOut:(MPMBoolean * _Nullable)optOut providerPersistence:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)providerPersistence sessionTimeout:(MPMLong * _Nullable)sessionTimeout uploadInterval:(MPMLong * _Nullable)uploadInterval triggerItems:(MPMTriggerItemsMessage * _Nullable)triggerItems influenceOpenMessage:(MPMLong * _Nullable)influenceOpenMessage aaidLat:(MPMBoolean * _Nullable)aaidLat devicePerformanceMetricsDisabled:(MPMBoolean * _Nullable)devicePerformanceMetricsDisabled workspaceToken:(NSString * _Nullable)workspaceToken aliasMaxWindow:(MPMInt * _Nullable)aliasMaxWindow kits:(NSArray<MPMKitConfigMessage *> * _Nullable)kits includeSessionHistory:(MPMBoolean * _Nullable)includeSessionHistory soc:(MPMLong * _Nullable)soc __attribute__((swift_name("doCopy(type:id:debug:timeStamp:logUnhandledExceptions:pushMessages:ramp:optOut:providerPersistence:sessionTimeout:uploadInterval:triggerItems:influenceOpenMessage:aaidLat:devicePerformanceMetricsDisabled:workspaceToken:aliasMaxWindow:kits:includeSessionHistory:soc:)")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) MPMBoolean * _Nullable aaidLat __attribute__((swift_name("aaidLat")));
-@property (readonly) MPMInt * _Nullable aliasMaxWindow __attribute__((swift_name("aliasMaxWindow")));
-@property (readonly) MPMBoolean * _Nullable debug __attribute__((swift_name("debug")));
-@property (readonly) MPMBoolean * _Nullable devicePerformanceMetricsDisabled __attribute__((swift_name("devicePerformanceMetricsDisabled")));
-@property (readonly) NSString * _Nullable id __attribute__((swift_name("id")));
-@property (readonly) MPMBoolean * _Nullable includeSessionHistory __attribute__((swift_name("includeSessionHistory")));
-@property (readonly) MPMLong * _Nullable influenceOpenMessage __attribute__((swift_name("influenceOpenMessage")));
-@property (readonly) NSArray<MPMKitConfigMessage *> * _Nullable kits __attribute__((swift_name("kits")));
-@property (readonly) NSString * _Nullable logUnhandledExceptions __attribute__((swift_name("logUnhandledExceptions")));
-@property (readonly) MPMBoolean * _Nullable optOut __attribute__((swift_name("optOut")));
-@property (readonly) NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable providerPersistence __attribute__((swift_name("providerPersistence")));
-@property (readonly) NSArray<id> * _Nullable pushMessages __attribute__((swift_name("pushMessages")));
-@property (readonly) MPMInt * _Nullable ramp __attribute__((swift_name("ramp")));
-@property (readonly) MPMLong * _Nullable sessionTimeout __attribute__((swift_name("sessionTimeout")));
-@property (readonly) MPMLong * _Nullable timeStamp __attribute__((swift_name("timeStamp")));
-@property (readonly) MPMTriggerItemsMessage * _Nullable triggerItems __attribute__((swift_name("triggerItems")));
-@property (readonly) NSString * _Nullable type __attribute__((swift_name("type")));
-@property (readonly) MPMLong * _Nullable uploadInterval __attribute__((swift_name("uploadInterval")));
-@property (readonly) NSString * _Nullable workspaceToken __attribute__((swift_name("workspaceToken")));
+@property MPMBoolean * _Nullable aaidLat __attribute__((swift_name("aaidLat")));
+@property MPMInt * _Nullable aliasMaxWindow __attribute__((swift_name("aliasMaxWindow")));
+@property MPMBoolean * _Nullable debug __attribute__((swift_name("debug")));
+@property MPMBoolean * _Nullable devicePerformanceMetricsDisabled __attribute__((swift_name("devicePerformanceMetricsDisabled")));
+@property NSString * _Nullable id __attribute__((swift_name("id")));
+@property MPMBoolean * _Nullable includeSessionHistory __attribute__((swift_name("includeSessionHistory")));
+@property MPMLong * _Nullable influenceOpenMessage __attribute__((swift_name("influenceOpenMessage")));
+@property NSArray<MPMKitConfigMessage *> * _Nullable kits __attribute__((swift_name("kits")));
+@property NSString * _Nullable logUnhandledExceptions __attribute__((swift_name("logUnhandledExceptions")));
+@property MPMBoolean * _Nullable optOut __attribute__((swift_name("optOut")));
+@property NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable providerPersistence __attribute__((swift_name("providerPersistence")));
+@property NSArray<id> * _Nullable pushMessages __attribute__((swift_name("pushMessages")));
+@property MPMInt * _Nullable ramp __attribute__((swift_name("ramp")));
+@property MPMLong * _Nullable sessionTimeout __attribute__((swift_name("sessionTimeout")));
+@property MPMLong * _Nullable soc __attribute__((swift_name("soc")));
+@property MPMLong * _Nullable timeStamp __attribute__((swift_name("timeStamp")));
+@property MPMTriggerItemsMessage * _Nullable triggerItems __attribute__((swift_name("triggerItems")));
+@property NSString * _Nullable type __attribute__((swift_name("type")));
+@property MPMLong * _Nullable uploadInterval __attribute__((swift_name("uploadInterval")));
+@property NSString * _Nullable workspaceToken __attribute__((swift_name("workspaceToken")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -332,8 +334,8 @@ __attribute__((swift_name("ConsentForwardingRuleMessage")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMConsentForwardingRuleMessageCompanion *companion __attribute__((swift_name("companion")));
-@property (readonly) NSArray<MPMRules *> * _Nullable rules __attribute__((swift_name("rules")));
-@property (readonly) MPMBoolean * _Nullable shouldIncludeMatches __attribute__((swift_name("shouldIncludeMatches")));
+@property NSArray<MPMRules *> * _Nullable rules __attribute__((swift_name("rules")));
+@property MPMBoolean * _Nullable shouldIncludeMatches __attribute__((swift_name("shouldIncludeMatches")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -427,6 +429,16 @@ __attribute__((swift_name("EventType")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 - (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMEventTypeCompanion *companion __attribute__((swift_name("companion")));
+@property (class, readonly) MPMEventType *unknown __attribute__((swift_name("unknown")));
+@property (class, readonly) MPMEventType *navigation __attribute__((swift_name("navigation")));
+@property (class, readonly) MPMEventType *location __attribute__((swift_name("location")));
+@property (class, readonly) MPMEventType *search __attribute__((swift_name("search")));
+@property (class, readonly) MPMEventType *transaction __attribute__((swift_name("transaction")));
+@property (class, readonly) MPMEventType *usercontent __attribute__((swift_name("usercontent")));
+@property (class, readonly) MPMEventType *userpreference __attribute__((swift_name("userpreference")));
+@property (class, readonly) MPMEventType *social __attribute__((swift_name("social")));
+@property (class, readonly) MPMEventType *other __attribute__((swift_name("other")));
+@property (class, readonly) MPMEventType *media __attribute__((swift_name("media")));
 + (MPMKotlinArray<MPMEventType *> *)values __attribute__((swift_name("values()")));
 @end;
 
@@ -447,19 +459,19 @@ __attribute__((swift_name("FilterMessage")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMFilterMessageCompanion *companion __attribute__((swift_name("companion")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable commerceAttributeFilter __attribute__((swift_name("commerceAttributeFilter")));
-@property (readonly) NSDictionary<MPMInt *, NSDictionary<MPMInt *, MPMBoolean *> *> * _Nullable commerceEntityAttributeFilters __attribute__((swift_name("commerceEntityAttributeFilters")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable commerceEntityFilter __attribute__((swift_name("commerceEntityFilter")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventAttributeAddUser __attribute__((swift_name("eventAttributeAddUser")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventAttributeFilter __attribute__((swift_name("eventAttributeFilter")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventAttributeRemoveUser __attribute__((swift_name("eventAttributeRemoveUser")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventAttributeSingleItemUser __attribute__((swift_name("eventAttributeSingleItemUser")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventNameFilters __attribute__((swift_name("eventNameFilters")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventTypesFilter __attribute__((swift_name("eventTypesFilter")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable screenAttributeFilters __attribute__((swift_name("screenAttributeFilters")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable screenNameFilters __attribute__((swift_name("screenNameFilters")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable userAttributeFilter __attribute__((swift_name("userAttributeFilter")));
-@property (readonly) NSDictionary<MPMInt *, MPMBoolean *> * _Nullable userIdentityFilter __attribute__((swift_name("userIdentityFilter")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable commerceAttributeFilter __attribute__((swift_name("commerceAttributeFilter")));
+@property NSDictionary<MPMInt *, NSDictionary<MPMInt *, MPMBoolean *> *> * _Nullable commerceEntityAttributeFilters __attribute__((swift_name("commerceEntityAttributeFilters")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable commerceEntityFilter __attribute__((swift_name("commerceEntityFilter")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventAttributeAddUser __attribute__((swift_name("eventAttributeAddUser")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventAttributeFilter __attribute__((swift_name("eventAttributeFilter")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventAttributeRemoveUser __attribute__((swift_name("eventAttributeRemoveUser")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventAttributeSingleItemUser __attribute__((swift_name("eventAttributeSingleItemUser")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventNameFilters __attribute__((swift_name("eventNameFilters")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable eventTypesFilter __attribute__((swift_name("eventTypesFilter")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable screenAttributeFilters __attribute__((swift_name("screenAttributeFilters")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable screenNameFilters __attribute__((swift_name("screenNameFilters")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable userAttributeFilter __attribute__((swift_name("userAttributeFilter")));
+@property NSDictionary<MPMInt *, MPMBoolean *> * _Nullable userIdentityFilter __attribute__((swift_name("userIdentityFilter")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -560,30 +572,30 @@ __attribute__((swift_name("IdentityResponseMessage.Companion")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("KitConfigMessage")))
 @interface MPMKitConfigMessage : MPMDTO
-- (instancetype)initWithId:(int32_t)id a:(MPMAttributeValueFilter * _Nullable)a properties:(NSDictionary<id, id> * _Nullable)properties keyFilters:(MPMFilterMessage * _Nullable)keyFilters bracketing:(MPMBracketMessage * _Nullable)bracketing projections:(NSArray<NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> *> * _Nullable)projections consentForwardingRules:(MPMConsentForwardingRuleMessage * _Nullable)consentForwardingRules excludeAnnonymousUsers:(MPMBoolean * _Nullable)excludeAnnonymousUsers __attribute__((swift_name("init(id:a:properties:keyFilters:bracketing:projections:consentForwardingRules:excludeAnnonymousUsers:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithId:(int32_t)id attributeValueFilters:(NSArray<id> * _Nullable)attributeValueFilters properties:(NSDictionary<id, id> * _Nullable)properties keyFilters:(MPMFilterMessage * _Nullable)keyFilters bracketing:(MPMBracketMessage * _Nullable)bracketing projections:(NSArray<NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> *> * _Nullable)projections consentForwardingRules:(MPMConsentForwardingRuleMessage * _Nullable)consentForwardingRules excludeAnnonymousUsers:(MPMBoolean * _Nullable)excludeAnnonymousUsers __attribute__((swift_name("init(id:attributeValueFilters:properties:keyFilters:bracketing:projections:consentForwardingRules:excludeAnnonymousUsers:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMKitConfigMessageCompanion *companion __attribute__((swift_name("companion")));
 - (int32_t)component1 __attribute__((swift_name("component1()")));
-- (MPMAttributeValueFilter * _Nullable)component2 __attribute__((swift_name("component2()")));
+- (NSArray<id> * _Nullable)component2 __attribute__((swift_name("component2()")));
 - (NSDictionary<id, id> * _Nullable)component3 __attribute__((swift_name("component3()")));
 - (MPMFilterMessage * _Nullable)component4 __attribute__((swift_name("component4()")));
 - (MPMBracketMessage * _Nullable)component5 __attribute__((swift_name("component5()")));
 - (NSArray<NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> *> * _Nullable)component6 __attribute__((swift_name("component6()")));
 - (MPMConsentForwardingRuleMessage * _Nullable)component7 __attribute__((swift_name("component7()")));
 - (MPMBoolean * _Nullable)component8 __attribute__((swift_name("component8()")));
-- (MPMKitConfigMessage *)doCopyId:(int32_t)id a:(MPMAttributeValueFilter * _Nullable)a properties:(NSDictionary<id, id> * _Nullable)properties keyFilters:(MPMFilterMessage * _Nullable)keyFilters bracketing:(MPMBracketMessage * _Nullable)bracketing projections:(NSArray<NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> *> * _Nullable)projections consentForwardingRules:(MPMConsentForwardingRuleMessage * _Nullable)consentForwardingRules excludeAnnonymousUsers:(MPMBoolean * _Nullable)excludeAnnonymousUsers __attribute__((swift_name("doCopy(id:a:properties:keyFilters:bracketing:projections:consentForwardingRules:excludeAnnonymousUsers:)")));
+- (MPMKitConfigMessage *)doCopyId:(int32_t)id attributeValueFilters:(NSArray<id> * _Nullable)attributeValueFilters properties:(NSDictionary<id, id> * _Nullable)properties keyFilters:(MPMFilterMessage * _Nullable)keyFilters bracketing:(MPMBracketMessage * _Nullable)bracketing projections:(NSArray<NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> *> * _Nullable)projections consentForwardingRules:(MPMConsentForwardingRuleMessage * _Nullable)consentForwardingRules excludeAnnonymousUsers:(MPMBoolean * _Nullable)excludeAnnonymousUsers __attribute__((swift_name("doCopy(id:attributeValueFilters:properties:keyFilters:bracketing:projections:consentForwardingRules:excludeAnnonymousUsers:)")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) MPMAttributeValueFilter * _Nullable a __attribute__((swift_name("a")));
-@property (readonly) MPMBracketMessage * _Nullable bracketing __attribute__((swift_name("bracketing")));
-@property (readonly) MPMConsentForwardingRuleMessage * _Nullable consentForwardingRules __attribute__((swift_name("consentForwardingRules")));
-@property (readonly) MPMBoolean * _Nullable excludeAnnonymousUsers __attribute__((swift_name("excludeAnnonymousUsers")));
+@property NSArray<id> * _Nullable attributeValueFilters __attribute__((swift_name("attributeValueFilters")));
+@property MPMBracketMessage * _Nullable bracketing __attribute__((swift_name("bracketing")));
+@property MPMConsentForwardingRuleMessage * _Nullable consentForwardingRules __attribute__((swift_name("consentForwardingRules")));
+@property MPMBoolean * _Nullable excludeAnnonymousUsers __attribute__((swift_name("excludeAnnonymousUsers")));
 @property (readonly) int32_t id __attribute__((swift_name("id")));
-@property (readonly) MPMFilterMessage * _Nullable keyFilters __attribute__((swift_name("keyFilters")));
-@property (readonly) NSArray<NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> *> * _Nullable projections __attribute__((swift_name("projections")));
-@property (readonly) NSDictionary<id, id> * _Nullable properties __attribute__((swift_name("properties")));
+@property MPMFilterMessage * _Nullable keyFilters __attribute__((swift_name("keyFilters")));
+@property NSArray<NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> *> * _Nullable projections __attribute__((swift_name("projections")));
+@property NSDictionary<id, id> * _Nullable properties __attribute__((swift_name("properties")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -603,8 +615,8 @@ __attribute__((swift_name("Rules")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMRulesCompanion *companion __attribute__((swift_name("companion")));
-@property (readonly) BOOL consented __attribute__((swift_name("consented")));
-@property (readonly) int32_t valueHash __attribute__((swift_name("valueHash")));
+@property BOOL consented __attribute__((swift_name("consented")));
+@property int32_t valueHash __attribute__((swift_name("valueHash")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -630,8 +642,8 @@ __attribute__((swift_name("TriggerItemsMessage")))
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
-@property (readonly) NSArray<NSString *> * _Nullable triggerMatches __attribute__((swift_name("triggerMatches")));
-@property (readonly) NSArray<NSString *> * _Nullable triggerMessageHashes __attribute__((swift_name("triggerMessageHashes")));
+@property NSArray<NSString *> * _Nullable triggerMatches __attribute__((swift_name("triggerMatches")));
+@property NSArray<NSString *> * _Nullable triggerMessageHashes __attribute__((swift_name("triggerMessageHashes")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -700,13 +712,13 @@ __attribute__((swift_name("AppInfoMessage.Companion")))
 
 __attribute__((swift_name("BaseEvent")))
 @interface MPMBaseEvent : MPMDTO
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMBaseEventCompanion *companion __attribute__((swift_name("companion")));
-@property NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable attributes __attribute__((swift_name("attributes")));
+@property NSDictionary<NSString *, id> * _Nullable attributes __attribute__((swift_name("attributes")));
 @property NSString * _Nullable dataConnection __attribute__((swift_name("dataConnection")));
-@property NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable eventFlags __attribute__((swift_name("eventFlags")));
+@property NSDictionary<NSString *, id> * _Nullable eventFlags __attribute__((swift_name("eventFlags")));
 @property NSString * _Nullable id __attribute__((swift_name("id")));
 @property MPMLocationMessage * _Nullable location __attribute__((swift_name("location")));
 @property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
@@ -720,7 +732,7 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("AppStateTransitionEvent")))
 @interface MPMAppStateTransitionEvent : MPMBaseEvent
 - (instancetype)initWithStateTransitionType:(NSString * _Nullable)stateTransitionType isFirstRun:(MPMBoolean * _Nullable)isFirstRun isAppUpgrade:(MPMBoolean * _Nullable)isAppUpgrade interruptions:(MPMInt * _Nullable)interruptions __attribute__((swift_name("init(stateTransitionType:isFirstRun:isAppUpgrade:interruptions:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMAppStateTransitionEventCompanion *companion __attribute__((swift_name("companion")));
 @property MPMInt * _Nullable interruptions __attribute__((swift_name("interruptions")));
 @property MPMBoolean * _Nullable isAppUpgrade __attribute__((swift_name("isAppUpgrade")));
@@ -797,7 +809,7 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("CommerceEventMessage")))
 @interface MPMCommerceEventMessage : MPMBaseEvent
 - (instancetype)initWithProductActionObject:(MPMProductActionObject * _Nullable)productActionObject commerceScreenName:(NSString * _Nullable)commerceScreenName commerceNonInteraction:(MPMBoolean * _Nullable)commerceNonInteraction commerceCurrency:(NSString * _Nullable)commerceCurrency transactionId:(NSString * _Nullable)transactionId transactionAffiliation:(NSString * _Nullable)transactionAffiliation transactionTax:(MPMDouble * _Nullable)transactionTax transactionShipping:(MPMDouble * _Nullable)transactionShipping transactionCouponCode:(NSString * _Nullable)transactionCouponCode promotionActionObject:(MPMPromotionActionObject * _Nullable)promotionActionObject impressionObject:(NSArray<MPMImpressionMessage *> * _Nullable)impressionObject __attribute__((swift_name("init(productActionObject:commerceScreenName:commerceNonInteraction:commerceCurrency:transactionId:transactionAffiliation:transactionTax:transactionShipping:transactionCouponCode:promotionActionObject:impressionObject:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMCommerceEventMessageCompanion *companion __attribute__((swift_name("companion")));
 @property NSString * _Nullable commerceCurrency __attribute__((swift_name("commerceCurrency")));
 @property MPMBoolean * _Nullable commerceNonInteraction __attribute__((swift_name("commerceNonInteraction")));
@@ -976,7 +988,7 @@ __attribute__((swift_name("FirstRunMessage")))
 @interface MPMFirstRunMessage : MPMBaseEvent
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMFirstRunMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
 @end;
@@ -1037,10 +1049,11 @@ __attribute__((swift_name("LocationMessage.Companion")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MPEventMessage")))
 @interface MPMMPEventMessage : MPMBaseEvent
-- (instancetype)initWithName:(NSString * _Nullable)name eventDuration:(MPMDouble * _Nullable)eventDuration __attribute__((swift_name("init(name:eventDuration:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithName:(NSString * _Nullable)name eventDuration:(MPMDouble * _Nullable)eventDuration eventType:(MPMEventType * _Nullable)eventType __attribute__((swift_name("init(name:eventDuration:eventType:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMMPEventMessageCompanion *companion __attribute__((swift_name("companion")));
 @property MPMDouble * _Nullable eventDuration __attribute__((swift_name("eventDuration")));
+@property MPMEventType * _Nullable eventType __attribute__((swift_name("eventType")));
 @property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
 @property NSString * _Nullable name __attribute__((swift_name("name")));
 @end;
@@ -1222,7 +1235,7 @@ __attribute__((swift_name("PushRegistrationMessage")))
 @interface MPMPushRegistrationMessage : MPMBaseEvent
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMPushRegistrationMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
 @end;
@@ -1268,7 +1281,7 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ScreenViewMessage")))
 @interface MPMScreenViewMessage : MPMBaseEvent
 - (instancetype)initWithName:(NSString * _Nullable)name eventDuration:(MPMDouble * _Nullable)eventDuration __attribute__((swift_name("init(name:eventDuration:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMScreenViewMessageCompanion *companion __attribute__((swift_name("companion")));
 @property MPMDouble * _Nullable eventDuration __attribute__((swift_name("eventDuration")));
 @property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
@@ -1290,7 +1303,7 @@ __attribute__((swift_name("SessionEndMessage")))
 @interface MPMSessionEndMessage : MPMBaseEvent
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMSessionEndMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
 @end;
@@ -1310,7 +1323,7 @@ __attribute__((swift_name("SessionStartMessage")))
 @interface MPMSessionStartMessage : MPMBaseEvent
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMSessionStartMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
 @end;
@@ -1361,10 +1374,32 @@ __attribute__((swift_name("StateInfoMessage.Companion")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("UserAttributeChangeMessage")))
+@interface MPMUserAttributeChangeMessage : MPMBaseEvent
+- (instancetype)initWithAttributeName:(NSString * _Nullable)attributeName newValue:(NSString * _Nullable)newValue oldValue:(NSString * _Nullable)oldValue __attribute__((swift_name("init(attributeName:newValue:oldValue:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly, getter=companion) MPMUserAttributeChangeMessageCompanion *companion __attribute__((swift_name("companion")));
+@property (readonly) NSString * _Nullable attributeName __attribute__((swift_name("attributeName")));
+@property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
+@property (readonly, getter=doNewValue) NSString * _Nullable newValue __attribute__((swift_name("newValue")));
+@property (readonly) NSString * _Nullable oldValue __attribute__((swift_name("oldValue")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("UserAttributeChangeMessage.Companion")))
+@interface MPMUserAttributeChangeMessageCompanion : MPMBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPMUserAttributeChangeMessageCompanion *shared __attribute__((swift_name("shared")));
+- (id<MPMKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("UserIdentityChangeMessage")))
 @interface MPMUserIdentityChangeMessage : MPMBaseEvent
 - (instancetype)initWithNewIdentity:(MPMNewIdentity * _Nullable)newIdentity oldIdentity:(MPMOldIdentity * _Nullable)oldIdentity __attribute__((swift_name("init(newIdentity:oldIdentity:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, MPMKotlinx_serialization_jsonJsonElement *> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithTimeStamp:(MPMLong * _Nullable)timeStamp stateInfo:(MPMStateInfoMessage * _Nullable)stateInfo id:(NSString * _Nullable)id sessionId:(NSString * _Nullable)sessionId sessionStartTimestamp:(MPMLong * _Nullable)sessionStartTimestamp location:(MPMLocationMessage * _Nullable)location dataConnection:(NSString * _Nullable)dataConnection attributes:(NSDictionary<NSString *, id> * _Nullable)attributes eventFlags:(NSDictionary<NSString *, id> * _Nullable)eventFlags __attribute__((swift_name("init(timeStamp:stateInfo:id:sessionId:sessionStartTimestamp:location:dataConnection:attributes:eventFlags:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly, getter=companion) MPMUserIdentityChangeMessageCompanion *companion __attribute__((swift_name("companion")));
 @property (readonly) NSString *messageType __attribute__((swift_name("messageType")));
 @property (readonly, getter=doNewIdentity) MPMNewIdentity * _Nullable newIdentity __attribute__((swift_name("newIdentity")));
@@ -1559,6 +1594,7 @@ __attribute__((swift_name("Kotlinx_serialization_jsonJsonConfiguration")))
 @property (readonly) NSString *classDiscriminator __attribute__((swift_name("classDiscriminator")));
 @property (readonly) BOOL coerceInputValues __attribute__((swift_name("coerceInputValues")));
 @property (readonly) BOOL encodeDefaults __attribute__((swift_name("encodeDefaults")));
+@property (readonly) BOOL explicitNulls __attribute__((swift_name("explicitNulls")));
 @property (readonly) BOOL ignoreUnknownKeys __attribute__((swift_name("ignoreUnknownKeys")));
 @property (readonly) BOOL isLenient __attribute__((swift_name("isLenient")));
 @property (readonly) BOOL prettyPrint __attribute__((swift_name("prettyPrint")));
@@ -1638,7 +1674,9 @@ __attribute__((swift_name("Kotlinx_serialization_coreSerializersModuleCollector"
 - (void)contextualKClass:(id<MPMKotlinKClass>)kClass provider:(id<MPMKotlinx_serialization_coreKSerializer> (^)(NSArray<id<MPMKotlinx_serialization_coreKSerializer>> *))provider __attribute__((swift_name("contextual(kClass:provider:)")));
 - (void)contextualKClass:(id<MPMKotlinKClass>)kClass serializer:(id<MPMKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("contextual(kClass:serializer:)")));
 - (void)polymorphicBaseClass:(id<MPMKotlinKClass>)baseClass actualClass:(id<MPMKotlinKClass>)actualClass actualSerializer:(id<MPMKotlinx_serialization_coreKSerializer>)actualSerializer __attribute__((swift_name("polymorphic(baseClass:actualClass:actualSerializer:)")));
-- (void)polymorphicDefaultBaseClass:(id<MPMKotlinKClass>)baseClass defaultSerializerProvider:(id<MPMKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultSerializerProvider __attribute__((swift_name("polymorphicDefault(baseClass:defaultSerializerProvider:)")));
+- (void)polymorphicDefaultBaseClass:(id<MPMKotlinKClass>)baseClass defaultDeserializerProvider:(id<MPMKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultDeserializerProvider __attribute__((swift_name("polymorphicDefault(baseClass:defaultDeserializerProvider:)")));
+- (void)polymorphicDefaultDeserializerBaseClass:(id<MPMKotlinKClass>)baseClass defaultDeserializerProvider:(id<MPMKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultDeserializerProvider __attribute__((swift_name("polymorphicDefaultDeserializer(baseClass:defaultDeserializerProvider:)")));
+- (void)polymorphicDefaultSerializerBaseClass:(id<MPMKotlinKClass>)baseClass defaultSerializerProvider:(id<MPMKotlinx_serialization_coreSerializationStrategy> _Nullable (^)(id))defaultSerializerProvider __attribute__((swift_name("polymorphicDefaultSerializer(baseClass:defaultSerializerProvider:)")));
 @end;
 
 __attribute__((swift_name("KotlinKDeclarationContainer")))

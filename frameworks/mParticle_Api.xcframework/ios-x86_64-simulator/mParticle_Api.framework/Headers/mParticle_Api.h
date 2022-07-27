@@ -6,9 +6,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSValue.h>
 
-@class MPAClientPlatform, MPDataPlanOptions, MPAKotlinEnumCompanion, MPAKotlinEnum<E>, MPAEnvironment, MPAKotlinArray<T>, MPAInstallType, MPALogLevel, MPALogger, MParticle, MPAMParticleCompanion, MPABaseEvent, MPAKotlinException, MPAMPEvent, MPASession, MPAIdentityApi, MPAMParticle, MPAMParticleOptions, MPADataplanOptions, MPAIdentityApiRequest, MPAIdentityResponse, MPALocationTracking, MPANetworkOptions, MParticleOptions, MPNetworkOptions, MPAPlatform, MParticleSession, MPATransformBuilder, MPGDPRConsent, MPCCPAConsent, MPConsentState, MPAConsent, MPIdentityApi, MPAMParticleUser, MPAIdentityApiIdentityRequestType, MPIdentityApiRequest, MPAIdentityType, MPAError, MPAIdentityHttpResponse, MPAKotlinUnit, MParticleUser, MPAConsentState, MPAMessageType, MPBaseEvent, MPAEventType, MPACustomEvent, MPAMessageTypeCompanion, MPACommerce, MPACommerceProductActionEnum, MPACommercePromotionActionEnum, MPCommerceEvent, MPAProduct, MPACommerceEvent, MPAImpression, MPProduct, MPATransactionAttributes, MPPromotion, MPAPromotion, MPTransactionAttributes, MPAKotlinByteIterator, MPAKotlinByteArray, NSData, MPEvent, MPATransformDelegate<Kotlin, Native>, NSMutableDictionary, MPAImpressionBuilder, MPAProductBuilder, MPAPromotionBuilder, MPAKotlinThrowable, MPAKotlinKTypeProjection, MPAKotlinKVariance, MPAKotlinKTypeProjectionCompanion;
+@class MPAClientPlatform, MPDataPlanOptions, MPAKotlinEnumCompanion, MPAKotlinEnum<E>, MPAEnvironment, MPAKotlinArray<T>, MPAInstallType, MPALogLevel, MPALogger, MParticle, MPAMParticleCompanion, MPABaseEvent, MPAKotlinException, MPAMPEvent, MPASession, MPAIdentityApi, MPAMParticle, MPAMParticleOptions, MPADataplanOptions, MPAIdentityApiRequest, MPAIdentityResponse, MPALocationTracking, MPANetworkOptions, MParticleOptions, MPNetworkOptions, MPAPlatform, MParticleSession, MPATransformBuilder, MPGDPRConsent, MPCCPAConsent, MPConsentState, MPAConsent, MPIdentityApi, MPAMParticleUser, MPAIdentityApiIdentityRequestType, MPIdentityApiRequest, MPAIdentityType, MPAError, MPAIdentityHttpResponse, MPAKotlinUnit, MParticleUser, MPAConsentState, NSNumber, MPAMessageType, MPBaseEvent, MPAModelsEventType, MPACustomEvent, MPAMessageTypeCompanion, MPACommerce, MPACommerceProductActionEnum, MPACommercePromotionActionEnum, MPCommerceEvent, MPAProduct, MPACommerceEvent, MPAImpression, MPProduct, MPATransactionAttributes, MPPromotion, MPAPromotion, MPTransactionAttributes, MPAKotlinByteIterator, MPAKotlinByteArray, NSData, MPEvent, MPATransformDelegate<Kotlin, Native>, NSDictionary, NSMutableDictionary, MPAImpressionBuilder, MPAProductBuilder, MPAPromotionBuilder, MPAKotlinThrowable, MPAModelsEventTypeCompanion, MPAKotlinKTypeProjection, MPAKotlinKVariance, MPAKotlinKTypeProjectionCompanion, MPAKotlinx_serialization_coreSerializersModule, MPAKotlinx_serialization_coreSerialKind, MPAKotlinNothing;
 
-@protocol MPAKotlinComparable, MPATransformer, MPAKotlinKProperty, MPAUserAttributeListener, MPAKotlinIterator, MPAKotlinKType, MPAKotlinKAnnotatedElement, MPAKotlinKCallable, MPAKotlinKClassifier;
+@protocol MPAKotlinComparable, MPATransformer, MPAKotlinKProperty, MPAUserAttributeListener, MPAKotlinIterator, MPAKotlinKType, MPAKotlinKAnnotatedElement, MPAKotlinKCallable, MPAKotlinKClassifier, MPAKotlinx_serialization_coreKSerializer, MPAKotlinx_serialization_coreEncoder, MPAKotlinx_serialization_coreSerialDescriptor, MPAKotlinx_serialization_coreSerializationStrategy, MPAKotlinx_serialization_coreDecoder, MPAKotlinx_serialization_coreDeserializationStrategy, MPAKotlinx_serialization_coreCompositeEncoder, MPAKotlinAnnotation, MPAKotlinx_serialization_coreCompositeDecoder, MPAKotlinx_serialization_coreSerializersModuleCollector, MPAKotlinKClass, MPAKotlinKDeclarationContainer;
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
@@ -526,7 +526,7 @@ __attribute__((swift_name("MParticleUser")))
 - (NSDictionary<NSString *, id> *)getUserAttributes __attribute__((swift_name("getUserAttributes()")));
 - (NSDictionary<NSString *, id> * _Nullable)getUserAttributesListener:(id<MPAUserAttributeListener> _Nullable)listener __attribute__((swift_name("getUserAttributes(listener:)")));
 - (NSDictionary<MPAIdentityType *, NSString *> *)getUserIdentities __attribute__((swift_name("getUserIdentities()")));
-- (BOOL)incrementUserAttributeKey:(NSString *)key value:(int32_t)value __attribute__((swift_name("incrementUserAttribute(key:value:)")));
+- (BOOL)incrementUserAttributeKey:(NSString *)key value:(id)value __attribute__((swift_name("incrementUserAttribute(key:value:)")));
 - (BOOL)isLoggedIn __attribute__((swift_name("isLoggedIn()")));
 - (BOOL)removeUserAttributeKey:(NSString *)key __attribute__((swift_name("removeUserAttribute(key:)")));
 - (void)setConsentStateState:(MPAConsentState * _Nullable)state __attribute__((swift_name("setConsentState(state:)")));
@@ -534,6 +534,7 @@ __attribute__((swift_name("MParticleUser")))
 - (BOOL)setUserAttributeListKey:(NSString *)key value:(id)value __attribute__((swift_name("setUserAttributeList(key:value:)")));
 - (BOOL)setUserAttributesUserAttributes:(NSDictionary<NSString *, id> *)userAttributes __attribute__((swift_name("setUserAttributes(userAttributes:)")));
 - (BOOL)setUserTagTag:(NSString *)tag __attribute__((swift_name("setUserTag(tag:)")));
+- (NSNumber *)toNSNumber:(id)receiver __attribute__((swift_name("toNSNumber(_:)")));
 @property (readonly) int64_t mpid __attribute__((swift_name("mpid")));
 @property (readonly) MParticleUser *user __attribute__((swift_name("user")));
 @end;
@@ -556,40 +557,21 @@ __attribute__((swift_name("BaseEvent")))
 
 __attribute__((swift_name("CustomEvent")))
 @interface MPACustomEvent : MPABaseEvent
-- (instancetype)initWithEventName:(NSString *)eventName eventType:(MPAEventType *)eventType type:(MPAMessageType *)type __attribute__((swift_name("init(eventName:eventType:type:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithEventName:(NSString *)eventName eventType:(MPAModelsEventType *)eventType type:(MPAMessageType *)type __attribute__((swift_name("init(eventName:eventType:type:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)initWithType:(MPAMessageType *)type __attribute__((swift_name("init(type:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (instancetype)initWithBaseEvent:(MPBaseEvent *)baseEvent __attribute__((swift_name("init(baseEvent:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property NSString * _Nullable category __attribute__((swift_name("category")));
 @property NSString *eventName __attribute__((swift_name("eventName")));
-@property MPAEventType *eventType __attribute__((swift_name("eventType")));
+@property MPAModelsEventType *eventType __attribute__((swift_name("eventType")));
 @property (readonly) BOOL isScreenEvent __attribute__((swift_name("isScreenEvent")));
 @property MPADouble * _Nullable length __attribute__((swift_name("length")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("EventType")))
-@interface MPAEventType : MPAKotlinEnum<MPAEventType *>
-+ (instancetype)alloc __attribute__((unavailable));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-@property (class, readonly) MPAEventType *unknown __attribute__((swift_name("unknown")));
-@property (class, readonly) MPAEventType *navigation __attribute__((swift_name("navigation")));
-@property (class, readonly) MPAEventType *location __attribute__((swift_name("location")));
-@property (class, readonly) MPAEventType *search __attribute__((swift_name("search")));
-@property (class, readonly) MPAEventType *transaction __attribute__((swift_name("transaction")));
-@property (class, readonly) MPAEventType *usercontent __attribute__((swift_name("usercontent")));
-@property (class, readonly) MPAEventType *userpreference __attribute__((swift_name("userpreference")));
-@property (class, readonly) MPAEventType *social __attribute__((swift_name("social")));
-@property (class, readonly) MPAEventType *other __attribute__((swift_name("other")));
-@property (class, readonly) MPAEventType *media __attribute__((swift_name("media")));
-+ (MPAKotlinArray<MPAEventType *> *)values __attribute__((swift_name("values()")));
-@end;
-
-__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MPEvent")))
 @interface MPAMPEvent : MPACustomEvent
-- (instancetype)initWithEventName:(NSString *)eventName eventType:(MPAEventType *)eventType __attribute__((swift_name("init(eventName:eventType:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithEventName:(NSString *)eventName eventType:(MPAEventType *)eventType type:(MPAMessageType *)type __attribute__((swift_name("init(eventName:eventType:type:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithEventName:(NSString *)eventName eventType:(MPAModelsEventType *)eventType __attribute__((swift_name("init(eventName:eventType:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithEventName:(NSString *)eventName eventType:(MPAModelsEventType *)eventType type:(MPAMessageType *)type __attribute__((swift_name("init(eventName:eventType:type:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (readonly) BOOL isScreenEvent __attribute__((swift_name("isScreenEvent")));
 @end;
 
@@ -635,7 +617,7 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ScreenEvent")))
 @interface MPAScreenEvent : MPACustomEvent
 - (instancetype)initWithScreenName:(NSString *)screenName __attribute__((swift_name("init(screenName:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithEventName:(NSString *)eventName eventType:(MPAEventType *)eventType type:(MPAMessageType *)type __attribute__((swift_name("init(eventName:eventType:type:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithEventName:(NSString *)eventName eventType:(MPAModelsEventType *)eventType type:(MPAMessageType *)type __attribute__((swift_name("init(eventName:eventType:type:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (readonly) BOOL isScreenEvent __attribute__((swift_name("isScreenEvent")));
 @end;
 
@@ -872,6 +854,14 @@ __attribute__((swift_name("IdentityKt")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("BaseEventKt")))
+@interface MPABaseEventKt : MPABase
++ (MPAMPEvent *)MPEventEvent:(MPEvent *)event __attribute__((swift_name("MPEvent(event:)")));
++ (MPAModelsEventType *)toEventType:(id)receiver __attribute__((swift_name("toEventType(_:)")));
++ (NSDictionary<id, id> *)toMap:(NSDictionary *)receiver __attribute__((swift_name("toMap(_:)")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("BaseEventImplKt")))
 @interface MPABaseEventImplKt : MPABase
 + (NSMutableDictionary *)toMutableDictionary:(NSDictionary<id, id> *)receiver __attribute__((swift_name("toMutableDictionary(_:)")));
@@ -987,6 +977,26 @@ __attribute__((swift_name("KotlinUnit")))
 - (NSString *)description __attribute__((swift_name("description()")));
 @end;
 
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ModelsEventType")))
+@interface MPAModelsEventType : MPAKotlinEnum<MPAModelsEventType *>
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
+- (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+@property (class, readonly, getter=companion) MPAModelsEventTypeCompanion *companion __attribute__((swift_name("companion")));
+@property (class, readonly) MPAModelsEventType *unknown __attribute__((swift_name("unknown")));
+@property (class, readonly) MPAModelsEventType *navigation __attribute__((swift_name("navigation")));
+@property (class, readonly) MPAModelsEventType *location __attribute__((swift_name("location")));
+@property (class, readonly) MPAModelsEventType *search __attribute__((swift_name("search")));
+@property (class, readonly) MPAModelsEventType *transaction __attribute__((swift_name("transaction")));
+@property (class, readonly) MPAModelsEventType *usercontent __attribute__((swift_name("usercontent")));
+@property (class, readonly) MPAModelsEventType *userpreference __attribute__((swift_name("userpreference")));
+@property (class, readonly) MPAModelsEventType *social __attribute__((swift_name("social")));
+@property (class, readonly) MPAModelsEventType *other __attribute__((swift_name("other")));
+@property (class, readonly) MPAModelsEventType *media __attribute__((swift_name("media")));
++ (MPAKotlinArray<MPAModelsEventType *> *)values __attribute__((swift_name("values()")));
+@end;
+
 __attribute__((swift_name("KotlinIterator")))
 @protocol MPAKotlinIterator
 @required
@@ -1011,6 +1021,16 @@ __attribute__((swift_name("KotlinKType")))
 @end;
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ModelsEventType.Companion")))
+@interface MPAModelsEventTypeCompanion : MPABase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) MPAModelsEventTypeCompanion *shared __attribute__((swift_name("shared")));
+- (id<MPAKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("serializer()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("KotlinKTypeProjection")))
 @interface MPAKotlinKTypeProjection : MPABase
 - (instancetype)initWithVariance:(MPAKotlinKVariance * _Nullable)variance type:(id<MPAKotlinKType> _Nullable)type __attribute__((swift_name("init(variance:type:)"))) __attribute__((objc_designated_initializer));
@@ -1027,6 +1047,25 @@ __attribute__((swift_name("KotlinKTypeProjection")))
 
 __attribute__((swift_name("KotlinKClassifier")))
 @protocol MPAKotlinKClassifier
+@required
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreSerializationStrategy")))
+@protocol MPAKotlinx_serialization_coreSerializationStrategy
+@required
+- (void)serializeEncoder:(id<MPAKotlinx_serialization_coreEncoder>)encoder value:(id _Nullable)value __attribute__((swift_name("serialize(encoder:value:)")));
+@property (readonly) id<MPAKotlinx_serialization_coreSerialDescriptor> descriptor __attribute__((swift_name("descriptor")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreDeserializationStrategy")))
+@protocol MPAKotlinx_serialization_coreDeserializationStrategy
+@required
+- (id _Nullable)deserializeDecoder:(id<MPAKotlinx_serialization_coreDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+@property (readonly) id<MPAKotlinx_serialization_coreSerialDescriptor> descriptor __attribute__((swift_name("descriptor")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreKSerializer")))
+@protocol MPAKotlinx_serialization_coreKSerializer <MPAKotlinx_serialization_coreSerializationStrategy, MPAKotlinx_serialization_coreDeserializationStrategy>
 @required
 @end;
 
@@ -1053,6 +1092,157 @@ __attribute__((swift_name("KotlinKTypeProjection.Companion")))
 - (MPAKotlinKTypeProjection *)covariantType:(id<MPAKotlinKType>)type __attribute__((swift_name("covariant(type:)")));
 - (MPAKotlinKTypeProjection *)invariantType:(id<MPAKotlinKType>)type __attribute__((swift_name("invariant(type:)")));
 @property (readonly) MPAKotlinKTypeProjection *STAR __attribute__((swift_name("STAR")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreEncoder")))
+@protocol MPAKotlinx_serialization_coreEncoder
+@required
+- (id<MPAKotlinx_serialization_coreCompositeEncoder>)beginCollectionDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor collectionSize:(int32_t)collectionSize __attribute__((swift_name("beginCollection(descriptor:collectionSize:)")));
+- (id<MPAKotlinx_serialization_coreCompositeEncoder>)beginStructureDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("beginStructure(descriptor:)")));
+- (void)encodeBooleanValue:(BOOL)value __attribute__((swift_name("encodeBoolean(value:)")));
+- (void)encodeByteValue:(int8_t)value __attribute__((swift_name("encodeByte(value:)")));
+- (void)encodeCharValue:(unichar)value __attribute__((swift_name("encodeChar(value:)")));
+- (void)encodeDoubleValue:(double)value __attribute__((swift_name("encodeDouble(value:)")));
+- (void)encodeEnumEnumDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)enumDescriptor index:(int32_t)index __attribute__((swift_name("encodeEnum(enumDescriptor:index:)")));
+- (void)encodeFloatValue:(float)value __attribute__((swift_name("encodeFloat(value:)")));
+- (id<MPAKotlinx_serialization_coreEncoder>)encodeInlineInlineDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)inlineDescriptor __attribute__((swift_name("encodeInline(inlineDescriptor:)")));
+- (void)encodeIntValue:(int32_t)value __attribute__((swift_name("encodeInt(value:)")));
+- (void)encodeLongValue:(int64_t)value __attribute__((swift_name("encodeLong(value:)")));
+- (void)encodeNotNullMark __attribute__((swift_name("encodeNotNullMark()")));
+- (void)encodeNull __attribute__((swift_name("encodeNull()")));
+- (void)encodeNullableSerializableValueSerializer:(id<MPAKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeNullableSerializableValue(serializer:value:)")));
+- (void)encodeSerializableValueSerializer:(id<MPAKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeSerializableValue(serializer:value:)")));
+- (void)encodeShortValue:(int16_t)value __attribute__((swift_name("encodeShort(value:)")));
+- (void)encodeStringValue:(NSString *)value __attribute__((swift_name("encodeString(value:)")));
+@property (readonly) MPAKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreSerialDescriptor")))
+@protocol MPAKotlinx_serialization_coreSerialDescriptor
+@required
+- (NSArray<id<MPAKotlinAnnotation>> *)getElementAnnotationsIndex:(int32_t)index __attribute__((swift_name("getElementAnnotations(index:)")));
+- (id<MPAKotlinx_serialization_coreSerialDescriptor>)getElementDescriptorIndex:(int32_t)index __attribute__((swift_name("getElementDescriptor(index:)")));
+- (int32_t)getElementIndexName:(NSString *)name __attribute__((swift_name("getElementIndex(name:)")));
+- (NSString *)getElementNameIndex:(int32_t)index __attribute__((swift_name("getElementName(index:)")));
+- (BOOL)isElementOptionalIndex:(int32_t)index __attribute__((swift_name("isElementOptional(index:)")));
+@property (readonly) NSArray<id<MPAKotlinAnnotation>> *annotations __attribute__((swift_name("annotations")));
+@property (readonly) int32_t elementsCount __attribute__((swift_name("elementsCount")));
+@property (readonly) BOOL isInline __attribute__((swift_name("isInline")));
+@property (readonly) BOOL isNullable __attribute__((swift_name("isNullable")));
+@property (readonly) MPAKotlinx_serialization_coreSerialKind *kind __attribute__((swift_name("kind")));
+@property (readonly) NSString *serialName __attribute__((swift_name("serialName")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreDecoder")))
+@protocol MPAKotlinx_serialization_coreDecoder
+@required
+- (id<MPAKotlinx_serialization_coreCompositeDecoder>)beginStructureDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("beginStructure(descriptor:)")));
+- (BOOL)decodeBoolean __attribute__((swift_name("decodeBoolean()")));
+- (int8_t)decodeByte __attribute__((swift_name("decodeByte()")));
+- (unichar)decodeChar __attribute__((swift_name("decodeChar()")));
+- (double)decodeDouble __attribute__((swift_name("decodeDouble()")));
+- (int32_t)decodeEnumEnumDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)enumDescriptor __attribute__((swift_name("decodeEnum(enumDescriptor:)")));
+- (float)decodeFloat __attribute__((swift_name("decodeFloat()")));
+- (id<MPAKotlinx_serialization_coreDecoder>)decodeInlineInlineDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)inlineDescriptor __attribute__((swift_name("decodeInline(inlineDescriptor:)")));
+- (int32_t)decodeInt __attribute__((swift_name("decodeInt()")));
+- (int64_t)decodeLong __attribute__((swift_name("decodeLong()")));
+- (BOOL)decodeNotNullMark __attribute__((swift_name("decodeNotNullMark()")));
+- (MPAKotlinNothing * _Nullable)decodeNull __attribute__((swift_name("decodeNull()")));
+- (id _Nullable)decodeNullableSerializableValueDeserializer:(id<MPAKotlinx_serialization_coreDeserializationStrategy>)deserializer __attribute__((swift_name("decodeNullableSerializableValue(deserializer:)")));
+- (id _Nullable)decodeSerializableValueDeserializer:(id<MPAKotlinx_serialization_coreDeserializationStrategy>)deserializer __attribute__((swift_name("decodeSerializableValue(deserializer:)")));
+- (int16_t)decodeShort __attribute__((swift_name("decodeShort()")));
+- (NSString *)decodeString __attribute__((swift_name("decodeString()")));
+@property (readonly) MPAKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreCompositeEncoder")))
+@protocol MPAKotlinx_serialization_coreCompositeEncoder
+@required
+- (void)encodeBooleanElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(BOOL)value __attribute__((swift_name("encodeBooleanElement(descriptor:index:value:)")));
+- (void)encodeByteElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(int8_t)value __attribute__((swift_name("encodeByteElement(descriptor:index:value:)")));
+- (void)encodeCharElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(unichar)value __attribute__((swift_name("encodeCharElement(descriptor:index:value:)")));
+- (void)encodeDoubleElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(double)value __attribute__((swift_name("encodeDoubleElement(descriptor:index:value:)")));
+- (void)encodeFloatElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(float)value __attribute__((swift_name("encodeFloatElement(descriptor:index:value:)")));
+- (id<MPAKotlinx_serialization_coreEncoder>)encodeInlineElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("encodeInlineElement(descriptor:index:)")));
+- (void)encodeIntElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(int32_t)value __attribute__((swift_name("encodeIntElement(descriptor:index:value:)")));
+- (void)encodeLongElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(int64_t)value __attribute__((swift_name("encodeLongElement(descriptor:index:value:)")));
+- (void)encodeNullableSerializableElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index serializer:(id<MPAKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeNullableSerializableElement(descriptor:index:serializer:value:)")));
+- (void)encodeSerializableElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index serializer:(id<MPAKotlinx_serialization_coreSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeSerializableElement(descriptor:index:serializer:value:)")));
+- (void)encodeShortElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(int16_t)value __attribute__((swift_name("encodeShortElement(descriptor:index:value:)")));
+- (void)encodeStringElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index value:(NSString *)value __attribute__((swift_name("encodeStringElement(descriptor:index:value:)")));
+- (void)endStructureDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("endStructure(descriptor:)")));
+- (BOOL)shouldEncodeElementDefaultDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("shouldEncodeElementDefault(descriptor:index:)")));
+@property (readonly) MPAKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreSerializersModule")))
+@interface MPAKotlinx_serialization_coreSerializersModule : MPABase
+- (void)dumpToCollector:(id<MPAKotlinx_serialization_coreSerializersModuleCollector>)collector __attribute__((swift_name("dumpTo(collector:)")));
+- (id<MPAKotlinx_serialization_coreKSerializer> _Nullable)getContextualKClass:(id<MPAKotlinKClass>)kClass typeArgumentsSerializers:(NSArray<id<MPAKotlinx_serialization_coreKSerializer>> *)typeArgumentsSerializers __attribute__((swift_name("getContextual(kClass:typeArgumentsSerializers:)")));
+- (id<MPAKotlinx_serialization_coreSerializationStrategy> _Nullable)getPolymorphicBaseClass:(id<MPAKotlinKClass>)baseClass value:(id)value __attribute__((swift_name("getPolymorphic(baseClass:value:)")));
+- (id<MPAKotlinx_serialization_coreDeserializationStrategy> _Nullable)getPolymorphicBaseClass:(id<MPAKotlinKClass>)baseClass serializedClassName:(NSString * _Nullable)serializedClassName __attribute__((swift_name("getPolymorphic(baseClass:serializedClassName:)")));
+@end;
+
+__attribute__((swift_name("KotlinAnnotation")))
+@protocol MPAKotlinAnnotation
+@required
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreSerialKind")))
+@interface MPAKotlinx_serialization_coreSerialKind : MPABase
+- (NSUInteger)hash __attribute__((swift_name("hash()")));
+- (NSString *)description __attribute__((swift_name("description()")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreCompositeDecoder")))
+@protocol MPAKotlinx_serialization_coreCompositeDecoder
+@required
+- (BOOL)decodeBooleanElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeBooleanElement(descriptor:index:)")));
+- (int8_t)decodeByteElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeByteElement(descriptor:index:)")));
+- (unichar)decodeCharElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeCharElement(descriptor:index:)")));
+- (int32_t)decodeCollectionSizeDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("decodeCollectionSize(descriptor:)")));
+- (double)decodeDoubleElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeDoubleElement(descriptor:index:)")));
+- (int32_t)decodeElementIndexDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("decodeElementIndex(descriptor:)")));
+- (float)decodeFloatElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeFloatElement(descriptor:index:)")));
+- (id<MPAKotlinx_serialization_coreDecoder>)decodeInlineElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeInlineElement(descriptor:index:)")));
+- (int32_t)decodeIntElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeIntElement(descriptor:index:)")));
+- (int64_t)decodeLongElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeLongElement(descriptor:index:)")));
+- (id _Nullable)decodeNullableSerializableElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index deserializer:(id<MPAKotlinx_serialization_coreDeserializationStrategy>)deserializer previousValue:(id _Nullable)previousValue __attribute__((swift_name("decodeNullableSerializableElement(descriptor:index:deserializer:previousValue:)")));
+- (BOOL)decodeSequentially __attribute__((swift_name("decodeSequentially()")));
+- (id _Nullable)decodeSerializableElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index deserializer:(id<MPAKotlinx_serialization_coreDeserializationStrategy>)deserializer previousValue:(id _Nullable)previousValue __attribute__((swift_name("decodeSerializableElement(descriptor:index:deserializer:previousValue:)")));
+- (int16_t)decodeShortElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeShortElement(descriptor:index:)")));
+- (NSString *)decodeStringElementDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor index:(int32_t)index __attribute__((swift_name("decodeStringElement(descriptor:index:)")));
+- (void)endStructureDescriptor:(id<MPAKotlinx_serialization_coreSerialDescriptor>)descriptor __attribute__((swift_name("endStructure(descriptor:)")));
+@property (readonly) MPAKotlinx_serialization_coreSerializersModule *serializersModule __attribute__((swift_name("serializersModule")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KotlinNothing")))
+@interface MPAKotlinNothing : MPABase
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_coreSerializersModuleCollector")))
+@protocol MPAKotlinx_serialization_coreSerializersModuleCollector
+@required
+- (void)contextualKClass:(id<MPAKotlinKClass>)kClass provider:(id<MPAKotlinx_serialization_coreKSerializer> (^)(NSArray<id<MPAKotlinx_serialization_coreKSerializer>> *))provider __attribute__((swift_name("contextual(kClass:provider:)")));
+- (void)contextualKClass:(id<MPAKotlinKClass>)kClass serializer:(id<MPAKotlinx_serialization_coreKSerializer>)serializer __attribute__((swift_name("contextual(kClass:serializer:)")));
+- (void)polymorphicBaseClass:(id<MPAKotlinKClass>)baseClass actualClass:(id<MPAKotlinKClass>)actualClass actualSerializer:(id<MPAKotlinx_serialization_coreKSerializer>)actualSerializer __attribute__((swift_name("polymorphic(baseClass:actualClass:actualSerializer:)")));
+- (void)polymorphicDefaultBaseClass:(id<MPAKotlinKClass>)baseClass defaultDeserializerProvider:(id<MPAKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultDeserializerProvider __attribute__((swift_name("polymorphicDefault(baseClass:defaultDeserializerProvider:)")));
+- (void)polymorphicDefaultDeserializerBaseClass:(id<MPAKotlinKClass>)baseClass defaultDeserializerProvider:(id<MPAKotlinx_serialization_coreDeserializationStrategy> _Nullable (^)(NSString * _Nullable))defaultDeserializerProvider __attribute__((swift_name("polymorphicDefaultDeserializer(baseClass:defaultDeserializerProvider:)")));
+- (void)polymorphicDefaultSerializerBaseClass:(id<MPAKotlinKClass>)baseClass defaultSerializerProvider:(id<MPAKotlinx_serialization_coreSerializationStrategy> _Nullable (^)(id))defaultSerializerProvider __attribute__((swift_name("polymorphicDefaultSerializer(baseClass:defaultSerializerProvider:)")));
+@end;
+
+__attribute__((swift_name("KotlinKDeclarationContainer")))
+@protocol MPAKotlinKDeclarationContainer
+@required
+@end;
+
+__attribute__((swift_name("KotlinKClass")))
+@protocol MPAKotlinKClass <MPAKotlinKDeclarationContainer, MPAKotlinKAnnotatedElement, MPAKotlinKClassifier>
+@required
+- (BOOL)isInstanceValue:(id _Nullable)value __attribute__((swift_name("isInstance(value:)")));
+@property (readonly) NSString * _Nullable qualifiedName __attribute__((swift_name("qualifiedName")));
+@property (readonly) NSString * _Nullable simpleName __attribute__((swift_name("simpleName")));
 @end;
 
 #pragma pop_macro("_Nullable_result")

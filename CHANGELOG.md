@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/mParticle/crossplatform-sdk-tests/compare/v1.2.1...v1.3.0) (2022-07-27)
+
+
+### Features
+
+* improvements for android-core testing ([#20](https://github.com/mParticle/crossplatform-sdk-tests/issues/20)) ([a50093c](https://github.com/mParticle/crossplatform-sdk-tests/commit/a50093c637fb2144a83c5c0226b991f4cc1d952a))
+
 ## [1.2.1](https://github.com/mParticle/crossplatform-sdk-tests/compare/v1.2.0...v1.2.1) (2022-06-17)
 
 # [1.2.0](https://github.com/mParticle/crossplatform-sdk-tests/compare/v1.1.0...v1.2.0) (2022-06-15)

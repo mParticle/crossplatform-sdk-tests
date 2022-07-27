@@ -20,9 +20,9 @@ repositories {
 
 dependencies {
     ...
-    implementation("com.mparticle:models:1.2.1")              // <--- add for serializable server DTOs
+    implementation("com.mparticle:models:1.3.0")              // <--- add for serializable server DTOs
     ...
-    androidTestImplementation("com.mparticle:testing:1.2.1")  // <--- add for `Server` and instrumented testing base classes
+    androidTestImplementation("com.mparticle:testing:1.3.0")  // <--- add for `Server` and instrumented testing base classes
  }
 ```
 
