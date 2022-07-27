@@ -1,6 +1,6 @@
 apply plugin: "maven-publish"
 apply plugin: "signing"
-apply from: project.rootProject.file('.scripts/maven-metadata.gradle')
+apply from: project.rootProject.file("$project.rootDir/.scripts/maven-metadata.gradle")
 
 
 publishing {
@@ -23,6 +23,7 @@ publishing {
 
             pom {
                 name.set(project.name)
+                packaging("aar")
                 description.set(project.name)
                 url.set("https://github.com/mParticle/crossplatform-sdk-tests")
                 licenses {

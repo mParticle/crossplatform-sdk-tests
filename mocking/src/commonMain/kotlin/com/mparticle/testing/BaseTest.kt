@@ -21,9 +21,9 @@ import kotlin.test.fail
 
 open class BaseTest(val keepSdkInstance: Boolean = false) {
     var mStartingMpid = Random.nextLong()
-    internal val platforms by lazy { Platforms() }
-    internal val mockingPlatforms by lazy { com.mparticle.testing.Platforms() }
+    val testingPlatform by lazy { Platforms() }
     val clientPlatform: ClientPlatform by lazy { getClientPlatform() }
+    val mockingPlatforms by lazy { Platforms(clientPlatform) }
 
     // iOS "@Before" hook
     fun beforeAll(awaiter: Awaiter) {
@@ -37,7 +37,7 @@ open class BaseTest(val keepSdkInstance: Boolean = false) {
     fun initializeTestServer() {
         mockingPlatforms.prepareThread()
         Logger.info("Starting MockServer...")
-        Server.start(platforms)
+        Server.start(mockingPlatforms)
         Logger.info("MockServer started")
         Server
             .endpoint(EndpointType.Identity_Identify)
@@ -79,16 +79,23 @@ open class BaseTest(val keepSdkInstance: Boolean = false) {
             }
 
         options.identifyTask = identityTask
-        options.identifyRequest = IdentityApiRequest(null)
         MParticle.start(options)
-        defaultConfigResponse?.let { mockingPlatforms.setCachedConfig(it) }
+        defaultConfigResponse?.let {
+            mockingPlatforms.setCachedConfig(it)
+            Server
+                .endpoint(EndpointType.Config)
+                .addResponseLogic { request ->
+                    SuccessResponse {
+                        responseObject = it
+                    }
+                }
+        }
         latch.await()
         assertTrue(called.value)
     }
 
     fun initialConfigResponse(configResponse: ConfigResponseMessage) {
         mockingPlatforms.setCachedConfig(configResponse)
-
     }
 }
 

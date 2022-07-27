@@ -33,9 +33,8 @@ class AsyncRawConnectionImpl(val url: String, private val message: String? = nul
         return message ?: ""
     }
 
-    override fun getHeaderFields(): Map<String, List<String?>?> {
-        TODO("Not yet implemented")
-        //its going to take a little digging to figure this out, once we go NSData -> ByteArray, how are the headers structured (from iOS world)? I'm thinking an NSDictionary serialized to JSON, but haven't tested
+    override fun getHeaderFields(): Map<String, String?> {
+        return responseHeaders.entries.associate { it.key.toString() to it.value?.toString() }
     }
 
     override fun getResponseCode(): Int {

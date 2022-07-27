@@ -26,6 +26,7 @@ kotlin {
     }
     ios {
         binaries.framework(listOf(NativeBuildType.RELEASE)) {
+            baseName = "MP_Models_"
             xcFramework.add(this)
         }
     }
@@ -40,8 +41,8 @@ kotlin {
         val androidMain by getting
         val commonMain by getting {
             dependencies {
-                api("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
-                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.2")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
             }
         }
         val iosMain by getting

@@ -69,6 +69,7 @@ class Endpoint<RequestType, ResponseType> (private val mockServer: MockServer, p
             SimpleRawConnection(
                 connection.getUrl(),
                 { connection.getRequestBody() },
+                { connection.getHeaderFields() },
                 response.httpCode,
                 response.errorMessage,
                 responseBody = response.responseObject.let { responseObject ->

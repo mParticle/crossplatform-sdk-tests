@@ -24,17 +24,17 @@ actual class IdentityApi(val identityApi: IdentityApiAndroid) {
     }
 
     actual fun identify(request: IdentityApiRequest?): IdentityResponse =
-        identityApi.identify(request?.build()).toIdentityResponse()
+        identityApi.identify(request?.request?.build()).toIdentityResponse()
 
     actual fun login(request: IdentityApiRequest?): IdentityResponse =
-        identityApi.login(request?.build()).toIdentityResponse()
+        identityApi.login(request?.request?.build()).toIdentityResponse()
 
     actual fun logout(request: IdentityApiRequest?): IdentityResponse =
-        identityApi.logout(request?.build()).toIdentityResponse()
+        identityApi.logout(request?.request?.build()).toIdentityResponse()
 
 
     actual fun modify(request: IdentityApiRequest): IdentityResponse =
-        identityApi.modify(request.build()).toIdentityResponse()
+        identityApi.modify(request.request.build()).toIdentityResponse()
 }
 
 fun IdentityType.toIdentityType(): IdentityTypeAndroid {
@@ -75,7 +75,7 @@ fun IdentityHttpResponseAndroid.toIdentityHttpApiResponse(): IdentityHttpRespons
         it.context = context
         it.httpCode = httpCode
         it.loggedIn = isLoggedIn
-        it.mpid = mpId
+        it.mpid = mpId ?: 0
         it.errors = errors.map { error -> Error(error.message, error.code) }
     }
 }

@@ -1,16 +1,17 @@
 package com.mparticle.api.identity
 
 import com.mparticle.api.GenericDelegate
-import com.mparticle.identity.IdentityApiRequest
+import com.mparticle.identity.IdentityApiRequest as IdentityApiRequestAndroid
 
-actual class IdentityApiRequest actual constructor(user: MParticleUser?): IdentityApiRequest.Builder(user?.let { it.user }) {
+actual class IdentityApiRequest(val request: IdentityApiRequestAndroid.Builder) {
 
+    actual constructor(user: MParticleUser?): this(IdentityApiRequestAndroid.withUser(user?.let { it.user }))
     actual var identities: Map<IdentityType, String?> by GenericDelegate(mapOf()) {
-        this.userIdentities(identities.entries.associate { it.key.toIdentityType() to it.value })
+        request.userIdentities(identities.entries.associate { it.key.toIdentityType() to it.value })
     }
 
     actual fun addIdentity(key: IdentityType, value: String?) {
-        userIdentity(key.toIdentityType(), value)
+        request.userIdentity(key.toIdentityType(), value)
     }
 
 }

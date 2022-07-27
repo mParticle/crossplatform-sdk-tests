@@ -70,8 +70,8 @@ class ProductListBuilder {
 }
 
 val mapTransformer = TransformBuilder
-    .from<Map<String, String?>, Map<Any?, *>?> { this.freeze() as Map<Any?, *> }
-    .to { this?.entries?.associate { it.key.toString() to it.value.toString()}.freeze() ?: mapOf<String, String?>().freeze() }
+    .from<Map<String, Any?>, Map<Any?, *>?> { this.freeze() as Map<Any?, *> }
+    .to { this?.entries?.associate { it.key.toString() to it.value}.freeze() ?: mapOf<String, Any?>().freeze() }
 
 val mapDictionaryTransformer = TransformBuilder
     .from<Map<String, List<String>>?, NSMutableDictionary?>{ this?.toMutableDictionary() }

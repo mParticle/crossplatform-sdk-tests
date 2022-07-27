@@ -8,7 +8,7 @@ expect class MParticleUser {
     fun getUserIdentities(): Map<IdentityType, String>
     fun setUserAttribute(key: String, value: Any): Boolean
     fun setUserAttributeList(key: String, value: Any): Boolean
-    fun incrementUserAttribute(key: String, value: Int): Boolean
+    fun incrementUserAttribute(key: String, value: Number): Boolean
     fun removeUserAttribute(key: String): Boolean
     fun setUserTag(tag: String): Boolean
     fun getConsentState(): ConsentState

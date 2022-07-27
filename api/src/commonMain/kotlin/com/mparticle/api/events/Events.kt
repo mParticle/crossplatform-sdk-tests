@@ -4,11 +4,12 @@ import com.mparticle.api.commerce.Impression
 import com.mparticle.api.commerce.Product
 import com.mparticle.api.commerce.Promotion
 import com.mparticle.api.commerce.TransactionAttributes
+import com.mparticle.messages.EventType
 
 expect open class BaseEvent(type: MessageType) {
     val type: MessageType
     var customFlags: Map<String, List<String>>
-    var customAttributes: Map<String, String?>
+    var customAttributes: Map<String, Any?>
 }
 
 open class CustomEvent protected constructor(var eventName: String, var eventType: EventType, type: MessageType): BaseEvent(type) {
@@ -23,18 +24,4 @@ class MPEvent(eventName: String, eventType: EventType): CustomEvent(eventName, e
 
 class ScreenEvent(screenName: String): CustomEvent(screenName, EventType.Other, MessageType.ScreenView) {
     override val isScreenEvent: Boolean = true
-}
-
-
-enum class EventType {
-    Unknown,
-    Navigation,
-    Location,
-    Search,
-    Transaction,
-    UserContent,
-    UserPreference,
-    Social,
-    Other,
-    Media
 }

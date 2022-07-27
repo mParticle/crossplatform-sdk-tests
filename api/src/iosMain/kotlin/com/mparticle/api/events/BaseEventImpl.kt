@@ -1,17 +1,11 @@
 package com.mparticle.api.events
 
-import cocoapods.mParticle_Apple_SDK.setProducts
-import cocoapods.mParticle_Apple_SDK.setUserDefinedAttributes
 import com.mparticle.api.commerce.CommerceEvent
 import platform.Foundation.NSMutableDictionary
-import platform.Foundation.NSNumber
 import platform.Foundation.addEntriesFromDictionary
 import kotlin.native.concurrent.freeze
 import cocoapods.mParticle_Apple_SDK.MPBaseEvent as BaseEventIOS
-import cocoapods.mParticle_Apple_SDK.MPCommerceEvent as CommerceEventIOS
 import cocoapods.mParticle_Apple_SDK.MPEvent as MPEventIOS
-import cocoapods.mParticle_Apple_SDK.MPProduct as ProductIOS
-import cocoapods.mParticle_Apple_SDK.MPEventType as MPEventTypeIOS
 
 fun BaseEvent.toBaseEvent(): BaseEventIOS {
     val event = when (this) {

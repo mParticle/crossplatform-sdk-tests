@@ -9,83 +9,84 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable()
 data class ConfigResponseMessage(
-    @SerialName("dt") val type: String? = null,
-    @SerialName("id") val id: String? = null,
-    @SerialName("dbg") val debug: Boolean? = null,
-    @SerialName("ct") val timeStamp: Long? = null,
-    @SerialName("cue") val logUnhandledExceptions: String? = null,
-    @SerialName("pmk") val pushMessages: List<String?>? = null,
-    @SerialName("rp") val ramp: Int? = null,
-    @SerialName("oo") val optOut: Boolean? = null,
-    @SerialName("cms") val providerPersistence: JsonObject? = null,
-    @SerialName("stl") val sessionTimeout: Long? = null,
-    @SerialName("uitl") val uploadInterval: Long? = null,
-    @SerialName("tri") val triggerItems: TriggerItemsMessage? = null,
-    @SerialName("pio") val influenceOpenMessage: Long? = null,
-    @SerialName("rdlat") val aaidLat: Boolean? = null,
-    @SerialName("dpmd") val devicePerformanceMetricsDisabled: Boolean? = null,
-    @SerialName("wst") val workspaceToken: String? = null,
-    @SerialName("alias_max_window") val aliasMaxWindow: Int? = null,
-    @SerialName("eks") val kits: List<KitConfigMessage>? = null,
-    @SerialName("inhd") val includeSessionHistory: Boolean? = null
+    @SerialName("dt") var type: String? = null,
+    @SerialName("id") var id: String? = null,
+    @SerialName("dbg") var debug: Boolean? = null,
+    @SerialName("ct") var timeStamp: Long? = null,
+    @SerialName("cue") var logUnhandledExceptions: String? = null,
+    @SerialName("pmk") var pushMessages: List<String?>? = null,
+    @SerialName("rp") var ramp: Int? = null,
+    @SerialName("oo") var optOut: Boolean? = null,
+    @SerialName("cms") var providerPersistence: JsonObject? = null,
+    @SerialName("stl") var sessionTimeout: Long? = null,
+    @SerialName("uitl") var uploadInterval: Long? = null,
+    @SerialName("tri") var triggerItems: TriggerItemsMessage? = null,
+    @SerialName("pio") var influenceOpenMessage: Long? = null,
+    @SerialName("rdlat") var aaidLat: Boolean? = null,
+    @SerialName("dpmd") var devicePerformanceMetricsDisabled: Boolean? = null,
+    @SerialName("wst") var workspaceToken: String? = null,
+    @SerialName("alias_max_window") var aliasMaxWindow: Int? = null,
+    @SerialName("eks") var kits: List<KitConfigMessage>? = null,
+    @SerialName("inhd") var includeSessionHistory: Boolean? = null,
+    @SerialName("soc") var soc: Long? = null
 ): DTO()
 
 @Serializable
 data class TriggerItemsMessage (
-    @SerialName("mm") val triggerMatches: List<String>? = null,
-    @SerialName("evts") val triggerMessageHashes: List<String>? = null
+    @SerialName("mm") var triggerMatches: List<String>? = null,
+    @SerialName("evts") var triggerMessageHashes: List<String>? = null
 ): DTO()
 
 @Serializable
 data class KitConfigMessage(
     @SerialName("id") val id: Int,
-    @SerialName("avf") val a: AttributeValueFilter? = null,
-    @SerialName("as") val properties: Map<String?, String?>? = null,
-    @SerialName("hs") val keyFilters: FilterMessage? = null,
-    @SerialName("bk") val bracketing: BracketMessage? = null,
-    @SerialName("pr") val projections: List<JsonObject>? = null,
-    @SerialName("crvf") val consentForwardingRules: ConsentForwardingRuleMessage? = null,
-    @SerialName("eau") val excludeAnnonymousUsers: Boolean? = null
+    @SerialName("avf") var attributeValueFilters: List<AttributeValueFilter?>? = null,
+    @SerialName("as") var properties: Map<String?, String?>? = null,
+    @SerialName("hs") var keyFilters: FilterMessage? = null,
+    @SerialName("bk") var bracketing: BracketMessage? = null,
+    @SerialName("pr") var projections: List<JsonObject>? = null,
+    @SerialName("crvf") var consentForwardingRules: ConsentForwardingRuleMessage? = null,
+    @SerialName("eau") var excludeAnnonymousUsers: Boolean? = null
 ): DTO()
 
 @Serializable
 class ConsentForwardingRuleMessage(
-    @SerialName("i") val shouldIncludeMatches: Boolean? = null,
-    @SerialName("v") val rules: List<Rules>? = null,
+    @SerialName("i") var shouldIncludeMatches: Boolean? = null,
+    @SerialName("v") var rules: List<Rules>? = null,
 ): DTO()
 
 @Serializable
 class Rules(
-    @SerialName("h") val valueHash: Int,
-    @SerialName("c") val consented: Boolean
+    @SerialName("h") var valueHash: Int,
+    @SerialName("c") var consented: Boolean
 ): DTO()
 
 @Serializable
 class BracketMessage (
-    @SerialName("lo") val lowBracket: Int? = null,
-    @SerialName("hi") val highBracket: Int? = null
+    @SerialName("lo") var lowBracket: Int? = null,
+    @SerialName("hi") var highBracket: Int? = null
 ): DTO()
 
 @Serializable
 class FilterMessage (
-    @SerialName("et") val eventTypesFilter: Map<Int, Boolean>? = null,
-    @SerialName("ec") val eventNameFilters: Map<Int, Boolean>? = null,
-    @SerialName("ea") val eventAttributeFilter: Map<Int, Boolean>? = null,
-    @SerialName("svec") val screenNameFilters: Map<Int, Boolean>? = null,
-    @SerialName("svea") val screenAttributeFilters: Map<Int, Boolean>? = null,
-    @SerialName("uid") val userIdentityFilter: Map<Int, Boolean>? = null,
-    @SerialName("ua") val userAttributeFilter: Map<Int, Boolean>? = null,
-    @SerialName("cea") val commerceAttributeFilter: Map<Int, Boolean>? = null,
-    @SerialName("ent") val commerceEntityFilter: Map<Int, Boolean>? = null,
-    @SerialName("afa") val commerceEntityAttributeFilters: Map<Int, Map<Int, Boolean>>? = null,
-    @SerialName("eaa") val eventAttributeAddUser: Map<Int, Boolean>? = null,
-    @SerialName("eas") val eventAttributeSingleItemUser: Map<Int, Boolean>? = null,
-    @SerialName("ear") val eventAttributeRemoveUser: Map<Int, Boolean>? = null
+    @SerialName("et") var eventTypesFilter: Map<Int, Boolean>? = null,
+    @SerialName("ec") var eventNameFilters: Map<Int, Boolean>? = null,
+    @SerialName("ea") var eventAttributeFilter: Map<Int, Boolean>? = null,
+    @SerialName("svec") var screenNameFilters: Map<Int, Boolean>? = null,
+    @SerialName("svea") var screenAttributeFilters: Map<Int, Boolean>? = null,
+    @SerialName("uid") var userIdentityFilter: Map<Int, Boolean>? = null,
+    @SerialName("ua") var userAttributeFilter: Map<Int, Boolean>? = null,
+    @SerialName("cea") var commerceAttributeFilter: Map<Int, Boolean>? = null,
+    @SerialName("ent") var commerceEntityFilter: Map<Int, Boolean>? = null,
+    @SerialName("afa") var commerceEntityAttributeFilters: Map<Int, Map<Int, Boolean>>? = null,
+    @SerialName("eaa") var eventAttributeAddUser: Map<Int, Boolean>? = null,
+    @SerialName("eas") var eventAttributeSingleItemUser: Map<Int, Boolean>? = null,
+    @SerialName("ear") var eventAttributeRemoveUser: Map<Int, Boolean>? = null
 ): DTO()
 
 @Serializable
 class AttributeValueFilter (
-    @SerialName("i") val shouldIncludeMatches: Boolean? = null,
-    @SerialName("a") val attribute: Int? = null,
-    @SerialName("v") val value: String? = null
+    @SerialName("i") var shouldIncludeMatches: Boolean? = null,
+    @SerialName("a") var attribute: Int? = null,
+    @SerialName("v") var value: String? = null
 ): DTO()

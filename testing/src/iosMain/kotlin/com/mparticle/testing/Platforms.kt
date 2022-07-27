@@ -1,29 +1,17 @@
 package com.mparticle.testing
 
 import co.touchlab.stately.freeze
+import com.mparticle.api.ClientPlatform
 import com.mparticle.messages.ConfigResponseMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import platform.Foundation.NSThread
 import platform.Foundation.allKeys
 
-actual open class Platforms actual constructor() {
+actual open class Platforms {
 
     actual fun sleep(millis: Long) {
 //        platform.posix.sleep(millis.toUInt())
-    }
-    actual fun sendForeground() {
-    }
-
-    actual fun sendBackground() {
-    }
-
-    actual fun getDatabaseContents() = getDatabaseContents(null)
-    actual fun getDatabaseContents(tables: List<String>?): Map<String, Any> = mapOf()
-    actual fun getDatabaseSchema() = getDatabaseSchema(null)
-    actual fun getDatabaseSchema(tables: List<String>?): Map<String, Any> = mapOf()
-
-    actual fun setCachedConfig(configMessage: ConfigResponseMessage) {
     }
 
     actual fun currentThread(): String? {

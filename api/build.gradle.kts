@@ -22,6 +22,7 @@ kotlin {
     val xcFramework = XCFramework()
     ios {
         binaries.framework(listOf(NativeBuildType.RELEASE)) {
+            baseName = "MP_Api_"
             xcFramework.add(this)
         }
     }
@@ -38,8 +39,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.2")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+                api(project(":models"))
 
             }
         }
@@ -51,9 +51,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("com.mparticle:android-core:[5.0.0,]")
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13")
+                compileOnly("com.mparticle:android-core:+")
             }
         }
 
@@ -76,5 +74,5 @@ android {
     }
 }
 dependencies {
-    implementation("androidx.lifecycle:lifecycle-common:2.2.0")
+//    implementation("androidx.lifecycle:lifecycle-common:2.2.0")
 }

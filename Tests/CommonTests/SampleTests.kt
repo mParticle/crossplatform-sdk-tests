@@ -3,7 +3,7 @@ package com.mparticle
 import com.mparticle.api.Environment
 import com.mparticle.api.Logger
 import com.mparticle.api.MParticle
-import com.mparticle.api.events.EventType
+import com.mparticle.messages.EventType
 import com.mparticle.api.events.MPEvent
 import com.mparticle.api.mParticle
 import com.mparticle.messages.IdentityResponseMessage
