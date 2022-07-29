@@ -55,7 +55,7 @@ actual open class Platforms actual constructor(val clientPlatform: ClientPlatfor
         TestLifecycleContext(clientPlatform.context).sendForeground()
     }
 
-    actual fun getDatabaseContents(): Map<String, List<Map<String, Any?>>> = getDatabaseContents()
+    actual fun getDatabaseContents(): Map<String, List<Map<String, Any?>>> = getDatabaseContents(null)
     actual fun getDatabaseContents(tables: List<String>?): Map<String, List<Map<String, Any?>>> = getDatabaseContents(
         MParticleDBManager(context).database
     )
