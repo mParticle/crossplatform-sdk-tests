@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/mParticle/crossplatform-sdk-tests/compare/v1.3.0...v1.4.0) (2022-07-29)
+
+
+### Features
+
+* add missing BaseEvent model fields ([#21](https://github.com/mParticle/crossplatform-sdk-tests/issues/21)) ([bad59c3](https://github.com/mParticle/crossplatform-sdk-tests/commit/bad59c35b1fb8caddd000a9e583f45b7b9c7350c))
+
 # [1.3.0](https://github.com/mParticle/crossplatform-sdk-tests/compare/v1.2.1...v1.3.0) (2022-07-27)
 
 
