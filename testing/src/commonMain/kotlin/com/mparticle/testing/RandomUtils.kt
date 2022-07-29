@@ -3,6 +3,7 @@ package com.mparticle.testing
 import com.mparticle.messages.EventType
 import com.mparticle.api.identity.IdentityType
 import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
 import kotlin.random.Random
 
 
@@ -11,12 +12,14 @@ object RandomUtils {
     private val numbers: List<Char> = ('0'..'9').toList()
     private val alphaNumeric = alpha + numbers
 
+    @JvmStatic
     fun randomAttributes(): MutableMap<String, String> {
         return (0..Random.Default.nextInt(0,5)).map {
             getAlphaString(4) to getAlphaString(8)
         }.toMap().toMutableMap()
     }
 
+    @JvmStatic
     fun randomIdentities(): MutableMap<IdentityType, String> {
         val identities = IdentityType.values()
         return (0..Random.Default.nextInt(3, 8)).map {
@@ -24,11 +27,13 @@ object RandomUtils {
         }.toMap().toMutableMap()
     }
 
+    @JvmStatic
     fun randomEventType(): EventType {
         return EventType.values()[Random.Default.nextInt(0, EventType.values().size - 1)]
     }
 
     @JvmOverloads
+    @JvmStatic
     fun getRandomUserIdentities(count: Int = randomInt(1, IdentityType.values().size)): Map<IdentityType, String> {
         val randomIdentities: MutableMap<IdentityType, String> = HashMap()
         val identityIndices = randomIntSet(0, IdentityType.values().size, count)
@@ -39,6 +44,7 @@ object RandomUtils {
         return randomIdentities
     }
 
+    @JvmStatic
     fun getRandomCustomFlags(count: Int): Map<String?, List<String?>> {
         val customFlags: MutableMap<String?, List<String?>> = HashMap()
         for ((key, value) in getRandomAttributes(count)) {
@@ -57,6 +63,7 @@ object RandomUtils {
         return customFlags
     }
 
+    @JvmStatic
     fun getRandomAttributes(count: Int): Map<String?, String?> {
         val attributes: MutableMap<String?, String?> = HashMap()
         for (i in 0 until count) {
@@ -78,14 +85,17 @@ object RandomUtils {
     }
 
     @JvmOverloads
+    @JvmStatic
     fun getAlphaString(length: Int = 10): String {
         return getString(alpha, length)
     }
 
+    @JvmStatic
     fun getAlphaNumericString(lengthLowerBound: Int, lengthUpperBound: Int): String? {
         return getAlphaNumericString(randomInt(24, 256))
     }
 
+    @JvmStatic
     fun getAlphaNumericString(length: Int): String {
         return getString(alphaNumeric, length)
     }

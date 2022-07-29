@@ -33,7 +33,8 @@ class BatchMessage(
     @SerialName("di") val deviceInfo: DeviceInfoMessage? = null,
     @SerialName("ui") val identities: List<UserIdentities>? = null,
     @SerialName("ua") val attributes: JsonObject? = null,
-    @SerialName("sh") val sessionHistory: List<@Polymorphic BaseEvent> = listOf()
+    @SerialName("sh") val sessionHistory: List<@Polymorphic BaseEvent> = listOf(),
+    @SerialName("mb") val modifiedBatch: Boolean? = null
 ): DTO()
 
 @Serializable
