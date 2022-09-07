@@ -50,12 +50,13 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    namespace = "com.mparticle.models"
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
         minSdk = 14
-        targetSdk = 31
+        targetSdk = 33
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

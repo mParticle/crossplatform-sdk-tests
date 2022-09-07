@@ -44,7 +44,7 @@ module.exports = {
       {
         assets: ["CHANGELOG.md", "gradle.properties", "README.md", "frameworks", "mParticle_Internal.podspec.json"],
         message:
-          "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}",
+          "chore: ${nextRelease.version} (release) \n\n${nextRelease.notes}",
       },
     ],
   ],
