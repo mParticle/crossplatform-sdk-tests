@@ -13,15 +13,15 @@ pluginManagement {
         mavenCentral()
     }
     plugins {
-        id("com.android.library") version("7.1.3")
-        kotlin("multiplatform") version ("1.6.21")
+        id("com.android.library") version("7.3.1")
+        kotlin("multiplatform") version ("1.7.20")
         kotlin("plugin.serialization") version ("1.6.21")
         kotlin("native.cocoapods") version ("1.6.21")
     }
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "com.android" || requested.id.name == "kotlin-android-extensions") {
-                useModule("com.android.tools.build:gradle:7.1.3")
+                useModule("com.android.tools.build:gradle:7.3.1")
             }
         }
     }

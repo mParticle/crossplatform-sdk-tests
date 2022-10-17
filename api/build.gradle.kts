@@ -12,7 +12,6 @@ plugins {
 apply(from = "../.scripts/maven.gradle")
 
 kotlin {
-
     android {
         publishLibraryVariants("release")
         mavenPublication {
@@ -40,7 +39,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":models"))
-
             }
         }
         val commonTest by getting {
@@ -60,12 +58,13 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    namespace = "testing"
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
         minSdk = 14
-        targetSdk = 31
+        targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {

@@ -69,11 +69,12 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    namespace = "com.mparticle.testing"
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 14
-        targetSdk = 31
+        targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
