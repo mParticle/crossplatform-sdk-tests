@@ -32,7 +32,7 @@ fun MPEvent.getEvent(): MPEventIOS {
 }
 
 fun <K:Any?, V: Any?> Map<K, V>.toMutableDictionary(): NSMutableDictionary {
-    return NSMutableDictionary()?.also {
+    return NSMutableDictionary().also {
         it.addEntriesFromDictionary(this as Map<Any?, *>)
     }
 }
