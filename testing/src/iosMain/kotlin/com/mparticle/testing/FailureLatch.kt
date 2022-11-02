@@ -50,7 +50,7 @@ actual class FailureLatch actual constructor(val description: String, count: Int
     }
 
     actual fun await() {
-        await(5L)
+        await(10L)
     }
 
     actual fun await(timeout: Long) {

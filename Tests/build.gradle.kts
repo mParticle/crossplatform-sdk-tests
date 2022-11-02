@@ -101,7 +101,7 @@ val runIos by tasks.creating(Exec::class.java) {
         "-scheme", "XCodeTestUITests",
         "-workspace", "XCodeTest.xcworkspace",
         "-configuration", "Debug",
-        "-destination", "platform=iOS Simulator,name=iPhone 11,OS=latest",
+        "-destination", "platform=iOS Simulator,name=iPhone 14,OS=latest",
         "test")
 }
 

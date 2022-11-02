@@ -1,7 +1,7 @@
 build
 .idea
 .gradle
-
+local.properties
 
 # iOS Temp SDK
 .sdks/apple-testing

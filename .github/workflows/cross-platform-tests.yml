@@ -39,7 +39,7 @@ jobs:
     if: always() && !failure()
     needs: pr-checks
     timeout-minutes: 20
-    runs-on: macos-latest
+    runs-on: macos-12
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v3
@@ -57,6 +57,7 @@ jobs:
         with:
           distribution: "zulu"
           java-version: "11"
+          cache: "gradle"
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Run Instrumented Tests
@@ -73,7 +74,7 @@ jobs:
   ios-tests:
     name: "IOS Test"
     if: always() && !failure()
-    runs-on: macOS-latest
+    runs-on: macos-12
     needs: pr-checks
     timeout-minutes: 60
     steps:
@@ -93,8 +94,11 @@ jobs:
         with:
           distribution: "zulu"
           java-version: "11"
+          cache: "gradle"
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
+      - name: Choose Xcode version
+        run: xcode-select -p; sudo xcode-select -s /Applications/Xcode_14.1.app/Contents/Developer; xcode-select -p
       - name: Run iOS cross platform tests
         run: ./gradlew runIos
       - name: Archive Test Results
