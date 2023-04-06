@@ -48,6 +48,7 @@ kotlin {
                 implementation("co.touchlab:stately-isolate:1.1.4-a1")
                 implementation("co.touchlab:stately-common:1.1.4")
                 implementation("co.touchlab:stately-concurrency:1.1.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
             }
         }
         val androidMain by getting {
