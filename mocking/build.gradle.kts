@@ -38,7 +38,7 @@ kotlin {
                 api(project(":testing")) {
                     setTransitive(true)
                 }
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4") 
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
 
