@@ -38,16 +38,12 @@ kotlin {
                 api(project(":api"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core") {
-                    version {
-                        strictly("1.5.2-native-mt")
-                    }
-                }
 
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
                 implementation("co.touchlab:stately-isolate:1.1.4-a1")
                 implementation("co.touchlab:stately-common:1.1.4")
                 implementation("co.touchlab:stately-concurrency:1.1.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
             }
         }
         val androidMain by getting {
