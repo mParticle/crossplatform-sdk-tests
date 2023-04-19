@@ -35,7 +35,6 @@ if (File(appleSDKTempDirPath).exists()) {
     }
 }
 
-
 project.exec {
     commandLine = "cp -r ${project.rootDir.absolutePath}/.sdks/apple $appleSDKTempDirPath".split(" ")
 }
@@ -45,12 +44,17 @@ val addTestingHeadersToAppleSDK by tasks.creating {
         File("${project.rootDir.absolutePath}/.sdks/apple-testing/mParticle-Apple-SDK.xcodeproj/project.pbxproj")
             .let { file ->
                 file.readLines()
-                    .let { makeTestingHeadersPublic(it) }
+                    .let { makeTestingHeadersPublicInXcodeProject(it) }
+                    .let { file.writeText(it.joinToString("\n")) }
+            }
+        File("${project.rootDir.absolutePath}/.sdks/apple-testing/mParticle-Apple-SDK.podspec")
+            .let { file ->
+                file.readLines()
+                    .let { makeTestingHeadersPublicInCocoapodsPodspec(it) }
                     .let { file.writeText(it.joinToString("\n")) }
             }
     }
 }
-
 
 subprojects {
     afterEvaluate {
@@ -78,7 +82,7 @@ val additionalHeaders = listOf(
 
 fun String.containsIgnoreWhitespace(other: String) = this.replace(" ", "").contains(other.replace(" ", ""))
 
-fun makeTestingHeadersPublic(appleSDKProjectFileLines: List<String>): List<String> {
+fun makeTestingHeadersPublicInXcodeProject(appleSDKProjectFileLines: List<String>): List<String> {
     println("Adding Attribute: Public to missing file headers")
     return additionalHeaders
         .map { additionalHeader ->
@@ -110,5 +114,17 @@ fun makeTestingHeadersPublic(appleSDKProjectFileLines: List<String>): List<Strin
         }
 }
 
-
-
+fun makeTestingHeadersPublicInCocoapodsPodspec(appleSDKProjectFileLines: List<String>): List<String> {
+    println("Adding missing file headers to Cocoapods public_header_files")
+    val headerPathString = additionalHeaders
+        .map { ", 'mParticle-Apple-SDK/Network/$it'" }
+        .joinToString(separator = "")
+   
+    return appleSDKProjectFileLines.map {
+        if (it.contains("ss.public_header_files")) { 
+            "$it$headerPathString" 
+        } else { 
+            it 
+        }
+    }
+}
