@@ -3,4 +3,4 @@
     url = git@github.com:mParticle/mparticle-android-sdk.git
 [submodule "apple"]
 	path = .sdks/apple
-   	url = git@github.com:mParticle/mparticle-apple-sdk.git
+   	url = git@github.com:einsteinx2/mparticle-apple-sdk.git
