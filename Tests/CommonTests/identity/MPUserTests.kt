@@ -108,13 +108,13 @@ class MPUserTests: BaseStartedTest() {
             incrementUserAttribute("foo", 3)
 
             android_test_hack()
-            getUserAttributes()["foo"] mustEqual 4L
+            getUserAttributes()["foo"] mustEqual 4
 
 
             //test negative increment
             incrementUserAttribute("foo", -2)
             android_test_hack()
-            getUserAttributes()["foo"] mustEqual 2L
+            getUserAttributes()["foo"] mustEqual 2
 
             //test remove incremented attribute
             removeUserAttribute("foo")
@@ -160,17 +160,17 @@ class MPUserTests: BaseStartedTest() {
 
             android_test_hack()
             getUserAttributes().size mustEqual  1
-            getUserAttributes()["foo"] mustEqual 10L
+            getUserAttributes()["foo"] mustEqual 10
             incrementUserAttribute("foo", 37L)
 
             android_test_hack()
-            getUserAttributes()["foo"] mustEqual 47L
+            getUserAttributes()["foo"] mustEqual 47
 
 
             //test negative increment
             incrementUserAttribute("foo", -21L)
             android_test_hack()
-            getUserAttributes()["foo"] mustEqual 26L
+            getUserAttributes()["foo"] mustEqual 26
 
             //test remove incremented attribute
             removeUserAttribute("foo")
