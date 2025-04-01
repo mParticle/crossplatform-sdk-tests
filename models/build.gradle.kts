@@ -34,7 +34,9 @@ kotlin {
     cocoapods {
         summary = "MParticle SDK Server Models"
         homepage = "."
-        frameworkName = "mParticle-Models"
+        framework {
+            baseName = "mParticle-Models"
+        }
         ios.deploymentTarget= "14.3"
     }
     sourceSets {
