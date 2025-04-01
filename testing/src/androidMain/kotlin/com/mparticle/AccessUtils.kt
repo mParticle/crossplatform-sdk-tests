@@ -10,7 +10,7 @@ import com.mparticle.internal.MPUtility
 import com.mparticle.internal.MessageManager
 
 object AccessUtils {
-    fun reset(context: Context?, deleteDatabase: Boolean, boolean switchingWorkspaces) {
+    fun reset(context: Context?, deleteDatabase: Boolean, switchingWorkspaces: Boolean) {
         MParticle.reset(context!!, deleteDatabase, switchingWorkspaces)
     }
 

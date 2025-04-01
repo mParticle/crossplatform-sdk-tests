@@ -4,6 +4,7 @@ import com.mparticle.internal.MParticleApiClient.AliasNetworkResponse
 import com.mparticle.internal.MParticleApiClientImpl.MPConfigException
 import com.mparticle.internal.MParticleApiClientImpl.MPRampException
 import com.mparticle.internal.MParticleApiClientImpl.MPThrottleException
+import com.mparticle.internal.database.UploadSettings
 import com.mparticle.networking.BaseNetworkConnection
 import org.json.JSONException
 import org.json.JSONObject
@@ -38,7 +39,6 @@ open class EmptyApiClient : MParticleApiClient {
         MPRampException::class
     )
 
-    @Throws(JSONException::class, IOException::class, MParticleApiClientImpl.MPThrottleException::class, MParticleApiClientImpl.MPRampException::class)
     override fun sendAliasRequest(request: String, uploadSettings: UploadSettings): AliasNetworkResponse {
         return AliasNetworkResponse(0)
     }
