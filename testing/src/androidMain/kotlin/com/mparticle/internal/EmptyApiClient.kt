@@ -18,8 +18,8 @@ open class EmptyApiClient : MParticleApiClient {
     override fun fetchConfig(force: Boolean) {
     }
 
-    @Throws(IOException::class, MPThrottleException::class, MPRampException::class)
-    override fun sendMessageBatch(message: String): Int {
+    @Throws(IOException::class, MParticleApiClientImpl.MPThrottleException::class, MParticleApiClientImpl.MPRampException::class)
+    override fun sendMessageBatch(message: String, uploadSettings: UploadSettings): Int {
         return 0
     }
 
@@ -37,7 +37,9 @@ open class EmptyApiClient : MParticleApiClient {
         MPThrottleException::class,
         MPRampException::class
     )
-    override fun sendAliasRequest(request: String): AliasNetworkResponse {
+
+    @Throws(JSONException::class, IOException::class, MParticleApiClientImpl.MPThrottleException::class, MParticleApiClientImpl.MPRampException::class)
+    override fun sendAliasRequest(request: String, uploadSettings: UploadSettings): AliasNetworkResponse {
         return AliasNetworkResponse(0)
     }
 
