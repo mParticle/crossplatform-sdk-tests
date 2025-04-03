@@ -1,5 +1,6 @@
 package com.mparticle.internal
 
+import com.mparticle.audience.BaseAudienceTask
 import com.mparticle.internal.MParticleApiClient.AliasNetworkResponse
 import com.mparticle.internal.MParticleApiClientImpl.MPConfigException
 import com.mparticle.internal.MParticleApiClientImpl.MPRampException
