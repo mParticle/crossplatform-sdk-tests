@@ -25,7 +25,7 @@ open class EmptyApiClient : MParticleApiClient {
         return 0
     }
 
-    fun fetchUserAudience(Task: BaseAudienceTask?, mpId: Long) {
+    override fun fetchUserAudience(Task: BaseAudienceTask?, mpId: Long) {
     }
 
     override fun getCookies(): JSONObject? {
