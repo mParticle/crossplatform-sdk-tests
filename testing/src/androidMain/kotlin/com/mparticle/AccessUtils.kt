@@ -14,17 +14,6 @@ object AccessUtils {
         MParticle.reset(context!!, deleteDatabase, switchingWorkspaces)
     }
 
-    /**
-     * This is a way less than ideal implementation, but I think the insight is very important.
-     *
-     * This method returns an ordered list of the pending Messages in the UploadHandler queue. This
-     * gives us the ability to test the UploadHandler's true "state" when looking closely at how
-     * our Upload loop is performing
-     * @return
-     */
-    @get:RequiresApi(api = Build.VERSION_CODES.M)
-    val uploadHandlerMessageQueue: Set<Message>
-        get() = messageManager.mUploadHandler.messageQueue
     val messageManager: MessageManager
         get() = MParticle.getInstance()!!.mMessageManager
 
