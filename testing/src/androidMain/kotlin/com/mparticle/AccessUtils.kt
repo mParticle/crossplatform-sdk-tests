@@ -23,8 +23,6 @@ object AccessUtils {
      * @return
      */
     @get:RequiresApi(api = Build.VERSION_CODES.M)
-    val uploadHandlerMessageQueue: Set<Message>
-        get() = messageManager.mUploadHandler.messageQueue
     val messageManager: MessageManager
         get() = MParticle.getInstance()!!.mMessageManager
 
