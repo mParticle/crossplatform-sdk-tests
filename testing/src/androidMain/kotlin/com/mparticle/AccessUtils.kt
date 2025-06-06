@@ -22,7 +22,6 @@ object AccessUtils {
      * our Upload loop is performing
      * @return
      */
-    @get:RequiresApi(api = Build.VERSION_CODES.M)
     val messageManager: MessageManager
         get() = MParticle.getInstance()!!.mMessageManager
 
