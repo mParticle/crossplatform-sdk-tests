@@ -48,7 +48,7 @@ publishing {
         }
 
         task stubJavadoc(type: Jar) {
-            classifier = 'javadoc'
+            archiveClassifier = 'javadoc'
         }
     }
     repositories {

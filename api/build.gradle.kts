@@ -12,7 +12,7 @@ plugins {
 apply(from = "../.scripts/maven.gradle")
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release")
         mavenPublication {
             artifactId = project.name
@@ -58,7 +58,7 @@ kotlin {
 }
 
 android {
-    namespace = "testing"
+    namespace = "com.mparticle.api"
     compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
@@ -72,6 +72,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
 dependencies {
 //    implementation("androidx.lifecycle:lifecycle-common:2.2.0")
 }

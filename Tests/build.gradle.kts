@@ -10,7 +10,7 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release")
     }
     val xcFramework = XCFramework()
@@ -67,18 +67,25 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    namespace = "com.mparticle.tests"
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("helpers/AndroidManifest.xml")
     sourceSets["androidTest"].java.srcDirs("CommonTests")
 
     defaultConfig {
         minSdk= 14
-        targetSdk = 31
+        targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
