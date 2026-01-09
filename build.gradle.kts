@@ -1,4 +1,5 @@
 import org.gradle.internal.impldep.org.apache.commons.io.FileUtils.copyDirectory
+import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 
 allprojects {
     repositories {
@@ -30,13 +31,12 @@ subprojects {
 val appleSDKTempDirPath = "${project.rootDir.absolutePath}/.sdks/apple-testing"
 
 if (File(appleSDKTempDirPath).exists()) {
-    project.exec {
-        commandLine = "rm -rf $appleSDKTempDirPath".split(" ")
-    }
+    File(appleSDKTempDirPath).deleteRecursively()
 }
 
 project.exec {
-    commandLine = "cp -r ${project.rootDir.absolutePath}/.sdks/apple $appleSDKTempDirPath".split(" ")
+    commandLine = listOf("cp", "-r", "${project.rootDir.absolutePath}/.sdks/apple", appleSDKTempDirPath)
+    isIgnoreExitValue = false
 }
 
 val addTestingHeadersToAppleSDK by tasks.creating {

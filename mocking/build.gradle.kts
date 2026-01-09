@@ -11,7 +11,7 @@ plugins {
 apply(from = "../.scripts/maven.gradle")
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release")
         mavenPublication {
             artifactId = "mocking"
@@ -64,11 +64,12 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    namespace = "com.mparticle.mocking"
+    compileSdk = 33
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 14
-        targetSdk = 31
+        targetSdk = 33
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -76,6 +77,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
 dependencies {
     implementation("androidx.lifecycle:lifecycle-common:2.5.0")
 }

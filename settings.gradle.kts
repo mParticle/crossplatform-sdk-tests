@@ -2,8 +2,8 @@ rootProject.name = "sdk-multiplatform-test"
 include("api", "mocking", "models", "testing", "Tests")//, "braze-kit")
 includeBuild(".sdks/android") {
     dependencySubstitution {
-        substitute(module("group:android-core")).with(project(":android-core"))
-        substitute(module("com.mparticle:android-core:+")).with(project(":android-core"))
+        substitute(module("group:android-core")).using(project(":android-core"))
+        substitute(module("com.mparticle:android-core:+")).using(project(":android-core"))
     }
 }
 pluginManagement {
@@ -13,15 +13,15 @@ pluginManagement {
         mavenCentral()
     }
     plugins {
-        id("com.android.library") version("7.3.1")
-        kotlin("multiplatform") version ("1.9.0")
-        kotlin("plugin.serialization") version ("1.6.21")
-        kotlin("native.cocoapods") version ("1.6.21")
+        id("com.android.library") version("8.1.0")
+        kotlin("multiplatform") version ("1.9.20")
+        kotlin("plugin.serialization") version ("1.9.20")
+        kotlin("native.cocoapods") version ("1.9.20")
     }
     resolutionStrategy {
         eachPlugin {
             if (requested.id.namespace == "com.android" || requested.id.name == "kotlin-android-extensions") {
-                useModule("com.android.tools.build:gradle:7.3.1")
+                useModule("com.android.tools.build:gradle:8.1.0")
             }
         }
     }
