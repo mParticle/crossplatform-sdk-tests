@@ -63,7 +63,12 @@ kotlin {
     }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
 android {
+    namespace = "com.mparticle.mocking"
     compileSdk = 31
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {

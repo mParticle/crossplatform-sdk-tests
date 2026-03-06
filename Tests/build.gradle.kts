@@ -66,7 +66,12 @@ kotlin {
     }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
 android {
+    namespace = "com.mparticle.cpt.testing"
     compileSdk = 31
     sourceSets["main"].manifest.srcFile("helpers/AndroidManifest.xml")
     sourceSets["androidTest"].java.srcDirs("CommonTests")
