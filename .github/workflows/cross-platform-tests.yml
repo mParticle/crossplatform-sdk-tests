@@ -42,7 +42,7 @@ jobs:
     runs-on: macos-15
     steps:
       - name: Checkout Branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.SSH_KEY }}
       - name: Checkout submodules
@@ -53,7 +53,7 @@ jobs:
           git submodule sync
           git submodule update --init
       - name: "Install JDK 17"
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v5
         with:
           distribution: "zulu"
           java-version: "17"
@@ -61,13 +61,13 @@ jobs:
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Run Instrumented Tests
-        uses: reactivecircus/android-emulator-runner@v2.26.0
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
           script: ./gradlew runAndroid
       - name: Archive Test Results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: android-test-results
           path: Tests/build/reports/androidTests/connected/**
@@ -79,7 +79,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.SSH_KEY }}
       - name: Checkout submodules
@@ -90,7 +90,7 @@ jobs:
           git submodule sync
           git submodule update --init
       - name: "Install JDK 17"
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v5
         with:
           distribution: "zulu"
           java-version: "17"
@@ -98,12 +98,12 @@ jobs:
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Choose Xcode version
-        run: xcode-select -p; sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer; xcode-select -p
+        run: xcode-select -p; sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer; xcode-select -p
       - name: Run iOS cross platform tests
         run: ./gradlew runIos
       - name: Archive Test Results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: ios-test-results
           path: /Users/runner/Library/Developer/Xcode/DerivedData
