@@ -38,8 +38,8 @@ jobs:
     name: "Android Tests"
     if: always() && !failure()
     needs: pr-checks
-    timeout-minutes: 20
-    runs-on: macos-15
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Branch
         uses: actions/checkout@v6
@@ -51,13 +51,19 @@ jobs:
           distribution: "zulu"
           java-version: "17"
           cache: "gradle"
-      - name: Install Cocoapods
-        run: sudo gem install cocoapods; sudo gem install cocoapods-generate
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
       - name: Run Instrumented Tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          arch: arm64-v8a
+          arch: x86_64
+          target: default
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-boot-timeout: 300
           script: ./gradlew runAndroid
       - name: Archive Test Results
         if: always()
@@ -68,7 +74,7 @@ jobs:
   ios-tests:
     name: "IOS Test"
     if: always() && !failure()
-    runs-on: macos-15
+    runs-on: macos-14
     needs: pr-checks
     timeout-minutes: 60
     steps:
@@ -85,7 +91,7 @@ jobs:
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Choose Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
       - name: Run iOS cross platform tests
         run: ./gradlew runIos
       - name: Archive Test Results
