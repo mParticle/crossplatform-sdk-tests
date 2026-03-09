@@ -10,7 +10,7 @@ class MockConnector(private val onRequestMade: OnRequestMade): NSObject(), MPCon
         return MockConnectorResponse(onRequestMade, url.url)
     }
 
-    override fun responseFromPostRequestToURL(url: MPURL, message: String?, serializedParams: NSData?): NSObject {
+    override fun responseFromPostRequestToURL(url: MPURL, message: String?, serializedParams: NSData?, secret: String?): NSObject {
         return MockConnectorResponse(onRequestMade, url.url, message, serializedParams) as NSObject
     }
 }

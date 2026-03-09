@@ -58,7 +58,7 @@ val addTestingHeadersToAppleSDK by tasks.creating {
 
 subprojects {
     afterEvaluate {
-        tasks.findByName("podGenIOS")?.dependsOn(addTestingHeadersToAppleSDK)
+        (tasks.findByName("podGenIos") ?: tasks.findByName("podGenIOS"))?.dependsOn(addTestingHeadersToAppleSDK)
     }
 }
 
@@ -76,7 +76,6 @@ val additionalHeaders = listOf(
     "MPConnectorProtocol.h",
     "MPConnectorResponseProtocol.h",
     "MPConnectorFactoryProtocol.h",
-    "MPNetworkCommunication.h",
     "MPURL.h"
 )
 
@@ -121,10 +120,10 @@ fun makeTestingHeadersPublicInCocoapodsPodspec(appleSDKProjectFileLines: List<St
         .joinToString(separator = "")
    
     return appleSDKProjectFileLines.map {
-        if (it.contains("ss.public_header_files")) { 
-            "$it$headerPathString" 
-        } else { 
-            it 
+        if (it.contains("public_header_files") && it.contains("Include/*.h")) {
+            "$it$headerPathString"
+        } else {
+            it
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.mparticle.testing.mockserver
 
-import cocoapods.mParticle_Apple_SDK.MPNetworkCommunication
+import cocoapods.mParticle_Apple_SDK.MPNetworkCommunication_PRIVATE
 import com.mparticle.api.ClientPlatform
 import com.mparticle.messages.ConfigResponseMessage
 import com.mparticle.testing.mockserver.model.RawConnection
@@ -15,7 +15,7 @@ actual open class Platforms actual constructor(clientPlatform: ClientPlatform) {
     actual fun prepareThread() {}
 
     actual fun injectMockServer() {
-        MPNetworkCommunication.setConnectorFactory(MockConnectorFactory { rawConnection: RawConnection ->
+        MPNetworkCommunication_PRIVATE.setConnectorFactory(MockConnectorFactory { rawConnection: RawConnection ->
             Server.onRequestMade(rawConnection).freeze()
         }.freeze())
     }

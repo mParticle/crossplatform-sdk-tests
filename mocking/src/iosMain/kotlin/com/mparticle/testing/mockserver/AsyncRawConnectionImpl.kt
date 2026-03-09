@@ -1,3 +1,5 @@
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+
 package com.mparticle.testing.mockserver
 
 import com.mparticle.api.Logger

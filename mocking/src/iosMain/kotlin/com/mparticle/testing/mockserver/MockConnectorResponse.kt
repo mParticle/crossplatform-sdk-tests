@@ -3,7 +3,6 @@ package com.mparticle.testing.mockserver
 import cocoapods.mParticle_Apple_SDK.MPConnectorResponseProtocolProtocol
 import com.mparticle.api.toByteArray
 import com.mparticle.api.toNSData
-import com.mparticle.messages.DTO
 import com.mparticle.testing.mockserver.model.RawConnection
 import com.mparticle.testing.mockserver.model.SimpleRawConnection
 import platform.Foundation.*
@@ -26,41 +25,31 @@ class MockConnectorResponse(private val onRequestMade: OnRequestMade, private va
         }
     }
 
-    override fun data(): NSData? {
-        makeRequest()
-        return rawConnection.getResponseBody()?.encodeToByteArray()?.toNSData()
-    }
-
-    override fun downloadTime(): NSTimeInterval = downloadTime
-
-    override fun error(): NSError? {
-        makeRequest()
-        return if (!rawConnection.getError().isNullOrEmpty()) {
-            NSError(rawConnection.getError(), rawConnection.getResponseCode().toLong(), null)
-        } else {
-            null
+    override var data: NSData?
+        get() {
+            makeRequest()
+            return rawConnection.getResponseBody()?.encodeToByteArray()?.toNSData()
         }
-    }
+        set(value) { throw RuntimeException("Should not be invoked") }
 
-    override fun httpResponse(): NSHTTPURLResponse? {
-        makeRequest()
-        val responseCode = rawConnection.getResponseCode().toLong()
-        return NSHTTPURLResponse(url, responseCode, null, rawConnection.getResponseHeaders())
-    }
+    override var downloadTime: NSTimeInterval = 0.0
 
-    override fun setData(data: NSData?) {
-        throw RuntimeException("Should not be invoked")
-    }
+    override var error: NSError?
+        get() {
+            makeRequest()
+            return if (!rawConnection.getError().isNullOrEmpty()) {
+                NSError(rawConnection.getError(), rawConnection.getResponseCode().toLong(), null)
+            } else {
+                null
+            }
+        }
+        set(value) { throw RuntimeException("Should not be invoked") }
 
-    override fun setDownloadTime(downloadTime: NSTimeInterval) {
-        throw RuntimeException("Should not be invoked")
-    }
-
-    override fun setError(error: NSError?) {
-        throw RuntimeException("Should not be invoked")
-    }
-
-    override fun setHttpResponse(httpResponse: NSHTTPURLResponse?) {
-        throw RuntimeException("Should not be invoked")
-    }
+    override var httpResponse: NSHTTPURLResponse?
+        get() {
+            makeRequest()
+            val responseCode = rawConnection.getResponseCode().toLong()
+            return NSHTTPURLResponse(url, responseCode, null, rawConnection.getResponseHeaders())
+        }
+        set(value) { throw RuntimeException("Should not be invoked") }
 }
