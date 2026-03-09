@@ -98,7 +98,7 @@ val runIos by tasks.creating(Exec::class.java) {
     val linkReleaseFrameworkIos = tasks.findByName("linkReleaseFrameworkIosX64")
     dependsOn(linkReleaseFrameworkIos)
     linkReleaseFrameworkIos?.dependsOn(installTestPods)
-    installTestPods.dependsOn("podImport")
+    installTestPods.dependsOn("podspec")
     description = "Builds the iOS application bundle using Xcode."
     workingDir = project.file("helpers/XCodeTest")
     setCommandLine("xcrun")
