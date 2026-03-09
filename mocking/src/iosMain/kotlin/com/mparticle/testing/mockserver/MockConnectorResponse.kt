@@ -25,31 +25,41 @@ class MockConnectorResponse(private val onRequestMade: OnRequestMade, private va
         }
     }
 
-    override var data: NSData?
-        get() {
-            makeRequest()
-            return rawConnection.getResponseBody()?.encodeToByteArray()?.toNSData()
-        }
-        set(value) { throw RuntimeException("Should not be invoked") }
+    override fun data(): NSData? {
+        makeRequest()
+        return rawConnection.getResponseBody()?.encodeToByteArray()?.toNSData()
+    }
 
-    override var downloadTime: NSTimeInterval = 0.0
+    override fun downloadTime(): NSTimeInterval = 0.0
 
-    override var error: NSError?
-        get() {
-            makeRequest()
-            return if (!rawConnection.getError().isNullOrEmpty()) {
-                NSError(rawConnection.getError(), rawConnection.getResponseCode().toLong(), null)
-            } else {
-                null
-            }
+    override fun error(): NSError? {
+        makeRequest()
+        return if (!rawConnection.getError().isNullOrEmpty()) {
+            NSError(rawConnection.getError(), rawConnection.getResponseCode().toLong(), null)
+        } else {
+            null
         }
-        set(value) { throw RuntimeException("Should not be invoked") }
+    }
 
-    override var httpResponse: NSHTTPURLResponse?
-        get() {
-            makeRequest()
-            val responseCode = rawConnection.getResponseCode().toLong()
-            return NSHTTPURLResponse(url, responseCode, null, rawConnection.getResponseHeaders())
-        }
-        set(value) { throw RuntimeException("Should not be invoked") }
+    override fun httpResponse(): NSHTTPURLResponse? {
+        makeRequest()
+        val responseCode = rawConnection.getResponseCode().toLong()
+        return NSHTTPURLResponse(url, responseCode, null, rawConnection.getResponseHeaders())
+    }
+
+    override fun setData(data: NSData?) {
+        throw RuntimeException("Should not be invoked")
+    }
+
+    override fun setDownloadTime(downloadTime: NSTimeInterval) {
+        throw RuntimeException("Should not be invoked")
+    }
+
+    override fun setError(error: NSError?) {
+        throw RuntimeException("Should not be invoked")
+    }
+
+    override fun setHttpResponse(httpResponse: NSHTTPURLResponse?) {
+        throw RuntimeException("Should not be invoked")
+    }
 }
