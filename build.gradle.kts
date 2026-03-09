@@ -59,18 +59,6 @@ val addTestingHeadersToAppleSDK by tasks.creating {
 subprojects {
     afterEvaluate {
         (tasks.findByName("podGenIos") ?: tasks.findByName("podGenIOS"))?.dependsOn(addTestingHeadersToAppleSDK)
-
-        extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension>()?.apply {
-            targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().configureEach {
-                compilations.all {
-                    compileTaskProvider.configure {
-                        compilerOptions {
-                            optIn.add("kotlinx.cinterop.ExperimentalForeignApi")
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 

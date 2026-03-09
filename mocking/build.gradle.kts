@@ -61,6 +61,16 @@ kotlin {
             dependsOn(commonMain)
         }
     }
+
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().configureEach {
+        compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    optIn.add("kotlinx.cinterop.ExperimentalForeignApi")
+                }
+            }
+        }
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
