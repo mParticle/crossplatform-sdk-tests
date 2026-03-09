@@ -33,7 +33,7 @@ actual class ConsentState(val consentState: MPConsentState = MPConsentState()) {
         setDocument(document)
         setHardwareId(hardwareId)
         setLocation(location)
-        setTimestamp(timestamp?.let { NSDate(timeIntervalSinceReferenceDate = it.toDouble()) })
+        setTimestamp(timestamp?.let { NSDate(timeIntervalSinceReferenceDate = it.toDouble()) } ?: NSDate())
     }
 
     fun Consent.toCCPAConsent(): MPCCPAConsent = MPCCPAConsent().apply {
@@ -41,7 +41,7 @@ actual class ConsentState(val consentState: MPConsentState = MPConsentState()) {
         setDocument(document)
         setHardwareId(hardwareId)
         setLocation(location)
-        setTimestamp(timestamp?.let { NSDate(timeIntervalSinceReferenceDate = it.toDouble()) })
+        setTimestamp(timestamp?.let { NSDate(timeIntervalSinceReferenceDate = it.toDouble()) } ?: NSDate())
     }
 }
 
