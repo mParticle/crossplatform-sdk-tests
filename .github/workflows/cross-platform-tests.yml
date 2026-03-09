@@ -91,7 +91,12 @@ jobs:
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Choose Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_14.3.1.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+      - name: Use classic linker (Kotlin 1.9.0 incompatible with Xcode 15 ld_prime)
+        run: |
+          TOOLCHAIN_BIN="$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain/usr/bin"
+          sudo mv "${TOOLCHAIN_BIN}/ld" "${TOOLCHAIN_BIN}/ld_prime"
+          sudo ln -sf "${TOOLCHAIN_BIN}/ld_classic" "${TOOLCHAIN_BIN}/ld"
       - name: Run iOS cross platform tests
         run: ./gradlew runIos
       - name: Archive Test Results
