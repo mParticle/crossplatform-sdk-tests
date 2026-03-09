@@ -10,7 +10,7 @@ plugins {
 }
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release")
     }
     val xcFramework = XCFramework()
@@ -29,7 +29,8 @@ kotlin {
             ios.deploymentTarget = "14.3"
             transitiveExport = true
         }
-        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing")) {
+        pod("mParticle-Apple-SDK/mParticle") {
+            source = path(project.file("../.sdks/apple-testing"))
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
         podfile = project.file("helpers/XCodeTest/Podfile")

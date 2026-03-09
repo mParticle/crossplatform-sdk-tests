@@ -18,7 +18,7 @@ repositories {
 val xcFramework = XCFramework()
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release")
         mavenPublication {
             artifactId = project.name

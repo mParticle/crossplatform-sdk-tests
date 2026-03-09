@@ -10,7 +10,7 @@ plugins {
 apply(from = "../.scripts/maven.gradle")
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release")
         mavenPublication {
             artifactId = "testing"

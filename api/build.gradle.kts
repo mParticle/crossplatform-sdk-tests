@@ -12,7 +12,7 @@ plugins {
 apply(from = "../.scripts/maven.gradle")
 
 kotlin {
-    android {
+    androidTarget {
         publishLibraryVariants("release")
         mavenPublication {
             artifactId = project.name
@@ -33,7 +33,8 @@ kotlin {
             baseName = "mParticle-Api"
             ios.deploymentTarget = "14.3"
         }
-        pod("mParticle-Apple-SDK/mParticle", path = project.file("../.sdks/apple-testing")) {
+        pod("mParticle-Apple-SDK/mParticle") {
+            source = path(project.file("../.sdks/apple-testing"))
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
