@@ -1,3 +1,5 @@
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+
 package com.mparticle.api
 
 import cocoapods.mParticle_Apple_SDK.*
@@ -87,11 +89,11 @@ val jsonStringMapTransformer = TransformBuilder
         (this as NSString?)
             ?.dataUsingEncoding(NSUTF8StringEncoding)
             ?.let {
-                NSJSONSerialization.JSONObjectWithData(it, 0, null) as Map<Any?, *>
+                NSJSONSerialization.JSONObjectWithData(it, 0uL, null) as Map<Any?, *>
             }
     }
     .to {
-        this?.let { NSJSONSerialization.dataWithJSONObject(it, 0, null) as NSData }
+        this?.let { NSJSONSerialization.dataWithJSONObject(it, 0uL, null) as NSData }
             ?.let { it.toByteArray().contentToString() }
     }
 

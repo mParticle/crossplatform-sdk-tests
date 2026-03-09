@@ -1,3 +1,5 @@
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+
 package com.mparticle.api
 
 import kotlinx.cinterop.addressOf

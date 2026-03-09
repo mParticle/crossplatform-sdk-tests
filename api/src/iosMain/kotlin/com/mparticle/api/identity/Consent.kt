@@ -3,6 +3,7 @@ package com.mparticle.api.identity
 import cocoapods.mParticle_Apple_SDK.MPCCPAConsent
 import cocoapods.mParticle_Apple_SDK.MPConsentState
 import cocoapods.mParticle_Apple_SDK.MPGDPRConsent
+import platform.Foundation.NSDate
 
 actual class ConsentState(val consentState: MPConsentState = MPConsentState()) {
 
@@ -32,7 +33,7 @@ actual class ConsentState(val consentState: MPConsentState = MPConsentState()) {
         setDocument(document)
         setHardwareId(hardwareId)
         setLocation(location)
-        setTimestamp(timestamp)
+        setTimestamp(timestamp?.let { NSDate(timeIntervalSinceReferenceDate = it.toDouble()) })
     }
 
     fun Consent.toCCPAConsent(): MPCCPAConsent = MPCCPAConsent().apply {
@@ -40,7 +41,7 @@ actual class ConsentState(val consentState: MPConsentState = MPConsentState()) {
         setDocument(document)
         setHardwareId(hardwareId)
         setLocation(location)
-        setTimestamp(timestamp)
+        setTimestamp(timestamp?.let { NSDate(timeIntervalSinceReferenceDate = it.toDouble()) })
     }
 }
 
@@ -48,10 +49,10 @@ actual class ConsentState(val consentState: MPConsentState = MPConsentState()) {
 actual class Consent(val gdprConsentInstance: MPGDPRConsent?, val ccpaConsentInstance: MPCCPAConsent?) {
 
     actual var isConsented: Boolean
-        get() = gdprConsentInstance?.consented ?: ccpaConsentInstance!!.consented
+        get() = gdprConsentInstance?.consented() ?: ccpaConsentInstance!!.consented()
         set(value) { throw RuntimeException("Read Only Instance!")}
     actual var document: String?
-        get() = gdprConsentInstance?.document ?: ccpaConsentInstance!!.document
+        get() = gdprConsentInstance?.document() ?: ccpaConsentInstance!!.document()
         set(value) { throw RuntimeException("Read Only Instance!")}
     actual var timestamp: Long?
         get() = gdprConsentInstance?.timestamp()?.timeIntervalSinceReferenceDate?.toLong() ?: ccpaConsentInstance!!.timestamp().timeIntervalSinceReferenceDate.toLong()

@@ -211,7 +211,9 @@ actual class MParticleOptions actual constructor(apiKey: String, apiSecret: Stri
 
     //TODO
     actual var identifyRequest: IdentityApiRequest? by TransformDelegate(options::identifyRequest, identityRequestTransformer)
-    actual var networkOptions: NetworkOptions? by TransformDelegate(options::networkOptions, networkOptionsTransformer)
+    actual var networkOptions: NetworkOptions?
+        get() = options.networkOptions?.let { networkOptionsTransformer.to(it) }
+        set(value) { options.setNetworkOptions(networkOptionsTransformer.from(value)) }
     actual var dataplanOptions: DataplanOptions? by TransformDelegate(options::dataPlanOptions, dataplanOptionsTransformer)
 
     //NOT IMPLEMENTED ON IOS
