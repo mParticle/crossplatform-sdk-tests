@@ -14,9 +14,9 @@ pluginManagement {
     }
     plugins {
         id("com.android.library") version("8.1.4")
-        kotlin("multiplatform") version ("1.9.0")
-        kotlin("plugin.serialization") version ("1.6.21")
-        kotlin("native.cocoapods") version ("1.6.21")
+        kotlin("multiplatform") version ("1.9.20")
+        kotlin("plugin.serialization") version ("1.9.20")
+        kotlin("native.cocoapods") version ("1.9.20")
     }
     resolutionStrategy {
         eachPlugin {
