@@ -91,7 +91,7 @@ jobs:
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Choose Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_14.3.1.app/Contents/Developer
       - name: Run iOS cross platform tests
         run: ./gradlew runIos
       - name: Archive Test Results
