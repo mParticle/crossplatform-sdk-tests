@@ -54,12 +54,12 @@ actual class Consent(val gdprConsentInstance: MPGDPRConsent?, val ccpaConsentIns
         get() = gdprConsentInstance?.document ?: ccpaConsentInstance!!.document
         set(value) { throw RuntimeException("Read Only Instance!")}
     actual var timestamp: Long?
-        get() = gdprConsentInstance?.timestamp?.timeIntervalSinceReferenceDate?.toLong() ?: ccpaConsentInstance!!.timestamp.timeIntervalSinceReferenceDate.toLong()
+        get() = gdprConsentInstance?.timestamp()?.timeIntervalSinceReferenceDate?.toLong() ?: ccpaConsentInstance!!.timestamp().timeIntervalSinceReferenceDate.toLong()
         set(value) { throw RuntimeException("Read Only Instance!")}
     actual var location: String?
-        get() = gdprConsentInstance?.location ?: ccpaConsentInstance!!.location
+        get() = gdprConsentInstance?.location() ?: ccpaConsentInstance!!.location()
         set(value) { throw RuntimeException("Read Only Instance!")}
     actual var hardwareId: String?
-        get() = gdprConsentInstance?.hardwareId ?: ccpaConsentInstance!!.hardwareId
+        get() = gdprConsentInstance?.hardwareId() ?: ccpaConsentInstance!!.hardwareId()
         set(value) { throw RuntimeException("Read Only Instance!")}
 }
