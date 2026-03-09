@@ -91,6 +91,7 @@ android {
 }
 
 val installTestPods by tasks.creating(Exec::class.java) {
+    dependsOn("generateDummyFramework")
     workingDir = project.file("helpers/XCodeTest")
     setCommandLine("pod")
     args("install")
@@ -101,7 +102,6 @@ val runIos by tasks.creating(Exec::class.java) {
     val linkReleaseFrameworkIos = tasks.findByName("linkReleaseFrameworkIosX64")
     dependsOn(linkReleaseFrameworkIos)
     linkReleaseFrameworkIos?.dependsOn(installTestPods)
-    installTestPods.dependsOn("generateDummyFramework")
     description = "Builds the iOS application bundle using Xcode."
     workingDir = project.file("helpers/XCodeTest")
     setCommandLine("xcrun")
