@@ -57,6 +57,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
+          arch: arm64-v8a
           script: ./gradlew runAndroid
       - name: Archive Test Results
         if: always()
@@ -84,7 +85,7 @@ jobs:
       - name: Install Cocoapods
         run: sudo gem install cocoapods; sudo gem install cocoapods-generate
       - name: Choose Xcode version
-        run: xcode-select -p; sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer; xcode-select -p
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer
       - name: Run iOS cross platform tests
         run: ./gradlew runIos
       - name: Archive Test Results
