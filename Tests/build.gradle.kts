@@ -88,11 +88,12 @@ android {
 
 // mParticle_Apple_SDK is declared in :api and its framework search path is
 // not propagated automatically to this module's link task in Kotlin 1.9.20.
-// Apply the -F flag after all plugin configuration (including CocoaPods) completes.
-afterEvaluate {
-    val mParticleFrameworkDir = "${project.rootDir}/api/build/cocoapods/synthetic/ios/build/Release-iphonesimulator"
-    (tasks.findByName("linkReleaseFrameworkIosX64") as? org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink)
-        ?.binary?.linkerOpts?.add("-F$mParticleFrameworkDir")
+// tasks.withType().configureEach works with lazy task registration unlike findByName in afterEvaluate.
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink>().configureEach {
+    if (name == "linkReleaseFrameworkIosX64") {
+        val mParticleFrameworkDir = "${project.rootDir}/api/build/cocoapods/synthetic/ios/build/Release-iphonesimulator"
+        binary.linkerOpts.add("-F$mParticleFrameworkDir")
+    }
 }
 
 val installTestPods by tasks.creating(Exec::class.java) {
