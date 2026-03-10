@@ -87,6 +87,7 @@ android {
 }
 
 val installTestPods by tasks.creating(Exec::class.java) {
+    dependsOn("podspec")
     dependsOn("generateDummyFramework")
     workingDir = project.file("helpers/XCodeTest")
     setCommandLine("pod")
